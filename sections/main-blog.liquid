@@ -1,0 +1,610 @@
+<link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css"/>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick-theme.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.js"></script>
+{{ 'article_products.css' | asset_url | stylesheet_tag }}
+<style>
+.SB_article_button {
+    display: flex;
+    background: #212121;
+    padding: 4px 8px;
+    color: #ffffff;
+    text-decoration: none;
+    width: max-content;
+    font-size: 12px;
+    line-height: 16px;
+    border-radius: 2px;
+    align-items: center;
+    padding-top: 6px;
+    justify-content: center;
+    margin: 4px 0px;
+}
+
+.SB_blog_post {
+    display: flex;
+    
+    text-decoration: none;
+    color: rgb(19, 40, 54);
+    max-width: 350px;
+    justify-content: flex-start;
+    align-items: center;
+    margin-bottom: 16px;
+}
+
+.SB_blog_image {
+    width: 100px;
+    border-radius: 4px;
+    margin-right: 16px;
+}
+
+.SB_blog_link {
+    
+    margin: 10px 0px;
+}
+
+.TL_SidebarBox {
+    background: #ffffff;
+    padding: 20px;
+    border-radius: 4px;
+    border: 1px solid #F0F0F0;
+    
+    text-decoration: none;
+    max-width: 360px;
+}
+
+.TL_SidebarBox h3 {
+    line-height: 26px;
+    color: rgb(19, 40, 54);
+    text-transform: uppercase;
+    font-size: 18px;
+    margin: 0px;
+}
+
+.TL_SidebarBox ul {
+    padding-left: 0;
+    list-style: none;
+    margin: 0;
+}
+
+.TL_SidebarBox ul li {
+    padding: 15px 0px;
+    border-bottom: 1px solid #efefef;
+    display: flex;
+    fill: rgb(19, 40, 54);
+    justify-content: flex-start;
+    align-items: center;
+    position: relative;
+}
+
+.TL_SidebarBox ul li a {
+    text-decoration: none;
+    color: inherit;
+    position: relative;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-right: 20px;
+}
+
+.TL_SidebarBox ul li:hover a {
+    text-decoration: underline;
+}
+
+.TL_SidebarBox ul li:last-of-type {
+    border-bottom: 0px solid #efefef;
+    padding-bottom: 0px;
+}
+.TL_SidebarBoxAlt {
+    background: rgb(19, 40, 54);
+    padding: 20px;
+    border-radius: 4px;
+    border: 1px solid rgb(19, 40, 54);
+    color: #ffffff;
+    margin-top: 40px;
+    text-transform: uppercase;
+    display: flex;
+    fill: #ffffff52;
+    font-size: 14px !important;
+    position: relative;
+    padding-right: 100px;
+    transition: ease all .25s;
+    max-width: 360px;
+    
+}
+.TL_SidebarBoxAlt img {
+    position: absolute;
+    right: -15px;
+    width: 140px;
+    top: -18px;
+    transition: ease all .25s;
+}
+.TL_SidebarBoxAlt h3 {
+    color: rgb(255 255 255);
+    font-size: 18px;
+    line-height: 20px;
+    text-transform: uppercase;
+    font-size: 18px;
+    margin: 0px;
+    
+}
+.TL_SidebarBoxAlt a {
+    text-decoration:none;
+    
+}
+.TL_SidebarBoxAlt svg {
+    width: 12px;
+    height: 16px;
+    margin-left: 5px;
+    display: inline;
+    fill: #ffffff;
+}
+.TL_SidebarBox ul li svg {
+    fill: #13273629;
+    height: 24px;
+    padding-left: 20px;
+    transition: ease all .5s;
+}
+  
+  
+.TL_SidebarBox lazy-image {
+    width: 100px;
+    margin-right: 16px;
+}
+      
+      .TL_SidebarBoxAlt:hover {
+    background: rgb(64 181 232);
+    border: 1px solid rgb(64 181 232);
+        transition: ease all .25s;
+}
+      
+      .TL_SidebarBoxAlt:hover img {
+      transform: rotate(3deg);
+      transition: ease all .25s;
+      }
+      
+  .TL_new_head {
+    font-size: 36px;
+    line-height: 40px;
+}
+   
+      
+      @media only screen and (max-width: 1180px) {
+        .TL_SidebarBoxAlt img {
+    display: none;
+}
+     .TL_SidebarBoxAlt {
+    padding-right: 20px;
+}
+      }
+      
+      
+            @media only screen and (max-width: 900px) {
+              
+              .TL_PostSidebar {
+    position: relative;
+    top: 0px;
+}
+              
+              .TL_SidebarBoxAlt img {
+    display: block;
+}
+              
+              .TL_SidebarBoxAlt {
+    padding-right: 100px;
+}
+              
+              
+            .TL_PostSidebar  {
+    width: 100%;
+              padding:20px;
+}
+              
+                .TL_new_head {
+    font-size: 22px;
+    line-height: 26px;
+}
+              
+
+            }
+  
+  
+  #shopify-section-template--14896837787741__recently-viewed-products {display:none;}
+
+  .xt-blogssecheading{text-align: center;font-size: 30px;margin-bottom: 25px;font-weight: normal;text-decoration: underline;}
+</style>
+                
+
+
+
+
+
+<div class="py-8 text-blue-500" style="background: #f7f9fc;">
+
+
+  {% if section.settings.hide_top_section != true %}
+  
+  <div class="max-w-7xl mx-auto px-4" style="padding-bottom:60px;">
+    <div class="md:flex md:items-center">
+      <h1 class="font-bold text-xl md:border-l-8 md:border-blue-500 md:pl-2 md:text-2xl">
+        TRANSPARENT BLOG
+      </h1>
+
+      <h3 class="font-semibold text-gray-500 md:ml-4">
+        Knowledge is Power
+      </h3>
+    </div>
+
+    <div class="gap-8 grid mt-4 lg:grid-cols-2 xl:gap-16 xl:grid-cols-3">
+      <div class="xl:col-span-2">
+        {% assign featured_article = section.settings.featured_article %}
+        {% assign image_url = featured_article.image | img_url: '800x400', crop: 'top' %}
+        {% assign placeholder_url = featured_article.image | img_url: '200x100', crop: 'top' %}
+
+        <a href="{{ featured_article.url }}">
+          
+        {% render 'lazy-image',
+          crop: 'top',
+          height: 400,
+          image: featured_article.image,
+          image_class: 'rounded-md',
+          width: 800,
+        %}
+
+        <ul class="flex my-4 space-x-4 hidden" >
+          {% for tag in featured_article.tags %}
+            {% if tag == 'newest' %}
+              <li class="bg-green border-2 border-green px-4 py-1 rounded-md text-xs text-white">
+                {{ tag | upcase }}
+              </li>
+            {% else %}
+              <li class="bg-transparent border-2 border-blue-500 px-4 py-1 rounded-md text-xs">
+                {{ tag | upcase }}
+              </li>
+            {% endif %}
+          {% endfor %}
+        </ul>
+
+        <div class="space-y-4 py-5">
+          <p class="font-bold text-xl sm:text-2xl TL_new_head">
+            {{ featured_article.title }}
+          </p>
+
+          <p class="text-gray-500 text-sm sm:text-base">
+            {{ featured_article.author }}
+          </p>
+
+          <p class="text-sm md:text-base">
+            <a class="underline" href="{{ featured_article.url }}">
+              READ ARTICLE
+            </a>
+
+            &rarr;
+          </p>
+        </div>
+          </a>
+      </div>
+
+      <div class="sm:gap-4 sm:grid sm:grid-cols-2 lg:block">
+        <div class="mb-8" style="max-width: 360px;">
+        <form action="{{ routes.search_url }}">
+          <div class="bg-white border-2 border-gray-400 border-opacity-20 flex rounded-md">
+            <input type="hidden" name="type" value="article" />
+
+            <input
+              class="border-0 flex-1 outline-none pl-4 py-3 text-blue-500 text-sm focus:ring-blue-400 focus:ring-2"
+              name="q"
+              placeholder="Search"
+              type="search"
+              value="{{ search.terms | escape }}"
+            >
+
+            <button class="text-gray-400 px-4 py-3 transition-colors hover:text-orange-400" type="submit">
+              {% render 'icon-search' %}
+            </button>
+          </div>
+        </form>
+      </div>
+        
+         <div class="TL_SidebarBox">
+<h3>Trending Posts</h3>
+<ul>
+       
+       {% for block in section.blocks %}
+              {% if block.type == 'top_article' %}
+                {% assign article = block.settings.article_ref %}
+<li>
+     <a href="{{ article.url }}">
+                    {% render 'lazy-image',
+                      crop: 'top',
+                      height: 100,
+                      image: article.image,
+                      image_class: 'rounded-md',
+                      width: 100,
+                    %}
+
+                {{ article.title }}
+                </a>
+                </li>
+              {% endif %}
+            {% endfor %} 
+  </ul>
+</div>
+        
+        <div class="TL_SidebarBoxAlt">
+<a href="https://www.transparentlabs.com/collections/bestsellers">
+<!--<img src="https://cdn.shopify.com/s/files/1/0866/7664/products/BULKSOURGRAPEFINALVIEW1-3_256x256.png?v=1653068524">-->
+  <img src="https://cdn.shopify.com/s/files/1/0866/7664/products/BULKSOURGRAPEFINALVIEW1-3_977f0c01-2aa6-4593-867c-5273c259752e.png?v=1681223277" alt="Pre Workout Supplement" loading="lazy">
+<h3>
+<span style="font-size:12px">EXPLORE THE FULL<br></span>
+Transparent Labs Catalog <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Pro 6.1.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2022 Fonticons, Inc. --><path d="M438.6 278.6l-160 160C272.4 444.9 264.2 448 256 448s-16.38-3.125-22.62-9.375c-12.5-12.5-12.5-32.75 0-45.25L338.8 288H32C14.33 288 .0016 273.7 .0016 256S14.33 224 32 224h306.8l-105.4-105.4c-12.5-12.5-12.5-32.75 0-45.25s32.75-12.5 45.25 0l160 160C451.1 245.9 451.1 266.1 438.6 278.6z"></path></svg></h3>
+  </a>
+</div>
+
+        
+        
+        
+        
+      </div>
+    </div>
+
+    <div class="overflow-x-auto hidden">
+      <ul class="flex mb-4 mt-16 space-x-4 text-gray-500">
+        <li class="min-w-max">
+          <a
+            class="{% if current_tags == blank %}border-2 border-orange-400 text-orange-400{% endif %} px-4 py-2 rounded-md"
+            href="{{ blog.url }}"
+          >
+            All Categories
+          </a>
+        </li>
+
+        {% for tag in blog.all_tags %}
+          {% assign start = tag | slice: 0, 9 | downcase %}
+
+          {% if start == 'category-' %}
+            <li>
+              <a
+                class="{% if current_tags contains tag %}border-2 border-orange-400 text-orange-400{% endif %} px-4 py-2 rounded-md"
+                href="{{ blog.url }}/tagged/{{ tag }}"
+              >
+                {% assign formatted_tag = tag | replace: '-', ' ' | split: ' ' %}
+
+                {% for word in formatted_tag %}
+                  {{ word | capitalize }}
+                {% endfor %}
+              </a>
+            </li>
+          {% endif %}
+        {% endfor %}
+      </ul>
+    </div>
+  </div>
+  {% endif %}
+
+  
+  <div class="bg-gray-300 py-8">
+    
+    <div class="max-w-7xl mx-auto px-4">
+      {% if section.settings.customtitle != blank %}
+      <h2 class="font-bold text-blue-500 text-xl md:border-l-8 md:border-blue-500 md:pl-2 md:text-2xl xt-newdesign" style="margin-bottom:20px;">{{ section.settings.customtitle }}</h2>
+    {% endif %}
+      <div>
+        {% paginate blog.articles by 9 %}
+          <div class="gap-4 grid grid-cols-1 sm:gap-8 sm:grid-cols-2 lg:grid-cols-3">
+            {% for article in blog.articles %}
+              <div class="relative">
+                {% render 'article-grid-item', article: article %}
+              </div>
+            {% endfor %}
+          </div>
+
+          {% if paginate.pages > 1 %}
+            <div class="flex justify-center mt-8 space-x-4 text-center">
+              {% if paginate.previous.is_link %}
+                <a href="{{ paginate.previous.url }}">&larr; Previous</a>
+              {% endif %}
+
+              {% if paginate.next.is_link %}
+                <a href="{{ paginate.next.url }}">Next &rarr;</a>
+              {% endif %}
+            </div>
+          {% endif %}
+        {% endpaginate %}
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<style>
+  .TL_ProductCards_Container {
+    display:flex;
+    justify-content:space-between;
+    margin:0 auto;
+    position:relative;
+    padding-top:32px;
+    padding-bottom:32px;
+    flex-wrap: nowrap;
+/*     overflow-x: scroll; */
+  }
+
+  .TL_ProductCards {
+    background: #ffffff;
+    box-shadow: 0px 0px 6px #00000010;
+    min-height: 200px;
+    min-width: 260px;
+    max-width: 23%;
+    border-radius: 4px;
+    padding: 16px;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .TL_ProductCards img {
+    width: 200px;
+    margin:0 auto;
+  }
+
+  .TL_ProductCard_Tags {
+    background:rgb(19 40 54);
+    color:#ffffff;
+    font-size:11px;
+    padding:4px;
+    position:absolute;
+    right:0px;
+    top:0px;
+    border-radius: 0px 0px 0px 2px;
+  }
+
+  .TL_ProductCards_title {
+	  font-size:16px;
+	  line-height:1.2em;
+	  margin: 8px 0px;
+	  min-height:3.6em;
+  }
+
+  .TL_ATC_Button {
+    background: rgb(65 181 232);
+    border:0px;
+    width:100%;
+    height:40px;
+    border-radius:4px;
+    color:#ffffff;
+    font-size:14px;
+    line-height:1em;
+  }
+
+  .TL_ALT_Button {
+    background: #ffffff;
+    border:2px solid rgb(65 181 232);
+    width:100%;
+    height:40px;
+    border-radius:4px;
+    color:rgb(65 181 232);
+    font-size:14px;
+    line-height:1em;
+    margin-top:8px;
+  }
+
+  .TL_ALT_Button:hover, .TL_ATC_Button:hover {
+    cursor:pointer;
+  }
+
+  .TL_ProductDetails {
+    display:flex;
+    justify-content:space-between;
+    align-items: center;
+    max-height:25px;
+  }
+
+  @media only screen and (max-width: 1024px) {
+    .TL_ProductCards {
+      margin-right:24px;
+    }
+  }
+
+  .index-test-products {
+    background: rgb(247 249 252);
+    margin-top: -16px !important;
+  }
+  .second-product-slider .product-card {
+    margin: 0 15px;
+}
+</style>
+
+{% if section.settings.show_bestseller %}
+<div class="font-neue pb-12 px-4 mt-8 lg:max-w-7xl lg:mx-auto">
+  <h2 class="font-bold text-blue-500 text-xl md:border-l-8 md:border-blue-500 md:pl-2 md:text-2xl">
+    SHOP BESTSELLERS
+  </h2>
+
+  <div class="TL_ProductCards_Container product_slider">
+    {% for product in collections['bestsellers'].products limit: 4 %}
+        {% render 'product-card' product: product %}
+    {% endfor %}
+  </div>
+</div>
+{% endif %}
+
+  
+{% schema %}
+{
+  "blocks": [
+    {
+      "limit": 3,
+      "name": "Top Article",
+      "settings": [
+        {
+          "id": "article_ref",
+          "label": "Referenced Article",
+          "type": "article"
+        }
+      ],
+      "type": "top_article"
+    }
+  ],
+  "name": "Blog",
+  "settings": [
+    {
+      "content": "Featured Article",
+      "type": "header"
+    },
+    {
+      "id": "featured_article",
+      "label": "Article",
+      "type": "article"
+    },
+    {
+      "id": "customtitle",
+      "label": "Section Title",
+      "type": "text"
+    },
+    {
+      "id": "show_bestseller",
+      "label": "Show Best Seller Products",
+      "type": "checkbox"
+    },
+    {
+      "id": "hide_top_section",
+      "label": "Hide Top Section",
+      "type": "checkbox"
+    }
+  ],
+}
+{% endschema %}
+
+
+<script>
+  $(".product_slider").slick({
+    dots: false,
+    infinite: false,
+    slidesToShow: 4,
+    slidesToScroll: 1,
+    arrows:false,
+    prevArrow:"<button class='slick-prev slick-arrow' aria-label='Previous' type='button'><img src='https://cdn.shopify.com/s/files/1/0866/7664/files/chevron_right.png?v=1660762411'></button>",
+    nextArrow:"<button class='slick-next slick-arrow' aria-label='Previous' type='button'><img src='https://cdn.shopify.com/s/files/1/0866/7664/files/chevron_right.png?v=1660762411'></button>",
+    responsive:[
+      {
+            breakpoint: 1366,
+            settings: {
+                slidesToShow: 3
+            }
+        },
+        {
+            breakpoint: 1023,
+            settings: {
+                slidesToShow: 2
+            }
+        },
+        {
+            breakpoint: 767,
+            settings: {
+                slidesToShow: 1,
+                arrows:false,
+                centerMode:true
+            }
+        }
+    ]
+  });
+</script>

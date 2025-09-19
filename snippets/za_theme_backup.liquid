@@ -1,0 +1,230 @@
+<!doctype html>
+<html class="no-js h-screen" lang="{{ request.locale.iso_code }}">
+  <head>
+<script>
+/* >> TriplePixel :: start*/
+~function(W,H,A,L,E,_){function O(T,R){void 0===R&&(R=!1),H=new XMLHttpRequest,H.open("GET","//triplewhale-pixel.web.app/triplepx.txt?"+~(Date.now()/9e7),!0),H.send(null),H.onreadystatechange=function(){4===H.readyState&&200===H.status?setTimeout(function(){return eval(H.responseText)},50):(299<H.status||H.status<200)&&T&&!R&&(R=!0,O(T-1))}}if(L=window,!L[H+"sn"]){L[H+"sn"]=1;try{A.setItem(H,1+(0|A.getItem(H)||0)),W.includes("⇈")&&A.setItem(H+"Stg",1+(0|A.getItem(H+"Stg")||0)),(E=JSON.parse(A.getItem(H+"U")||"[]")).push(location.href),A.setItem(H+"U",JSON.stringify(E))}catch(e){}A.getItem('"!nC`')||(A=L,A[H]||(L=function(){return Date.now().toString(36)+"_"+Math.random().toString(36)},E=A[H]=function(t,e){return W=L(),(E._q=E._q||[]).push([W,t,e]),E._headless=!0,W},E.ch=W,O(5)))}}("","TriplePixel",localStorage);
+/* << TriplePixel :: end*/
+</script>
+
+<!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-5CKCLPG');</script>
+<!-- End Google Tag Manager -->
+
+    <!-- Reddit Pixel -->
+<script>
+!function(w,d){if(!w.rdt){var p=w.rdt=function(){p.sendEvent?p.sendEvent.apply(p,arguments):p.callQueue.push(arguments)};p.callQueue=[];var t=d.createElement("script");t.src="https://www.redditstatic.com/ads/pixel.js",t.async=!0;var s=d.getElementsByTagName("script")[0];s.parentNode.insertBefore(t,s)}}(window,document);rdt('init','t2_tvyal50r', {"optOut":false,"useDecimalCurrencyValues":true,"aaid":"<AAID-HERE>","email":"<EMAIL-HERE>","externalId":"<EXTERNAL-ID-HERE>","idfa":"<IDFA-HERE>"});rdt('track', 'PageVisit');
+</script>
+<!-- DO NOT MODIFY UNLESS TO REPLACE A USER IDENTIFIER -->
+<!-- End Reddit Pixel -->
+
+
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="theme-color" content="">
+
+    <script async src="https://www.googleoptimize.com/optimize.js?id=OPT-NHKVKZL"></script>
+    <link rel="canonical" href="{{ canonical_url }}">
+    {%- if settings.favicon != blank -%}
+      <link rel="icon" type="image/png" href="{{ settings.favicon | img_url: '32x32' }}">
+    {%- endif -%}
+
+    <title>
+      {{ page_title }}
+      {%- if current_tags %} &ndash; tagged "{{ current_tags | join: ', ' }}"{% endif -%}
+      {%- if current_page != 1 %} &ndash; Page {{ current_page }}{% endif -%}
+      {%- unless page_title contains shop.name %} &ndash; {{ shop.name }}{% endunless -%}
+    </title>
+
+    {% if page_description %}
+      <meta name="description" content="{{ page_description | escape }}">
+    {% endif %}
+
+    {% render 'meta-tags' %}
+
+    <script src="{{ 'global.js' | asset_url }}" defer></script>
+    <script src="{{ 'lazysizes.js' | asset_url }}" defer></script>
+    <script src="{{ 'custom-elements.js' | asset_url }}" defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/handlebars@latest/dist/handlebars.js" type="text/javascript" defer></script>
+
+    {% if template == 'collection' %}
+      <script src="{{ 'collection.js' | asset_url }}" defer></script>
+    {% elsif template == 'index' %}
+      <script src="{{ 'index.js' | asset_url }}" defer></script>
+      <script src="{{ 'product.js' | asset_url }}" defer></script>
+    {% elsif template == 'product' %}
+      <script src="{{ 'product.js' | asset_url }}" defer></script>
+    {% elsif template == 'product.stack' %}
+      <script src="{{ 'stack-product.js' | asset_url }}" defer></script>
+    {% elsif template contains 'alternate-product-tpl' %}
+        <script src="{{ 'product-v2.js' | asset_url }}" defer></script>
+    {% elsif template contains 'product.' %}
+        {% unless template == "product.new_stack_products" %}
+          <script src="{{ 'product-v2.js' | asset_url }}" defer></script>
+    	{% endunless %}  
+    {% elsif template == 'page.asrv' %}
+        <script src="{{ 'product-v2.js' | asset_url }}" defer></script>
+       
+        {{ 'asrv.css' | asset_url | stylesheet_tag }}
+    {% elsif template == 'page.calculator' %}
+      <script type="text/javascript" src="//www.klaviyo.com/media/js/public/klaviyo_subscribe.js" defer></script>
+      <script src="{{ 'calculator.js' | asset_url }}" defer></script>
+    {% elsif template == 'page.new-macro-calculator' %}
+    	<script type="text/javascript" src="//www.klaviyo.com/media/js/public/klaviyo_subscribe.js" defer></script>
+      <script src="{{ 'calculator-alt.js' | asset_url }}" defer></script>
+    {% endif %}   
+
+    {{ content_for_header }}
+
+    {{ 'compiled.css' | asset_url | stylesheet_tag }}
+    
+    {{ 'xgen-stacks.css' | asset_url | stylesheet_tag }}
+    {{ 'product-card.css' | asset_url | stylesheet_tag }}
+    <!--<link rel="stylesheet" href="https://unpkg.com/swiper@7/swiper-bundle.min.css" />-->
+    {% comment %}
+    <style>
+      #cart-menu .giftbox-checkout-cloned{display:none;}
+      #cart-menu .giftbox-checkout {display:none;}
+    </style>
+    {% endcomment %}
+    {% style %}
+      :root {
+
+      }
+    {% endstyle %}
+    
+    {%- if settings.predictive_search_enabled -%}
+      <link rel="stylesheet" href="{{ 'component-predictive-search.css' | asset_url }}" media="print" onload="this.media='all'">
+    {%- endif -%}
+
+    <script>document.documentElement.className = document.documentElement.className.replace('no-js', 'js');</script>
+
+    <script>
+      window.routes = {
+        cart_add_url: '{{ routes.cart_add_url }}',
+        cart_change_url: '{{ routes.cart_change_url }}',
+        cart_update_url: '{{ routes.cart_update_url }}',
+        predictive_search_url: '{{ routes.predictive_search_url }}'
+      };
+    </script>
+
+<!--      -->
+    {% render 'shogun-head' %}
+
+  
+
+    <script type="text/javascript" id="pap_x2s6df8d" src="https://transparentlabs.postaffiliatepro.com/scripts/d2juxh1w"></script>
+    <script type="text/javascript">
+      PostAffTracker.setAccountId('default1');
+      try {
+        PostAffTracker.track();
+      } catch (err) { }
+    </script>
+    {% include 'sca.freegifts' %}
+    <!-- Start WKND tag. Deploy at the beginning of document head. -->
+<script>
+	(function(d) {
+		var e = d.createElement('script');
+		e.src = d.location.protocol + '//tag.wknd.ai/5371/i.js';
+		e.async = true;
+		d.getElementsByTagName("head")[0].appendChild(e);
+	}(document));
+</script>
+<!-- End WKND tag -->
+    
+     <script type="text/javascript">
+      window.heap=window.heap||[],heap.load=function(e,t){window.heap.appid=e,window.heap.config=t=t||{};var r=document.createElement("script");r.type="text/javascript",r.async=!0,r.src="https://cdn.heapanalytics.com/js/heap-"+e+".js";var a=document.getElementsByTagName("script")[0];a.parentNode.insertBefore(r,a);for(var n=function(e){return function(){heap.push([e].concat(Array.prototype.slice.call(arguments,0)))}},p=["addEventProperties","addUserProperties","clearEventProperties","identify","resetIdentity","removeEventProperty","setEventProperties","track","unsetEventProperty"],o=0;o<p.length;o++)heap[p[o]]=n(p[o])};
+      heap.load("35951878");
+  </script>
+
+<!-- Global site tag (gtag.js) - Google Marketing Platform -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=DC-12142970"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'DC-12142970');
+</script>
+<!-- End of global snippet: Please do not remove -->
+
+
+    
+  {% comment %} Begin Firework add-to-cart Scripts {% endcomment %}
+{% unless template.name == "index" %}
+<script async src="//asset.fwcdn2.com/js/integrations/shopify.js"></script>
+<script async src="//asset.fwcdn2.com/js/fwn.js"></script>
+{% endunless %}
+{% comment %} End Firework add-to-cart Scripts {% endcomment %}
+
+ 
+{% comment %} Begin Firework add-to-cart Scripts {% endcomment %}
+
+<script async src="//asset.fwcdn3.com/js/integrations/shopify.js"></script>
+<script async src="//asset.fwcdn3.com/js/fwn.js"></script>
+
+{% comment %} End Firework add-to-cart Scripts {% endcomment %}
+
+  {% comment %}
+ <script src="https://unpkg.com/flickity@2/dist/flickity.pkgd.min.js">	</script>
+  
+  
+  <!-- CSS -->
+  <link href="https://unpkg.com/flickity@2/dist/flickity.min.css" rel="stylesheet">
+  {% endcomment %}
+
+  {{ 'swiper-bundle.min.js' | asset_url | script_tag }}
+  {{ 'swiper-bundle.min.css' | asset_url | stylesheet_tag }}
+  {{ 'flickity.pkgd.min.js' | asset_url | script_tag }}
+  {{ 'flickity.min.css' | asset_url | stylesheet_tag }}
+   {{ 'index-page-style.css' | asset_url | stylesheet_tag }}
+ 
+     {{ 'bulk-affiliate.css' | asset_url | stylesheet_tag }}
+     {% if template  == 'page.bulk-affiliate-dynamic' %}
+    {% endif %}
+ 
+  
+</head>
+
+  <body class="font-neue grid grid-cols-1 h-full {{template.name}} unique-{{ template.suffix }}" data-temp={{ template }}>
+    <!-- Google Tag Manager (noscript) -->
+    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-5CKCLPG"
+    height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <!-- End Google Tag Manager (noscript) -->
+    
+    <a class="sr-only focus:not-sr-only" href="#MainContent">Skip to content</a>
+
+    {% section 'announcement-bar' %}
+    {% section 'header' %}
+
+    <main id="MainContent" class="content-for-layout focus-none relative" role="main" tabindex="-1">
+      {{ content_for_layout }}
+    </main>
+
+    {% section 'footer' %}
+
+    <ul hidden>
+      <li id="a11y-refresh-page-message">{{ 'accessibility.refresh_page' | t }}</li>
+    </ul>
+
+    {%- if settings.predictive_search_enabled -%}
+      <script src="{{ 'predictive-search.js' | asset_url }}" defer></script>
+    {%- endif -%}
+
+    {% include 'elspw_include' %}
+    <script async type="text/javascript" src="https://static.klaviyo.com/onsite/js/klaviyo.js?company_id=qxNUDF"></script>
+    <!--Gorgias Chat Widget Start--><script id="gorgias-chat-widget-install">!function(_){_.GORGIAS_CHAT_APP_ID="8486",_.GORGIAS_CHAT_BASE_URL="us-east1-898b.production.gorgias.chat",_.GORGIAS_API_BASE_URL="config.gorgias.chat";var e=new XMLHttpRequest;e.open("GET","https://config.gorgias.chat/applications/8486",!0),e.onload=function(t){if(4===e.readyState)if(200===e.status){var n=JSON.parse(e.responseText);if(!n.application||!n.bundleVersion)throw new Error("Missing fields in the response body - https://config.gorgias.chat/applications/8486");if(_.GORGIAS_CHAT_APP=n.application,_.GORGIAS_CHAT_BUNDLE_VERSION=n.bundleVersion,n&&n.texts&&(_.GORGIAS_CHAT_TEXTS=n.texts),n&&n.sspTexts&&(_.GORGIAS_CHAT_SELF_SERVICE_PORTAL_TEXTS=n.sspTexts),!document.getElementById("gorgias-chat-container")){var o=document.createElement("div");o.id="gorgias-chat-container",document.body.appendChild(o);var r=document.createElement("script");r.setAttribute("defer",!0),r.src="https://client-builds.production.gorgias.chat/{bundleVersion}/static/js/main.js".replace("{bundleVersion}",n.bundleVersion),document.body.appendChild(r)}}else console.error("Failed request GET - https://config.gorgias.chat/applications/8486")},e.onerror=function(_){console.error(_)},e.send()}(window||{});</script><!--Gorgias Chat Widget End-->
+
+	
+   <script type="text/javascript">!function(){if(!document.querySelector("[src*='D13F989D-A12C-8152-0C4C-96E414739C5A']")){var e=document.createElement("script");e.type="text/javascript",e.async=!0,e.src="//www.rtb123.com/tags/D13F989D-A12C-8152-0C4C-96E414739C5A/btp.js";var t=document.getElementsByTagName("head")[0];t?t.appendChild(e,t):(t=document.getElementsByTagName("script")[0]).parentNode.insertBefore(e,t)}}();</script>
+
+    <script src="https://cdn-widgetsrepository.yotpo.com/v1/loader/7Nwhs4O58BuMJAZw3j8H6A" async></script>
+     {% section 'app-optimization' %}
+</body>
+</html>

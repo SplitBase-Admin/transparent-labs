@@ -1,0 +1,268 @@
+<style>
+ul.breadcrumb_list {
+    display: inline-block;
+}
+ul.breadcrumb_list li {
+    display: inline-block;
+    position: relative;
+    padding-left: 20px;
+}
+ul.breadcrumb_list li.breadcrumb_item:not(:first-child):before {
+    content: ">";
+    position: absolute;
+    left: 5px;
+} 
+nav.breadcrumb_container {
+    padding: 12px 0;
+}
+  
+</style>
+{%- unless template == 'index' or template == 'cart' or template == 'list-collections' or template == '404' -%}
+<div class="max-w-7xl mx-auto xl:px-4">
+
+  
+  {%- assign t = template | split: '.' | first -%}
+  {% assign xt_product_bread_number = 2 %}
+  <nav class="breadcrumb_container{% if class != blank %} {{ class }}{% endif %}" role="navigation" aria-label="breadcrumb">
+    <ul class="breadcrumb_list" itemscope itemtype="https://schema.org/BreadcrumbList">
+      <li class="breadcrumb_item" itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+        <a class="breadcrumb_link" href="/" itemprop="item"><span itemprop="name">Home</span></a>
+        <meta itemprop="position" content="1" />
+      </li>
+      {% if t == 'page' -%}
+        <li class="breadcrumb_item current" aria-current="page" itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+          <a href="{{ page.url }}"><span itemprop="name">{{ page.title }}</span></a>
+          <meta itemprop="position" content="2" />
+        </li>
+      {% elsif t == 'product' -%}
+        {%- if collection.url -%}
+          {% if collections[collection.handle].metafields.theme.parent_collection != blank and collections[collections[collection.handle].metafields.theme.parent_collection].title != blank-%}
+            {% liquid
+              if collections[collection.metafields.theme.parent_collection].metafields.theme.simple_title != _blank
+                assign text = collections[collection.metafields.theme.parent_collection].metafields.theme.simple_title
+              else
+                assign text = collections[collection.metafields.theme.parent_collection].title
+              endif
+            -%}
+            <li class="breadcrumb_item" itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+              <a href="{{ collections[collections[collection.handle].metafields.theme.parent_collection].url }}" itemprop="item">
+                <span itemprop="name">{{ text }}</span>
+                <meta itemprop="position" content="{{ xt_product_bread_number }}" />
+                {% assign xt_product_bread_number = 3 %}
+              </a>
+            </li>
+          {% endif -%}
+          {% liquid
+            if collection.metafields.theme.simple_title != _blank
+              assign text = collection.metafields.theme.simple_title
+            else
+              assign text = collection.title
+            endif
+          -%}
+          <li class="breadcrumb_item" itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+            <a href="{{ collection.url }}" itemprop="item">
+              <span itemprop="name">{{ text }}</span>
+              <meta itemprop="position" content="{{ xt_product_bread_number }}" />
+              {% assign xt_product_bread_number = 4 %}
+            </a>
+            
+          </li>
+        {%- endif -%}
+        
+        <li class="breadcrumb_item current" aria-current="page" itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+          <a href="{{ product.url }}" itemprop="item">
+          <div class="whitespace-nowrap" x-show="selectedVariant.sku" x-cloak>{{ product.title }}</div>
+            {% assign xt_bread_current_variant = product.selected_or_first_available_variant %}
+            <meta itemprop="name" content="SKU: {{ product.title }}" />
+            <meta itemprop="position" content="{{ xt_product_bread_number }}" />
+          </a>
+        </li>
+        
+      {% elsif t == 'collection' -%}
+        {% if collection.metafields.theme.parent_collection != blank and collections[collection.metafields.theme.parent_collection].title != blank-%}
+          {% liquid
+            if collections[collection.metafields.theme.parent_collection].metafields.theme.simple_title != _blank
+              assign text = collections[collection.metafields.theme.parent_collection].metafields.theme.simple_title
+            else
+              assign text = collections[collection.metafields.theme.parent_collection].title
+            endif
+          -%}
+          <li class="breadcrumb_item" itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+            <a href="{{ collections[collection.metafields.theme.parent_collection].url }}" itemprop="item">
+              <span itemprop="name">{{ text }}</span>
+              <meta itemprop="position" content="{{ xt_product_bread_number }}" />
+              {% assign xt_product_bread_number = 3 %}
+            </a>
+          </li>
+        {% endif -%}
+        {% liquid
+          if collection.metafields.theme.simple_title != _blank
+            assign text = collection.metafields.theme.simple_title
+          else
+            assign text = collection.title
+          endif
+        -%}
+        <li class="breadcrumb_item current" aria-current="page" itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+          <a href="{{ collection.url }}" itemprop="item">
+            <span itemprop="name">{{ text }}</span>
+            <meta itemprop="position" content="{{ xt_product_bread_number }}" />
+            {% assign xt_product_bread_number = 4 %}
+          </a>
+        </li>
+      {% elsif t == 'blog' -%}
+        {%- if current_tags -%}
+          <li class="breadcrumb_item" itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+            <a href="{{ blog.url }}" itemprop="item">
+              <span itemprop="name">{{ blog.title }}</span>
+              <meta itemprop="position" content="2" />
+            </a>
+          </li>
+          <li class="breadcrumb_item current" aria-current="page" property="itemListElement" typeof="ListItem">
+            {%- capture tag_url -%}{{blog.url}}/tagged/{{ current_tags | join: "+" }}{%- endcapture -%}
+            {{ current_tags | join: " + " }}
+          </li>
+        {%- else -%}
+          <li class="breadcrumb_item" aria-current="page" itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+            <a href="{{ blog.url }}" itemprop="item">
+              <span itemprop="name">{{ blog.title }}</span>
+              <meta itemprop="position" content="2" />
+            </a>
+            
+          </li>
+        {%- endif -%}
+      {% elsif t == 'article' -%}
+        <li class="breadcrumb_item" itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+          <a href="{{ blog.url }}" itemprop="item">
+              <span itemprop="name">{{ blog.title }}</span>
+              <meta itemprop="position" content="2" />
+            </a>
+        </li>
+        <li class="breadcrumb_item current" aria-current="page" itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+          <a href="{{ article.url }}" itemprop="item">
+              <span itemprop="name">{{ article.title }}</span>
+              <meta itemprop="position" content="3" />
+            </a>
+          
+        </li>
+      {%- else -%}
+        <li class="breadcrumb_item current" aria-current="page"  itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+          <a href="#" itemprop="item">
+              <span itemprop="name">{{ page_title }}</span>
+              <meta itemprop="position" content="2" />
+            </a>
+        </li>
+      {% endif -%}
+    </ul>
+  </nav>
+
+  </div>
+{%- endunless -%}
+{% comment %}
+
+
+<style>
+  .breadcrumbs {
+    margin: 0 0 2em;
+  }
+  .blog .bread-audio .xt-bread {    padding: 15px 15px;}
+  .breadcrumbs__list {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  .breadcrumbs__item {
+    display: inline-block;
+  }
+
+ 
+
+  .breadcrumbs__link {
+    text-decoration: underline;
+  }
+
+  .breadcrumbs__link[aria-current="page"] {
+    color: inherit;
+    font-weight: normal;
+    text-decoration: none;
+  }
+
+  .breadcrumbs__link[aria-current="page"]:hover,
+  .breadcrumbs__link[aria-current="page"]:focus {
+    text-decoration: underline;
+  }
+@media only screen and (min-width:0px) and (max-width:767px)
+{
+   .bread-audio .xt-bread{width:100%}
+  .bread-audio .xt-audio{width:100%}
+    .blog .bread-audio .xt-bread {    padding: 15px 0px;}
+}
+</style>
+
+{%- unless template == 'index' or template == 'cart' or template == 'list-collections' or template == '404' -%}
+{%- assign t = template | split: '.' | first -%}
+
+
+  <ul class="xt-bread">
+    <li class="breadcrumbs__item">
+      <a class="breadcrumbs__link" href="/">Home</a>
+    </li>/
+    {%- case t -%}
+      {%- when 'page' -%}
+        <li class="breadcrumbs__item">
+          <a class="breadcrumbs__link" href="{{ page.url }}" aria-current="page">{{ page.title }}</a>
+        </li>/
+      {%- when 'product' -%}
+        {%- if collection.url -%}
+          <li class="breadcrumbs__item">
+            {{ collection.title | link_to: collection.url }}
+          </li>/
+        {%- endif -%}
+        <li class="breadcrumbs__item">
+          <a class="breadcrumbs__link" href="{{ product.url }}" aria-current="page">{{ product.title }}</a>
+        </li>/
+      {%- when 'collection' and collection.handle -%}
+        {%- if current_tags -%}
+          <li class="breadcrumbs__item">
+            {{ collection.title | link_to: collection.url }}
+          </li>/
+          <li class="breadcrumbs__item">
+            {%- capture tag_url -%}{{ collection.url }}/{{ current_tags | join: "+"}}{%- endcapture -%}
+            <a class="breadcrumbs__link" href="{{ tag_url }}" aria-current="page">{{ current_tags | join: " + "}}</a>
+          </li>/
+        {%- else -%}
+          <li class="breadcrumbs__item">
+            <a class="breadcrumbs__link" href="{{ collection.url }}" aria-current="page">{{ collection.title }}</a>
+          </li>/
+        {%- endif -%}
+      {%- when 'blog' -%}
+        {%- if current_tags -%}
+          <li class="breadcrumbs__item">
+            {{ blog.title | link_to: blog.url  }}
+          </li>/
+          <li class="breadcrumbs__item">
+            {%- capture tag_url -%}{{blog.url}}/tagged/{{ current_tags | join: "+" }}{%- endcapture -%}
+            <a class="breadcrumbs__link" href="{{ tag_url }}" aria-current="page">{{ current_tags | join: " + " }}</a>
+          </li>
+        {%- else -%}
+          <li class="breadcrumbs__item">
+            <a class="breadcrumbs__link" href="{{ blog.url }}" aria-current="page">{{ blog.title }}</a>
+          </li>
+        {%- endif -%}
+      {%- when 'article' -%}
+        <li class="breadcrumbs__item">
+          {{ blog.title | link_to: blog.url }}
+        </li>/
+        <li class="breadcrumbs__item">
+          <a class="breadcrumbs__link" href="{{ article.url }}" aria-current="page">{{ article.title | truncate:30}}</a>
+        </li>
+      {%- else -%}
+        <li class="breadcrumbs__item">
+          <a class="breadcrumbs__link" href="{{ request.path }}" aria-current="page">{{ page_title }}</a>
+        </li>
+    {%- endcase -%}
+  </ul>
+
+{%- endunless -%}
+
+{% endcomment %}

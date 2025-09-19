@@ -1,0 +1,12 @@
+ul.list-social {
+  display: flex;
+  gap: 20px;
+}
+
+ul.list-social svg path {
+  fill: var(--white);
+}
+
+ul.list-social li:hover path {
+  opacity: 0.64;
+}

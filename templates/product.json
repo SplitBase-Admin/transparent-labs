@@ -1,0 +1,428 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "shogun-helper": {
+      "type": "shogun-helper",
+      "settings": {}
+    },
+    "shogun-above": {
+      "type": "shogun-above",
+      "settings": {}
+    },
+    "new_main_product_3966mb": {
+      "type": "new-main-product",
+      "blocks": {
+        "judge_me_reviews_preview_badge_MmiDB6": {
+          "type": "shopify://apps/judge-me-reviews/blocks/preview_badge/61ccd3b1-a9f2-4160-9fe9-4fec8413e5d8",
+          "settings": {}
+        },
+        "short_description_WPmXUc": {
+          "type": "short-description",
+          "settings": {
+            "text": "<p>{{ product.metafields.custom.short_description | metafield_tag }}</p>"
+          }
+        },
+        "icon_list_44RiV8": {
+          "type": "Icon-list",
+          "settings": {}
+        },
+        "variant_picker_pBDB7m": {
+          "type": "variant_picker",
+          "settings": {}
+        },
+        "skio_subscriptions_yc_s20_app_block_iXAcVA": {
+          "type": "shopify://apps/skio-subscriptions-yc-s20/blocks/app-block/de50f7a4-0bb0-4d4c-84e2-c03dce83436d",
+          "settings": {
+            "form_id": "product-form-{{section.id}}",
+            "start_onetime": "true",
+            "onetime_first": "true",
+            "default_subscription": "30 days",
+            "group_border_radius": 5,
+            "group_border_shadow": true,
+            "group_border_selected_color": "#000000",
+            "onetime_title": "One-Time Purchase",
+            "subscription_title": "Subscribe and Save",
+            "prepaid_title": "Prepaid",
+            "discount_format": "percent",
+            "discount_style": "bubble",
+            "discount_prefix": "",
+            "discount_suffix": "",
+            "discount_color": "#0fa573"
+          }
+        },
+        "buy_buttons_qft7CA": {
+          "type": "buy_buttons",
+          "settings": {}
+        },
+        "compare_button_QPMDgJ": {
+          "type": "compare_button",
+          "settings": {
+            "button_text": "Compare Similar Products",
+            "button_url": "#compare-products-section"
+          }
+        }
+      },
+      "block_order": [
+        "judge_me_reviews_preview_badge_MmiDB6",
+        "short_description_WPmXUc",
+        "icon_list_44RiV8",
+        "variant_picker_pBDB7m",
+        "skio_subscriptions_yc_s20_app_block_iXAcVA",
+        "buy_buttons_qft7CA",
+        "compare_button_QPMDgJ"
+      ],
+      "settings": {
+        "skio_subscription_text": "<ul><li><strong>Save 10% on every order</strong></li><li>Free Shipping</li><li>Cancel or pause anytime</li></ul>",
+        "kit_unlocked_message": "<p><strong>{{ product.metafields.custom.free_starter_kit.value.custom_product_title.value }}</strong> Unlocked!</p>"
+      }
+    },
+    "new_product_details_ty8Jy4": {
+      "type": "new-product-details",
+      "blocks": {
+        "product_description_9mf9fF": {
+          "type": "product-description",
+          "settings": {
+            "title": "Description"
+          }
+        },
+        "product_supplement_CqGw8j": {
+          "type": "product-supplement",
+          "settings": {
+            "title": "Nutrition & Supplement Facts"
+          }
+        },
+        "product_tabs_text_Fz6ygC": {
+          "type": "product-tabs-text",
+          "settings": {
+            "title": "Shipping & Returns",
+            "description": "<p><strong>Orders in the US over $99 ship free.<br/><br/></strong>Once your order has shipped out from our fulfillment center, you will receive a Shipping Confirmation email. If you selected a tracked shipping method, you will receive your tracking information, along with the necessary steps to track your order, within this email. Please note, orders are generally fulfilled same day or next business day.<br/><br/><a href=\"/pages/shipping-tracking-delivery-guide-for-transparent-labs\" target=\"_blank\" title=\"/pages/shipping-tracking-delivery-guide-for-transparent-labs\">Click here for the full shipping and delivery guide »<br/><br/></a>45 Day Satisfaction Guarantee<br/><br/>If you are not satisfied with your product, we will offer you a full refund or store credit for the value of the item within 45 days of delivery.<br/><br/><a href=\"/policies/refund-policy\" target=\"_blank\" title=\"/policies/refund-policy\">Click here for the full refund policy »</a></p>"
+          }
+        }
+      },
+      "block_order": [
+        "product_description_9mf9fF",
+        "product_supplement_CqGw8j",
+        "product_tabs_text_Fz6ygC"
+      ],
+      "settings": {
+        "section_left_display": true,
+        "section-heading": "Third-Party Testing",
+        "section-description": "<p>We believe trust is earned through transparency. That’s why we provide full access to our third-party test results, so you can feel confident in what you’re taking. <a href=\"/pages/third-party-tests\" target=\"_blank\" title=\"Third-Party Tests\"><span style=\"text-decoration:underline\">View all third-party tests</span></a><span style=\"text-decoration:underline\">.</span><br/><br/></p>",
+        "section-left-color": "#173446",
+        "section-left-text-color": "#ffffff",
+        "section-right-color": "#f8f9fb",
+        "section-right-text-color": "#111314"
+      }
+    },
+    "new_product_benefit_blocks_zVazVy": {
+      "type": "new-product-benefit-blocks",
+      "settings": {
+        "bg_color": "#f8f9fb",
+        "section_heading": "why use",
+        "section_description": "{{ product.metafields.custom.product_benefit_section_description.value }}"
+      }
+    },
+    "product_key_ingredients_KqctGX": {
+      "type": "product-key-ingredients",
+      "blocks": {
+        "ingredient_cyNtUP": {
+          "type": "ingredient",
+          "settings": {
+            "name": "Creatine Monohydrate",
+            "amount": "5,000",
+            "unit": "mg",
+            "description": "Supplementation with creatine (monohydrate) works by increasing the amount of creatine within your muscle cells (called \"muscle creatine stores\").",
+            "image": "shopify://shop_images/Methylbutyrate.png",
+            "detail_title_1": "Benefits",
+            "detail_content_1": "Detailed information about the ingredient benefits.\n\nUse double line breaks to create paragraphs.",
+            "detail_references_1": "Journal of Nutrition, 2020\nInternational Journal of Sports Medicine, 2019"
+          }
+        },
+        "ingredient_MY9NVr": {
+          "type": "ingredient",
+          "settings": {
+            "name": "β-Hydroxy β-Methylbutyrate",
+            "amount": "1,500",
+            "unit": "mg",
+            "description": "HMB may confer additive effects leading to further improvements in body composition, physical performance, and recovery time.",
+            "image": "shopify://shop_images/Methylbutyrate.png",
+            "detail_title_1": "Benefits",
+            "detail_content_1": "Detailed information about the ingredient benefits.\n\nUse double line breaks to create paragraphs.",
+            "detail_references_1": "Journal of Nutrition, 2020\nInternational Journal of Sports Medicine, 2019"
+          }
+        },
+        "ingredient_MfbLDe": {
+          "type": "ingredient",
+          "settings": {
+            "name": "BioPerine®",
+            "amount": "5",
+            "unit": "mg",
+            "description": "The black pepper plant (Piper nigrum) is a flowering vine that bears fruits (peppercorns) containing roughly 2-7.4% piperine by mass.",
+            "image": "shopify://shop_images/Methylbutyrate.png",
+            "detail_title_1": "Benefits",
+            "detail_content_1": "Detailed information about the ingredient benefits.\n\nUse double line breaks to create paragraphs.",
+            "detail_references_1": "Journal of Nutrition, 2020\nInternational Journal of Sports Medicine, 2019"
+          }
+        },
+        "ingredient_QK6GC3": {
+          "type": "ingredient",
+          "settings": {
+            "name": "Vitamin D3",
+            "amount": "12.5",
+            "unit": "mcg (500 IU)",
+            "description": "An essential fat-soluble micronutrient that plays a particularly important role in maintaining healthy bones, nervous system function, and muscle mass.",
+            "image": "shopify://shop_images/Methylbutyrate.png",
+            "detail_title_1": "Benefits",
+            "detail_content_1": "Detailed information about the ingredient benefits.\n\nUse double line breaks to create paragraphs.",
+            "detail_references_1": "Journal of Nutrition, 2020\nInternational Journal of Sports Medicine, 2019"
+          }
+        },
+        "ingredient_CNB77Q": {
+          "type": "ingredient",
+          "settings": {
+            "name": "Ingredient Name",
+            "amount": "1,000",
+            "unit": "mg",
+            "description": "Brief description of the ingredient and its benefits.",
+            "detail_title_1": "Benefits & Research",
+            "detail_content_1": "Detailed information about the ingredient benefits.\n\nUse line breaks to create paragraphs.",
+            "detail_references_1": "Journal of Nutrition, 2020\nInternational Journal of Sports Medicine, 2019"
+          }
+        },
+        "ingredient_Ydkykc": {
+          "type": "ingredient",
+          "settings": {
+            "name": "Ingredient Name",
+            "amount": "1,000",
+            "unit": "mg",
+            "description": "Brief description of the ingredient and its benefits.",
+            "detail_title_1": "Benefits & Research",
+            "detail_content_1": "Detailed information about the ingredient benefits.\n\nUse line breaks to create paragraphs.",
+            "detail_references_1": "Journal of Nutrition, 2020\nInternational Journal of Sports Medicine, 2019"
+          }
+        },
+        "ingredient_cDhd73": {
+          "type": "ingredient",
+          "settings": {
+            "name": "Ingredient Name",
+            "amount": "1,000",
+            "unit": "mg",
+            "description": "Brief description of the ingredient and its benefits.",
+            "detail_title_1": "Benefits & Research",
+            "detail_content_1": "Detailed information about the ingredient benefits.\n\nUse line breaks to create paragraphs.",
+            "detail_references_1": "Journal of Nutrition, 2020\nInternational Journal of Sports Medicine, 2019"
+          }
+        },
+        "ingredient_gVAXPz": {
+          "type": "ingredient",
+          "settings": {
+            "name": "Ingredient Name",
+            "amount": "1,000",
+            "unit": "mg",
+            "description": "Brief description of the ingredient and its benefits.",
+            "detail_title_1": "Benefits & Research",
+            "detail_content_1": "Detailed information about the ingredient benefits.\n\nUse line breaks to create paragraphs.",
+            "detail_references_1": "Journal of Nutrition, 2020\nInternational Journal of Sports Medicine, 2019"
+          }
+        },
+        "ingredient_FLcYhQ": {
+          "type": "ingredient",
+          "settings": {
+            "name": "Ingredient Name",
+            "amount": "1,000",
+            "unit": "mg",
+            "description": "Brief description of the ingredient and its benefits.",
+            "detail_title_1": "Benefits & Research",
+            "detail_content_1": "Detailed information about the ingredient benefits.\n\nUse line breaks to create paragraphs.",
+            "detail_references_1": "Journal of Nutrition, 2020\nInternational Journal of Sports Medicine, 2019"
+          }
+        },
+        "ingredient_L6VaKF": {
+          "type": "ingredient",
+          "settings": {
+            "name": "Ingredient Name",
+            "amount": "1,000",
+            "unit": "mg",
+            "description": "Brief description of the ingredient and its benefits.",
+            "detail_title_1": "Benefits & Research",
+            "detail_content_1": "Detailed information about the ingredient benefits.\n\nUse line breaks to create paragraphs.",
+            "detail_references_1": "Journal of Nutrition, 2020\nInternational Journal of Sports Medicine, 2019"
+          }
+        }
+      },
+      "block_order": [
+        "ingredient_cyNtUP",
+        "ingredient_MY9NVr",
+        "ingredient_MfbLDe",
+        "ingredient_QK6GC3",
+        "ingredient_CNB77Q",
+        "ingredient_Ydkykc",
+        "ingredient_cDhd73",
+        "ingredient_gVAXPz",
+        "ingredient_FLcYhQ",
+        "ingredient_L6VaKF"
+      ],
+      "settings": {
+        "title": "Key Ingredients",
+        "description": "Our formulas are made with clean, natural ingredients, with clinically-validated dosages to support health and performance."
+      }
+    },
+    "new_complete_your_stack_xyDYJK": {
+      "type": "new-complete-your-stack",
+      "settings": {
+        "section-bg": "#f8f9fb",
+        "section-heading": "Complete Your Stack",
+        "section-description-before": "Pair",
+        "section-description-after": "with these products for a complete foundational stack."
+      }
+    },
+    "video_with_content_UD78pA": {
+      "type": "video-with-content",
+      "settings": {
+        "youtube_url": "https://www.youtube.com/watch?v=example",
+        "vimeo_url": "https://vimeo.com/example",
+        "mp4_url": "https://cdn.shopify.com/videos/c/o/v/132e2f1b79e149e990fbad58b2fbc003.mp4",
+        "poster_image": "shopify://shop_images/ingredientcover2.jpg",
+        "heading": "<h2>Every Ingredient Matters To Make Every Effort Count.</h2>",
+        "description": "",
+        "button_text": "Shop Clean Supplements",
+        "button_url": "shopify://collections/bestsellers",
+        "show_arrow": false,
+        "video_type": "mp4",
+        "video_height": "small",
+        "content_color": "#ffffff"
+      }
+    },
+    "17445686930f9c3a0b": {
+      "type": "apps",
+      "blocks": {
+        "judge_me_reviews_review_widget_WA3WNR": {
+          "type": "shopify://apps/judge-me-reviews/blocks/review_widget/61ccd3b1-a9f2-4160-9fe9-4fec8413e5d8",
+          "settings": {}
+        }
+      },
+      "block_order": [
+        "judge_me_reviews_review_widget_WA3WNR"
+      ],
+      "settings": {}
+    },
+    "new_how_to_use_ztyjfJ": {
+      "type": "new-how-to-use",
+      "settings": {
+        "section-bg": "#173446",
+        "section-title-color": "#ffffff",
+        "section-text-color": "rgba(255,255,255,0.8)",
+        "section-heading": "How to Use",
+        "section-description": "<p>{{ product.metafields.custom.how_to_use_section_description | metafield_tag }}</p>",
+        "section-description-desclaimer": "{{ product.metafields.custom.how_to_use_section_desclaimer | metafield_tag }}"
+      }
+    },
+    "product_faq_section_CQQFMx": {
+      "type": "product-faq-section",
+      "settings": {
+        "title": "<h2>Frequently Asked <br/>Questions</h2>",
+        "bg_color": "#ffffff",
+        "title_color": "#111314",
+        "text_color": "#676767"
+      }
+    },
+    "new_compare_products_P7e9XQ": {
+      "type": "new-compare-products",
+      "settings": {
+        "section-bg": "#f8f9fb",
+        "section-heading": "Compare Protein"
+      }
+    },
+    "recommended-products": {
+      "type": "product-recommendations",
+      "disabled": true,
+      "settings": {}
+    },
+    "main": {
+      "type": "main-product",
+      "disabled": true,
+      "settings": {}
+    },
+    "shogun-below": {
+      "type": "shogun-below",
+      "settings": {}
+    },
+    "shogun-optimizer": {
+      "type": "shogun-optimizer",
+      "settings": {}
+    },
+    "upgrade_subscription_popup_hh74md": {
+      "type": "upgrade-subscription-popup",
+      "blocks": {
+        "content_R7t3zi": {
+          "type": "content",
+          "settings": {
+            "image": "shopify://shop_images/sale-02.svg",
+            "heading": "<p><strong>10% off + FREE shipping</strong> on every order</p>"
+          }
+        },
+        "content_BXe8wx": {
+          "type": "content",
+          "settings": {
+            "image": "shopify://shop_images/file-check-02.svg",
+            "heading": "<p>Skip, Cancel, or Change Flavors Anytime </p>"
+          }
+        },
+        "content_CrJUTd": {
+          "type": "content",
+          "settings": {
+            "image": "shopify://shop_images/trolley.svg",
+            "heading": "<p>Never run out of your go-to supplements</p>"
+          }
+        },
+        "content_jGfGMX": {
+          "type": "content",
+          "settings": {
+            "image": "shopify://shop_images/user-01.svg",
+            "heading": "<p>Get Priority Support</p>"
+          }
+        }
+      },
+      "block_order": [
+        "content_R7t3zi",
+        "content_BXe8wx",
+        "content_CrJUTd",
+        "content_jGfGMX"
+      ],
+      "settings": {
+        "modal_heading": "<p>Switch to Subscription & <strong>Save!</strong></p>",
+        "review_text_image": "shopify://shop_images/active-subscriber.png",
+        "review_text": "Our 50k+ subscription members enjoy benefits like...",
+        "switch_now_button_text": "Switch Now",
+        "no_thanks_text": "No Thanks"
+      }
+    }
+  },
+  "order": [
+    "shogun-helper",
+    "shogun-above",
+    "new_main_product_3966mb",
+    "new_product_details_ty8Jy4",
+    "new_product_benefit_blocks_zVazVy",
+    "product_key_ingredients_KqctGX",
+    "new_complete_your_stack_xyDYJK",
+    "video_with_content_UD78pA",
+    "17445686930f9c3a0b",
+    "new_how_to_use_ztyjfJ",
+    "product_faq_section_CQQFMx",
+    "new_compare_products_P7e9XQ",
+    "recommended-products",
+    "main",
+    "shogun-below",
+    "shogun-optimizer",
+    "upgrade_subscription_popup_hh74md"
+  ]
+}

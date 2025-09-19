@@ -1,0 +1,110 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "main": {
+      "type": "main-list-collections",
+      "blocks": {
+        "fd3cfdab-5812-4182-8af7-deb35e7c2151": {
+          "type": "Collection_list",
+          "settings": {
+            "collection": "build-muscle",
+            "collection_title": "Collection title",
+            "collection_subtitle": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed"
+          }
+        },
+        "cb781d87-8c5d-4d06-8327-148b6801785b": {
+          "type": "Collection_list",
+          "settings": {
+            "collection_img": "shopify://shop_images/TL_Blog_Template_14.jpg",
+            "collection": "bulk-black-pre-workout",
+            "collection_title": "Collection title",
+            "collection_subtitle": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed"
+          }
+        },
+        "0b1eb18c-16f7-488d-bf9b-5fefc9972b0a": {
+          "type": "Collection_list",
+          "settings": {
+            "collection_img": "shopify://shop_images/TL_Blog_Template_14.jpg",
+            "collection": "bulk",
+            "collection_title": "Collection title",
+            "collection_subtitle": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed"
+          }
+        },
+        "235e965e-49bc-4d18-b944-6915a0d526b4": {
+          "type": "Collection_list",
+          "settings": {
+            "collection_img": "shopify://shop_images/TL_Blog_Template_14.jpg",
+            "collection": "get-stronger",
+            "collection_title": "Collection title",
+            "collection_subtitle": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed"
+          }
+        },
+        "1cbcb62e-8c98-4767-a491-017921286855": {
+          "type": "Collection_list",
+          "settings": {
+            "collection_img": "shopify://shop_images/TL_Blog_Template_14.jpg",
+            "collection": "growth-stacks",
+            "collection_title": "Collection title",
+            "collection_subtitle": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed"
+          }
+        },
+        "850a89bc-c9c1-4f23-b328-c887ac79d807": {
+          "type": "Collection_list",
+          "settings": {
+            "collection_img": "shopify://shop_images/TL_Blog_Template_14.jpg",
+            "collection": "core-series",
+            "collection_title": "Collection title",
+            "collection_subtitle": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed"
+          }
+        },
+        "b938207e-3b99-4868-b735-940ab7eb6202": {
+          "type": "Collection_list",
+          "settings": {
+            "collection_img": "shopify://shop_images/TL_Blog_Template_14.jpg",
+            "collection": "lean",
+            "collection_title": "Collection title",
+            "collection_subtitle": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed"
+          }
+        },
+        "90bc615a-9437-485f-a4c4-60841e8ea8f1": {
+          "type": "Collection_list",
+          "settings": {
+            "collection_img": "shopify://shop_images/Pauldoverheadt.png",
+            "collection": "proteinseries",
+            "collection_title": "Collection title",
+            "collection_subtitle": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed"
+          }
+        }
+      },
+      "block_order": [
+        "fd3cfdab-5812-4182-8af7-deb35e7c2151",
+        "cb781d87-8c5d-4d06-8327-148b6801785b",
+        "0b1eb18c-16f7-488d-bf9b-5fefc9972b0a",
+        "235e965e-49bc-4d18-b944-6915a0d526b4",
+        "1cbcb62e-8c98-4767-a491-017921286855",
+        "850a89bc-c9c1-4f23-b328-c887ac79d807",
+        "b938207e-3b99-4868-b735-940ab7eb6202",
+        "90bc615a-9437-485f-a4c4-60841e8ea8f1"
+      ],
+      "disabled": true,
+      "settings": {
+        "breadcrumb": true,
+        "title": "Collections",
+        "subtitle": "All the energy you need before workout. Lorem ipsum dolor sit amet.",
+        "desktop_img": "shopify://shop_images/TL_Blog_Template_14.jpg",
+        "mobile_img": "shopify://shop_images/sdf.png"
+      }
+    }
+  },
+  "order": [
+    "main"
+  ]
+}

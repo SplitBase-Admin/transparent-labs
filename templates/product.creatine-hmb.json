@@ -1,0 +1,120 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "hero": {
+      "type": "product-hero",
+      "settings": {}
+    },
+    "details": {
+      "type": "product-details",
+      "settings": {
+        "overview": "<p><strong>StrengthSeries Creatine HMB</strong> includes ingredients at clinically effective dosages and contains zero artificial sweeteners, colored dyes, unnecessary fillers, or harmful additives. </p><p>When combined, Creatine monohydrate and HMB have been shown to enhance strength, increase endurance, decrease fat mass, and prevent lean muscle loss. The added BioPerine® increases bioavailability and absorption.</p>",
+        "no_sweetners": true,
+        "no_artificial_coloring": true,
+        "gluten_free": false,
+        "no_preservatives": true
+      }
+    },
+    "bundle": {
+      "type": "product-bundle",
+      "blocks": {
+        "af04df99-6e90-45cf-b3c3-082aa3ab9e4f": {
+          "type": "bundle_product",
+          "settings": {
+            "product": "preseries-bulk-preworkout"
+          }
+        },
+        "10dac13b-7987-4ea3-92ff-11ec70a53acc": {
+          "type": "bundle_product",
+          "settings": {
+            "product": "casein-protein"
+          }
+        },
+        "9b7def1d-9f34-409a-8468-38a687016580": {
+          "type": "bundle_product",
+          "settings": {
+            "product": "cyclic-dextrin"
+          }
+        }
+      },
+      "block_order": [
+        "af04df99-6e90-45cf-b3c3-082aa3ab9e4f",
+        "10dac13b-7987-4ea3-92ff-11ec70a53acc",
+        "9b7def1d-9f34-409a-8468-38a687016580"
+      ],
+      "settings": {
+        "subtitle": "Get the most out of your training with these recommended products to optimize your performance and recovery."
+      }
+    },
+    "benefits": {
+      "type": "product-benefits",
+      "blocks": {
+        "f0e88676-206f-403d-b661-015e7fef79fc": {
+          "type": "benefit",
+          "settings": {
+            "image": "shopify://shop_images/Screen_Shot_2022-08-01_at_12.04.29_PM.png",
+            "title": "Take your performance to the next level with science-backed ingredients",
+            "description": "The synergistic blend of ingredients in Creatine HMB helps increase strength and stamina so you can train harder, longer, and more effectively."
+          }
+        },
+        "8e83ec87-4601-4180-8472-316acd991feb": {
+          "type": "benefit",
+          "settings": {
+            "image": "shopify://shop_images/Screen_Shot_2022-08-01_at_11.45.44_AM.png",
+            "title": "Ideal for athletes, gym-goers, and active individuals",
+            "description": "Creatine HMB is a versatile formula designed to improve muscle anabolism and recovery, making it a perfect fit for just about anyone that demands the most from their workouts."
+          }
+        },
+        "c17db1d7-648f-4626-af6a-3eb97716eefd": {
+          "type": "benefit",
+          "settings": {
+            "image": "shopify://shop_images/Screen_Shot_2022-08-01_at_11.59.05_AM.png",
+            "title": "Supports lean muscle growth to assist your body composition goals",
+            "description": "Creatine monohydrate and HMB are known to bolster anabolic pathways in skeletal muscle, thereby enhancing lean body mass and supporting muscle retention during weight-loss phases."
+          }
+        },
+        "26eba933-32e7-4a7d-b1d1-c5b20e1dc806": {
+          "type": "benefit",
+          "settings": {
+            "image": "shopify://shop_images/Screen_Shot_2022-08-01_at_12.07.59_PM.png",
+            "title": "Synergistic muscle- and strength-promoting formula",
+            "description": "Features pure creatine monohydrate, myHMB® (patented β-Hydroxy β-Methylbutyrate), and vitamin D3. Formulated with BioPerine® to enhance absorption and efficacy."
+          }
+        }
+      },
+      "block_order": [
+        "f0e88676-206f-403d-b661-015e7fef79fc",
+        "8e83ec87-4601-4180-8472-316acd991feb",
+        "c17db1d7-648f-4626-af6a-3eb97716eefd",
+        "26eba933-32e7-4a7d-b1d1-c5b20e1dc806"
+      ],
+      "settings": {}
+    },
+    "main": {
+      "type": "main-product",
+      "disabled": true,
+      "settings": {}
+    },
+    "recommended-products": {
+      "type": "product-recommendations",
+      "disabled": true,
+      "settings": {}
+    }
+  },
+  "order": [
+    "hero",
+    "details",
+    "bundle",
+    "benefits",
+    "main",
+    "recommended-products"
+  ]
+}

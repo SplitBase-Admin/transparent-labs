@@ -1,0 +1,110 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "main-article-404-page": {
+      "type": "main-article-404-page",
+      "settings": {
+        "heading": "Page not found",
+        "subheading": "Maybe the URL isn’t correct or moved. Let’s try searching for what you are looking for.",
+        "image": "shopify://shop_images/Group_3.png",
+        "show_serchbox": true
+      }
+    },
+    "popular-article": {
+      "type": "popular-article",
+      "blocks": {
+        "213364a4-71a3-4082-9166-ebe02c367099": {
+          "type": "Popular_article",
+          "settings": {
+            "article": "all/best-pre-workout-for-beginners"
+          }
+        },
+        "01121744-96ff-475c-bfe0-9a6313e58cc4": {
+          "type": "Popular_article",
+          "settings": {
+            "article": "all/unilateral-training"
+          }
+        },
+        "d23484b4-716a-4ee2-9c9f-3891338fb3e7": {
+          "type": "Popular_article",
+          "settings": {
+            "article": "all/push-press-vs-overhead-press"
+          }
+        },
+        "e8ed45ae-786e-4af2-b75e-53970db72c7a": {
+          "type": "Popular_article",
+          "settings": {
+            "article": "all/concurrent-training-can-cardio-build-muscle"
+          }
+        }
+      },
+      "block_order": [
+        "213364a4-71a3-4082-9166-ebe02c367099",
+        "01121744-96ff-475c-bfe0-9a6313e58cc4",
+        "d23484b4-716a-4ee2-9c9f-3891338fb3e7",
+        "e8ed45ae-786e-4af2-b75e-53970db72c7a"
+      ],
+      "settings": {
+        "heading": "Popular article",
+        "hide_info": true
+      }
+    },
+    "Popular-products": {
+      "type": "Popular-products",
+      "blocks": {
+        "18cfadfb-d16f-407a-922e-9612e18aa447": {
+          "type": "Popular_products",
+          "settings": {
+            "product": "hydrate"
+          }
+        },
+        "5a1aa0a5-ab78-4fbb-8c90-6eee72c09502": {
+          "type": "Popular_products",
+          "settings": {
+            "product": "intra-workout"
+          }
+        },
+        "49a01bcb-d3ff-4f94-8225-96b0114bd73d": {
+          "type": "Popular_products",
+          "settings": {
+            "product": "post-workout"
+          }
+        },
+        "2273e211-d2df-46a3-a95c-566f5f51cb6d": {
+          "type": "Popular_products",
+          "settings": {
+            "product": "casein-protein"
+          }
+        }
+      },
+      "block_order": [
+        "18cfadfb-d16f-407a-922e-9612e18aa447",
+        "5a1aa0a5-ab78-4fbb-8c90-6eee72c09502",
+        "49a01bcb-d3ff-4f94-8225-96b0114bd73d",
+        "2273e211-d2df-46a3-a95c-566f5f51cb6d"
+      ],
+      "settings": {
+        "heading": "Popular products"
+      }
+    },
+    "main": {
+      "type": "main-404",
+      "disabled": true,
+      "settings": {}
+    }
+  },
+  "order": [
+    "main-article-404-page",
+    "popular-article",
+    "Popular-products",
+    "main"
+  ]
+}

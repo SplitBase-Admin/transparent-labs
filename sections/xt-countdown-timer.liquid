@@ -1,0 +1,326 @@
+
+<style>
+  @font-face {
+    font-family: 'alarm-clock';
+    src: url('https://cdn.shopify.com/s/files/1/0866/7664/files/alarm_clock.otf?v=1667936818') format('opentype'),
+        url('{{ "alarmclock.woff" | asset_url }}') format('woff');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+  }
+  .xt-countdown
+  {
+    display:block;
+    width:100%;
+    background:#000;
+  }
+  .xt-countdown .countdown-timer
+  {
+    width:100%;
+    position:relative;
+  }
+  .xt-countdown .mobile_img
+  {
+    display:none;
+  }
+  .xt-countdown .desktop_img
+  {
+    display:block;
+  }
+  .xt-countdown .countdown-timer #timer
+  {
+    position:absolute;
+    top:0;
+    right:0;
+    width:50%;
+    height:92%;
+    color:#fff;
+/*     font-size:40px; */
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:20px;
+    row-gap: 0px;
+    
+  }
+  .xt-countdown .countdown-timer #timer div
+  {
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:20px;
+    flex-direction:column;
+    font-family: 'alarm-clock' !important;
+    color:#83c4e6;
+     font-size:70px;
+    row-gap: 0px;
+  }
+  .xt-countdown .countdown-timer #timer div span
+  {
+
+    font-weight:normal;
+  color:#5a87be;
+     font-size:25px;
+  }
+ @media only screen and (min-width:1724px)
+  {
+    .xt-countdown .countdown-timer #timer div
+    {
+      font-size:85px;
+    }
+     .xt-countdown .countdown-timer #timer div span
+    {
+      font-size:35px;
+    }
+  }
+  @media only screen and (min-width:1024px) and (max-width:1300px)
+  {
+    .xt-countdown .countdown-timer #timer div
+    {
+      font-size:60px;
+    }
+     .xt-countdown .countdown-timer #timer div span
+    {
+      font-size:20px;
+    }
+  }
+  @media only screen and (min-width:768px) and (max-width:1024px)
+  {
+     .xt-countdown .countdown-timer #timer div
+    {
+      font-size:50px;
+    }
+     .xt-countdown .countdown-timer #timer div span
+    {
+      font-size:18px;
+    }
+  }
+  @media only screen and (max-width:767px)
+  {
+    .xt-countdown .countdown-wraper
+    {
+      position:relative;
+    }
+    .xt-countdown .countdown-wraper
+    {
+      width:100%;
+      flex-direction: column;
+    }
+    .xt-countdown .countdown-timer #timer
+    {
+      font-size:22px;
+    }
+    .xt-countdown .countdown-img
+    {
+      display:none;
+    }
+    .xt-countdown .mobile_img
+    {
+      display:block;
+    }
+    .xt-countdown .countdown-timer
+    {
+      width:100%;
+/*       position:unset; */
+    }
+    .xt-countdown .countdown-timer .desktop_img
+    {
+      display:none;
+    }
+    .xt-countdown .countdown-timer #timer {
+    position: absolute;
+    top: 0;
+    left: 25%;
+    width: 50%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+}
+  }
+   @media only screen and (max-width:630px)
+  {
+    .xt-countdown .countdown-timer #timer div
+    {
+      font-size:50px;
+    }
+     .xt-countdown .countdown-timer #timer div span
+    {
+      font-size:18px;
+    }
+  }
+  
+  
+  @media only screen and (max-width:580px)
+  {
+    .xt-countdown .countdown-timer #timer {
+    position: absolute;
+    top: 0;
+    left: 25%;
+    width: 50%;
+    height: 100%;
+}
+  }
+   @media only screen and (max-width:490px)
+  {
+    .xt-countdown .countdown-timer #timer {
+    position: absolute;
+    top: 0;
+    left: 30%;
+    width: 47%;
+    height: 100%;
+      gap:15px;
+}
+    .xt-countdown .countdown-timer #timer div
+    {
+      font-size:45px;
+    }
+     .xt-countdown .countdown-timer #timer div span
+    {
+      font-size:16px;
+    }
+  }
+   @media only screen and (max-width:410px)
+  {
+    .xt-countdown .countdown-timer #timer {
+    position: absolute;
+    top: 0;
+    left: 30%;
+    width: 47%;
+    height: 100%;
+      gap:15px;
+}
+    .xt-countdown .countdown-timer #timer div
+    {
+      font-size:40px;
+    }
+     .xt-countdown .countdown-timer #timer div span
+    {
+      font-size:14px;
+    }
+  }
+  @media only screen and (max-width:376px)
+  {
+    .xt-countdown .countdown-timer #timer {
+    position: absolute;
+    top: 0%;
+    left: 27%;
+    /* width: 50%; */
+    height: 100%;
+      gap:10px;
+}
+     .xt-countdown .countdown-timer #timer div
+    {
+      font-size:30px;
+    }
+     .xt-countdown .countdown-timer #timer div span
+    {
+      font-size:12px;
+    }
+  }
+</style>
+
+<div class="xt-countdown">
+  <div class="countdown-timer">
+    <a href="{{ section.settings.image_link }}">
+      {% assign image_desktop = section.settings.desktop_image | split: '/' | last | split: '.' | first | replace: '/', ' ' | replace: '-', ' ' | replace: '_', ' ' %}
+      <img class="desktop_img" src="{{ section.settings.desktop_image | img_url : 'master' }}" alt="{% if section.settings.desktop_image.alt  %}{{ section.settings.desktop_image.alt }}{% else %}{{ image_desktop }}{% endif %}" loading="lazy">
+    </a>
+    <a href="{{ section.settings.image_link }}">
+      {% assign image_mobile = section.settings.mobile_image | split: '/' | last | split: '.' | first | replace: '/', ' ' | replace: '-', ' ' | replace: '_', ' ' %}
+      <img class="mobile_img" src="{{ section.settings.mobile_image | img_url : 'master' }}" alt="{% if section.settings.mobile_image.alt  %}{{ section.settings.mobile_image.alt }}{% else %}{{ image_mobile }}{% endif %}" loading="lazy">
+    </a>
+    <div id="timer"></div>
+  </div>
+</div>
+
+{% comment %}
+<div class="xt-countdown">
+  <div class="countdown-wraper">
+    <img class="mobile_img" src="{{ section.settings.mobile_image | img_url : 'master' }}">
+    <div class="countdown-img">
+      <img src="{{ section.settings.image1 | img_url : 'master' }}">
+    </div>
+   
+    <div class="countdown-timer">
+      <img src="{{ section.settings.image2 | img_url : 'master' }}">
+      <div id="timer"></div>
+    </div>
+  </div>
+</div>
+{% endcomment %}
+
+
+
+<script>
+// Set the date we're counting down to Nov 15, 2022 15:37:25
+var countDownDate = new Date("{{ section.settings.date_picker }}").getTime();
+
+// Update the count down every 1 second
+var x = setInterval(function() {
+
+  // Get today's date and time
+  var now = new Date().getTime();
+    
+  // Find the distance between now and the count down date
+  var distance = countDownDate - now;
+    
+  // Time calculations for days, hours, minutes and seconds
+  var days = Math.floor(distance / (1000 * 60 * 60 * 24));
+  var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+  var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+  var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+    
+  // Output the result in an element with id="demo"
+  document.getElementById("timer").innerHTML = "<div class='days'>" + days + "<span>DAYS</span> </div>" + "<div class='hours'>" + hours + "<span>HRS</span> </div>"
+  + "<div class='minutes'>" + minutes + "<span>MINS</span> </div>" + "<div class='seconds'>" + seconds + "<span>SECS</span> </div>";
+    
+  // If the count down is over, write some text 
+  if (distance < 0) {
+    clearInterval(x);
+    document.getElementById("timer").innerHTML = "EXPIRED";
+  }
+}, 1000);
+</script>
+
+{% schema %}
+  {
+    "name": "Countdown Timer",
+    "settings": [
+      {
+        "type":"image_picker",
+        "id":"desktop_image",
+        "label":"Desktop Image "
+      },
+      {
+        "type": "text",
+        "id": "date_picker",
+        "label": "Enter end date-time of countdown",
+        "info": "e.g. nov 9, 2022 15:37:25"
+      },
+      {
+        "type":"image_picker",
+        "id":"mobile_image",
+        "label":"Mobile Image"
+      },
+      {
+        "type":"url",
+        "id":"image_link",
+        "label":"Image Link"
+      }
+    ],
+    "presets":[
+      {
+        "name": "Countdown Timer"
+      }
+    ]
+  }
+{% endschema %}
+
+{% stylesheet %}
+{% endstylesheet %}
+
+{% javascript %}
+ 
+{% endjavascript %}

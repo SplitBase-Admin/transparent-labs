@@ -1,0 +1,171 @@
+ <style>
+  .TL_ProductCards_Container {
+    display:flex;
+    justify-content:space-between;
+    margin:0 auto;
+    position:relative;
+    padding-top:32px;
+    padding-bottom:32px;
+    flex-wrap: nowrap;
+    overflow-x: scroll;
+  }
+
+  .TL_ProductCards {
+    background: #ffffff;
+    box-shadow: 0px 0px 6px #00000010;
+    min-height: 200px;
+    min-width: 260px;
+    max-width: 23%;
+    border-radius: 4px;
+    padding: 16px;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .TL_ProductCards img {
+    width: 200px;
+    margin:0 auto;
+  }
+
+  .TL_ProductCard_Tags {
+    background:rgb(19 40 54);
+    color:#ffffff;
+    font-size:11px;
+    padding:4px;
+    position:absolute;
+    right:0px;
+    top:0px;
+    border-radius: 0px 0px 0px 2px;
+  }
+
+  .TL_ProductCards_title {
+	  font-size:16px;
+	  line-height:1.2em;
+	  margin: 8px 0px;
+	  min-height:3.6em;
+  }
+
+  .TL_ATC_Button {
+    background: rgb(65 181 232);
+    border:0px;
+    width:100%;
+    height:40px;
+    border-radius:4px;
+    color:#ffffff;
+    font-size:14px;
+    line-height:1em;
+  }
+
+  .TL_ALT_Button {
+    background: #ffffff;
+    border:2px solid rgb(65 181 232);
+    width:100%;
+    height:40px;
+    border-radius:4px;
+    color:rgb(65 181 232);
+    font-size:14px;
+    line-height:1em;
+    margin-top:8px;
+  }
+
+  .TL_ALT_Button:hover, .TL_ATC_Button:hover {
+    cursor:pointer;
+  }
+
+  .TL_ProductDetails {
+    display:flex;
+    justify-content:space-between;
+    align-items: center;
+    max-height:25px;
+  }
+
+  @media only screen and (max-width: 1024px) {
+    .TL_ProductCards {
+      margin-right:24px;
+    }
+  }
+
+  .index-test-products {
+    background: rgb(247 249 252);
+    margin-top: -16px !important;
+  }
+</style>
+
+<div class="font-neue pb-12 px-4 mt-4 lg:max-w-7xl lg:mx-auto">
+  <h2 class="font-bold text-blue-500 text-xl md:border-l-8 md:border-blue-500 md:pl-2 md:text-2xl">
+    SHOP BESTSELLERS
+  </h2>
+
+  <div class="TL_ProductCards_Container">
+    {% for product in collections['bestsellers'].products limit: 4 %}
+      <div class="TL_ProductCards">
+        <div class="TL_ProductCard_Tags">BESTSELLER</div>
+        <a href="{{ product.url }}">
+          {% render 'lazy-image',
+            height: 240,
+            image: product.featured_image,
+            width: 240,
+          %}
+        </a>
+
+        <div class="TL_ProductDetails">
+          <div class="flex mb-2 space-x-1 sm:mb-0">
+            {%- assign review_average = product.metafields.yotpo.reviews_average | times: 1 -%}
+            {%- for i in (1..5) -%}
+              {%- assign index_minus_one = i | minus: 1 -%}
+              {%- assign mod = review_average | modulo: index_minus_one -%}
+
+              {%- if review_average >= i -%}
+                <svg class="h-4 w-4" version="1.1" viewBox="0 0 128 128" xmlns="http://www.w3.org/2000/svg">
+                  <path d="m47.961 48h-47.945l39.914 31.543-15.941 48.441 40.059-29.871 39.938 29.871-15.871-48.863 39.918-31.121h-47.945l-16.094-47.996z" fill="#41B5E8"/>
+                </svg>
+              {%- elsif mod >= 0.5 -%}
+                <svg class="h-4 w-4" version="1.1" viewBox="0 0 128 128" xmlns="http://www.w3.org/2000/svg">
+                  <path d="m128.02 48h-47.953l-16.094-48-16.031 48h-47.969l39.937 31.555-15.953 48.445 39.984-29.812 0.09375-0.0625 39.938 29.875-15.875-48.867zm-39.594 58.531-24.371-18.547-0.058594 0.0625v-56.953l10.164 24.906h29.812l-25.453 19.43z" fill="#41B5E8"/>
+                 </svg>
+              {%- else -%}
+                <svg class="h-4 w-4" version="1.1" viewBox="0 0 128 128" xmlns="http://www.w3.org/2000/svg">
+                  <path d="m64.008 31.113 10.172 24.887h29.809l-25.449 19.426 9.9023 31.105-24.387-18.543-24.387 18.109 9.8711-30.156-25.539-19.941h29.871l10.137-24.887m-16.043 16.887h-47.949l39.914 31.551-15.93 48.445 40.055-29.867 39.934 29.871-15.875-48.871 39.918-31.129h-47.945l-16.094-47.996z" fill="#41B5E8"/>
+                </svg>
+              {%- endif %}
+            {%- endfor -%}
+          </div>
+
+          <div class="font-bold">{{ product.price_max | money }}</div>
+        </div>
+
+        <p class="font-bold TL_ProductCards_title">{{ product.title | escape }}</p>
+        <div class="TL_Button_Container">
+          <form method="post" action="/cart/add">
+            <input type="hidden" name="id" value="{{ product.variants.first.id }}" />
+            <input type="submit" value="Add to Cart" class="TL_ATC_Button" />
+          </form>
+
+          <form action="{{ product.url }}">
+            <input type="submit" value="View Details & Flavors" class="TL_ALT_Button" />
+          </form>
+        </div>
+      </div>
+    {% endfor %}
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Test Products",
+  "class": "index-test-products",
+  "settings": [
+    {
+      "id": "index-tl-products",
+      "type": "text",
+      "label": "Test Products for HP",
+      "default": "Bestsellers"
+    }
+  ],
+  "presets": [{
+    "name": "Call to Actions",
+    "category": "Text"
+  }]
+}
+{% endschema %}

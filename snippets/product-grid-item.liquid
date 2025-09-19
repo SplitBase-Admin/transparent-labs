@@ -1,0 +1,197 @@
+{% assign sca_product = product %}{% assign sca_product_id_text = "," | append : sca_product.id | append : "," %}{% assign sca_price = sca_product.price %}{% assign sca_price_min = sca_product.price_min %}{% assign sca_price_max = sca_product.price_max %}{% assign sca_compare_at_price = sca_product.compare_at_price %}{% assign sca_compare_at_price_min = sca_product.compare_at_price_min %}{% assign sca_compare_at_price_max = sca_product.compare_at_price_max %}{% assign sca_product_available = sca_product.available %}{% assign sca_product_variantCount = sca_product.variants.size %}{% assign sca_compare_at_price_varies = sca_product.compare_at_price_varies %}{% assign sca_price_varies = sca_product.price_varies %}{% assign sca_has_only_default_variant = false %}{% capture sca_product_variants_json %}{{sca_product.variants | json }}{% endcapture %} {% capture sca_product_json %}{ {% if sca_all_gift_products_ids == null or sca_all_gift_products_ids contains sca_product_id_text %}{% assign sca_product_available = false %}{% assign sca_product_variantCount = 0 %}{% assign sca_has_only_default_variant = true %}{% assign sca_is_first_variant = true %}{% capture sca_variants_json %} [{% for variant in sca_product.variants %}{% unless variant.metafields.secomapp.freegifts %}{% unless variant.title contains '(Freegifts)' %}{% unless variant.title contains '% Off' %}{% unless variant.metafields.shappify_qb.qb_hide == "1" %}{% unless variant.metafields.shappify_bundle.is_bundle == "true" %}{% unless variant.metafields.brodev_scn.hide == "true" %}{% unless variant.metafields.wholesaler2.wholesale %}{% unless variant.metafields.Wholesaler.level %}{% unless variant.title contains '(Wholesale' %}{% if sca_is_first_variant%} {{ variant | json }}{% assign sca_price = variant.price %} {% assign sca_price_min = variant.price %} {% assign sca_price_max = variant.price %} {% assign sca_compare_at_price = variant.compare_at_price %} {% assign sca_compare_at_price_min = variant.compare_at_price %} {% assign sca_compare_at_price_max = variant.compare_at_price %} {% assign sca_product_available = variant.available %} {% assign sca_product_variantCount = 1 %} {% assign sca_is_first_variant = false%}{% else %},{{variant | json }} {% if sca_price_min >= variant.price %} {% assign sca_price_min = variant.price %} {% assign sca_price = variant.price %}{% endif %} {% if sca_price_max <= variant.price %} {% assign sca_price_max = variant.price %} {% endif %} {% if variant.compare_at_price %} {% if sca_compare_at_price_min==null or sca_compare_at_price_min >= variant.compare_at_price %} {% assign sca_compare_at_price_min = variant.compare_at_price %} {% assign sca_compare_at_price = variant.compare_at_price %} {% endif %} {% if sca_compare_at_price_max==null or sca_compare_at_price_max < variant.compare_at_price %} {% assign sca_compare_at_price_max = variant.compare_at_price %} {% endif %} {% endif %} {% if variant.available == true %} {% assign sca_product_available = true %} {% endif %} {% assign sca_product_variantCount = sca_product_variantCount | plus: 1 %}{% endif %}{% endunless %}{% endunless %}{% endunless %}{% endunless %}{% endunless %}{% endunless %}{% endunless %}{% endunless %}{% endunless %}{%endfor%} ]{% endcapture %}{% if sca_price_min < sca_price_max %}{% assign sca_price_varies = true %}{% else %}{% assign sca_price_varies = false %}{% endif %}{% if sca_compare_at_price_min < sca_compare_at_price_max %}{% assign sca_compare_at_price_varies = true %}{% else %}{% assign sca_compare_at_price_varies = false %}{% endif %}{% if sca_product_variantCount > 1 %}{% assign sca_has_only_default_variant = false %}{% endif %}{% if sca_product_variantCount == sca_product.variants.size %} "variants":{{ sca_product.variants }},{% else %}{%assign sca_product_variants_json = sca_variants_json %} "variants":{{ sca_variants_json }},{% endif %}{% else %} "variants":{{ sca_product_variants_json }},{% endif %} "id": {{sca_product.id}}, "title": {{sca_product.title | json}}, "handle": {{sca_product.handle | json}}, "description": {{sca_product.description | json}}, "published_at": "{{sca_product.published_at | date: "%Y-%m-%dT%H-%M-%S%:z" }}", "created_at": "{{sca_product.created_at | date: "%Y-%m-%dT%H-%M-%S%:z" }}", "vendor": {{sca_product.vendor | json}}, "type": {{sca_product.type | json}}, "tags": {{sca_product.tags | json}}, "price": {{sca_price}}, "price_min": {{sca_price_min}}, "price_max": {{sca_price_max}}, "available": {{sca_product.available}}, "price_varies": {{sca_price_varies}}, "compare_at_price": {{sca_compare_at_price}}, "compare_at_price_min": {{sca_compare_at_price_min}}, "compare_at_price_max": {{sca_compare_at_price_max}}, "compare_at_price_varies": {{sca_compare_at_price_varies}}, "images": {{sca_product.images | json}}, "featured_image": {{sca_product.featured_image | json }}, "options": {{sca_product.options | json}}, "media": {{sca_product.media | json }}, "content": {{sca_product.content | json }}} {% endcapture sca_product_json %}
+<product-grid-item class="bg-white flex flex-col justify-between p-4 rounded-xl text-blue-500">
+  <div>
+    {% assign split_title = product.title | split: '|' %}
+
+    {% if sca_product_variantCount == 1 or product.tags contains 'use-featured-image' %}
+      <a class="block mx-auto w-64" href="{{ product.url | within: collection }}">
+        {% render 'lazy-image',
+          height: 256,
+          image: product.featured_image,
+          width: 256,
+        %}
+      </a>
+    {% else %}
+      <div class="swiper render-swiper">
+        <div class="swiper-wrapper">
+          {% for variant in product.variants %}
+{% unless variant.metafields.secomapp.freegifts %}
+{% unless variant.title contains '(Freegifts)' %}
+
+            {% if variant.option2 == '2 Tub' or variant.option2 == '3 Tub' %}
+              {% continue %}
+            {% endif %}
+
+            <div class="swiper-slide" data-variant-id="{{ variant.id }}">
+              <a class="block mx-auto w-64" href="{{ product.url | within: collection }}">
+                {% render 'lazy-image',
+                  height: 256,
+                  image: variant.image,
+                  width: 256,
+                %}
+              </a>
+            </div>
+
+{%endunless%}
+{%endunless%}
+          {% endfor %}
+        </div>
+      </div>
+    {% endif %}
+  </div>
+
+  <div>
+    <h3 class="font-normal">
+      {{ split_title[1] }}
+    </h3>
+
+    <h2 class="font-semibold text-xl">
+      {{ split_title[0] }}
+    </h2>
+
+    <div class="flex items-center">
+      <svg class="h-4 text-orange-400 w-4" version="1.1" viewBox="0 0 128 128" xmlns="http://www.w3.org/2000/svg">
+        <path d="m47.961 48h-47.945l39.914 31.543-15.941 48.441 40.059-29.871 39.938 29.871-15.871-48.863 39.918-31.121h-47.945l-16.094-47.996z" fill="currentColor"/>
+      </svg>
+
+      <p class="ml-3 text-gray-500 text-sm">
+        <span class="font-bold text-black">{{ product.metafields.yotpo.reviews_average }}</span>/5.0
+      </p>
+    </div>
+
+    <div class="my-4">
+      {% for variant in product.variants %}
+		{% unless variant.metafields.secomapp.freegifts %}
+		{% unless variant.title contains '(Freegifts)' %}
+
+          {% if variant.option2 == '2 Tub' or variant.option2 == '3 Tub' %}
+            {% continue %}
+          {% endif %}
+
+          <div
+            class="font-semibold {% unless forloop.index0 == 0 %}hidden{% endunless %} text-blue-400 text-xl variant-price"
+            data-variant-id="{{ variant.id }}"
+          >
+            {{ variant.price | money }}
+          </div>
+        {%endunless%}
+        {%endunless%}
+      {% endfor %}
+    </div>
+
+    {% unless product.tags contains 'stack' %}
+      {% form 'product', product, data-productid: product.id %}
+        <custom-select>
+          {% comment %}
+            TODO: aria controls
+            TODO: determine if there's a way to create this as a snippet and pass values down
+          {% endcomment %}
+          <div class="relative">
+            <button
+              aria-haspopup="listbox"
+              class="select"
+              type="button"
+            >
+              <div class="flex-1 text text-sm"></div>
+
+              <div class="ml-4 text-gray-500">
+                {% render 'icon-chevron-down' %}
+              </div>
+            </button>
+
+            <ul
+              class="select-list hidden opacity-0"
+              role="listbox"
+            >
+              {% for variant in product.variants %}
+                {% unless variant.metafields.secomapp.freegifts %}
+                {% unless variant.title contains '(Freegifts)' %}
+
+                                {% if variant.option2 == '2 Tub' or variant.option2 == '3 Tub' %}
+                                  {% continue %}
+                                {% endif %}
+
+                                <li
+                                  class="select-option"
+                                  data-value="{{ variant.id }}"
+                                  role="listitem"
+                                >
+                                  {{ variant.title | replace: '/ 1 Tub', '' }}
+                                </li>
+
+                {%endunless%}
+                {%endunless%}
+              {% endfor %}
+            </ul>
+
+            <select class="hidden" name="id" data-productid="{{ product.id }}">
+              {% for variant in product.variants %}
+                {% unless variant.metafields.secomapp.freegifts %}
+                {% unless variant.title contains '(Freegifts)' %}
+
+                                {% if variant.option2 == '2 Tub' or variant.option2 == '3 Tub' %}
+                                  {% continue %}
+                                {% endif %}
+
+                                <option
+                                  data-available="{{ variant.available }}"
+                                  value="{{ variant.id }}"
+                                  {% if forloop.index0 == 0 %}selected="selected"{% endif %}
+                                >
+                                  {{ variant.title }}
+                                </option>
+
+                {%endunless%}
+                {%endunless%}
+              {% endfor %}
+            </select>
+          </div>
+        </custom-select>
+
+        <div class="gap-8 grid grid-cols-2 items-center mt-4">
+          <div>
+            <quantity-input>
+              <div class="flex items-center text-blue-500">
+                <button
+                  class="quantity-button"
+                  type="button"
+                >
+                  {% render 'icon-minus' %}
+                </button>
+
+                <input
+                  class="border-0 bg-transparent hide-selectors outline-none text-center w-12"
+                  min="1"
+                  name="quantity"
+                  readonly
+                  type="number"
+                  value="1"
+                />
+
+                <button
+                  class="quantity-button"
+                  type="button"
+                >
+                  {% render 'icon-plus' %}
+                </button>
+              </div>
+            </quantity-input>
+          </div>
+
+          {% assign default_variant = product.variants[0] %}
+
+          {% comment %}
+            class="border-2 px-4 py-3 rounded-md text-sm transition-opacity hover:opacity-70 {% if default_variant.available %}border-blue-400 text-blue-400{% else %}border-gray-400 opacity-70 text-gray-400{% endif %}"
+          {% endcomment %}
+          <button
+            class="button-alt"
+            type="submit"
+            {% unless default_variant.available %}disabled="disabled"{% endunless %}
+          >
+            {% if default_variant.available %}Quick Add{% else %}Sold Out{% endif %}
+          </button>
+        </div>
+      {% endform %}
+    {% endunless %}
+  </div>
+</product-grid-item>

@@ -1,0 +1,189 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "main": {
+      "type": "main-collection-latest",
+      "disabled": true,
+      "settings": {
+        "breadcrumb": true,
+        "title": "Collections",
+        "subtitle": "All the energy you need before workout. Lorem ipsum dolor sit amet.",
+        "desktop_img": "shopify://shop_images/Pauldoverheadt.png",
+        "mobile_img": "shopify://shop_images/TL_Blog_Template_14.jpg"
+      }
+    },
+    "f2f68ce3-bdf5-4453-bfad-bbe15e44181c": {
+      "type": "collection-icon-with-text",
+      "blocks": {
+        "7f73dd42-17ef-4fd4-95fe-8c1723e06a69": {
+          "type": "Collection_list",
+          "settings": {
+            "icon": "shopify://shop_images/no_artificial_preservatives_1.png",
+            "icon_with_text": "Clinically Dosed <br> Ingredients"
+          }
+        },
+        "7f17957a-ee9c-4653-8a9a-3a9feb648e64": {
+          "type": "Collection_list",
+          "settings": {
+            "icon": "shopify://shop_images/no_artificial_sweeteners.png",
+            "icon_with_text": "No artificial <br>sweetners"
+          }
+        },
+        "14f561a8-8275-45ae-92dc-a03b264b688c": {
+          "type": "Collection_list",
+          "settings": {
+            "icon": "shopify://shop_images/no_artificial_coloring.png",
+            "icon_with_text": "No Artificial <br> Coloring"
+          }
+        },
+        "71aabd56-0f34-429c-9eed-9fee97d18e1b": {
+          "type": "Collection_list",
+          "settings": {
+            "icon": "shopify://shop_images/gluten_free.png",
+            "icon_with_text": "Gluten-free and  Non-GMO"
+          }
+        }
+      },
+      "block_order": [
+        "7f73dd42-17ef-4fd4-95fe-8c1723e06a69",
+        "7f17957a-ee9c-4653-8a9a-3a9feb648e64",
+        "14f561a8-8275-45ae-92dc-a03b264b688c",
+        "71aabd56-0f34-429c-9eed-9fee97d18e1b"
+      ],
+      "disabled": true,
+      "settings": {
+        "title": ""
+      }
+    },
+    "ee223073-c793-46fb-bf46-7900f1f2b0dc": {
+      "type": "collection-icon-with-text",
+      "blocks": {
+        "5770a1e1-954b-4250-9307-47f72f950027": {
+          "type": "Collection_list",
+          "settings": {
+            "icon": "shopify://shop_images/logo1200x630.png",
+            "icon_with_text": ""
+          }
+        },
+        "5e798dbe-97ba-4bd6-96c6-4852f9516bb3": {
+          "type": "Collection_list",
+          "settings": {
+            "icon": "shopify://shop_images/Group_352.png",
+            "icon_with_text": ""
+          }
+        },
+        "98e37180-fb43-4ad1-84cf-8daf4cec7948": {
+          "type": "Collection_list",
+          "settings": {
+            "icon": "shopify://shop_images/livestrong-logo.png",
+            "icon_with_text": ""
+          }
+        },
+        "e4ffe869-e4c7-4bc0-b4d7-d621fd23a8df": {
+          "type": "Collection_list",
+          "settings": {
+            "icon": "shopify://shop_images/2560px-Healthline_logo.png",
+            "icon_with_text": ""
+          }
+        }
+      },
+      "block_order": [
+        "5770a1e1-954b-4250-9307-47f72f950027",
+        "5e798dbe-97ba-4bd6-96c6-4852f9516bb3",
+        "98e37180-fb43-4ad1-84cf-8daf4cec7948",
+        "e4ffe869-e4c7-4bc0-b4d7-d621fd23a8df"
+      ],
+      "disabled": true,
+      "settings": {
+        "title": "AS SEEN ON"
+      }
+    },
+    "76f8ec87-6688-4016-9f76-3604ee7c7aa4": {
+      "type": "collection-reviews",
+      "blocks": {
+        "6a847f99-d520-4964-8024-bc3670d9d4b3": {
+          "type": "Collection_list",
+          "settings": {
+            "image": "shopify://shop_images/da21dde662a19a4b8a6e17048660983a.png",
+            "review": "Transparent Labs helps me recover like no other. I’m convinced these products have a huge impact on my training. I would definitely recommend TL to anyone looking to improve their workouts, training, running, and recovery.",
+            "review_authr": "Scotty S.",
+            "Athlete_authr": "TL Select Athlete"
+          }
+        }
+      },
+      "block_order": [
+        "6a847f99-d520-4964-8024-bc3670d9d4b3"
+      ],
+      "disabled": true,
+      "settings": {
+        "title": ""
+      }
+    },
+    "d41ea69b-951f-4bd4-8a13-44b8c69cd397": {
+      "type": "related-collection",
+      "blocks": {
+        "691d8bc3-eff2-4692-b0d8-4ad4f1268435": {
+          "type": "Related_collection",
+          "settings": {
+            "collection_img": "shopify://shop_images/Pauldoverheadt.png",
+            "collection": "proteinseries",
+            "collection_title": "Collection title",
+            "collection_subtitle": "Each scoop of BULK provides an entourage of nitric oxide boosters and"
+          }
+        },
+        "d37a7a50-6d94-4931-a7f5-62d559375c58": {
+          "type": "Related_collection",
+          "settings": {
+            "collection_img": "shopify://shop_images/sdf.png",
+            "collection": "build-muscle",
+            "collection_title": "Collection title",
+            "collection_subtitle": "BULK is formulated for those with one goal in mind: Build more muscle."
+          }
+        },
+        "56cfb4be-4849-4ad7-b3b4-356fbaaa43b9": {
+          "type": "Related_collection",
+          "settings": {
+            "collection_img": "shopify://shop_images/H2BIso-min.webp",
+            "collection": "preseries",
+            "collection_title": "Collection title",
+            "collection_subtitle": "BULK is formulated for those with one goal in mind: Build more muscle."
+          }
+        },
+        "67b1962b-e570-4b99-91a9-c2f0bad9f5b9": {
+          "type": "Related_collection",
+          "settings": {
+            "collection_img": "shopify://shop_images/ShoulderPress-min.webp",
+            "collection": "core-series",
+            "collection_title": "Collection title",
+            "collection_subtitle": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed"
+          }
+        }
+      },
+      "block_order": [
+        "691d8bc3-eff2-4692-b0d8-4ad4f1268435",
+        "d37a7a50-6d94-4931-a7f5-62d559375c58",
+        "56cfb4be-4849-4ad7-b3b4-356fbaaa43b9",
+        "67b1962b-e570-4b99-91a9-c2f0bad9f5b9"
+      ],
+      "disabled": true,
+      "settings": {
+        "title": "You may also like"
+      }
+    }
+  },
+  "order": [
+    "main",
+    "f2f68ce3-bdf5-4453-bfad-bbe15e44181c",
+    "ee223073-c793-46fb-bf46-7900f1f2b0dc",
+    "76f8ec87-6688-4016-9f76-3604ee7c7aa4",
+    "d41ea69b-951f-4bd4-8a13-44b8c69cd397"
+  ]
+}

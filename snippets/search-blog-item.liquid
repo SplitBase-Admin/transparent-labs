@@ -1,0 +1,19 @@
+<div class="article-item">
+  <div class="article-item-img">
+    {% render 'lazy-image',
+      crop: 'top',
+      height: 300,
+      image: article.image,
+      width: 400,
+    %}
+  </div>
+  
+  <div class="article-item-content {{ blog_handle }}">
+    <div class="article-item-box">
+      <h3><span>{{ article.title }}</span> </h3>
+      <div class="featured_article--description">{{ article.excerpt }}</div>
+      <div class="featured_article--author"><span>Written By:</span> {{ article.author }}</div>
+    </div>
+  </div>
+  <a class="full-link" href="{{ article.url }}" aria-label="Article URL"></a>
+</div>

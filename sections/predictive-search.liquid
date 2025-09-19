@@ -1,0 +1,111 @@
+{% comment %}
+  https://shopify.dev/themes/navigation-search/search/predictive-search#the-predictive-search-section
+{% endcomment %}
+
+{% assign predictive_search_false = false %}
+{% if predictive_search.resources.articles %}
+  {% assign predictive_search_false = true %}
+{% endif %}
+
+{%- if predictive_search.performed -%}
+  <div
+    class="absolute bg-white left-0 right-0 shadow-lg z-[99]"
+    id="predictive-search-results"
+    style="top: calc(100% + 4px)"
+  >
+    <div id="predictive-search-results-list" role="listbox" aria-labelledby="predictive-search-products">
+      <div class="">
+
+        <div class="search-product-items-wrapper predictive_search_false-{{ predictive_search_false }}">
+          <div class="predictive__search--header">
+            <h2>Products</h2>
+            {%  if predictive_search.resources.products.size > 0 %}
+            <a href="/search" class="btn_link link mobile-hidden--block" aria-label="Product Item Button URL">
+              <span>View all</span>
+              <svg width="18" height="19" viewBox="0 0 18 19" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M0 9.64355L16 9.64355M16 9.64355L11.75 13.6436M16 9.64355L11.75 5.64355" stroke="currentColor" stroke-width="1.28571" stroke-linecap="round" stroke-linejoin="round"></path>
+              </svg>
+            </a>
+            {%  endif %}
+          </div>
+          {%  if predictive_search.resources.products.size > 0 %}
+            <div class="predictive__product--item--wrap swiper">
+              <div class="swiper-wrapper">
+              {%- for product in predictive_search.resources.products -%}
+                <div class="predictive__product--item swiper-slide">
+                  {%- if product.tags contains 'hidden-by-tag' -%}
+                    {%- continue -%}
+                  {%- endif -%}
+                  {% render 'predictive-custom-product-grid', product: product%}
+                </div>
+              {%- endfor -%}
+              </div>
+            </div>
+            <div class="flex justify-end desk-hidden--flex"> 
+              <a href="/search" class="btn_link link " aria-label="Product Item Button URL">
+                <span>View all</span>
+                <svg width="18" height="19" viewBox="0 0 18 19" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M0 9.64355L16 9.64355M16 9.64355L11.75 13.6436M16 9.64355L11.75 5.64355" stroke="currentColor" stroke-width="1.28571" stroke-linecap="round" stroke-linejoin="round"></path>
+                </svg>
+              </a>
+            </div>
+          {%  else %}
+            <div>
+              No results found for "{{ predictive_search.terms }}".
+            </div>
+            <div class="flex justify-end">
+              <a href="/collections/all" class="btn_link link no-change" aria-label="Product Item Button URL">
+                <span>Shop All</span>
+                <svg width="18" height="19" viewBox="0 0 18 19" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M0 9.64355L16 9.64355M16 9.64355L11.75 13.6436M16 9.64355L11.75 5.64355" stroke="currentColor" stroke-width="1.28571" stroke-linecap="round" stroke-linejoin="round"></path>
+                </svg>
+              </a>
+            </div>
+
+          {%  endif %}
+          
+        </div>
+        
+        {% if predictive_search.resources.articles %}
+        <div class="search-article-items-wrapper">
+          <div class="search-article-items-inner">
+            <div class="predictive__search--header">
+              <h2>Articles</h2>
+              <a href="/blogs/all" class="btn_link link  mobile-hidden--block" aria-label="Product Item Button URL">
+                <span>View all</span>
+                <svg width="18" height="19" viewBox="0 0 18 19" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M0 9.64355L16 9.64355M16 9.64355L11.75 13.6436M16 9.64355L11.75 5.64355" stroke="currentColor" stroke-width="1.28571" stroke-linecap="round" stroke-linejoin="round"></path>
+                </svg>
+              </a>
+            </div>
+  
+            <div class="search-article-item-wrapper">
+              {%- for article in predictive_search.resources.articles, limit: 4 -%}
+                {% render 'search-blog-item', article: article %}
+              {% endfor %}
+            </div>
+            <div class="flex justify-end desk-hidden--flex"> 
+              <a href="/search" class="btn_link link" aria-label="Product Item Button URL">
+                <span>View all</span>
+                <svg width="18" height="19" viewBox="0 0 18 19" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M0 9.64355L16 9.64355M16 9.64355L11.75 13.6436M16 9.64355L11.75 5.64355" stroke="currentColor" stroke-width="1.28571" stroke-linecap="round" stroke-linejoin="round"></path>
+                </svg>
+              </a>
+            </div>
+          </div>
+        </div>
+        {% endif %}
+
+      </div>
+
+      {% comment %}
+              <div>
+        <button class="p-4 transition-colors text-sm w-full hover:bg-gray-300" tabindex="-1">
+          Search for "{{ predictive_search.terms }}"
+        </button>
+      </div>
+      {% endcomment %}
+
+    </div>
+  </div>
+{%- endif -%}

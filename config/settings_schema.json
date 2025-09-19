@@ -1,0 +1,156 @@
+[
+  {
+    "name": "theme_info",
+    "theme_author": "Exobyte",
+    "theme_name": "TL V2",
+    "theme_support_email": "taylor@exobyte.io",
+    "theme_version": "1.0.0",
+    "theme_documentation_url": "https://exobyte.io"
+  },
+  {
+    "name": "Search",
+    "settings": [
+      {
+        "type": "checkbox",
+        "id": "predictive_search_enabled",
+        "default": true,
+        "label": "Enable Predictive Search?"
+      }
+    ]
+  },
+  {
+    "name": "Site wide offer",
+    "settings": [
+      {
+        "type": "number",
+        "id": "one_itme_discount",
+        "label": "One time discount",
+        "default": 15
+      }
+    ]
+  },
+  {
+    "name": "Cart Drawer",
+    "settings": [
+      {
+        "type": "text",
+        "id": "stock_threshold",
+        "label": "Stock Threshold"
+      },
+      { 
+        "type": "inline_richtext",
+        "id": "discount_text",
+        "label": "Discount Text"
+      },
+      { 
+        "type": "url",
+        "id": "discount_url",
+        "label": "Discount URL"
+      }
+    ]
+  },
+  {
+    "name": "Favicon",
+    "settings": [
+      {
+        "type": "image_picker",
+        "id": "favicon",
+        "label": "Favicon Image"
+      }
+    ]
+  },
+  {
+    "name": "Collection Tabs",
+    "settings": [
+      {
+        "type": "link_list",
+        "id": "collection_tab",
+        "label": "Mobile Menu"
+      }
+    ]
+  },
+  {
+    "name": "Product Details",
+    "settings": [
+      {
+        "type": "number",
+        "id": "product_low_stock_threshold",
+        "label": "Product Low Stock Threshold"
+      }
+    ]
+  },
+  {
+    "name": "Social Icons",
+    "settings": [
+      {
+        "type": "header",
+        "content": "t:sections.social-media.settings.header.content"
+      },
+      {
+        "type": "text",
+        "id": "social_facebook_link",
+        "label": "t:sections.social-media.settings.social_facebook_link.label",
+        "placeholder": "t:sections.social-media.settings.social_facebook_link.info"
+      },
+      {
+        "type": "text",
+        "id": "social_instagram_link",
+        "label": "t:sections.social-media.settings.social_instagram_link.label",
+        "placeholder": "t:sections.social-media.settings.social_instagram_link.info"
+      },
+      {
+        "type": "text",
+        "id": "social_youtube_link",
+        "label": "t:sections.social-media.settings.social_youtube_link.label",
+        "placeholder": "t:sections.social-media.settings.social_youtube_link.info"
+      },
+      {
+        "type": "text",
+        "id": "social_tiktok_link",
+        "label": "t:sections.social-media.settings.social_tiktok_link.label",
+        "placeholder": "t:sections.social-media.settings.social_tiktok_link.info"
+      },
+      {
+        "type": "text",
+        "id": "social_twitter_link",
+        "label": "t:sections.social-media.settings.social_twitter_link.label",
+        "placeholder": "t:sections.social-media.settings.social_twitter_link.info"
+      },
+      {
+        "type": "text",
+        "id": "social_snapchat_link",
+        "label": "t:sections.social-media.settings.social_snapchat_link.label",
+        "placeholder": "t:sections.social-media.settings.social_snapchat_link.info"
+      },
+      {
+        "type": "text",
+        "id": "social_pinterest_link",
+        "label": "t:sections.social-media.settings.social_pinterest_link.label",
+        "placeholder": "t:sections.social-media.settings.social_pinterest_link.info"
+      },
+      {
+        "type": "text",
+        "id": "social_tumblr_link",
+        "label": "t:sections.social-media.settings.social_tumblr_link.label",
+        "placeholder": "t:sections.social-media.settings.social_tumblr_link.info"
+      },
+      {
+        "type": "text",
+        "id": "social_vimeo_link",
+        "label": "t:sections.social-media.settings.social_vimeo_link.label",
+        "placeholder": "t:sections.social-media.settings.social_vimeo_link.info"
+      }
+    ]
+  },
+  {
+    "name": "Discount",
+    "settings": [
+      {
+        "type": "number",
+        "id": "discount_percentage",
+        "label": "Discount Percentage",
+        "default": 0
+      }
+    ]
+  },
+]

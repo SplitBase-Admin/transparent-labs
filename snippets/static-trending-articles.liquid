@@ -1,0 +1,48 @@
+{%- assign trending_article_1 = section.settings.trending_article_1 -%}
+{%- assign trending_article_2 = section.settings.trending_article_2 -%}
+{%- assign trending_article_3 = section.settings.trending_article_3 -%}
+
+{%- if trending_article_1 != blank -%}
+  <div class="trending__article-card-wrapper">
+    <a href="{{ trending_article_1.url }}" class="trending__article-card">
+      <div class="trending__article-card--image">
+        <img src="{{ trending_article_1.image | img_url: 'master' }}" alt="{{ trending_article_1.image.alt }}" width="{{ trending_article_1.image.width }}" height="{{ trending_article_1.image.height }}">
+      </div>
+      <div class="trending__article-card--info">
+        <h3 class="trending_article--title">{{ trending_article_1.title }}</h3>
+        <div class="trending_article--description">{{ trending_article_1.excerpt }}</div>
+        <p class="trending_article--author">Written By: {{ trending_article_1.author }}</p>
+      </div>
+    </a>
+  </div>
+{%- endif -%}
+
+{%- if trending_article_2 != blank -%}
+  <div class="trending__article-card-wrapper">
+    <a href="{{ trending_article_2.url }}" class="trending__article-card">
+      <div class="trending__article-card--image">
+        <img src="{{ trending_article_2.image | img_url: 'master' }}" alt="{{ trending_article_2.image.alt }}" width="{{ trending_article_2.image.width }}" height="{{ trending_article_2.image.height }}">
+      </div>
+      <div class="trending__article-card--info">
+        <h3 class="trending_article--title">{{ trending_article_2.title }}</h3>
+        <div class="trending_article--description">{{ trending_article_2.excerpt }}</div>
+        <p class="trending_article--author">Written By: {{ trending_article_2.author }}</p>
+      </div>
+    </a>
+  </div>
+{%- endif -%}
+
+{%- if trending_article_2 != blank -%}
+  <div class="trending__article-card-wrapper">
+    <a href="{{ trending_article_3.url }}" class="trending__article-card">
+      <div class="trending__article-card--image">
+        <img src="{{ trending_article_3.image | img_url: 'master' }}" alt="{{ trending_article_3.image.alt }}" width="{{ trending_article_3.image.width }}" height="{{ trending_article_3.image.height }}">
+      </div>
+      <div class="trending__article-card--info">
+        <h3 class="trending_article--title">{{ trending_article_3.title }}</h3>
+        <div class="trending_article--description">{{ trending_article_3.excerpt }}</div>
+        <p class="trending_article--author">Written By: {{ trending_article_3.author }}</p>
+      </div>
+    </a>
+  </div>
+{%- endif -%}

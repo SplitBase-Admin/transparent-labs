@@ -1,0 +1,125 @@
+<div class="xt-protein-raise">
+  <div class="xgen-inner">
+    <div class="wraper">
+      {% if section.settings.heading %}
+        <h2 class="title">{{ section.settings.heading }}</h2>
+      {% endif %}
+      <div class="video">
+        <video controls  autoplay loop playsinline mute  >
+          <source src="{{ section.settings.video }}" type="video/mp4">
+          <source src="{{ section.settings.video }}" type="video/ogg">
+          Your browser does not support the video tag.
+        </video>
+      </div>
+      <div class="colleps">
+        {% if section.settings.heading %}
+          <h2 class="title">{{ section.settings.heading }}</h2>
+        {% endif %}
+        <ul id="accordion" class="accordion">
+          {% for block in section.blocks %}
+          <li class="{% if forloop.last %}open{% endif %}">
+            <div class="flink">{{ block.settings.question }}</div>
+            <ul class="submenu">
+              <p>
+                {{ block.settings.answer | newline_to_br }}
+              </p>
+            </ul>
+          </li>
+          {% endfor %}
+        </ul>
+
+        {% if section.settings.btn_text !=blank %}
+          <a href="{{ section.settings.btn_url }}" class="btn">{{ section.settings.btn_text }}</a>
+        {% endif %}
+        
+      </div>
+    </div>
+  </div>
+</div>
+
+
+{% schema %}
+  {
+    "name": "Protein Raise",
+    "settings": [
+      {
+        "type":"text",
+        "id":"heading",
+        "label":"Heading"
+      },
+      {
+        "type":"url",
+        "id":"video",
+        "label":"Video url"
+        
+      },
+      {
+        "type":"text",
+        "id":"btn_text",
+        "label":"Button Label"
+        
+      },
+      {
+        "type":"url",
+        "id":"btn_url",
+        "label":"Button Link"
+        
+      }
+    ],
+	"blocks":[
+      {
+        "name":"FAQ",
+        "type":"text",
+        "settings":[
+          {
+            "type":"text",
+            "id":"question",
+            "label":"Question"
+          },
+          {
+            "type":"richtext",
+            "id":"answer",
+            "label":"Answer"
+          }
+        ]
+      }
+	],
+    "presets":[
+      {
+        "name": "Protein Raise"
+      }
+    ]
+  }
+{% endschema %}
+
+{% stylesheet %}
+{% endstylesheet %}
+
+{% javascript %}
+  $(function() {
+    var Accordion = function(el, multiple) {
+    this.el = el || {};
+    this.multiple = multiple || false;
+  
+    // Variables privadas
+    var links = this.el.find('.flink');
+    // Evento
+    links.on('click', {el: this.el, multiple: this.multiple}, this.dropdown)
+    }
+  
+    Accordion.prototype.dropdown = function(e) {
+    var $el = e.data.el;
+    $this = $(this),
+    $next = $this.next();
+  
+    $next.slideToggle();
+    $this.parent().toggleClass('open');
+  
+    if (!e.data.multiple) {
+    $el.find('.submenu').not($next).slideUp().parent().removeClass('open');
+    };
+    }	
+  
+    var accordion = new Accordion($('.accordion'), false);
+  });
+{% endjavascript %}

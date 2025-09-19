@@ -1,0 +1,69 @@
+<div class="bg-gray-300">
+  <div class="pb-12 px-4 lg:max-w-7xl lg:mx-auto">
+    <div class="flex items-center">
+      <h2 class="font-bold text-blue-500 text-xl md:border-l-8 md:border-blue-500 md:pl-2 md:text-2xl">
+        FEATURED
+      </h2>
+
+      <h3 class="font-semibold text-gray-500 ml-4">
+        What&apos;s New
+      </h3>
+    </div>
+
+    <div class="mt-4 overflow-auto space-x-4 whitespace-nowrap lg:gap-4 lg:grid lg:grid-cols-3 lg:overflow-hidden lg:whitespace-normal xl:gap-8">
+      {% for block in section.blocks %}
+        {% if block.type == 'block' %}
+          <div class="inline-block relative max-w-xs lg:max-w-full">
+            {% render 'lazy-image',
+              height: block.settings.image.height,
+              image: block.settings.image,
+              image_class: 'rounded-md',
+              width: block.settings.image.width,
+            %}
+
+            <div class="absolute bg-gray-600 bg-opacity-75 bottom-0 left-0 px-4 py-2 right-0 rounded-b-md text-white whitespace-normal z-10 lg:py-3">
+              <div class="flex items-center">
+                <div class="flex-1 pr-2">
+                  {{ block.settings.text }}
+                </div>
+
+                <a class="bg-blue-400 font-light rounded-xl px-4 py-2 text-sm transition-opacity hover:opacity-70" href="{{ block.settings.url }}">
+                  Shop
+                </a>
+              </div>
+            </div>
+          </div>
+        {% endif %}
+      {% endfor %}
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "blocks": [
+    {
+      "name": "Block",
+      "settings": [
+        {
+          "id": "image",
+          "label": "Image",
+          "type": "image_picker"
+        },
+        {
+          "id": "text",
+          "label": "Text",
+          "type": "html"
+        },
+        {
+          "id": "url",
+          "label": "Shop Link",
+          "type": "url"
+        }
+      ],
+      "type": "block"
+    }
+  ],
+  "name": "Featured"
+}
+{% endschema %}

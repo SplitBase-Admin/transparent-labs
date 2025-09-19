@@ -1,0 +1,8 @@
+.announcement-bar-wrapper {
+  padding: 0.6rem 1rem;
+  min-height: 39px;
+}
+
+.announcement-bar-wrapper p {
+  font-size: 14px;
+}

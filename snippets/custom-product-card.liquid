@@ -1,0 +1,15 @@
+<div class="product-grid-item">
+  <div class="swiper-container product-images-slider">
+    <div class=swiper-wrapper">
+      {%- for media in product.media -%}
+        <div class="product-media-item swiper-slide">{% render 'responsive-image', image: media %}</div>
+      {% endfor %}
+    </div>
+  </div>
+</div>
+
+<div class='jdgm-widget jdgm-preview-badge' data-id='{{ product.id }}'> 
+  {{ product.metafields.judgeme.badge }}
+</div> 
+
+<span class="font-bold text-black">{{ product.metafields.reviews.rating.value }}</span>/5.0

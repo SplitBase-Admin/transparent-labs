@@ -1,0 +1,228 @@
+<link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css"/>
+<!-- Swiper.js JS -->
+<script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+
+{{ 'performance-slider.css' | asset_url | stylesheet_tag }}
+{% style %}
+  #section-{{ section.id }} {
+    --text-color: {{ section.settings.text_color }};
+    --subheading-color: {{ section.settings.subheading_color }};
+  }
+  #section-{{ section.id }} {
+    padding-top: {{ section.settings.mobile_padding_top }}px;
+    padding-bottom: {{ section.settings.mobile_padding_bottom }}px;
+  }
+  @media screen and (min-width: 768px) {
+    #section-{{ section.id }} {
+      padding-top: {{ section.settings.padding_top }}px;
+      padding-bottom: {{ section.settings.padding_bottom }}px;
+    }
+  }
+{% endstyle %}
+{% assign section_main_class = 'performance_partners' %}
+
+<section class="{{ section_main_class }}" id="section-{{ section.id }}">
+  <div class="container">
+    <div class="performance_partners--wrapper">
+      <div class="performance_partners--header">
+        <h2 class="section_heading">{{ section.settings.heading }}</h2>
+        {%- if section.settings.subheading != blank -%}<div class="section_subheading">{{ section.settings.subheading }}</div>{%- endif -%}
+      </div>
+      <div class="performance_partners--slider swiper-container">
+        <div class="performance_partners--slider-wrap swiper-wrapper">
+          {%- for block in section.blocks -%}
+          <div class="performance_partners--slide swiper-slide">
+            <div class="performance_partners--slide-image">
+              {% assign file_name = block.settings.image | split: '/' | last | split: '.' | first | replace: '/', ' ' | replace: '-', ' ' | replace: '_', ' ' %}
+              {% render 'responsive-image-400', image: block.settings.image, image_alt: file_name %}
+            </div>
+            <div class="performance_partners--slide-content">
+              {% if block.settings.text != blank %}
+                <div class="performance_partners--text">{{ block.settings.text }}</div>
+              {% endif %}
+              {% if block.settings.auther_name != blank %}
+                <p class="performance_partners--auther_name">{{ block.settings.auther_name }}</p>
+              {% endif %}
+              {% if block.settings.auther_detail != blank %}
+                <p class="performance_partners--auther_detail">{{ block.settings.auther_detail }}</p>
+              {% endif %}
+            </div>
+          </div>
+          {%- endfor -%}
+        </div>
+        <div class="performance_partners-bottom">
+          <div class="performance_partners-pagination"></div>
+          <!-- Fractional Pagination (Slide Counter) -->
+          <div class="performance_partners-fraction slider-counter-fraction"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<script>
+  window.swiperBreakpointsPerformanceSlider = {
+    991: {
+      slidesPerView: 2.78
+    },
+    1921: {
+      slidesPerView: 3
+    }
+  }
+
+  document.addEventListener("DOMContentLoaded", function () {
+    const swiperPerformance = new Swiper(".performance_partners--slider.swiper-container", {
+      mousewheel: {
+        invert: false, // Normal scrolling behavior
+        sensitivity: 1, // Adjust trackpad/mousewheel sensitivity
+        forceToAxis: true, // Only scroll in the "slide direction"
+      },
+      slidesPerView: 1.2,
+      spaceBetween: 25,
+      loop: true,
+      pagination: {
+        el: ".performance_partners-pagination",
+        clickable: true,
+      },
+      breakpoints: window.swiperBreakpointsPerformanceSlider,
+      on: {
+        init: function () {
+          window.updateFraction(this, '.performance_partners-fraction');
+        },
+        slideChange: function () {
+          window.updateFraction(this, '.performance_partners-fraction');
+        }
+      }
+    });
+
+    swiperPerformance.slides.forEach(el => {
+      el.addEventListener("click", function(e){
+        e.currentTarget.closest(".swiper-container").querySelectorAll(".performance_partners-bottom .swiper-pagination-bullet")[e.currentTarget.dataset.swiperSlideIndex].click();
+      })
+    })
+    
+    window.addEventListener("resize", () => {
+      window.updateFraction(swiperPerformance, '.performance_partners-fraction');
+    });
+  });
+</script>
+{% schema %}
+  {
+    "name": "Index Performance slider",
+    "settings": [
+      {
+        "type": "text",
+        "id": "heading",
+        "label": "Heading",
+        "default": "TL Performance Partners"
+      },
+      {
+        "type": "richtext",
+        "id": "subheading",
+        "label": "Sub heading",
+        "default": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor.</p>"
+      },
+      {
+        "type": "header",
+        "content": "Colors"
+      },
+      {
+        "type": "color",
+        "id": "text_color",
+        "label": "Text",
+        "default": "#111314"
+      },
+      {
+        "type": "color",
+        "id": "subheading_color",
+        "label": "Sub heading",
+        "default": "#676767"
+      },
+      {
+        "type": "header",
+        "content": "Desktop section padding"
+      },
+      {
+        "type": "range",
+        "id": "padding_top",
+        "min": 0,
+        "max": 100,
+        "step": 1,
+        "unit": "px",
+        "label": "Padding top",
+        "default": 36
+      },
+      {
+        "type": "range",
+        "id": "padding_bottom",
+        "min": 0,
+        "max": 100,
+        "step": 1,
+        "unit": "px",
+        "label": "Padding bottom",
+        "default": 36
+      },
+      {
+        "type": "header",
+        "content": "Mobile section padding"
+      },
+      {
+        "type": "range",
+        "id": "mobile_padding_top",
+        "min": 0,
+        "max": 100,
+        "step": 1,
+        "unit": "px",
+        "label": "Padding top",
+        "default": 36
+      },
+      {
+        "type": "range",
+        "id": "mobile_padding_bottom",
+        "min": 0,
+        "max": 100,
+        "step": 1,
+        "unit": "px",
+        "label": "Padding bottom",
+        "default": 36
+      }
+    ],
+    "blocks": [
+      {
+        "type": "Text",
+        "name": "Slide",
+        "settings": [
+          {
+            "type": "image_picker",
+            "id": "image",
+            "label": "Image"
+          },
+          {
+            "type": "richtext",
+            "id": "text",
+            "label": "Text",
+            "default": "<p>“Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.”</p>"
+          },
+          {
+            "type": "text",
+            "id": "auther_name",
+            "label": "Auther name",
+            "default": "Auther name"
+          },
+          {
+            "type": "text",
+            "id": "auther_detail",
+            "label": "Auther detail",
+            "default": "Auther detail"
+          }
+        ]
+      }
+    ],
+    "presets": [
+      {
+        "name": "Index Performance slider"
+      }
+    ]
+  }
+{% endschema %}

@@ -1,0 +1,66 @@
+
+{% if section.settings.title != blank %}
+    <div class="asseenon">{{ section.settings.title }}</div>  
+{% endif %}
+<section class="TL_RTB">
+  
+  <div class="TL_RTB_inner">
+    {% for block in section.blocks %}	
+     <div class="TL_RTB_box">
+       {% if block.settings.icon != blank %}
+       <div class="TL_RTB_box_icon">
+           <img src="{{ block.settings.icon | img_url: 'master' }}" alt="{% if block.settings.icon.alt %}{{ block.settings.icon.alt }}{% else %}RTB Box Icon{% endif %}" loading="lazy">
+       </div>
+       {% endif %}
+      {% if block.settings.icon_with_text != blank %}
+        <div class="TL_RTB_text">
+           <h4>{{ block.settings.icon_with_text }}</h4>
+        </div>
+      {% endif %}
+       
+     </div>
+    {% endfor %}
+  </div>
+</section>
+
+{% schema %}
+{
+  "blocks": [
+    {
+      "name": "Collection imagewithtext",
+      "settings": [
+        {
+          "id": "icon",
+          "label": "icon",
+          "type": "image_picker"
+        },
+        {
+            "id": "icon_with_text",
+            "label": "Text",
+            "type": "text",
+            "default":"Clinically Dosed Ingredients"
+        }
+      ],
+      "type": "Collection_list"
+    }
+  ],
+  "name": "Collection_imagewithtex",
+  "settings": [
+    {
+      "content": "Collection imagewithtex",
+      "type": "header"
+    },
+    {
+        "id": "title",
+        "label": "Section text",
+        "type": "text",
+        "default":"AS SEEN ON"
+    }
+  ],
+  "presets":[
+      {
+        "name": "Collection imagewithtex"
+      }
+    ]
+}
+{% endschema %}

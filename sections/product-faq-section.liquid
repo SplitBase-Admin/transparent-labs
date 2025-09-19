@@ -1,0 +1,96 @@
+{{ 'faq-section.css' | asset_url | stylesheet_tag }}
+{{ 'product-faq-section.css' | asset_url | stylesheet_tag }}
+
+{% style %}
+  #section-{{ section.id }} {
+    background:{{ section.settings.bg_color }};
+  }
+
+  #section-{{ section.id }} .faq-section-title,
+  #section-{{ section.id }} .faq-section-question {
+    color: {{ section.settings.title_color }};
+  }s
+
+  #section-{{ section.id }} .faq-section-answer {
+    color: {{ section.settings.text_color }};
+  }
+  
+{% endstyle %}
+
+{% assign product_faqs = product.metafields.custom.new_produc_faqs.value %}
+
+{% if product_faqs %}
+  <div class="faq-section" id="section-{{ section.id }}">
+  <div class="container">
+    {%- if section.settings.title != blank -%}
+      <div class="faq-section-title">{{ section.settings.title }}</div>
+    {%- endif -%}
+    
+    <div class="faq-section-inner small-hide">
+      {% for faq in product_faqs %}     
+        <div class="faq-section-item">
+          <h3 class="faq-section-question">
+            {{ faq.question }}
+          </h3>
+          <div class="faq-section-answer">{{ faq.answer | metafield_tag }}</div>  
+        </div>
+      {% endfor %}
+    </div>
+    
+    <div class="faq-section-mobile medium-hide large-up-hide">
+        {% for faq in product_faqs %}     
+          <div class="faq-section-item">
+            <h3 class="faq-section-question">
+              {{ faq.question }}
+              <span class="faq-accordion-icons">
+                <svg class="faq-accordion-plus-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="17" viewBox="0 0 16 17" fill="none">
+                  <path d="M0 9.4523V8.22153H7.38462V0.836914H8.61539V8.22153H16V9.4523H8.61539V16.8369H7.38462V9.4523H0Z" fill="#111314"></path>
+                </svg>
+                <svg class="faq-accordion-minus-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                  <path d="M20.5 12H3.5" stroke="white" stroke-linecap="round"></path>
+                </svg>
+              </span>
+            </h3>
+            <div class="faq-section-answer">{{ faq.answer | metafield_tag }}</div>  
+          </div>
+        {% endfor %}
+    </div>
+  </div>
+</div>
+{% endif %}
+
+{% schema %}
+  {
+    "name": "New Product Faq",
+    "settings": [
+      {
+        "type": "richtext",
+        "id": "title",
+        "label": "Title"
+      },
+      {
+        "type": "color",
+        "id": "bg_color",
+        "label": "Background Color",
+        "default": "#ffffff"
+      },
+      {
+        "type": "color",
+        "id": "title_color",
+        "label": "Title Color",
+        "default": "#111314"
+      },
+      {
+        "type": "color",
+        "id": "text_color",
+        "label": "Text Color",
+        "default": "#676767"
+      }
+    ],
+    "presets": [
+      {
+        "name": "New Product Faq"
+      }
+    ]
+  }
+{% endschema %}

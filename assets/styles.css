@@ -1,0 +1,318 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@font-face {
+  font-family: 'Aftika';
+  font-weight: 200;
+  src: url('Aftika-Extra-Light.otf') format('opentype');
+}
+
+@font-face {
+  font-family: 'Aftika';
+  font-weight: 300;
+  src: url('Aftika-Light.otf') format('opentype');
+}
+
+@font-face {
+  font-family: 'Aftika';
+  font-weight: 400;
+  src: url('Aftika-Regular.otf') format('opentype');
+}
+
+@font-face {
+  font-family: 'Aftika';
+  font-weight: 600;
+  src: url('Aftika-SemiBold.otf') format('opentype');
+}
+
+@font-face {
+  font-family: 'Aftika';
+  font-weight: 700;
+  src: url('Aftika-Bold.otf') format('opentype');
+}
+
+@font-face {
+  font-family: 'Aftika';
+  font-weight: 800;
+  src: url('Aftika-ExtraBold.otf') format('opentype');
+}
+
+@font-face {
+  font-family: 'Aftika';
+  font-weight: 900;
+  src: url('Aftika-Black.otf') format('opentype');
+}
+
+body {
+  grid-template-rows: auto auto 1fr auto;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-weight: 700;
+}
+
+/* Hide selectors on quantity input */
+input[type="number"].hide-selectors::-webkit-inner-spin-button,
+input[type="number"].hide-selectors::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.blur-up {
+  filter: blur(5px);
+  transition: filter 400ms;
+}
+
+.blur-up.lazyloaded {
+  filter: blur(0);
+}
+
+.page-content a,
+.shopify-policy__container a {
+  @apply text-orange-400 transition-opacity hover:opacity-75;
+}
+
+.page-content h2 {
+  @apply text-lg md:text-xl lg:text-2xl;
+}
+
+.page-content img {
+  @apply max-w-fit;
+}
+
+.page-content ol,
+.shopify-policy__body ol {
+  @apply list-decimal pl-4 space-y-4;
+}
+
+.page-content table tr {
+  @apply flex flex-col w-full sm:table-row;
+}
+
+.page-content table td {
+  @apply border-2 border-gray-300 p-3;
+}
+
+.page-content ul,
+.shopify-policy__body ul {
+  @apply list-disc pl-4 space-y-4;
+}
+
+.pagination-bars-active {
+  background: #ff5d0d;
+  width: 2rem;
+}
+
+.pagination-bars-active--blue {
+  background: #132836;
+}
+
+.product-option-radio:checked + label {
+  @apply bg-blue-light text-white;
+}
+
+.product-option-radio:checked + label svg {
+  @apply block;
+}
+
+.swiper-slide {
+  height: 100% !important;
+}
+
+.radio:checked + label {
+  @apply bg-blue-400 text-white;
+}
+
+.rc-container {
+  margin-bottom: 16px !important;
+}
+
+.rc-option--active {
+  border-color: #41B5E8 !important;
+}
+
+.rc-option__onetime {
+  @apply border-b-2 border-x-2 border-gray-400 border-opacity-20 rounded-b-xl transition-colors;
+}
+
+.rc-option__price	{
+  @apply ml-auto text-blue-400 text-lg;
+  font-weight: 600 !important;
+  margin-right: 0 !important;
+  order: 3 !important;
+}
+
+.rc-option__subsave {
+  @apply border-t-2 border-x-2 border-gray-400 border-opacity-20 rounded-t-xl transition-colors;
+}
+
+.rc_popup {
+  display: none !important;
+}
+
+.rc-radio {
+  padding: 12px 16px !important;
+}
+
+.rc-radio:not(:first-child) {
+  border-top: 2px solid #41B5E8 !important;
+}
+
+.rc-radio__input {
+  @apply border-2 border-gray-400 border-opacity-50;
+}
+
+.rc-radio__input:checked {
+  @apply bg-blue-400 ring-blue-400 active:bg-blue-400 focus:bg-blue-400 hover:bg-blue-400;
+}
+
+.rc-radio__label {
+  @apply items-center text-sm w-full;
+  margin-left: 12px !important;
+}
+
+.rc-radio-group__options {
+  @apply bg-white;
+  border: none !important;
+  border-radius: 12px !important;
+}
+
+.rc-selling-plans__label {
+  @apply font-semibold text-blue-500 text-sm sm:text-base;
+}
+
+.responsive-svg-wrapper svg {
+  height: 100%;
+  width: 100%;
+}
+
+.sezzle-checkout-button-wrapper .sezzle-button-text {
+  text-align: right !important;
+}
+
+@media screen and (max-width: 640px) {
+  .sezzle-checkout-button-wrapper .sezzle-button-text {
+    text-align: center !important;
+  }
+}
+
+.sezzle-checkout-button-wrapper .sezzle-button-text .sezzle-payment-amount {
+  font-size: 15px !important;
+  font-weight: 700 !important;
+}
+
+.sezzle-shopify-info-button {
+  margin-top: 8px !important;
+}
+
+.shopify-policy__container {
+  @apply max-w-6xl mx-auto my-8 px-4 text-blue-500;
+}
+
+.shopify-policy__body h1 {
+  @apply mb-8;
+}
+
+.shopify-policy__body h3 {
+  @apply my-4;
+}
+
+.shopify-policy__body .rte {
+  @apply space-y-4;
+}
+
+.shopify-policy__title {
+  @apply mb-8 text-center text-xl md:text-2xl lg:text-3xl;
+}
+
+.swiper-button-disabled {
+  @apply opacity-70;
+}
+
+@layer components {
+  .button {
+    @apply bg-blue-400 py-4 rounded-xl text-sm text-white transition-opacity hover:opacity-75;
+  }
+
+  .button-alt {
+    @apply bg-transparent border-2 border-blue-400 py-4 rounded-xl text-blue-400 text-sm transition-opacity hover:opacity-75;
+  }
+
+  .quantity-button {
+    @apply bg-white border-2 border-gray-400 border-opacity-20 flex h-10 items-center justify-center p-2 rounded-xl transition-opacity w-10 hover:opacity-75;
+  }
+
+  .select {
+    @apply bg-white border-2 border-gray-400 border-opacity-20 flex items-center px-6 py-4 rounded-xl text-blue-500 text-left text-sm w-full;
+  }
+
+  .select-list {
+    @apply absolute bg-white border-2 border-blue-400 border-opacity-50 left-0 p-2 right-0 rounded-xl shadow-lg text-sm transition-opacity z-20;
+    top: calc(100% + 0.5rem);
+  }
+
+  .select-option {
+    @apply cursor-pointer font-normal p-4 rounded-md text-gray-500 transition-colors hover:bg-blue-400 hover:bg-opacity-50 hover:text-black;
+  }
+
+  .select-option--active {
+    @apply bg-blue-400 bg-opacity-50 text-black;
+  }
+
+  .tab-header {
+    @apply bg-transparent px-2 py-2 rounded-xl text-blue-500 text-sm transition-colors sm:px-4 sm:text-base;
+  }
+
+  .tab-header--active {
+    @apply bg-blue-400 text-white;
+  }
+
+  .text-input {
+    @apply border-2 border-gray-400 border-opacity-20 flex-1 outline-none p-4 rounded-xl text-sm w-full focus:border-orange-400 focus:ring-0;
+  }
+}
+
+@layer utilities {
+  .center-tags li:first-child {
+    @apply ml-auto;
+  }
+
+  .center-tags li:last-child {
+    @apply mr-auto;
+  }
+
+  .sticky-nav-highlight {
+    @apply border-orange-500 text-orange-500;
+  }
+
+  .rich-text {
+    @apply space-y-4;
+  }
+
+  .rich-text a {
+    @apply text-orange-500;
+  }
+
+  .rich-text blockquote {
+    @apply border-l-4 border-blue-500 border-opacity-50 italic pl-3 py-1;
+  }
+
+  .rich-text img {
+    @apply rounded-md;
+  }
+
+  .rich-text ol {
+    @apply list-decimal pl-4 space-y-1;
+  }
+
+  .rich-text ul {
+    @apply list-disc pl-4 space-y-1;
+  }
+}
+
+
+
+ 
+
+

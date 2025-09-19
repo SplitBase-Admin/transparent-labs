@@ -1,0 +1,59 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "new_breadcrumb_aXfjDq": {
+      "type": "new-breadcrumb",
+      "disabled": true,
+      "settings": {}
+    },
+    "main": {
+      "type": "main-page-certificate-of-analysis",
+      "blocks": {
+        "block_APqijw": {
+          "type": "block",
+          "settings": {
+            "title": "Certificate of Analysis",
+            "description": "Confirms a product’s quality and purity by detailing test results from an accredited lab. "
+          }
+        },
+        "block_VfJyth": {
+          "type": "block",
+          "settings": {
+            "title": "Ingredient Verification Test",
+            "description": "Confirms the identity and dose of an ingredient by verifying it matches the label through specialized analytical testing."
+          }
+        },
+        "block_hgwebE": {
+          "type": "block",
+          "settings": {
+            "title": "Gluten Test",
+            "description": "We test for the presence of gluten and ensure it falls below the limit of detection."
+          }
+        }
+      },
+      "block_order": [
+        "block_APqijw",
+        "block_VfJyth",
+        "block_hgwebE"
+      ],
+      "settings": {
+        "section_title": "Transparent Labs Third-Party Testing",
+        "section_description": "Enter a product name below to search for its product purity tests (Certificates of Analysis), ingredient verification tests, or gluten tests.",
+        "learn_more_text": "Learn More",
+        "link_url": "#"
+      }
+    }
+  },
+  "order": [
+    "new_breadcrumb_aXfjDq",
+    "main"
+  ]
+}

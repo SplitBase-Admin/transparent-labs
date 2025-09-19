@@ -1,0 +1,399 @@
+{{ 'banner-video.css' | asset_url | stylesheet_tag }}
+
+<div class="video-section" id="section-{{ section.id }}" data-desktop-video="{{ section.settings.mp4_url }}" data-mobile-video="{{ mobile_video_url }}">
+  {% assign video_type = section.settings.video_type %}
+  {% assign desktop_poster_image = section.settings.poster_image %}
+  {% assign mobile_poster_image = section.settings.mobile_poster_image %}
+  {% assign image_alt = section.settings.active_subscribers_text | strip_html %}
+  {% assign mobile_video_url = section.settings.mobile_video_url %}
+  {% assign desktop_video_url = section.settings.mp4_url %}
+
+  <div class="video__wrapper">
+    {% if video_type == 'youtube' %}
+      <div class="video-inner">
+        <iframe
+          src="{{ section.settings.youtube_url | replace: 'watch?v=', 'embed/' }}?autoplay=1&mute=1&playsinline=1"
+          title="YouTube video"
+          allow="autoplay; encrypted-media"
+          allowfullscreen
+          playsinline
+        >
+        </iframe>
+      </div>
+  
+    {% elsif video_type == 'vimeo' %}
+      <div class="video-inner">
+        <iframe
+          src="{{ section.settings.vimeo_url }}?autoplay=1&muted=1&playsinline=1"
+          title="Vimeo video"
+          allow="autoplay; fullscreen; encrypted-media"
+          allowfullscreen
+          playsinline
+        >
+        </iframe>
+      </div>
+  
+    {% elsif video_type == 'mp4' %}
+      <div class="video-inner full-width">
+        {% if desktop_video_url != blank or mobile_video_url != blank %}
+          {% if desktop_video_url != blank %}
+            <video
+              id="desktop-video-{{ section.id }}"
+              autoplay
+              muted
+              loop
+              playsinline
+              {% if desktop_poster_image != blank %}poster="{{ desktop_poster_image | img_url: 'master' }}"{% endif %}
+              class="desktop-video {% if mobile_video_url == blank %}show-on-mobile{% endif %}"
+              preload="metadata"
+            >
+              <source data-src="{{ desktop_video_url }}" type="video/mp4">
+              Your browser does not support the video tag.
+            </video>
+          {% endif %}
+          
+          {% if mobile_video_url != blank %}
+            <video
+              id="mobile-video-{{ section.id }}"
+              autoplay
+              muted
+              loop
+              playsinline
+              {% if mobile_poster_image != blank %}
+                poster="{{ mobile_poster_image | img_url: 'master' }}"
+              {% elsif desktop_poster_image != blank %}
+                poster="{{ desktop_poster_image | img_url: 'master' }}"
+              {% endif %}
+              class="mobile-video"
+              preload="metadata"
+            >
+              <source data-src="{{ mobile_video_url }}" type="video/mp4">
+              Your browser does not support the video tag.
+            </video>
+          {% endif %}
+        {% else %}
+          {% if desktop_poster_image != blank %}
+            <div class="fallback-image">
+              <img src="{{ desktop_poster_image | img_url: 'master' }}" alt="{{ image_alt }}" loading="lazy">
+            </div>
+          {% else %}
+            <p class="no-media-message">Please configure video or poster image in section settings.</p>
+          {% endif %}
+        {% endif %}
+      </div>
+    {% else %}
+      <p>No video available. Please configure the section settings.</p>
+    {% endif %}
+
+    <div class="active-subscribers-wrapper">
+      <div class="active-subscribers medium-hide large-up-hide">
+        
+        {% render 'responsive-image', image: section.settings.active_subscribers_image, image_alt: image_alt %}
+        {% if section.settings.active_subscribers_text != blank %}
+          <div class="active-subscribers-count">{{ section.settings.active_subscribers_text }}</div>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+
+  <div class="video-content-wrapper container">
+    <div class="content__wrapper">
+      <div class="active-subscribers small-hide">
+        {% render 'responsive-image', image: section.settings.active_subscribers_image, image_alt: image_alt %}
+        {% if section.settings.active_subscribers_text != blank %}
+          <div class="active-subscribers-count">{{ section.settings.active_subscribers_text }}</div>
+        {% endif %}
+      </div>
+      {% if section.settings.heading != blank %}
+        <h2 class="h1">{{ section.settings.heading }}</h2>
+      {% endif %}
+      {% if section.settings.text != blank %}
+        <div class="rte">{{ section.settings.text }}</div>
+      {% endif %}
+    </div>
+    {% if section.settings.first_button_url != blank or section.settings.second_button_url != blank %}
+      <div class="button__wrapper">
+        {% if section.settings.first_button_url != blank %}
+          <a href="{{ section.settings.first_button_url }}" class="button white-button small-hide">{{ section.settings.first_button_text }} {% render 'button-arrow-right' %}</a>
+          <a href="{{ section.settings.first_button_url }}" class="button black-button medium-hide large-up-hide">{{ section.settings.first_button_text }} {% render 'button-arrow-right' %}</a>
+        {% endif %}
+        {% if section.settings.second_button_url != blank %}
+          <a href="{{ section.settings.second_button_url }}" class="button outlined-white-button small-hide second-button">{{ section.settings.second_button_text }}</a>
+          <a href="{{ section.settings.second_button_url }}" class="button outlined-black-button medium-hide large-up-hide second-button">{{ section.settings.second_button_text }}</a>
+        {% endif %}
+      </div>
+    {% endif %}
+  </div>
+</div>
+
+<style>
+
+  #section-{{ section.id }} .video-content-wrapper .content__wrapper * {
+    color: {{ section.settings.content_color }};
+  }
+
+  @media (max-width: 767px) {
+    #section-{{ section.id }} .video-content-wrapper .content__wrapper * {
+      color: {{ section.settings.content_color_mobile }};
+    }
+  
+    #section-{{ section.id }} .video-content-wrapper {
+      background: {{ section.settings.content_bg_mobile }};
+    }
+  }
+
+</style>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    const section = document.getElementById('section-{{ section.id }}');
+    if (!section) return;
+
+    const desktopVideo = document.getElementById('desktop-video-{{ section.id }}');
+    const mobileVideo = document.getElementById('mobile-video-{{ section.id }}');
+    
+    // Function to capture first frame as poster if no poster image
+    function captureFirstFrame(video) {
+      if (!video.hasAttribute('poster')) {
+        // Create a loading state
+        video.classList.add('loading');
+        
+        // Load metadata only to get the first frame
+        video.addEventListener('loadedmetadata', function() {
+          // Set current time to 0 to ensure we get the first frame
+          video.currentTime = 0;
+        });
+        
+        // Once we have a frame, capture it
+        video.addEventListener('loadeddata', function() {
+          try {
+            // Create a canvas element
+            const canvas = document.createElement('canvas');
+            canvas.width = video.videoWidth;
+            canvas.height = video.videoHeight;
+            
+            // Draw the first frame
+            const ctx = canvas.getContext('2d');
+            ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+            
+            // Use the canvas as poster
+            video.setAttribute('poster', canvas.toDataURL('image/jpeg'));
+            
+            // Remove loading state
+            video.classList.remove('loading');
+          } catch (e) {
+            console.log('Error capturing first frame:', e);
+            // Remove loading state even if error occurs
+            video.classList.remove('loading');
+          }
+        }, { once: true }); // Only run once
+      }
+    }
+
+    function loadAppropriateVideo() {
+      const isMobile = window.innerWidth < 768;
+      
+      if (isMobile) {
+        // Check if mobile video exists
+        if (mobileVideo) {
+          // Load mobile video
+          const mobileSource = mobileVideo.querySelector('source');
+          if (mobileSource && mobileSource.getAttribute('data-src')) {
+            if (!mobileVideo.hasAttribute('poster')) {
+              captureFirstFrame(mobileVideo);
+            }
+            mobileSource.setAttribute('src', mobileSource.getAttribute('data-src'));
+            mobileVideo.load();
+            mobileVideo.play().catch(function(error) {
+              console.log("Video autoplay failed:", error);
+            });
+          }
+        } else if (desktopVideo) {
+          // If no mobile video, load desktop video
+          const desktopSource = desktopVideo.querySelector('source');
+          if (desktopSource && desktopSource.getAttribute('data-src')) {
+            if (!desktopVideo.hasAttribute('poster')) {
+              captureFirstFrame(desktopVideo);
+            }
+            desktopSource.setAttribute('src', desktopSource.getAttribute('data-src'));
+            desktopVideo.load();
+            desktopVideo.play().catch(function(error) {
+              console.log("Video autoplay failed:", error);
+            });
+          }
+        }
+      } else if (desktopVideo) {
+        // Load desktop video for desktop view
+        const desktopSource = desktopVideo.querySelector('source');
+        if (desktopSource && desktopSource.getAttribute('data-src')) {
+          if (!desktopVideo.hasAttribute('poster')) {
+            captureFirstFrame(desktopVideo);
+          }
+          desktopSource.setAttribute('src', desktopSource.getAttribute('data-src'));
+          desktopVideo.load();
+          desktopVideo.play().catch(function(error) {
+            console.log("Video autoplay failed:", error);
+          });
+        }
+      }
+    }
+
+    // Load video on initial page load
+    loadAppropriateVideo();
+
+    // Handle window resize (with debounce)
+    let resizeTimeout;
+    window.addEventListener('resize', function() {
+      clearTimeout(resizeTimeout);
+      resizeTimeout = setTimeout(loadAppropriateVideo, 250);
+    });
+  });
+</script>
+
+{% schema %}
+{
+  "name": "Video Section",
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "active_subscribers_image",
+      "label": "Active Subscribers Image"
+    },
+    {
+      "type": "richtext",
+      "id": "active_subscribers_text",
+      "label": "Active Subscribers Text"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading"
+    },
+    {
+      "type": "text",
+      "id": "text",
+      "label": "Text"
+    },
+    {
+      "type": "header",
+      "content": "First Button"
+    },
+    {
+      "type": "text",
+      "id": "first_button_text",
+      "label": "First Button Text"
+    },
+    {
+      "type": "url",
+      "id": "first_button_url",
+      "label": "First Button URL"
+    },
+    {
+      "type": "header",
+      "content": "Second Button"
+    },
+    {
+      "type": "text",
+      "id": "second_button_text",
+      "label": "Second Button Text"
+    },
+    {
+      "type": "url",
+      "id": "second_button_url",
+      "label": "Second Button URL"
+    },
+    {
+      "type": "header",
+      "content": "Video Settings"
+    },
+    {
+      "type": "select",
+      "id": "video_type",
+      "label": "Video Type",
+      "options": [
+        { "value": "youtube", "label": "YouTube" },
+        { "value": "vimeo", "label": "Vimeo" },
+        { "value": "mp4", "label": "MP4" }
+      ],
+      "default": "youtube"
+    },
+    {
+      "type": "select",
+      "id": "video_height",
+      "label": "Video Height",
+      "options": [
+        { "value": "large", "label": "Large" },
+        { "value": "small", "label": "Small" }
+      ],
+      "default": "large"
+    },
+    {
+      "type": "text",
+      "id": "youtube_url",
+      "label": "YouTube Video URL",
+      "default": "https://www.youtube.com/watch?v=example"
+    },
+    {
+      "type": "text",
+      "id": "vimeo_url",
+      "label": "Vimeo Video URL",
+      "default": "https://vimeo.com/example"
+    },
+    {
+      "type": "header",
+      "content": "MP4 Video Settings"
+    },
+    {
+      "type": "url",
+      "id": "mp4_url",
+      "label": "MP4 Video URL (Desktop)",
+      "info": "Upload your desktop version of the video"
+    },
+    {
+      "type": "url",
+      "id": "mobile_video_url",
+      "label": "MP4 Video URL (Mobile)",
+      "info": "Optional: Upload a mobile-optimized version of your video. If not set, desktop video will be used."
+    },
+    {
+      "type": "image_picker",
+      "id": "poster_image",
+      "label": "Poster Image (Desktop)",
+      "info": "Displayed while the desktop video is loading"
+    },
+    {
+      "type": "image_picker",
+      "id": "mobile_poster_image",
+      "label": "Poster Image (Mobile)",
+      "info": "Optional: Displayed while the mobile video is loading. If not set, desktop poster image will be used."
+    },
+    {
+      "type": "header",
+      "content": "Colors"
+    },
+    {
+      "type": "color",
+      "id": "content_color",
+      "label": "Content Color Desktop",
+      "default": "#fff"
+    },
+    {
+      "type": "color",
+      "id": "content_bg_mobile",
+      "label": "Content Background Mobile",
+      "default": "#F8F9FB"
+    },
+    {
+      "type": "color",
+      "id": "content_color_mobile",
+      "label": "Content Color Mobile",
+      "default": "#111314"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Video Section"
+    }
+  ]
+}
+{% endschema %}

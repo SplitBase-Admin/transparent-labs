@@ -1,0 +1,312 @@
+{% if product.metafields.custom.key_benefit_title_1 != blank %}
+<div class="max-w-7xl mt-12 mx-auto md:mt-16 xl:mt-32">
+  <div class="grid grid-cols-1 xl:gap-8 xl:grid-cols-3">
+    <div class="col-span-2 relative">
+      <h2 class="px-5 text-2xl lg:text-3xl xl:px-4">
+        Key Benefits
+      </h2>
+
+      
+
+      
+      
+      <div class="gap-4 grid grid-flow-col auto-cols-max mt-4 overflow-x-auto px-5 md:gap-8 md:grid-cols-2 md:grid-flow-row xl:mt-8 xl:px-4">
+
+        <div class="w-[320px] md:w-full">
+          {% if product.metafields.custom.key_benifit_imge_1 != blank %}
+            {% assign image = product.metafields.custom.key_benifit_imge_1 | img_url: 'master'  %}
+            <div>
+              <lazy-image>
+                <div class="relative">
+                    <img class="relative z-0 opacity-0" data-placeholder="" height="200" loading="lazy" src="{{image }}" width="400" alt="{{ image.alt }}" loading="lazy">
+                    <img alt="{{ image.alt }}" class="absolute h-full inset-0 opacity-100 transition-opacity w-full z-10" data-src="{{image }}" loading="lazy">
+                </div>
+              </lazy-image>
+            </div>
+          
+          {% endif %}
+            <div class="mt-4">
+              {% if product.metafields.custom.key_benefit_title_1 != blank %}
+                <p class="font-bold text-xl lg:text-2xl">
+                  {{ product.metafields.custom.key_benefit_title_1 }}
+                </p>
+              {% endif %}
+              {% if product.metafields.custom.key_benefit_description_1 != blank %}
+                <p class="mt-4 text-gray-500">
+                 {{ product.metafields.custom.key_benefit_description_1 }}
+                </p>
+              {% endif %}
+          </div>
+        </div>
+        <div class="w-[320px] md:w-full">
+          {% if product.metafields.custom.key_benifit_imge_2 != blank %}
+            {% assign image = product.metafields.custom.key_benifit_imge_2 | img_url: 'master'  %}
+            
+            <div>
+              <lazy-image>
+                <div class="relative">
+                    <img class="relative z-0 opacity-0" data-placeholder="" height="200" loading="lazy" src="{{image }}" width="400" alt="{{ image.alt }}" loading="lazy">
+                    <img class="absolute h-full inset-0 opacity-100 transition-opacity w-full z-10" data-src="{{image }}" alt="{{ image.alt }}" loading="lazy">
+                </div>
+              </lazy-image>
+            </div>
+          {% endif %}
+            <div class="mt-4">
+              {% if product.metafields.custom.key_benefit_title_2 != blank %}
+                <p class="font-bold text-xl lg:text-2xl">
+                  {{ product.metafields.custom.key_benefit_title_2 }}
+                </p>
+              {% endif %}
+              {% if product.metafields.custom.key_benefit_description_2 != blank %}
+                <p class="mt-4 text-gray-500">
+                 {{ product.metafields.custom.key_benefit_description_2 }}
+                </p>
+              {% endif %}
+          </div>
+        </div>
+        <div class="w-[320px] md:w-full">
+          {% if product.metafields.custom.key_benifit_imge_3 != blank %}
+            {% assign image = product.metafields.custom.key_benifit_imge_3 | img_url: 'master'  %}
+            
+            <div>
+              <lazy-image>
+                <div class="relative">
+                    <img class="relative z-0 opacity-0" data-placeholder="" height="200" loading="lazy" src="{{image }}" width="400" alt="{{ image.alt }}" loading="lazy">
+                    <img class="absolute h-full inset-0 opacity-100 transition-opacity w-full z-10" data-src="{{image }}" alt="{{ image.alt }}" loading="lazy">
+                </div>
+              </lazy-image>
+            </div>
+          {% endif %}
+            <div class="mt-4">
+              {% if product.metafields.custom.key_benefit_title_3 != blank %}
+                <p class="font-bold text-xl lg:text-2xl">
+                  {{ product.metafields.custom.key_benefit_title_3 }}
+                </p>
+              {% endif %}
+              {% if product.metafields.custom.key_benefit_description_3 != blank %}
+                <p class="mt-4 text-gray-500">
+                 {{ product.metafields.custom.key_benefit_description_3 }}
+                </p>
+              {% endif %}
+          </div>
+        </div>
+        <div class="w-[320px] md:w-full">
+          {% if product.metafields.custom.key_benifit_imge_4 != blank %}
+            {% assign image = product.metafields.custom.key_benifit_imge_4 | img_url: 'master'  %}
+            
+           <div>
+              <lazy-image>
+                <div class="relative">
+                    <img class="relative z-0 opacity-0" data-placeholder="" height="200" loading="lazy" src="{{image }}" width="400" alt="{{ image.alt }}" loading="lazy">
+                    <img class="absolute h-full inset-0 opacity-100 transition-opacity w-full z-10" data-src="{{image }}" alt="{{ image.alt }}" loading="lazy">
+                </div>
+              </lazy-image>
+            </div>
+          {% endif %}
+            <div class="mt-4">
+              {% if product.metafields.custom.key_benefit_title_4 != blank %}
+                <p class="font-bold text-xl lg:text-2xl">
+                  {{ product.metafields.custom.key_benefit_title_4 }}
+                </p>
+              {% endif %}
+              {% if product.metafields.custom.key_benefit_description_4 != blank %}
+                <p class="mt-4 text-gray-500">
+                 {{ product.metafields.custom.key_benefit_description_4 }}
+                </p>
+              {% endif %}
+          </div>
+        </div>
+        
+
+
+<div style="display:none;">
+
+         
+        {% assign  product_handle = product.handle %}
+        {%- for block in section.blocks -%}
+          {%- if block.type == 'benefit' -%}
+              {% assign schema_product = block.settings.product_data %}
+              {% if schema_product.handle == product_handle %}
+                <div  class="w-[320px] md:w-full">
+                  <div src="{{block.settings.image }}">
+                    {%- render 'lazy-image',
+                      crop: 'center',
+                      height: 200,
+                      image: block.settings.image,
+                      width: 400,
+                    -%}
+                  </div>
+    
+                  <div class="mt-4">
+                    <p class="font-bold text-xl lg:text-2xl">
+                      {{ block.settings.title }}
+                    </p>
+    
+                    <p class="mt-4 text-gray-500">
+                      {{ block.settings.description }}
+                    </p>
+                  </div>
+                </div>
+                
+                <div class="w-[320px] md:w-full">
+                  <div>
+                    {%- render 'lazy-image',
+                      crop: 'center',
+                      height: 200,
+                      image: block.settings.image1,
+                      width: 400,
+                    -%}
+                  </div>
+    
+                  <div class="mt-4">
+                    <p class="font-bold text-xl lg:text-2xl">
+                      {{ block.settings.title1 }}
+                    </p>
+    
+                    <p class="mt-4 text-gray-500">
+                      {{ block.settings.description1 }}
+                    </p>
+                  </div>
+                </div>
+                
+                <div class="w-[320px] md:w-full">
+                  <div>
+                    {%- render 'lazy-image',
+                      crop: 'center',
+                      height: 200,
+                      image: block.settings.image2,
+                      width: 400,
+                    -%}
+                  </div>
+    
+                  <div class="mt-4">
+                    <p class="font-bold text-xl lg:text-2xl">
+                      {{ block.settings.title2 }}
+                    </p>
+    
+                    <p class="mt-4 text-gray-500">
+                      {{ block.settings.description2 }}
+                    </p>
+                  </div>
+                </div>
+                
+                <div class="w-[320px] md:w-full">
+                  <div>
+                    {%- render 'lazy-image',
+                      crop: 'center',
+                      height: 200,
+                      image: block.settings.image3,
+                      width: 400,
+                    -%}
+                  </div>
+    
+                  <div class="mt-4">
+                    <p class="font-bold text-xl lg:text-2xl">
+                      {{ block.settings.title3 }}
+                    </p>
+    
+                    <p class="mt-4 text-gray-500">
+                      {{ block.settings.description3 }}
+                    </p>
+                  </div>
+                </div>
+                {% endif %}
+          {%- endif -%}
+        {%- endfor -%} 
+</div>
+        <!-- -->
+      </div>
+    </div>
+
+    <div></div>
+  </div>
+</div>
+  {% endif %}
+
+{% schema %}
+{
+  "blocks": [
+    {
+      "name": "New product Benefit",
+      "settings": [
+        {
+          "type": "product",
+          "id": "product_data",
+          "label": "Select product"
+        },
+        {
+          "id": "image",
+          "label": "Image",
+          "type": "image_picker"
+        },
+        {
+          "id": "title",
+          "label": "Title",
+          "type": "text"
+        },
+        {
+          "id": "description",
+          "label": "Description",
+          "type": "textarea"
+        }
+        ,
+        {
+          "id": "image1",
+          "label": "Image",
+          "type": "image_picker"
+        },
+        {
+          "id": "title1",
+          "label": "Title",
+          "type": "text"
+        },
+        {
+          "id": "description1",
+          "label": "Description",
+          "type": "textarea"
+        }
+        ,
+        {
+          "id": "image2",
+          "label": "Image",
+          "type": "image_picker"
+        },
+        {
+          "id": "title2",
+          "label": "Title",
+          "type": "text"
+        },
+        {
+          "id": "description2",
+          "label": "Description",
+          "type": "textarea"
+        }
+        ,
+        {
+          "id": "image3",
+          "label": "Image",
+          "type": "image_picker"
+        },
+        {
+          "id": "title3",
+          "label": "Title",
+          "type": "text"
+        },
+        {
+          "id": "description3",
+          "label": "Description",
+          "type": "textarea"
+        }
+      ],
+      "type": "benefit"
+    }
+  ],
+  "name": "New Product Benefits",
+  "settings": [],
+	"presets":[
+		{
+			"name": "New Product Benefits"
+		}
+	]
+}
+{% endschema %}

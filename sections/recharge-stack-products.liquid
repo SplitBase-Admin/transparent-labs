@@ -1,0 +1,382 @@
+<style>
+.slick-prev {    left: 25px !important;    z-index: 1;}
+.slick-next {    right: 25px !important;    z-index: 1;}
+.xgen-new-collection .xgen-new-product .xgen-ptitle {margin: 0px 0;}
+.xgen-new-collection .xgen-new-product .button-alt {width: auto;}
+ .xgen-new-collection .xgen-new-product div.xgen-product-img img {    width: 60%;    height: auto;    margin: 10px auto;}
+  .xgen-new-collection .xgen-tagging h2 {        margin: 20px 0;}
+</style>
+
+<div class="flex xgen-new-collection recharge-xgen" id="xgen-new-collection">
+  <div class="flex-1">
+    <div  class="pt-4">
+          <div class="xgen-tagging">
+            {% if section.settings.img != blank %}
+              {% assign image_name = section.settings.img | split: '/' | last | split: '.' | first | replace: '/', ' ' | replace: '-', ' ' | replace: '_', ' ' %}
+              <img src="{{ section.settings.img | img_url: 'master' }}" alt="{% if section.settings.img.alt %}{{ section.settings.img.alt }}{% else %}{{ image_name }}{% endif %}" loading="lazy">
+            {% endif %}
+            {% if section.settings.title != blank %}
+            	<h2>{{ section.settings.title}}</h2>
+            {% endif %}
+            
+            {% if section.settings.subtitle != blank %}
+            	<p>{{ section.settings.subtitle}}</p>
+            {% endif %}
+            
+            <div class="tagging-grid xgenstack-tab">
+              <ul id="tabs-nav">
+              {% for block in section.blocks %}
+              	{% if forloop.first == true %}
+                <li><a   href="#tab_{{forloop.index}}" class="tablinks active" id="protab_{{ forloop.index }}" >{{block.settings.collection_type}}</a></li>
+    			{% else %}
+                <li><a href="#tab_{{forloop.index}}" class="tablinks" id="protab_{{ forloop.index }}">{{block.settings.collection_type}}</a></li>
+  				{% endif %}
+              {% endfor %}
+              </ul>
+            </div>
+          </div>
+      
+      <!--static tagging -->
+      
+      
+      {% for block in section.blocks %}
+      	<div id="tab_{{forloop.index}}" class="xgenstack-tabcontent tab-content">
+          <div class="gap-8 grid grid-cols-1 mb-8 sm:grid-cols-2 lg:grid-cols-4 2xl:grid-cols-4">
+		  {% assign product_1 = block.settings.product_1 | strip %}
+          {% assign product_2 = block.settings.product_2 | strip  %}
+          {% assign product_3 = block.settings.product_3 | strip  %}
+          {% assign product_4 = block.settings.product_4 | strip  %}
+          {% assign product_5 = block.settings.product_5 | strip  %}
+          {% assign product_6 = block.settings.product_6 | strip  %}
+          {% assign product_7 = block.settings.product_7 | strip  %}
+          {% assign product_8 = block.settings.product_8 | strip  %}
+            
+            {% assign p_type1 = block.settings.product_type %}
+            {% assign p_type2= block.settings.product_type_1 %}
+            {% assign p_type3 = block.settings.product_type_2 %}
+            {% assign p_type4 = block.settings.product_type_3 %}
+            {% assign p_type5 = block.settings.product_type_4 %}
+            {% assign p_type6 = block.settings.product_type_5 %}
+            {% assign p_type7 = block.settings.product_type_6 %}
+            {% assign p_type8 = block.settings.product_type_7 %}
+            {% assign discount_text1 = section.settings.discount_month %}
+            {% assign discount_text2 = section.settings.discount_days %}
+            {% assign percent_text =  section.settings.percent_text %}
+            
+          {% if product_1 != blank %}
+            {% assign pure_product = all_products[product_1] %}
+                {% render 'recharge-stack-product-grid' with product: pure_product, block_id: block.id, product_type: p_type1, dis_text_month: discount_text1, dis_text_days: discount_text2, sub_percent_text: percent_text %} 
+          {% endif %}
+        
+          {% if product_2 != blank %}
+            {% assign pure_product = all_products[product_2] %}
+                {% render 'recharge-stack-product-grid' with product: pure_product, block_id: block.id, product_type: p_type1, dis_text_month: discount_text1, dis_text_days: discount_text2, sub_percent_text: percent_text %} 
+          {% endif %}
+          {% if product_3 != blank %}
+            {% assign pure_product = all_products[product_3] %}
+                {% render 'recharge-stack-product-grid' with product: pure_product, block_id: block.id, product_type: p_type1, dis_text_month: discount_text1, dis_text_days: discount_text2, sub_percent_text: percent_text %} 
+          {% endif %}
+          {% if product_4 != blank %}
+          	{% assign pure_product = all_products[product_4] %}
+                {% render 'recharge-stack-product-grid' with product: pure_product, block_id: block.id, product_type: p_type1, dis_text_month: discount_text1, dis_text_days: discount_text2, sub_percent_text: percent_text %} 
+          {% endif %}
+          {% if product_5 != blank %}
+            {% assign pure_product = all_products[product_5] %}
+                {% render 'recharge-stack-product-grid' with product: pure_product, block_id: block.id, product_type: p_type1, dis_text_month: discount_text1, dis_text_days: discount_text2, sub_percent_text: percent_text %} 
+          {% endif %}
+          {% if product_6 != blank %}
+            {% assign pure_product = all_products[product_6] %}
+                {% render 'recharge-stack-product-grid' with product: pure_product, block_id: block.id, product_type: p_type1, dis_text_month: discount_text1, dis_text_days: discount_text2, sub_percent_text: percent_text %} 
+          {% endif %}
+          {% if product_7 != blank %}
+            {% assign pure_product = all_products[product_7] %}
+                {% render 'recharge-stack-product-grid' with product: pure_product, block_id: block.id, product_type: p_type1, dis_text_month: discount_text1, dis_text_days: discount_text2, sub_percent_text: percent_text %} 
+          {% endif %}
+          {% if product_8 != blank %}
+            {% assign pure_product = all_products[product_8] %}
+                {% render 'recharge-stack-product-grid' with product: pure_product, block_id: block.id, product_type: p_type1, dis_text_month: discount_text1, dis_text_days: discount_text2, sub_percent_text: percent_text %} 
+          {% endif %}
+            </div>
+		</div>
+     {% endfor %}
+      
+    </div>
+  </div>
+</div>
+
+<script>
+  
+  var acc = document.getElementsByClassName("accordions");
+      var i;
+      for (i = 0; i < acc.length; i++) {
+        acc[i].addEventListener("click", function() {
+          this.classList.toggle("active");
+          var panel = this.nextElementSibling;;
+          panel.classList.toggle("show");
+//           if (panel.classList.contains === "show") {
+//             panel.classList.remove("hide");
+            
+//           } else {
+//             panel.classList.remove("show");
+//           }
+        });
+      }
+  
+  $('#tabs-nav li:first-child').addClass('active');
+$('.tab-content').hide();
+$('.tab-content:first').show();
+
+// Click function
+$('#tabs-nav li').click(function(){
+  $('#tabs-nav li a').removeClass('active');
+  $(this).find("a").addClass('active');
+  $('.tab-content').hide();
+  
+  var activeTab = $(this).find('a').attr('href');
+  $(activeTab).fadeIn();
+  return false;
+});
+  
+// function openCity(evt, cityName) {
+//   var i, tabcontent, tablinks;
+//   tabcontent = document.getElementsByClassName("xgenstack-tabcontent");
+//   for (i = 0; i < tabcontent.length; i++) {
+//     tabcontent[i].style.display = "none";
+//   }
+//   tablinks = document.getElementsByClassName("tablinks");
+//   for (i = 0; i < tablinks.length; i++) {
+//     tablinks[i].className = tablinks[i].className.replace(" active", "");
+//   }
+//   document.getElementById(cityName).style.display = "block";
+//   evt.currentTarget.className += " active";
+// }
+
+// // Get the element with id="defaultOpen" and click on it
+// document.getElementById("protab_1").click();
+  
+</script>
+
+
+<style>
+  :root {
+    --swiper-navigation-size: 24px;
+    --swiper-theme-color: #41B5E8;
+  }
+</style>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.js"></script>
+<script>
+  
+    var slickSetSelected = function() {
+        var slideTrack = this.$slideTrack,
+            currentSlide = this.currentSlide;
+
+        slideTrack.find('.slick-selected').removeClass('slick-selected');
+        slideTrack.find('[index="' + currentSlide + '"]').addClass('slick-selected');
+    };
+  
+  /*$(".packageslide").slick({
+    dots: false,
+    infinite: false,
+    slidesToShow: 1,
+    slidesToScroll: 1,
+    focusOnSelect: true,
+//     centerMode: true,
+    arrows:true
+  });*/
+  
+  
+  /*$('.packageslide').hide();
+  $('.package-list-wraper>.openslide').click(function (e) {
+        e.preventDefault();
+    	$(this).find('.packageslide').slideToggle(200);
+       // $('.packageslide').slideToggle(200);
+    	//$(this).find('.packageslide').css({"display":"block"});
+    });*/
+  
+//   $('.package-list-wraper>.openslide').click(function (e) {
+//         e.preventDefault();
+//     	$(this).find('.packageslide').toggleClass('show');
+//     });
+  
+</script>
+
+{% schema %}
+  {
+    "name": "Recharge products",
+    "settings": [
+	{
+    	"type":"image_picker",
+        "id":"img",
+        "label":"Select Image"
+	},
+      {
+    	"type":"text",
+        "id":"title",
+        "label":"Section Title"
+	},
+    {
+    	"type":"textarea",
+        "id":"subtitle",
+        "label":"Section Subtitle"
+	},
+	{
+    	"type":"text",
+        "id":"discount_month",
+        "label":"Discount text by month",
+		"default":"Deliver Every Month"
+	},
+	{
+    	"type":"text",
+        "id":"discount_days",
+        "label":"Discount text by days",
+		"default":"Deliver Every 45 days"
+	},
+	{
+    	"type":"text",
+        "id":"percent_text",
+        "label":"Subcription percent Off text",
+		"default":"10% Off"
+	}
+],
+	"blocks":[
+		{
+			"name":"product",
+			"type":"text",
+			"settings":[
+				{
+                    "type":"text",
+                    "id":"collection_type",
+                    "label":"collection type"
+                },
+				{
+                  	"type":"header",
+                  	"content":"product"
+  				},
+				{
+                    "type":"text",
+                    "id":"product_type",
+                    "label":"Product type"
+                },
+				{
+                    "type":"product",
+                    "id":"product_1",
+                    "label":"Select stack product"
+                },
+				{
+                  	"type":"header",
+                  	"content":"product"
+  				},
+				{
+                    "type":"text",
+                    "id":"product_type_1",
+                    "label":"Product type"
+                },
+				{
+                    "type":"product",
+                    "id":"product_2",
+                    "label":"Select stack product"
+                },
+				{
+                  	"type":"header",
+                  	"content":"product"
+  				},
+{
+                    "type":"text",
+                    "id":"product_type_2",
+                    "label":"Product type"
+                },
+				{
+                    "type":"product",
+                    "id":"product_3",
+                    "label":"Select stack product"
+                },
+				{
+                  	"type":"header",
+                  	"content":"product"
+  				},
+{
+                    "type":"text",
+                    "id":"product_type_3",
+                    "label":"Product type"
+                },
+				{
+                    "type":"product",
+                    "id":"product_4",
+                    "label":"Select stack product"
+                },
+				{
+                  	"type":"header",
+                  	"content":"product"
+  				},
+{
+                    "type":"text",
+                    "id":"product_type_4",
+                    "label":"Product type"
+                },
+				{
+                    "type":"product",
+                    "id":"product_5",
+                    "label":"Select stack product"
+                },
+				{
+                  	"type":"header",
+                  	"content":"product"
+  				},
+{
+                    "type":"text",
+                    "id":"product_type_5",
+                    "label":"Product type"
+                },
+				{
+                    "type":"product",
+                    "id":"product_6",
+                    "label":"Select stack product"
+                },
+				{
+                  	"type":"header",
+                  	"content":"product"
+  				},
+{
+                    "type":"text",
+                    "id":"product_type_6",
+                    "label":"Product type"
+                },
+				{
+                    "type":"product",
+                    "id":"product_7",
+                    "label":"Select stack product"
+                },
+				{
+                  	"type":"header",
+                  	"content":"product"
+  				},
+{
+                    "type":"text",
+                    "id":"product_type_7",
+                    "label":"Product type"
+                },
+				{
+                    "type":"product",
+                    "id":"product_8",
+                    "label":"Select stack product"
+                }
+
+			]
+		}
+	],
+	
+	"presets":[
+		{
+			"name": "Recharge products"
+		}
+	]
+  }
+{% endschema %}
+
+
+{% stylesheet %}
+{% endstylesheet %}
+
+{% javascript %}
+{% endjavascript %}

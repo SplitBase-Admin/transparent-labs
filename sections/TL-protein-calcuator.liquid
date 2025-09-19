@@ -1,0 +1,440 @@
+{{ 'multiple-calculators.css' | asset_url | stylesheet_tag }}
+<div class="main">
+  <div class="xgen-inner">
+    <div class="cal-header">
+      {% if section.settings.header_image != blank %}
+        <img src="{{section.settings.header_image | img_url: 'master'}}" alt="section.settings.header_image">
+      {% endif %}
+
+      {% if section.settings.title != blank %}
+        <h3 style>{{ section.settings.title }}</h3>
+      {% endif %}
+
+      {% if section.settings.detail != blank %}
+        <p>{{ section.settings.detail }}</p>
+      {% endif %}
+    </div>
+    <form
+      id="email_signup"
+      class="tlc-form klaviyo_styling klaviyo_gdpr_embed_XeGdeE"
+      action="//manage.kmail-lists.com/subscriptions/subscribe"
+      data-ajax-submit="//manage.kmail-lists.com/ajax/subscriptions/subscribe"
+      method="GET"
+      target="_blank"
+    >
+      <input type="hidden" name="calculator-name" value="protein">
+      <input type="hidden" name="g" value="XeGdeE">
+      <input type="hidden" name="$fields" value="$consent">
+      <input type="hidden" name="$list_fields" value="$consent" X>
+
+      <div style="color:red;font-size:10px;" class="weight_msg"></div>
+      <div class="form-group cominput">
+        <label class="main-label">Weight<super>*</super></label>
+        <div class="input-group">
+          <input type="number" name="weight" id="weight" placeholder="" required min="0">
+          <input type="radio" name="weight-unit" value="lbs" required="" id="weightlbs">
+          <label for="weightlbs" class="label2">lbs</label>
+          <input type="radio" name="weight-unit" value="kg" required="" checked id="weightkg">
+          <label for="weightkg" class="label2">kg</label>
+        </div>
+      </div>
+
+      <div class="form-group mygoal">
+        <!-- add hideshow class to make this option available for womens -->
+        <label class="main-label">My Lifestyle</label>
+        <div class="input-group">
+          <input type="radio" name="Lifestyle" value="Sedentary" checked id="Lifestyleone">
+          <label for="Lifestyleone" class="label2">
+            {% render 'xicon-sedentary' %}
+            <p>
+              Sedentary<br>
+              <span>Spend most of the day sitting ie. Working on computer, no exercise)</span>
+            </p>
+            {% render 'xicon-check' %}
+          </label>
+
+          <input type="radio" name="Lifestyle" value="Moderately Active" id="Lifestyletwo">
+          <label for="Lifestyletwo" class="label2">
+            {% render 'xicon-light-activity' %}
+            <p>
+              Moderately Active <br>
+              <span>Spend a good part of the day on my feet (ie. Teacher, Real Estate)</span>
+            </p>
+            {% render 'xicon-check' %}
+          </label>
+
+          <input type="radio" name="Lifestyle" value="Highly Active" id="Lifestylethree">
+          <label for="Lifestylethree" class="label2">
+            {% render 'xicon-active' %}
+            <p>
+              Highly Active <br>
+              <span>Spend a good part of the day doing physical activites (ie. Waitress, UPS Driver)</span>
+            </p>
+            {% render 'xicon-check' %}
+          </label>
+        </div>
+      </div>
+
+      <div class="form-group mygoal">
+        <!-- add hideshow class to make this option available for womens -->
+        <label class="main-label">My Goal</label>
+        <div class="input-group">
+          <input type="radio" name="Goal" value="Weight Loss" checked id="goalone"
+          ><label for="goalone" class="label2">
+            {%- render 'xicon-lose-weight' %} Weight Loss {% render 'xicon-check' -%}
+          </label>
+          <input type="radio" name="Goal" value="Muscle Maintenance" id="goaltwo"
+          ><label for="goaltwo" class="label2">
+            {%- render 'xicon-get-shredded' %} Muscle Maintenance {% render 'xicon-check' -%}
+          </label>
+          <input type="radio" name="Goal" value="Muscle Gain" id="goalfour"
+          ><label for="goalfour" class="label2">
+            {%- render 'xicon-bulk-up' %} Muscle Gain {% render 'xicon-check' -%}
+          </label>
+        </div>
+      </div>
+
+      <div style="color:red;font-size:10px;" class="email_msg"></div>
+      <div class="form-group email">
+        <label class="main-label">Email Address<super>*</super></label>
+        <div class="input-group">
+          <input type="text" name="email" placeholder="name@example.com" id="email">
+        </div>
+      </div>
+
+      <div class="form-group agree">
+        <div class="input-group">
+          <input type="checkbox" name="term[]" id="chkboxone"
+          ><label for="chkboxone" class="label2"
+            >I understand that the results provided by this calculator are estimations based on scientific and clinical
+            data and are not intended to replace advice from a qualified healthcare professional. Always consult with a
+            physician or dietitian before starting a new diet or exercise program.</label
+          >
+        </div>
+      </div>
+      <div class="form-group agree">
+        <div class="input-group">
+          <input type="checkbox" name="term[]" id="chkboxtwo" checked
+          ><label for="chkboxtwo" class="label2"
+            >Transparent Labs can occationally send me product recommendations and promotional emails.</label
+          >
+        </div>
+      </div>
+
+      <div class="form-group">
+        <button type="button" id="calorie-calculator-btn" class="bmrbtn" disabled>
+          Calculate
+        </button>
+      </div>
+    </form>
+  </div>
+  <div class="max-w-6xl mx-auto px-4 text-blue-500 bmr-resourse-detail">
+    <div class="rich-text py-8 space-y-4">
+      {% if section.settings.resources_heading != blank %}
+        <h2 class="">{{ section.settings.resources_heading }}</h2>
+      {% endif %}
+      {% if section.settings.resources_detail != blank %}
+        <p class="">{{ section.settings.resources_detail }}</p>
+      {% endif %}
+      {% if section.settings.references_heading != blank %}
+        <h2 class="">{{ section.settings.references_heading }}</h2>
+      {% endif %}
+      {% if section.settings.references_detail != blank %}
+        <p class="">{{ section.settings.references_detail }}</p>
+      {% endif %}
+    </div>
+  </div>
+</div>
+
+<div class="tlresult-wraper tl-protein" style="display:none;">
+  <div class="max-w-7xl mx-auto">
+    <div class="xheading">
+      <h2>Recommended Minimum Daily Protein Intake = <span class="pro-one">[# calculated] grams</span></h2>
+      <p>
+        You’ll notice our protein calculator suggests eating more protein for fat loss than muscle building. This is not
+        an error. As referenced on the previous page, recent studies have shown that athletes and bodybuilders are able
+        to maintain more lean body mass during a weight-loss phase by consuming a larger proportion of calories from
+        protein.
+        <br>
+        During a bulking phase, protein intake doesn’t need to be as high since you will be in an energy surplus —
+        allowing for more calories from carbohydrates and fats.
+      </p>
+    </div>
+    <div class="tlres">
+      <div class="circle-wraper">
+        <div class="circle">
+          <p>
+            <strong class=" recproteinoutput1">80 g</strong> <br>
+            per day
+          </p>
+        </div>
+      </div>
+
+      <div class="out-wraper">
+        <div class="xreslist">
+          <i class="xsedentary"></i>
+          <span class="xname">Recommended Dietary Allowance (RDA)</span>
+          <span class="xcount proteinoutput1">80 g</span>
+        </div>
+
+        <div class="xreslist">
+          <i class="xlight"></i>
+          <span class="xname">Bulking</span>
+          <span class="xcount proteinoutput2">130 g</span>
+        </div>
+
+        <div class="xreslist">
+          <i class="xhigh"></i>
+          <span class="xname">Fat Loss</span>
+          <span class="xcount proteinoutput3">90 g</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="flex xgen-new-collection" id="xgen-new-collection">
+  <div class="flex-1">
+    <div id="protein-output-five" style="display:none;">
+      <div class="xgen-tagging">
+        {% if section.settings.heading != blank %}
+          <h2 class="user_goal">{{ section.settings.heading }}</h2>
+        {% endif %}
+        {% if section.settings.detail != blank %}
+          <p class="goal_subtitle">{{ section.settings.detail }}</p>
+        {% endif %}
+      </div>
+      <div class="gap-8 grid grid-cols-1 mb-8 sm:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-3 3xl:grid-cols-3">
+        {% assign product_list = 'proteinseries-100-grass-fed-whey-protein-isolate,proteinseries-100-grass-fed-casein-protein,protein-series-organic-vegan'
+          | split: ','
+        %}
+        {% for product_handle in product_list %}
+          {% assign product = all_products[product_handle] %}
+          {% render 'single_product_grid' with product: product %}
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+
+  super{
+    color:red;
+  }
+</style>
+<script type="text/javascript" src="//www.klaviyo.com/media/js/public/klaviyo_subscribe.js"></script>
+<script>
+    $(document).ready(function()
+	{
+  		$("#chkboxone").change("click", function () 
+		{
+			if (this.checked)
+            {
+              	$(".bmrbtn").attr('disabled', false);
+            }
+            if (!this.checked)
+            {
+              	$(".bmrbtn").attr('disabled', true);
+            }
+  		});
+	});
+   KlaviyoSubscribe.attachToForms('#email_signup', {
+     success: function ($form) {
+       console.log($form);
+       var formdata = $("#email_signup").serialize();
+       console.log("https://www.transparentlabs.com/pages/calculator-results?"+formdata);
+       window.location.href = "https://www.transparentlabs.com/pages/calculator-results?"+formdata;
+       // `$form` is a jQuery wrapper around the form that was submitted. This makes it easy to get the email address or form fields.
+       var email = $form.find('[name="email"]').val();
+       _learnq.push(['identify', { $email: email }]);
+       _learnq.push(['track', 'Signed Up for Newsletter']);
+     },
+     hide_form_on_success: true,
+     extra_properties: {
+       $source: '$embed',
+       $method_type: "Klaviyo Form",
+       $method_id: 'embed',
+       $consent_version: 'Embed default text'
+     }
+   });
+   
+$(document).ready(function () {
+  // Validate email on change
+  $("#email").on('change', function () {
+    var email = $(this).val();
+    var regex = /^([a-zA-Z0-9_.+-])+\@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,4})+$/; 
+    var email_ex = regex.test(email);
+
+    if (!email_ex) {
+      $(".email_msg").text("Please enter a valid email!");
+      $(".bmrbtn").attr('disabled', true);
+    } else {
+      $(".email_msg").text("");
+      checkAllFields();
+    }
+  });
+
+  // Validate weight on change
+  $("#weight").on('change', function () {
+    var weight = parseFloat($(this).val());
+    if (isNaN(weight) || weight <= 0) {
+      $(".weight_msg").text("Please enter a valid weight greater than 0!");
+      $(".bmrbtn").attr('disabled', true);
+    } else {
+      $(".weight_msg").text("");
+      checkAllFields();
+    }
+  });
+
+  // Add listener for checkbox state change
+  $("#chkboxone").on('change', function () {
+    checkAllFields();
+  });
+
+  // Function to enable BMR button only if all fields are valid
+  function checkAllFields() {
+    var weight = parseFloat($("#weight").val());
+    var email = $("#email").val();
+    var regex = /^([a-zA-Z0-9_.+-])+\@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+    var email_ex = regex.test(email);
+
+    // Enable button only if all fields are valid and checkbox is checked
+    if (!isNaN(weight) && weight > 0 &&
+        email_ex && $("#chkboxone").is(':checked')) {
+      $(".bmrbtn").attr('disabled', false);
+    } else {
+      $(".bmrbtn").attr('disabled', true);
+    }
+  }
+
+  // Calculate protein on button click
+  $("#calorie-calculator-btn").on("click", function () {
+    const weight = parseFloat($("#weight").val());
+    const weightUnit = $("input[name='weight-unit']:checked").val();
+    const goal = $("input[name='Goal']:checked").val();
+    const activity = $("input[name='Lifestyle']:checked").val();
+
+    if (weightUnit === "lbs") {
+      weight = weight / 2.205;
+    }
+
+    let protein = 0;
+    if (goal === "Weight Loss") {
+      protein = weight * 2.65;
+    } else if (goal === "Muscle Maintenance") {
+      protein = weight * 1.5;
+    } else if (goal === "Muscle Gain") {
+      protein = weight * 1.9;
+    }
+
+    if (activity === "Sedentary") {
+      protein *= 0.95;
+    } else if (activity === "Highly Active") {
+      protein *= 1.05;
+    }
+
+    var sedentary_adults_result = 0.95 * weight;
+    var building_muscle_mass_result = 1.5 * weight;
+    var fat_loss_result = 2.65 * weight;
+
+    var fixed_sedentary_adults_result = sedentary_adults_result.toFixed();
+    var fixed_building_muscle_mass_result = building_muscle_mass_result.toFixed();
+    var fixed_fat_loss_result = fat_loss_result.toFixed();
+
+    $(".pro-one").text(protein.toFixed() + "  grams/day");
+    
+    $(".recproteinoutput1").text(protein.toFixed() +" g");
+    $(".proteinoutput1").text(fixed_sedentary_adults_result+ " g");
+    $(".proteinoutput2").text(fixed_building_muscle_mass_result+ " g");
+    $(".proteinoutput3").text(fixed_fat_loss_result+ " g");
+    
+    // Display result
+    $(".results").show();
+    $("#protein_result").text(protein + " grams/day");
+    $(".tl-protein").show('slow');
+    $("#protein-output-five").show();
+    $(".protein-resourse-detail").show();
+
+    const resultsSection = document.querySelector(".tl-protein");
+    const headerOffset = 100; // Adjust this value to match your header's height
+    const elementPosition = resultsSection.getBoundingClientRect().top + window.scrollY;
+    const offsetPosition = elementPosition - headerOffset;
+    
+    window.scrollTo({
+      top: offsetPosition,
+      behavior: "smooth"
+    });
+    
+  });
+
+});
+</script>
+
+{% schema %}
+  {
+    "name": "TL-protein-calcuator",
+    "settings": [
+    	{
+    		"type":"image_picker",
+    		"id":"header_image",
+    		"label":"Choose image"
+    	},
+    	{
+    		"type":"text",
+    		"id":"title",
+    		"label":"Title"
+    	},
+    	{
+    		"type":"textarea",
+    		"id":"detail",
+    		"label":"Subtitle"
+    	},
+    	{
+        	"type":"text",
+            "id":"resources_heading",
+            "label":"Resources heading"
+    	},
+      {
+          "type":"richtext",
+          "id":"resources_detail",
+          "label":"Resources details"
+      },
+      {
+          "type":"text",
+          "id":"references_heading",
+          "label":"References heading"
+       },
+      {
+      	"type":"richtext",
+      	"id":"references_detail",
+      	"label":"References details"
+      },
+      {
+          "type":"url",
+          "id":"page_url",
+          "label":"Choose calculator page"
+      },
+      {
+          "type":"text",
+          "id":"heading",
+          "label":"heading"
+      },
+      {
+          "type":"richtext",
+          "id":"resultdetail",
+          "label":"Details on result page"
+      }
+	],
+"presets":[
+		{
+			"name": "TL-protein-calcuator"
+		}
+	]
+  }
+{% endschema %}
+
+{% stylesheet %}
+{% endstylesheet %}
+
+{% javascript %}
+{% endjavascript %}

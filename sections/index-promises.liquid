@@ -1,0 +1,120 @@
+<div class="bg-gray-300 pb-12 pt-8 px-4 md:hidden">
+  <div class="flex items-center">
+    <h2 class="font-bold text-blue-500 text-xl md:border-l-8 md:border-blue-500 md:pl-2 md:text-2xl">
+      OUR PROMISE
+    </h2>
+
+    <h3 class="font-semibold text-gray-500 ml-4">
+      Full Transparency
+    </h3>
+  </div>
+
+  <div class="bg-white mt-4 rounded-lg shadow-md">
+    <div class="promise-swiper swiper">
+      <div class="swiper-wrapper">
+        {% for block in section.blocks %}
+          {% if block.type == 'promise' %}
+            <div class="swiper-slide">
+              <div class="p-4 pb-8 text-center">
+                <div class="h-12 inline-block responsive-svg-wrapper w-12">
+                  {{ block.settings.icon }}
+                </div>
+
+                <p class="mt-2 text-sm">{{ block.settings.label }}</p>
+              </div>
+            </div>
+          {% endif %}
+        {% endfor %}
+      </div>
+
+      <div class="absolute bottom-2 left-1/2 -translate-x-1/2 z-10">
+        <div class="promise-swiper__pagination"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="bg-gray-300 hidden pt-8 md:block">
+  <div class="max-w-7xl mx-auto px-4 py-12">
+    <div class="bg-white hidden px-8 py-8 rounded-lg shadow-md md:block">
+      <div class="flex items-center mb-8">
+        <h2 class="font-bold text-blue-500 text-xl md:text-2xl">
+          OUR PROMISE
+        </h2>
+
+        <h3 class="font-semibold text-gray-500 ml-4">
+          Full Transparency
+        </h3>
+      </div>
+
+      <div class="grid grid-cols-3">
+        {% for block in section.blocks %}
+          {% if block.type == 'promise' %}
+            <div class="text-center">
+              <div class="h-20 inline-block responsive-svg-wrapper w-20">
+                {{ block.settings.icon }}
+              </div>
+
+              <p class="mt-2 text-sm">{{ block.settings.label }}</p>
+            </div>
+          {% endif %}
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+</div>
+<!--
+Event snippet for Homepage on https://www.transparentlabs.com: Please do not remove.
+Place this snippet on pages with events you’re tracking. 
+Creation date: 06/30/2022
+-->
+<script>
+  gtag('event', 'conversion', {
+    'allow_custom_scripts': true,
+    'session_id': '[SessionID]',
+    'send_to': 'DC-12142970/inter0/homep0+per_session'
+  });
+</script>
+<noscript>
+<img src="https://ad.doubleclick.net/ddm/activity/src=12142970;type=inter0;cat=homep0;dc_lat=;dc_rdid=;tag_for_child_directed_treatment=;tfua=;npa=;gdpr=${GDPR};gdpr_consent=${GDPR_CONSENT_755};ord=[SessionID]?" width="1" height="1" alt=""/>
+</noscript>
+<!-- End of event snippet: Please do not remove -->
+
+
+{% comment %}
+Reusable fill gradient used by icons provided through block settings
+{% endcomment %}
+<svg height="0" width="0">
+  <defs>
+    <linearGradient id="svg-orange-gradient" x1="26" y1="0.346924" x2="26" y2="52.3423" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#F6872F"/>
+      <stop offset="1" stop-color="#FD6A4B"/>
+    </linearGradient>
+  </defs>
+</svg>
+
+{% schema %}
+{
+  "blocks": [
+    {
+      "limit": 3,
+      "name": "Promise",
+      "settings": [
+        {
+          "id": "icon",
+          "label": "Icon",
+          "type": "html"
+        },
+        {
+          "id": "label",
+          "label": "Label",
+          "type": "text"
+        }
+      ],
+      "type": "promise"
+    }
+  ],
+  "name": "Promises",
+  "settings": []
+}
+{% endschema %}

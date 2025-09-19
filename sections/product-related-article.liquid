@@ -1,0 +1,91 @@
+ {% if product.metafields.global.article != blank %}
+<div class="max-w-7xl mt-12 mx-auto md:mt-16 xl:mt-32">
+  <div class="grid grid-cols-1 xl:gap-8 xl:grid-cols-3">
+    <div class="col-span-2 relative">
+      {% if section.settings.section_heading != blank %}
+        <h2 class="px-5 text-2xl lg:text-3xl xl:px-4">
+          {{ section.settings.section_heading }}
+        </h2>
+      {% endif %}
+       <div class="px-5" style="margin:15px 0;">
+         {{ product.metafields.global.article }}
+       </div>
+    </div>
+   
+    <div></div>
+  
+  </div>
+</div>
+  {% endif %}
+{% comment %} 
+{% assign related_posts = "" %} 
+<div class="max-w-7xl mt-12 mx-auto md:mt-16 xl:mt-32">
+  <div class="grid grid-cols-1 xl:gap-8 xl:grid-cols-3">
+    <div class="col-span-2 relative">
+
+      
+      
+      {% if section.settings.section_heading != blank %}
+      <h2 class="px-5 text-2xl lg:text-3xl xl:px-4">
+        {{ section.settings.section_heading }}
+      </h2>
+      {% endif %}
+      <div class="gap-4 grid grid-flow-col auto-cols-max mt-4 overflow-x-auto px-5 md:gap-8 md:grid-cols-2 md:grid-flow-row xl:mt-8 xl:px-4">
+       
+       
+        {% for article in blogs.all.articles limit: 500 %}
+          {% assign pro_d = article.metafields.custom.article_on_product.value %}
+          {% if pro_d.handle == product.handle %}
+          <div class="w-[320px] md:w-full">
+                      <div>
+                        {%- render 'lazy-image',
+                          crop: 'center',
+                          height: 200,
+                          image: article.image,
+                          width: 400,
+                        -%}
+                      </div>
+        
+                      <div class="mt-4">
+                        <p class="font-bold text-xl lg:text-2xl">
+                          {{ article.title }}
+                        </p>
+        
+                        <p class="mt-4 text-gray-500">
+                          {{ article.author }}
+                        </p>
+                      </div>
+                    </div>
+            {% endif %}
+        {% endfor %}
+        
+      </div>
+    </div>
+    <div></div>
+  </div>
+</div>
+{% endcomment %}
+{% schema %}
+  {
+    "name": "Product related articles",
+    "settings": [
+      {
+        "type":"text",
+        "id":"section_heading",
+        "label":"Section heading"
+      }
+      
+    ],
+    "presets":[
+      {
+        "name": "Product related articles"
+      }
+    ]
+  }
+{% endschema %}
+
+{% stylesheet %}
+{% endstylesheet %}
+
+{% javascript %}
+{% endjavascript %}

@@ -1,0 +1,274 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "f338a9c2-3168-494e-b4e7-b08979119509": {
+      "type": "bulk-affiliate-main-banner",
+      "settings": {
+        "image_only": false,
+        "top_heading": "CREATINE HMB | Creatine Supplement",
+        "image": "shopify://shop_images/Creatine_Desktop.jpg",
+        "mobile_image": "shopify://shop_images/Creatine_Mobile_714d8de0-f760-4e7a-9d14-8c495945cb88.jpg",
+        "heading": "STRENGTH IN SCIENCE",
+        "subheading": "◦ Creatine Monohydrate is widely regarded as the most effective athletic supplement, with decades of research supporting improved strength, endurance, and lean muscle mass growth. \n<br>\n<br>\n\t\n◦ Our proprietary formula incorporates Vitamin D, BioPerine®, and HMB (Hydroxymethylbutyrate)—which increases protein synthesis and supports muscle retention during weight loss.",
+        "btn_text": "SHOP CREATINE HMB",
+        "btn_link": "#xgen-new-collection"
+      }
+    },
+    "c70dec47-0c2c-46fa-a7f6-efa1df957373": {
+      "type": "bulk-affiliate-icons",
+      "blocks": {
+        "e5f6ecdd-bd06-4e0b-b4c3-ddbdd91539c4": {
+          "type": "image",
+          "settings": {
+            "icon": "shopify://shop_images/Vector_1_d0a7c72a-4b34-4ad7-a846-5eae09d81b5e.png",
+            "title": "INCREASE STRENGTH"
+          }
+        },
+        "b0962df3-6584-49ab-bc75-2cd89389c880": {
+          "type": "image",
+          "settings": {
+            "icon": "shopify://shop_images/bioperine.png",
+            "title": "IMPROVE BODY COMPOSITION"
+          }
+        },
+        "463078b3-9a15-439e-b00f-18ff2054b39e": {
+          "type": "image",
+          "settings": {
+            "icon": "shopify://shop_images/Vector_ffc308ba-6e5c-4afc-a8b1-bd255eecacb5.png",
+            "title": "ACCELERATE RECOVERY"
+          }
+        }
+      },
+      "block_order": [
+        "e5f6ecdd-bd06-4e0b-b4c3-ddbdd91539c4",
+        "b0962df3-6584-49ab-bc75-2cd89389c880",
+        "463078b3-9a15-439e-b00f-18ff2054b39e"
+      ],
+      "settings": {}
+    },
+    "1a9b2478-a05d-4c94-bdc0-0cf466ca7f06": {
+      "type": "bulk-affiliate-ingrediants",
+      "blocks": {
+        "64f9369c-4c8c-46b2-a8da-8199fefb813b": {
+          "type": "image",
+          "settings": {
+            "icon": "shopify://shop_images/creatine.png",
+            "title": "CREATINE MONOHYDRATE",
+            "desc": "The most effective athletic supplement according to scientific research. Creatine significantly improves strength, endurance, and lean muscle growth as part of a resistance training program."
+          }
+        },
+        "5bd4f26a-f488-491d-8619-b464bc6390f0": {
+          "type": "image",
+          "settings": {
+            "icon": "shopify://shop_images/vitamin_d.png",
+            "title": "VITAMIN D",
+            "desc": "Beneficially modulates anabolic hormone production.\nHigher serum levels are associated with increased muscle size & strength, and reduced injury rate."
+          }
+        },
+        "a168efc7-f15a-4b87-bc00-5d85f88e730d": {
+          "type": "image",
+          "settings": {
+            "icon": "shopify://shop_images/bioperine.png",
+            "title": "BIOPERINE®",
+            "desc": "Improves bioavailability and absorption of Creatine Monohydrate.\nDecreases inflammation and boosts brain function."
+          }
+        },
+        "36e94a24-53ed-4fdf-bd05-49451468503a": {
+          "type": "image",
+          "settings": {
+            "icon": "shopify://shop_images/Vector_2_4fe05c94-9dad-455d-9d9d-9e1e3f9f0821.png",
+            "title": "MYHMB™",
+            "desc": "HMB (Hydroxymethylbutyrate) is a metabolite of L-leucine.\nHMB increases protein synthesis and supports muscle retention during weight loss."
+          }
+        }
+      },
+      "block_order": [
+        "64f9369c-4c8c-46b2-a8da-8199fefb813b",
+        "5bd4f26a-f488-491d-8619-b464bc6390f0",
+        "a168efc7-f15a-4b87-bc00-5d85f88e730d",
+        "36e94a24-53ed-4fdf-bd05-49451468503a"
+      ],
+      "settings": {
+        "title": "INGREDIENTS BACKED BY SCIENCE",
+        "dimage": "shopify://shop_images/CREATINEHMBUNFLAVOREDFINALVIEW1-3.png",
+        "mimage": "shopify://shop_images/CREATINEHMBUNFLAVOREDFINALVIEW1-3.png",
+        "btn_text": "View Full Ingredients",
+        "pimage": "shopify://shop_images/CreatineHMB_FullIngredients.webp"
+      }
+    },
+    "b45048cd-f528-475a-8264-4f948b471942": {
+      "type": "bulk-affiliate-product",
+      "blocks": {
+        "bcb9ce21-18c1-46b0-8c85-660b280e6d68": {
+          "type": "text",
+          "settings": {
+            "collection_type": "",
+            "product_type": "SUBSCRIBE AND SAVE",
+            "product_1": "strengthseries-creapure-hmb-creatine-supplement",
+            "detail_1": "• Save 10% and get Free Shipping on every order<br>\n• Exclusive Promotions &amp; Discounts<br>\n• Choose Shipping Frequency<br>\n• Cancel or Pause Any Time",
+            "product_type_1": "MAXIMUM RESULTS",
+            "product_2": "core-essentials-stack",
+            "detail_2": "• <strong>MAXIMUM SAVINGS. MAXIMUM GAINS.</strong><br>\n• Subscribe to our top 3 supplements: Whey Protein Isolate, Creatine HMB, and BULK Pre-Workout<br>\n• Save 10% and get Free Shipping on every order<br>\n• Exclusive Promotions &amp; Discounts<br>\n• Choose Shipping Frequency<br>\n• Cancel or pause any Time",
+            "product_type_2": "ONE-TIME PURCHASE",
+            "product_3": "strengthseries-creapure-hmb-creatine-supplement",
+            "detail_3": "<span style=\"text-decoration: line-through;\">• Exclusive Promotions &amp; Discounts<br>\n• Free Shipping<br>\n</span>"
+          }
+        }
+      },
+      "block_order": [
+        "bcb9ce21-18c1-46b0-8c85-660b280e6d68"
+      ],
+      "settings": {
+        "title": "",
+        "subtitle": "YOUR CHOICE: SUBSCRIBE, STACK, OR SOLO",
+        "discount_month": "Deliver Every Month",
+        "discount_days": "Deliver Every 45 days",
+        "percent_text": "10% Off"
+      }
+    },
+    "main": {
+      "type": "bulk-affiliate",
+      "blocks": {
+        "3df6f53c-b737-4255-b6b0-710b24dfc82c": {
+          "type": "text",
+          "settings": {
+            "collection_type": "",
+            "product_type": "BEST DEAL",
+            "product_1": "preseries-bulk-preworkout",
+            "detail_1": "• Exclusive Promotions &amp; Discounts<br>\n• Choose Shipping Frequency<br>\n• Cancel or Pause Any Time",
+            "product_type_1": "MAXIMUM RESULTS",
+            "product_2": "muscle-building-stacks",
+            "detail_2": "• <strong>OPTIMIZED BUNDLE MAXIMIZES GAINS</strong><br>\n• Exclusive Promotions &amp; Discounts<br>\n• Choose Shipping Frequency<br>\n• Cancel or Pause Any Time",
+            "product_type_2": "ONE-TIME PURCHASE",
+            "product_3": "preseries-bulk-preworkout",
+            "detail_3": "<span style=\"text-decoration: line-through;\">• Exclusive Promotions &amp; Discounts<br>\n• Choose Shipping Frequency<br>\n• Cancel or Pause Any Time</span>"
+          }
+        }
+      },
+      "block_order": [
+        "3df6f53c-b737-4255-b6b0-710b24dfc82c"
+      ],
+      "disabled": true,
+      "settings": {
+        "title": "YOUR CHOICE: SOLO, SUBSCRIPTION, OR STACK SUBSCRIPTION",
+        "subtitle": "",
+        "discount_month": "Deliver Every Month",
+        "discount_days": "Deliver Every 45 days",
+        "percent_text": "10% Off"
+      }
+    },
+    "d5dae2ee-29b0-4b3e-9fa5-433d1cdde0e0": {
+      "type": "bulk-affiliate-body-banner",
+      "settings": {
+        "image": "shopify://shop_images/Creatine_Banner.jpg"
+      }
+    },
+    "a6d8a429-db3b-4902-b34e-eca0a36a6aaf": {
+      "type": "index-pertner-icons",
+      "blocks": {
+        "12b15581-3a2d-4dd0-a28f-f7cc94d48ed9": {
+          "type": "text",
+          "settings": {
+            "icon_text": "AS SEEN ON"
+          }
+        },
+        "a565879d-c6c4-4c9d-946d-58494f22b423": {
+          "type": "text",
+          "settings": {
+            "icon": "shopify://shop_images/Group_352.png",
+            "icon_text": ""
+          }
+        },
+        "7ebf789f-0951-416e-8a4e-6f7d661d3d42": {
+          "type": "text",
+          "settings": {
+            "icon": "shopify://shop_images/2560px-Healthline_logo.png",
+            "icon_text": ""
+          }
+        },
+        "77109622-4312-42b4-b9f1-242d38fe7ca3": {
+          "type": "text",
+          "settings": {
+            "icon": "shopify://shop_images/logo1200x630.png",
+            "icon_text": ""
+          }
+        },
+        "3acc0958-bf37-47c7-addf-d80007f12f8d": {
+          "type": "text",
+          "settings": {
+            "icon": "shopify://shop_images/livestrong-logo.png",
+            "icon_text": ""
+          }
+        }
+      },
+      "block_order": [
+        "12b15581-3a2d-4dd0-a28f-f7cc94d48ed9",
+        "a565879d-c6c4-4c9d-946d-58494f22b423",
+        "7ebf789f-0951-416e-8a4e-6f7d661d3d42",
+        "77109622-4312-42b4-b9f1-242d38fe7ca3",
+        "3acc0958-bf37-47c7-addf-d80007f12f8d"
+      ],
+      "settings": {
+        "index-partner-icons": "index partner icons"
+      }
+    },
+    "42981725-61f5-4256-a388-54f731e0ba6d": {
+      "type": "bulk-affiliate-reviews",
+      "blocks": {
+        "da50697f-8e87-4bb5-8fe5-c0b15dfa57da": {
+          "type": "text",
+          "settings": {
+            "rating": "5",
+            "review": "\"Creatine HMB is solid! A straight forward, solid strength / muscle building product. Again, with all of their products, I love the transparent labels and clean ingredients.\"",
+            "name": "Brandon B."
+          }
+        },
+        "aa1eb5a1-f64e-4cfe-89e0-506e013ca7d4": {
+          "type": "text",
+          "settings": {
+            "rating": "5",
+            "review": "\"This is a great product. I'm getting stronger and the quality of my workouts is improving. My recovery time is shorter which makes my workouts more productive.\"",
+            "name": "Michael M."
+          }
+        },
+        "cedd8563-f887-4f56-80c3-649593bd5442": {
+          "type": "text",
+          "settings": {
+            "rating": "5",
+            "review": "“The flavor is great! Very high quality product, been using these products since 2017 and can’t find anything that compares. The growth of this company has been amazing.”",
+            "name": "Josh D."
+          }
+        }
+      },
+      "block_order": [
+        "da50697f-8e87-4bb5-8fe5-c0b15dfa57da",
+        "aa1eb5a1-f64e-4cfe-89e0-506e013ca7d4",
+        "cedd8563-f887-4f56-80c3-649593bd5442"
+      ],
+      "settings": {
+        "heading": "Don’t Just Take Our Word For It",
+        "subheading": "Here's what fitness enthusiasts and avid gym-goers are saying about Creatine HMB",
+        "btn_text": "SHOP CREATINE HMB",
+        "btn_link": "#xgen-new-collection"
+      }
+    }
+  },
+  "order": [
+    "f338a9c2-3168-494e-b4e7-b08979119509",
+    "c70dec47-0c2c-46fa-a7f6-efa1df957373",
+    "1a9b2478-a05d-4c94-bdc0-0cf466ca7f06",
+    "b45048cd-f528-475a-8264-4f948b471942",
+    "main",
+    "d5dae2ee-29b0-4b3e-9fa5-433d1cdde0e0",
+    "a6d8a429-db3b-4902-b34e-eca0a36a6aaf",
+    "42981725-61f5-4256-a388-54f731e0ba6d"
+  ]
+}

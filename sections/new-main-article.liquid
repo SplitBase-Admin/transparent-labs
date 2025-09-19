@@ -1,0 +1,286 @@
+{{ 'new-article.css' | asset_url | stylesheet_tag }}
+{{ 'featured-product.css' | asset_url | stylesheet_tag }}
+
+
+
+<script type="application/ld+json">
+  {
+    "@context": "http://schema.org",
+    "@type": "Article",
+    "articleBody": {{ article.content | strip_html | json }},
+    "mainEntityOfPage": {
+      "@type": "WebPage",
+      "@id": {{ shop.url | append: page.url | json }}
+    },
+    "headline": {{ article.title | json }},
+    {% if article.excerpt != blank %}
+      "description": {{ article.excerpt | strip_html | json }},
+    {% endif %}
+    {% if article.image %}
+      {% assign image_size = article.image.width | append: 'x' %}
+      "image": [
+        {{ article | img_url: image_size | prepend: "https:" | json }}
+      ],
+    {% endif %}
+    "datePublished": {{ article.published_at | date: '%Y-%m-%dT%H:%M:%SZ' | json }},
+    "dateCreated": {{ article.created_at | date: '%Y-%m-%dT%H:%M:%SZ' | json }},
+    "author": {
+      "@type": "Person",
+      "name": {{ article.author | json }}
+    },
+    "publisher": {
+      "@type": "Organization",
+      {% if settings.share_image %}
+        {% assign image_size = settings.share_image.width | append: 'x' %}
+        "logo": {
+          "@type": "ImageObject",
+          "height": {{ settings.share_image.height | json }},
+          "url": {{ settings.share_image | img_url: image_size | prepend: "https:" | json }},
+          "width": {{ settings.share_image.width | json }}
+        },
+      {% endif %}
+      "name": {{ shop.name | json }}
+    }
+  }
+</script>
+
+<section class="article-section-wrapper">
+
+
+<div class="article-section-container">
+  <div class="article-content-left">
+    <div class="article-info-sidebar-wrap">
+      <div class="container article-wrapper">
+        <div class="article-banner">
+  
+            {% assign url_parts = article.url | split:'/' %}
+            {% assign blog_handle = url_parts[2] %}
+  
+            <div class="blog-category">{{ blogs[blog_handle].title }}</div>
+          
+            <h1 class="article-title">{{ article.title }}</h1>
+    
+            <div class="article-image">
+              <img
+                src="{{ article.image.src | img_url: '1200x1200' }}"
+                alt="{% if article.image.alt %}{{ article.image.alt }}{% else %}Main Article Image{% endif %}"
+                loading="lazy"
+              >
+            </div>
+    
+            <div class="article-author-date-wrapper">
+              <div class="article-author">
+                <span>Written by</span> <u>{{ article.author }}</u>
+              </div>
+              {% if article.metafields.custom.review_by != blank %}
+                <div class="article-review-by"><span>Reviewed by</span> <a href="#previous_next_buttons"><u>{{ article.metafields.custom.review_by }}</u></a></div>
+              {% endif %}
+              <div class="article-date">Last updated on {{ article.published_at | date: '%b %d, %Y' }}</div>
+            </div>
+        </div>
+      </div>
+    </div>
+  
+    <div class="article-content-main">
+        <div class="article-content-wrapper">
+          {{ article.content }}
+        </div>
+      
+        <div class="previous_next_buttons" id="previous_next_buttons">
+          <a href="{{ blog.previous_article }}" class="link previous"> Previous post {% render 'icon-right-arrow' %}</a>
+          <a href="{{ blog.next_article }}" class="link next"> Next post {% render 'icon-right-arrow' %}</a>
+        </div>
+
+        {% for block in section.blocks %}
+          {% case block.type %}
+            
+            {% when 'review_by' %}
+
+              {% assign author_details = article.metafields.custom.author_details.value %}
+
+              {% if author_details %}
+                <div class="review-by-wrapper" id="review-by-wrapper">
+                  {% if author_details.author_profile_image != blank %}
+                    <div class="review-by-img">{{ author_details.author_profile_image | image_url: width: auto, height: auto  | image_tag  }}</div>
+                  {% endif %}
+                  <div class="review-by-content">
+                    {% if author_details.author_name != blank %}
+                      <h3 class="review-by-title">{{ author_details.author_name }}</h3>
+                    {% endif %}
+                    {% if author_details.author_information != blank %}
+                      <div class="review-by-text">{{ author_details.author_information | metafield_tag }}</div>
+                    {% endif %}
+                    {% if author_details.author_articles_url != blank or block.settings.link_text != blank  %}
+                      <a href="{{ author_details.author_articles_url }}" class="link">{{ block.settings.link_text }} {% render 'right-arrow' %}</a>
+                    {% endif %}
+                  </div>
+                </div>
+              {% endif %}
+        
+            {% when 'featured_product' %}
+              {% if article.metafields.custom.article_on_product != blank %}
+                {% render 'featured-product', block: block, product: article.metafields.custom.article_on_product.value %}
+              {% else %}
+                {% if block.settings.show_default_product %}
+                  {% render 'featured-product', block: block, product: block.settings.featured_product %}
+                {% endif %}
+              {% endif %}
+          {% endcase %}
+        {% endfor %}
+    </div>
+  </div>
+
+  <div class="article-sidebar sticky-sidebar">
+    <div class="recent-post-wrapper">
+      {%- if section.settings.sidebar_title != blank -%}<h2 class="section_title">{{ section.settings.sidebar_title }}</h2>{%- endif -%}
+      <div class="recent-post-inner">
+        {% if section.settings.show_recent_articles %}
+          {%- for article in blog.articles limit: 3 -%}
+            <div class="trending__article-card-wrapper">
+              <a href="{{ article.url }}" class="trending__article-card">
+                <div class="trending__article-card--image">
+                  <img src="{{ article.image | img_url: 'master' }}" alt="{{ article.image.alt }}" width="{{ article.image.width }}" height="{{ trending_article_1.image.height }}">
+                </div>
+                <div class="trending__article-card--info">
+                  <h3 class="trending_article--title">{{ article.title | truncate: 27, "..." }}</h3>
+                  <div class="trending_article--description">{{ article.excerpt }}</div>
+                  <p class="trending_article--author">Written By: {{ article.author }}</p>
+                </div>
+              </a>
+            </div>
+          {% endfor %}
+        {% else %}
+          {% render 'static-trending-articles' %}
+        {% endif %}
+      </div>
+    </div>
+    {% render 'newsletter-form-mini', section:section %}
+  </div>
+</div>
+</section>
+
+<script>
+// Blog Fetured Article Slider: START
+document.addEventListener('DOMContentLoaded', function () {
+
+  document.querySelectorAll(".newsletter-form-close").forEach(function(closeBtn) {
+    closeBtn.addEventListener("click", function() {
+      document.querySelectorAll(".stay-informed-newsletter-form-mini").forEach(function(form) {
+        form.style.display = "none";
+      });
+    });
+  });
+});
+</script>
+
+
+{% schema %}
+  {
+    "name": "New Main Blog",
+    "settings": [
+      {
+        "type": "color",
+        "id": "header_background",
+        "label": "Background color",
+        "default": "#173446"
+      },
+      {
+        "type": "header",
+        "content": "Newsletter Details"
+      },
+      {
+        "type": "text",
+        "id": "newsletter_heading",
+        "label": "Heading ",
+        "default": "Stay Informed"
+      },
+      {
+        "type": "text",
+        "id": "newsletter_description",
+        "label": "Description",
+        "default": "Sign up for our weekly guide to better health."
+      },
+      {
+        "type": "header",
+        "content": "Trending Articles"
+      },
+      {
+        "type": "text",
+        "id": "sidebar_title",
+        "label": "Title ",
+        "default": "What’s Trending"
+      },
+      {
+        "type": "checkbox",
+        "id": "show_recent_articles",
+        "label": "Show Recent Articles ",
+        "default": true
+      },
+      {
+        "type": "article",
+        "id": "trending_article_1",
+        "label": "Trending article 1"
+      },
+      {
+        "type": "article",
+        "id": "trending_article_2",
+        "label": "Trending article 2"
+      },
+      {
+        "type": "article",
+        "id": "trending_article_3",
+        "label": "Trending article 3"
+      }
+    ],
+    "blocks": [
+      {
+        "name": "Review By Details",
+        "settings": [
+          {
+            "type": "header",
+            "content": "Review By Details"
+          },
+          {
+            "type": "text",
+            "id": "link_text",
+            "label": "Link Text",
+            "default": "View All Articles"
+          }
+        ],
+        "type": "review_by"
+      },
+      {
+        "name": "Featured Product",
+        "settings": [
+          {
+            "type": "color",
+            "id": "background",
+            "label": "Background color",
+            "default": "#173446"
+          },
+          {
+            "type": "text",
+            "id": "section_title",
+            "label": "Section Title"
+          },
+          {
+            "type": "checkbox",
+            "id": "show_default_product",
+            "label": "Show Default Product to all articles"
+          },
+          {
+            "type": "product",
+            "id": "featured_product",
+            "label": "Featured Product"
+          }
+        ],
+        "type": "featured_product"
+      }
+    ],
+    "presets":[
+      {
+          "name": "New Main Blog"
+      }
+    ]
+  }
+{% endschema %}

@@ -1,0 +1,93 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "new_breadcrumb_AJyzTj": {
+      "type": "new-breadcrumb",
+      "disabled": true,
+      "settings": {}
+    },
+    "new_stack_products_update_qdxVWE": {
+      "type": "new-stack-products-update",
+      "settings": {
+        "show_nas": false,
+        "show_nac": false,
+        "show_gfng": false,
+        "show_nap": false,
+        "dis_text": ""
+      }
+    },
+    "main": {
+      "type": "new-stack-products",
+      "blocks": {
+        "32b9662f-9402-40ad-b061-db3967d060d3": {
+          "type": "faq",
+          "settings": {
+            "question": "When will my order be shipped out?",
+            "answer": "<p>All orders ship out the following business day.</p>"
+          }
+        },
+        "a245b919-24a0-4060-81af-a448890c31c0": {
+          "type": "faq",
+          "settings": {
+            "question": "Does Transparent Labs ship to my Country?",
+            "answer": "<p>Transparent Labs ships Worldwide, except to the following countries, unfortunately, due to increasingly high fraudulent activity; Albania, Algeria, India, Lithuania, Macedonia, Romania, Russia, Tunisia, & Ukraine.<br/>              </p>"
+          }
+        }
+      },
+      "block_order": [
+        "32b9662f-9402-40ad-b061-db3967d060d3",
+        "a245b919-24a0-4060-81af-a448890c31c0"
+      ],
+      "disabled": true,
+      "settings": {
+        "show_nas": true,
+        "show_nac": true,
+        "show_gfng": true,
+        "show_nap": true,
+        "dis_text": "10% off"
+      }
+    },
+    "16554679083ff62ba6": {
+      "type": "stack-testimonials",
+      "blocks": {
+        "d98fc588-1ecf-4650-99e1-cc13f3371f55": {
+          "type": "image",
+          "settings": {
+            "image_desktop": "shopify://shop_images/Davey_Testimonial_Desktop_Banner.png",
+            "image_mobile": "shopify://shop_images/Davey_Testimonial_Mobile_Banner.png",
+            "text": "",
+            "name": "",
+            "text2": ""
+          }
+        },
+        "88cc9873-f3eb-47aa-9bce-d9a55d70de95": {
+          "type": "image",
+          "settings": {
+            "text": "",
+            "name": "",
+            "text2": ""
+          }
+        }
+      },
+      "block_order": [
+        "d98fc588-1ecf-4650-99e1-cc13f3371f55",
+        "88cc9873-f3eb-47aa-9bce-d9a55d70de95"
+      ],
+      "settings": {}
+    }
+  },
+  "order": [
+    "new_breadcrumb_AJyzTj",
+    "new_stack_products_update_qdxVWE",
+    "16554679083ff62ba6",
+    "main"
+  ]
+}

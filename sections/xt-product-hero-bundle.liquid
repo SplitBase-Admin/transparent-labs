@@ -1,0 +1,2426 @@
+<style>
+  #testing-tab-panel-1 .metafield-rich_text_field {
+      text-align: left;
+      margin-bottom: 20px;
+  }
+    #testing-tab-panel .metafield-rich_text_field {
+      text-align: left;
+      margin-bottom: 10px;
+      padding:10px;
+  }
+
+  #testing-tab-panel #testing-tab-panel {
+      ]
+      margin:10px;
+  }
+  
+
+  div#testing-tab-panel {
+      padding-top: 0;
+  }
+
+  button#testing-button {
+      padding: 10px 0;
+      font-size: 14px;
+      letter-spacing: 0.5px;
+  }
+
+    .jdgm-medals-wrapper {
+      display: none !important;
+  }
+
+
+  .popup-container
+  {
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: white;
+    padding: 20px;
+    border: 1px solid #ccc;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    z-index: 1000;
+    max-width: 100%;
+    max-height: 100%;
+    overflow: hidden;
+    text-align: center;
+  }
+  .image-container
+  {
+    width: 100%;
+    height: 90vh;
+    overflow: auto;
+    display: block;
+  }
+  .close-btn {
+    position: fixed;
+      top: 2px;
+      right: 2px;
+      cursor: pointer;
+      border: 1px solid #ccc;
+      padding: 5px;
+      border-radius: 10px;
+      font-size: 15px;
+      font-weight: 800;
+  }
+
+
+  @media only screen and (max-width: 600px)
+  {
+    .popup-container
+    {
+      width: 100%;
+      max-width: 90%;
+    }
+  }
+
+  div#testing-content
+  {
+    width: 215px;
+    margin: 0 auto;
+  }
+
+
+        .unique-{{template.suffix}}{background:#E8EEF2;}
+        a.open-ingradiant-details:hover {    cursor: pointer;}
+        .product_slider{display:none;}
+        .slick-initialized{display:block;}
+      /*   #product-thumbnails-2{display:none;} */
+      /*   .swiper-initialized{display:block !important;} */
+        #product-thumbnails-2 .swiper-wrapper {
+          justify-content: center;
+      }
+
+        button#add-to-cart-button:disabled {    cursor: not-allowed;}
+        #price .line_thue {
+          font-weight: 400;
+          font-size: 16px;
+          line-height: 16px;
+          color: #6c787c;
+          text-decoration: line-through;
+          display: inline-flex;
+          margin-left: 15px;
+      }
+        p#price {
+          display: flex;
+          justify-content: flex-start;
+          align-items: center;
+          flex-direction: row;
+      }
+        /* Position the image container (needed to position the left and right arrows) */
+      .container {
+        position: relative;
+      }
+
+      /* Hide the images by default */
+      .mySlides {
+        display: none;
+      }
+
+      /* Add a pointer when hovering over the thumbnail images */
+      .cursor {
+        cursor: pointer;
+      }
+      .row{
+          position: relative;
+          width: 100%;
+          height: 100%;
+          z-index: 1;
+          display: flex;
+          transition-property: transform;
+          box-sizing: content-box;
+          justify-content:center;
+          gap:18px;
+      }
+
+      /* .row:after {
+        content: "";
+        display: table;
+        clear: both;
+      } */
+
+      .column {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+      }
+
+      /* Add a transparency effect for thumnbail images */
+      .demo {
+        opacity: 0.6;
+      }
+
+      .active,
+      .demo:hover {
+        opacity: 1;
+      }
+        .xt-mobile #overview-tab-panel-1 > div.gap-4 {
+        display:none;
+      }
+      .mobile_show {
+       display:none;
+      }
+    .tl-badge-mobile{
+      display:none;
+    }
+      @media only screen and (max-width: 1279px){
+        .mobile_show {
+           display:flex;
+        }
+        .tl-badge-mobile{
+        display:block;
+        }
+      }
+</style>
+{%- liquid
+  assign current_variant = product.selected_or_first_available_variant
+  assign short_title = product.metafields.product_details.title
+  assign subtitle = product.metafields.product_details.subtitle
+-%}
+
+{% if product.metafields.custom.third_party_testing_list != blank %}
+  <!-- Popup container -->
+  <div id="imagePopup" class="popup-container">
+    <!-- Close button -->
+    <span class="close-btn" onclick="closePopup()">X</span>
+    <div class="image-container">
+      <!-- Image content -->
+      {% assign metafield_values_json = product.metafields.custom.third_party_testing_list.value %}
+      {% for value in metafield_values_json %}
+        <img
+          src="{{ value | img_url: 'master' }}"
+          alt="Popup Image"
+          height=""
+          width=""
+          loading="lazy"
+          style="margin: 20px 0;"
+        >
+      {% endfor %}
+    </div>
+  </div>
+{% endif %}
+
+{% if product.selected_or_first_available_selling_plan_allocation != blank %}
+  {{ 'new-product-hero.css' | asset_url | stylesheet_tag }}
+
+  <div id="new-product-template" style="">
+    <div class="new-product-grid xt-product flex flex-col-reverse xl:block">
+      <div class="grid new-grid grid-cols-1 max-w-7xl pt-4 relative top-0 w-full xl:absolute xl:grid-cols-3 xl:h-full xl:left-1/2 xl:pt-16 xl:-translate-x-1/2">
+        <div class="col-span-2"></div>
+
+        <div class=" xl:top-4 xl:h-max right-dbox">
+          <div class="right-tag desktop">
+            {% if product.metafields.custom.hide_best_seller_text == true %}
+              <p class="">Bestseller</p>
+            {% endif %}
+          </div>
+          <div class="right-dboxin">
+            <div class="pt-6 xl:px-6">
+            
+                <p class="off25 off25addmsg mobile_show">Subscribe to get a FREE Protein Starter Kit</p>
+             
+              <!-- Start of Judge.me code -->
+              <div class="flex items-center text-sm xtreview">
+                <div class="flex space-x-1 text-orange-400">
+                  <div class="jdgm-widget jdgm-preview-badge" data-id="{{ product.id }}">
+                    {{ product.metafields.judgeme.badge }}
+                  </div>
+                </div>
+                <p class="ml-3 text-gray-500">
+                  <span class="font-bold text-black">{{ product.metafields.reviews.rating.value }}</span>/5.0
+                  <a class="open-review-details">{{ product.metafields.reviews.rating_count }} Reviews</a>
+                </p>
+              </div>
+              <!-- End of Judge.me code -->
+
+              <h1 class="">
+                {{ short_title }}
+              </h1>
+              <h2 class="mb-2 text-gray-500">
+                {{ subtitle }}
+              </h2>
+
+              <div class="desc desktop">
+                <p>
+                  {{ product.metafields.custom.product_overview_detail | truncate: 205 }}
+                  <a class="open-ingradiant-details">View Ingredient Breakdown</a>
+                </p>
+              </div>
+            </div>
+
+            <div class="bg-white pt-0 relative xl:relative">
+              {% form 'product', product, data-productid: product.id %}
+                <div class="p1_selling_plan"></div>
+                <select class="hidden" name="id" data-productid="{{ product.id }}">
+                  {% for variant in product.variants %}
+                    <option
+                      data-available="{{ variant.available }}"
+                      data-option-1="{{ variant.option1 }}"
+                      data-option-2="{{ variant.option2 }}"
+                      data-price="{{ variant.price }}"
+                      {% if current_variant.id == variant.id %}
+                        selected
+                      {% endif %}
+                      value="{{ variant.id }}"
+                    >
+                      {{ variant.title }}
+                    </option>
+                  {% endfor %}
+                </select>
+                <input
+                  type="hidden"
+                  name="id"
+                  id="product-select_{{product.id}}"
+                  class="stack_vid"
+                  value="{{ product.selected_or_first_available_variant.id }}"
+                >
+                <input type="hidden" name="sp" id="selected_selling_plan" class="" value="">
+
+                <div class="mobile_show gap-4 flex flex-col mt-4 mb-4 uppercase md:gap-8 md:grid md:grid-flow-col md:auto-cols-fr">
+                  {%- if section.settings.no_sweetners -%}
+                    <div class="flex items-center">
+                      <div class="">
+                        {% render 'no-sweeteners-icon' %}
+                      </div>
+                      <p class="font-bold ml-3 text-xs">No Artificial Sweeteners</p>
+                    </div>
+                  {%- endif -%}
+                  {%- if section.settings.no_artificial_coloring -%}
+                    <div class="flex items-center">
+                      <div class="">
+                        {% render 'no-artificial-coloring-icon' %}
+                      </div>
+                      <p class="font-bold ml-3 text-xs">No Artificial Coloring</p>
+                    </div>
+                  {%- endif -%}
+                  {%- if section.settings.gluten_free -%}
+                    <div class="flex items-center">
+                      <div class="">
+                        {% render 'gluten-free-icon' %}
+                      </div>
+                      <p class="font-bold ml-3 text-xs">Gluten-Free and Non-GMO</p>
+                    </div>
+                  {%- endif -%}
+                  {%- if section.settings.no_preservatives -%}
+                    <div class="flex items-center">
+                      <div class="">
+                        {% render 'no-preservatives-icon' %}
+                      </div>
+                      <p class="font-bold ml-3 text-xs">No Artificial Preservatives</p>
+                    </div>
+                  {%- endif -%}
+                </div>
+
+                <div class="stack-row" {{ product.variants.size }}>
+                  {% if product.variants.size > 1 %}
+                    <div class="stack-row-item flavor">
+                      <div class="take_price_sss" style="display:block;">
+                        {% if product.options[0] %}
+                          {% assign used = '' %}
+                          <div class="input-wraper ">
+                            <label for="select-one1_{{product.id}}">Select {{ product.options[0] }}:</label>
+                            <select
+                              data-option-position="1"
+                              id="select-one1_{{ product.id}}"
+                              dataval="{{ product.variants.first.id }}"
+                              onchange="lletsDoThis_{{ product.id}}()"
+                            >
+                              {% for variant in product.variants %}
+                                {% unless variant.metafields.secomapp.freegifts %}
+                                  {% unless variant.title contains '(Freegifts)' %}
+                                    {% unless used contains variant.option1 %}
+                                      {% if product.selected_or_first_available_variant.id == variant.id %}
+                                        <option value="{{ variant.option1 }}" selected>{{ variant.option1 }}</option>
+                                      {% else %}
+                                        <option value="{{ variant.option1 }}">{{ variant.option1 }}</option>
+                                      {% endif %}
+                                      {% capture used %}{{ used }} {{ variant.option1 }}{% endcapture %}
+                                    {% elsif used contains 'Peanut Butter' %}
+                                      {% if product.selected_or_first_available_variant.id == variant.id %}
+                                        <option value="{{ variant.option1 }}" selected>{{ variant.option1 }}</option>
+                                      {% else %}
+                                        <option value="{{ variant.option1 }}">{{ variant.option1 }}</option>
+                                      {% endif %}
+                                    {% endunless %}
+                                  {% endunless %}
+                                {% endunless %}
+                              {% endfor %}
+                            </select>
+                          </div>
+                        {% endif %}
+
+                        {% if product.options[1] %}
+                          <div
+                            class="input-wraper"
+                            {%- for value in product.options_by_name.quantity.values %}
+                              {% if value == '1 Tub' or value == '2 Tub' %} style="display:none;" {% endif %}
+                            {% endfor %}
+                          >
+                            {% assign used = '' %}
+                            <label for="select-two2_{{ product.id}}">Select {{ product.options[1] }}:</label>
+                            <select
+                              id="select-two2_{{ product.id}}"
+                              dataval="{{ product.variants.first.id }}"
+                              onchange="lletsDoThis_{{ product.id}}()"
+                            >
+                              {% for variant in product.variants %}
+                                {% unless variant.metafields.secomapp.freegifts %}
+                                  {% unless variant.title contains '(Freegifts)' %}
+                                    {% unless used contains variant.option2 %}
+                                      {% if product.selected_or_first_available_variant.id == variant.id %}
+                                        <option {{ used }} value="{{ variant.option2 }}" selected>
+                                          {{ variant.option2 }}
+                                        </option>
+                                      {% else %}
+                                        <option value="{{ variant.option2 }}">{{ variant.option2 }}</option>
+                                      {% endif %}
+                                      {% capture used %}{{ used }} {{ variant.option2 }}{% endcapture %}
+                                    {% endunless %}
+                                  {% endunless %}
+                                {% endunless %}
+                              {% endfor %}
+                            </select>
+                          </div>
+                        {% endif %}
+
+                        {% if product.options[2] %}
+                          <div class="input-wraper">
+                            {% assign used = '' %}
+                            <label for="select-three3_{{product.id}}">Select {{ product.options[2] }}:</label>
+                            <select
+                              id="select-three3_{{product.id}}"
+                              dataval="{{ product.variants.first.id }}"
+                              onchange="lletsDoThis_{{product.id}}()"
+                            >
+                              {% for variant in product.variants %}
+                                {% unless variant.metafields.secomapp.freegifts %}
+                                  {% unless variant.title contains '(Freegifts)' %}
+                                    {% unless used contains variant.option3 %}
+                                      {% if product.selected_or_first_available_variant.id == variant.id %}
+                                        <option value="{{ variant.option3 }}" selected>{{ variant.option3 }}</option>
+                                      {% else %}
+                                        <option value="{{ variant.option3 }}">{{ variant.option3 }}</option>
+                                      {% endif %}
+                                      {% capture used %}{{ used }} {{ variant.option3 }}{% endcapture %}
+                                    {% endunless %}
+                                  {% endunless %}
+                                {% endunless %}
+                              {% endfor %}
+                            </select>
+                          </div>
+                        {% endif %}
+                      </div>
+                    </div>
+                  {% endif %}
+
+                  <div class="stack-row-item active_class">
+                    <input
+                      type="radio"
+                      id="onetime"
+                      data-text="One-Time Purchase"
+                      class="stack-radio-2"
+                      name="newpurchaseoption"
+                      value="onetime"
+                      checked
+                    >
+                    <label for="onetime" class="stack-100">
+                      {% if section.settings.onetimetext %}
+                        {{ section.settings.onetimetext }}
+                      {% endif %}
+                    </label>
+                    <span class="pass_otp take_price onetimeprice"> </span>
+                    <del class="pass_otp take_price onetimeoriginalprice"> </del>
+                  </div>
+
+                  <div class="stack-row-item" id="hidesubscription">
+                    <input
+                      type="radio"
+                      id="subSave"
+                      data-text="Deliver Every Month"
+                      class="stack-radio ddoption1"
+                      name="newpurchaseoption"
+                      value="subSave"
+                    >
+                    <label for="subSave" class="stack-100">
+                      {% if section.settings.subscribetext %}
+                        {{ section.settings.subscribetext }}
+                        <span class="save_price"></span>
+                      {% endif %}
+                    </label>
+
+                    <div class="take_price_ss" style="display:none;">
+                      <div class="firstorder">
+                        <span class="off25 unlocked">Free Starter Kit Unlocked!</span>
+                       <span class="sub_price take_price sub_price1"></span>
+                      </div>
+                      
+                      <div class="xtags">
+                        {% if section.settings.sdetail != blank %}
+                          <span>{{ section.settings.sdetail }}</span>
+                        {% endif %}
+                        {% if section.settings.sdetail1 != blank %}
+                          <span>{{ section.settings.sdetail1 }}</span>
+                        {% endif %}
+                        {% if section.settings.sdetail2 != blank %}
+                          <span>{{ section.settings.sdetail2 }}</span>
+                        {% endif %}
+                      </div>
+
+                      {% if section.settings.slistinformation != blank %}
+                        <ul class="xstacklist">
+                          {{ section.settings.slistinformation }}
+                        </ul>
+                      {% endif %}
+
+                      <div class="input-wraper">
+                        <label class="rc-selling-plans__label" for="selling_plan_{{ product.id }}"
+                          >Select Frequency:</label
+                        >
+                        <select
+                          id="selling_plan_{{ product.id }}"
+                          class="rc_widget__option__plans__dropdown rc-selling-plans__dropdown"
+                        ></select>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="flex items-center quant-btn">
+                  <div class="">
+                    <quantity-input>
+                      <div class="flex items-center text-blue-500 quant-box">
+                        <button
+                          class=" flex h-10 items-center justify-center rounded-full w-10"
+                          type="button"
+                        >
+                          -
+                        </button>
+
+                        <input
+                          class="bg-transparent hide-selectors mx-2 rounded text-center w-16 focus:ring-0"
+                          min="1"
+                          name="quantity"
+                          type="number"
+                          value="1"
+                        >
+
+                        <button
+                          class=" flex h-10 items-center justify-center rounded-full w-10"
+                          type="button"
+                        >
+                          +
+                        </button>
+                      </div>
+                    </quantity-input>
+                  </div>
+
+                  <div class="w-full" id="add-to-cart-button-container">
+                    <button
+                      class="bg-blue-light font-bold py-2 rounded text-white w-full {% unless current_variant.available %}opacity-70{% endunless %}"
+                      id="add-to-cart-button"
+                      type="button"
+                    >
+                      <span id="product-availability" {{ current_variant.available }}>
+                        {%- if current_variant.available %}Add to Cart{% else %}Sold Out{% endif -%}
+                      </span>
+                    </button>
+                  </div>
+                </div>
+                {% render 'wonderment-pdp-eta' %}
+              {% endform %}
+
+              <div class="xt-bundle-box">
+                <div class="xt-bundle-boxin">
+                  <div class="badge bundle-badge">Subscribe to Unlock Your Free Starter Kit</div>
+                  <div class="xt-bundle-wrapper">
+                    <img src="https://cdn.shopify.com/s/files/1/0866/7664/files/VarietyPackandShaker_1_1bcb1a9f-a645-4121-b9fb-d89e587c2c32.png?v=1734020186" width="" height="">
+                    <div class="info">  
+                      <div class="name">Free Starter Kit</div>
+                      <ul>
+                        <li>Protein Variety Pack</li>
+                        <li>Try our top 5 flavors</li>
+                        <li>TL Blender Bottle</li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              
+              <div class="bg-white pt-0 relative xl:relative">
+                {% render 'app-C6Uau2ax' %}
+              </div>
+              {% render 'comparison-btn', product: product %}
+            </div>
+
+            {% render 'sticky-product-form' %}
+
+            <a style="display:none;" id="hideme" class="klaviyo-bis-trigger" href="#"
+              ><span>Notify Me When Available</span></a
+            >
+
+            <div class="desc mobile">
+              {% comment %}   <p>{{ product.metafields.custom.product_overview_detail | truncate: 205 }}</p> {% endcomment %}
+              <p><a class="open-ingradiant-details">View Ingredient Breakdown</a></p>
+              <!-- <img src="{{ product.images[1] | img_url: '600x600' }}" alt="{{product.images[0].alt}}"/> -->
+            </div>
+          </div>
+        </div>
+
+        <div class="xt-mobile xt-accor max-w-7xl  mx-auto px-5 xl:px-4">
+          <div class="">
+            <div class="col-span-2 relative">
+              <custom-tabs data-mode="alt">
+                <button
+                  aria-controls="overview-tab-panel-1"
+                  class="accordion-tab-1 border-t border-[#F0F0F0] flex justify-between py-3 w-full "
+                  type="button"
+                >
+                  <span class="font-bold">Overview</span>
+                  {% render 'icon-plus' %}
+                  {% render 'icon-minus' %}
+                </button>
+
+                <div
+                  aria-labelledby="overview-tab"
+                  class="accor-cont hidden  py-6 md:pb-0"
+                  id="overview-tab-panel-1"
+                  role="tabpanel"
+                  tabindex="0"
+                >
+                  <div class="text-gray-500">
+                    {% if product.metafields.custom.product_overview_detail != blank %}
+                      {{ product.metafields.custom.product_overview_detail }}
+                    {% else %}
+                      {{ section.settings.overview }}
+                    {% endif %}
+                  </div>
+                  <div class="gap-4 flex flex-col mt-4 uppercase md:gap-8 md:grid md:grid-flow-col md:auto-cols-fr">
+                    {%- if section.settings.no_sweetners -%}
+                      <div class="flex items-center">
+                        <div class="">
+                          {% render 'no-sweeteners-icon' %}
+                        </div>
+                        <p class="font-bold ml-3 text-xs">No Artificial Sweeteners</p>
+                      </div>
+                    {%- endif -%}
+                    {%- if section.settings.no_artificial_coloring -%}
+                      <div class="flex items-center">
+                        <div class="">
+                          {% render 'no-artificial-coloring-icon' %}
+                        </div>
+                        <p class="font-bold ml-3 text-xs">No Artificial Coloring</p>
+                      </div>
+                    {%- endif -%}
+                    {%- if section.settings.gluten_free -%}
+                      <div class="flex items-center">
+                        <div class="">
+                          {% render 'gluten-free-icon' %}
+                        </div>
+                        <p class="font-bold ml-3 text-xs">Gluten-Free and Non-GMO</p>
+                      </div>
+                    {%- endif -%}
+                    {%- if section.settings.no_preservatives -%}
+                      <div class="flex items-center">
+                        <div class="">
+                          {% render 'no-preservatives-icon' %}
+                        </div>
+                        <p class="font-bold ml-3 text-xs">No Artificial Preservatives</p>
+                      </div>
+                    {%- endif -%}
+                  </div>
+                </div>
+                {% if template != 'product.asrv' %}
+                  <button
+                    aria-controls="ingredients-tab-panel-1"
+                    class="ingred-btn accordion-tab-1 border-t border-[#F0F0F0] flex justify-between py-3 w-full"
+                    type="button"
+                  >
+                    <span class="font-bold">Ingredients and Benefits</span>
+                    {% render 'icon-plus' %}
+                    {% render 'icon-minus' %}
+                  </button>
+                  <div
+                    aria-labelledby="ingredients-tab"
+                    class="ingred-con accor-cont hidden py-6 md:pb-0"
+                    id="ingredients-tab-panel-1"
+                    role="tabpanel"
+                    tabindex="0"
+                  >
+                    <div class="gap-8 grid grid-cols-1 md:grid-cols-2">
+                      <div>
+                        <div class="space-y-4" id="ingredients-content-1"></div>
+                        <button class="button-alt mt-4 w-full" id="view-more-ingredients-1" type="button">
+                          View More Ingredients
+                        </button>
+                      </div>
+
+                      <div class="ing-imges">
+                        {%- if product.metafields.product_details.sfp -%}
+                          <div class="max-w-sm mx-auto" id="main-product-sfp">
+                            {% render 'lazy-image', image: product.metafields.product_details.sfp.value, width: 400 %}
+                          </div>
+                        {%- endif -%}
+
+                        {%- for variant in product.variants -%}
+                          {%- if variant.metafields.product_details.sfp -%}
+                            <div class="hidden  max-w-sm mx-auto" data-variant-sfp="{{ variant.id }}">
+                              {% render 'lazy-image', image: variant.metafields.product_details.sfp.value, width: 400 %}
+                            </div>
+                          {%- endif -%}
+                        {%- endfor -%}
+                      </div>
+                    </div>
+                  </div>
+                  <button
+                    aria-controls="htu-tab-panel-1"
+                    class="accordion-tab-1 border-t border-[#F0F0F0] flex justify-between py-3 w-full "
+                    type="button"
+                  >
+                    <span class="font-bold">How To Use</span>
+                    {% render 'icon-plus' %}
+                    {% render 'icon-minus' %}
+                  </button>
+                  <div
+                    aria-labelledby="htu-tab"
+                    class="accor-cont hidden py-6 md:pb-0"
+                    id="htu-tab-panel-1"
+                    role="tabpanel"
+                    tabindex="0"
+                  >
+                    {% if product.metafields.custom.how_to_use != blank %}
+                      {{ product.metafields.custom.how_to_use }}
+                    {% else %}
+                      Not available
+                    {% endif %}
+                  </div>
+
+                  <button
+                    aria-controls="reviews-tab-panel-1"
+                    class=" review-btn accordion-tab-1 border-t border-[#F0F0F0] flex justify-between py-3 w-full active"
+                    type="button"
+                  >
+                    <span class="font-bold">Reviews</span>
+                    {% render 'icon-plus' %}
+                    {% render 'icon-minus' %}
+                  </button>
+                  <div
+                    aria-labelledby="reviews-tab"
+                    class="review-con accor-cont py-6 md:pb-0"
+                    id="reviews-tab-panel-1"
+                    role="tabpanel"
+                    tabindex="0"
+                  >
+                    <div>
+                      <!--
+                        <div
+                          class="yotpo yotpo-main-widget"
+                          data-product-id="{{ product.id }}"
+                          data-name="{{ product.title | escape }}"
+                          data-url="{{ shop.url }}{{ product.url }}"
+                          data-image-url="{{ product.featured_image | product_img_url: "large" |replace: '?', '%3F' | replace: '&','%26'}}"
+                          data-description="{{ product.description | escape }}"
+                        ></div>
+                      -->
+                      <!-- Start of Judge.me code -->
+                      <div style="clear:both"></div>
+                      <div
+                        id="judgeme_product_reviews"
+                        class="jdgm-widget jdgm-review-widget"
+                        data-id="{{ product.id }}"
+                      >
+                        {{ product.metafields.judgeme.widget }}
+                      </div>
+                      <!-- End of Judge.me code -->
+                    </div>
+                  </div>
+
+                  {% if product.metafields.custom.third_party_testing_list != blank %}
+                    <div class="third-party-accordian">
+                      <button
+                        aria-controls="testing-tab-panel-1"
+                        class="accordion-tab-1 border-t border-[#F0F0F0] flex justify-between py-3 w-full "
+                        type="button"
+                      >
+                        <span class="font-bold">3rd-Party Testing</span>
+                        {% render 'icon-plus' %}
+                        {% render 'icon-minus' %}
+                      </button>
+                      <div
+                        aria-labelledby="testing-tab"
+                        class="accor-cont hidden py-6 md:pb-0"
+                        id="testing-tab-panel-1"
+                        role="tabpanel"
+                        tabindex="0"
+                      >
+                        {% assign json_content = product.metafields.custom.third_party_testing_description %}
+                        {{ json_content | metafield_tag }}
+                        <div class="space-y-4" id="testing-content">
+                          <button
+                            class="bg-blue-light py-2 rounded text-white w-full "
+                            onclick="openPopup()"
+                            id="testing-button"
+                            type="button"
+                          >
+                            <span id="view_results" true="">View Test Results</span>
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                  {% endif %}
+
+                  <button
+                    aria-controls="faq-tab-panel-1"
+                    class="accordion-tab-1 border-t border-[#F0F0F0] flex justify-between py-3 w-full "
+                    type="button"
+                  >
+                    <span class="font-bold">FAQs</span>
+                    {% render 'icon-plus' %}
+                    {% render 'icon-minus' %}
+                  </button>
+                  <div
+                    aria-labelledby="faq-tab"
+                    class="accor-cont hidden py-6 md:pb-0"
+                    id="faq-tab-panel-1"
+                    role="tabpanel"
+                    tabindex="0"
+                  >
+                    <div class="space-y-4" id="faq-content-1"></div>
+                  </div>
+                {% endif %}
+              </custom-tabs>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="lg:py-8  xl:py-16">
+        <div class="max-w-7xl mx-auto xl:px-4">
+          <div class="gap-8 grid grid-cols-1 xl:grid-cols-3">
+            <div class="relative xl:col-span-2">
+              <div class="right-tag tl-badge-desktop desktop">
+                {% if product.metafields.custom.trust_badge != blank %}
+                  {% assign width = product.metafields.custom.trust_badge_width.value | split: '/' %}
+                  {% assign widthDesktop = width[0] %}
+                  <p class="tl-badge-img" {{ widthDesktop }}>
+                    {% assign phandle = product.handle %}
+                    {% if phandle contains 'proteinseries-100-grass-fed-whey-protein-isolate'
+                      or phandle contains 'grass-fed-whey-protein-isolate-4lbs'
+                    %}
+                      <img
+                        loading="lazy"
+                        src="{{ product.metafields.custom.trust_badge.value | img_url: 'master' }}"
+                        width="{{ widthDesktop }}px"
+                        height="100px"
+                        alt="Trust Badge"
+                      >
+                    {% else %}
+                      <img
+                        loading="lazy"
+                        src="{{ product.metafields.custom.trust_badge.value | img_url: 'master' }}"
+                        width="{{ section.settings.width_desktop }}px"
+                        height="100px"
+                        alt="Trust Badge"
+                      >
+                    {% endif %}
+                  </p>
+                {% endif %}
+              </div>
+
+              <div class="right-tag mobile">
+                {% if section.settings.tag != blank %}
+                  <p class="">{{ section.settings.tag | capitalize }}</p>
+                {% endif %}
+
+                {% comment %}
+                  {%- for tag in product.tags -%}
+                    {%- liquid
+                      assign start_series = tag | slice: 0, 7 | downcase
+                      assign start_badge = tag | slice: 0, 6 | downcase
+                    -%}
+
+                    {%- if start_badge == 'badge-' -%}
+                      <p class="">
+                        {%- liquid
+                          assign split_tag = tag | split: 'badge-'
+                          assign split_words = split_tag[1] | split: '-'
+                        -%}
+
+                        {%- for word in split_words -%}
+                          {{ word | capitalize }}
+                        {%- endfor -%}
+                      </p>
+                    {%- elsif start_series == 'series-' -%}
+                      <p class="">
+                        {%- liquid
+                          assign split_tag = tag | split: 'series-'
+                          assign split_words = split_tag[1] | split: '-'
+                        -%}
+
+                        {%- for word in split_words -%}
+                          {{ word | capitalize }}
+                        {%- endfor -%}
+
+                        Series
+                      </p>
+                    {%- endif -%}
+                  {%- endfor -%}
+                {% endcomment %}
+              </div>
+
+              <div class="grid grid-flow-col auto-cols-[minmax(0,_auto)]">
+                <div>
+                  <div class="swiper xl:bg-none" id="product-images-2">
+                    <div class=" swiper-wrapper"></div>
+                    <div class="swiper-prev absolute bg-white left-1/2 p-1 rounded-md text-blue-400 -translate-x-1/2 transition-opacity top-4 z-10 hover:opacity-70">
+                      {% render 'new-pdp-arrow-left' %}
+                    </div>
+                    <div class="swiper-next absolute bg-white bottom-4 left-1/2 p-1 rounded-md text-blue-400 -translate-x-1/2 transition-opacity z-10 hover:opacity-70">
+                      {% render 'new-pdp-arrow-right' %}
+                    </div>
+
+                    <div class="swiper-pagination"></div>
+                  </div>
+
+                  <div class="max-h-max badge-mobile w-70 m-auto xl:block vvvvv">
+                    <div class="swiper" id="product-thumbnails-2" style="max-height: 677px;">
+                      <div class="swiper-wrapper"></div>
+                      {% comment %}
+                        <div class="swiper-prev absolute bg-white left-1/2 p-1 rounded-md text-blue-400 -translate-x-1/2 transition-opacity top-4 z-10 hover:opacity-70">
+                           <a class="prev" onclick="plusSlides(-1)">
+                             <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M5 15l7-7 7 7" />
+                              </svg>
+                          </a>
+                        </div>
+
+                        <div class="swiper-next absolute bg-white bottom-4 left-1/2 p-1 rounded-md text-blue-400 -translate-x-1/2 transition-opacity z-10 hover:opacity-70">
+                          <a class="next" onclick="plusSlides(1)">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                              <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" />
+                            </svg>
+                            </a>
+                        </div>
+                      {% endcomment %}
+                    </div>
+                    <div class="tl-badge-mobile mobile">
+                      {% if product.metafields.custom.trust_badge != blank %}
+                        {% assign widthMobile = width[1] %}
+                        <p class="tl-badge-img" {{ widthMobile }}>
+                          {% assign phandle = product.handle %}
+                          {% if phandle contains 'proteinseries-100-grass-fed-whey-protein-isolate'
+                            or phandle contains 'grass-fed-whey-protein-isolate-4lbs'
+                          %}
+                            <img
+                              loading="lazy"
+                              src="{{ product.metafields.custom.trust_badge.value | img_url: 'master' }}"
+                              width="{{ widthMobile}}px"
+                              height="100px"
+                            >
+                          {% else %}
+                            <img
+                              loading="lazy"
+                              src="{{ product.metafields.custom.trust_badge.value | img_url: 'master' }}"
+                              width="{{ section.settings.width_mobile }}px"
+                              height="100px"
+                            >
+                          {% endif %}
+                        </p>
+                      {% endif %}
+                    </div>
+                  </div>
+                  <script>
+                    var swiper = new Swiper("#product-thumbnails-2", {
+                      spaceBetween: 8,
+                      slidesPerView: 5,
+                      freeMode: true,
+                      watchSlidesProgress: true,
+                    });
+                    var swiper2 = new Swiper("#product-images-2", {
+                      spaceBetween: 10,
+                      navigation: {
+                        nextEl: ".swiper-next",
+                        prevEl: ".swiper-prev",
+                      },
+                      thumbs: {
+                        swiper: swiper,
+                      },
+                    });
+                  </script>
+
+                  <div class="xt-accor max-w-7xl  mx-auto px-5 xl:px-4">
+                    <div class="">
+                      <div class="col-span-2 relative">
+                        <custom-tabs data-mode="alt">
+                          <button
+                            aria-controls="overview-tab-panel"
+                            class="accordion-tab border-t border-[#F0F0F0] flex justify-between py-3 w-full active"
+                            type="button"
+                          >
+                            <span class="font-bold">Overview</span>
+                            {% render 'icon-plus' %}
+                            {% render 'icon-minus' %}
+                          </button>
+
+                          <div
+                            aria-labelledby="overview-tab"
+                            class="accor-cont  py-6 md:pb-0"
+                            id="overview-tab-panel"
+                            role="tabpanel"
+                            tabindex="0"
+                          >
+                            <div class="text-gray-500">
+                              {% if product.metafields.custom.product_overview_detail != blank %}
+                                {{ product.metafields.custom.product_overview_detail }}
+                              {% else %}
+                                {{ section.settings.overview }}
+                              {% endif %}
+                            </div>
+                            <div class="gap-4 flex flex-col mt-4 uppercase md:gap-8 md:grid md:grid-flow-col md:auto-cols-fr">
+                              {%- if section.settings.no_sweetners -%}
+                                <div class="flex items-center">
+                                  <div class="">
+                                    {% render 'no-sweeteners-icon' %}
+                                  </div>
+                                  <p class="font-bold ml-3 text-xs">No Artificial Sweeteners</p>
+                                </div>
+                              {%- endif -%}
+                              {%- if section.settings.no_artificial_coloring -%}
+                                <div class="flex items-center">
+                                  <div class="">
+                                    {% render 'no-artificial-coloring-icon' %}
+                                  </div>
+                                  <p class="font-bold ml-3 text-xs">No Artificial Coloring</p>
+                                </div>
+                              {%- endif -%}
+                              {%- if section.settings.gluten_free -%}
+                                <div class="flex items-center">
+                                  <div class="">
+                                    {% render 'gluten-free-icon' %}
+                                  </div>
+                                  <p class="font-bold ml-3 text-xs">Gluten-Free and Non-GMO</p>
+                                </div>
+                              {%- endif -%}
+                              {%- if section.settings.no_preservatives -%}
+                                <div class="flex items-center">
+                                  <div class="">
+                                    {% render 'no-preservatives-icon' %}
+                                  </div>
+                                  <p class="font-bold ml-3 text-xs">No Artificial Preservatives</p>
+                                </div>
+                              {%- endif -%}
+                            </div>
+                          </div>
+                          {% if template != 'product.asrv' %}
+                            <button
+                              aria-controls="ingredients-tab-panel"
+                              class="ingred-btn accordion-tab border-t border-[#F0F0F0] flex justify-between py-3 w-full"
+                              type="button"
+                            >
+                              <span class="font-bold">Ingredients and Benefits</span>
+                              {% render 'icon-plus' %}
+                              {% render 'icon-minus' %}
+                            </button>
+                            <div
+                              aria-labelledby="ingredients-tab"
+                              class="ingred-con accor-cont hidden py-6 md:pb-0"
+                              id="ingredients-tab-panel"
+                              role="tabpanel"
+                              tabindex="0"
+                            >
+                              <div class="gap-8 grid grid-cols-1 md:grid-cols-2">
+                                <div>
+                                  <div class="space-y-4" id="ingredients-content"></div>
+                                  <button class="button-alt mt-4 w-full" id="view-more-ingredients" type="button">
+                                    View More Ingredients
+                                  </button>
+                                </div>
+
+                                <div
+                                  class="ing-imges"
+                                  data-product-id="{{ product.id }}"
+                                  data-img="{{ product.metafields.product_details.sfp}}"
+                                >
+                                  {%- if product.metafields.product_details.sfp -%}
+                                    <div class="max-w-sm mx-auto" id="main-product-sfp">
+                                      {% render 'lazy-image',
+                                        image: product.metafields.product_details.sfp.value,
+                                        width: 400
+                                      %}
+                                    </div>
+                                  {%- endif -%}
+
+                                  {%- for variant in product.variants -%}
+                                    {%- if variant.metafields.product_details.sfp -%}
+                                      <div class="hidden  max-w-sm mx-auto" data-variant-sfp="{{ variant.id }}">
+                                        {% render 'lazy-image',
+                                          image: variant.metafields.product_details.sfp.value,
+                                          width: 400
+                                        %}
+                                      </div>
+                                    {%- endif -%}
+                                  {%- endfor -%}
+                                </div>
+                              </div>
+                            </div>
+                            <button
+                              aria-controls="htu-tab-panel"
+                              class="accordion-tab border-t border-[#F0F0F0] flex justify-between py-3 w-full "
+                              type="button"
+                            >
+                              <span class="font-bold">How To Use</span>
+                              {% render 'icon-plus' %}
+                              {% render 'icon-minus' %}
+                            </button>
+                            <div
+                              aria-labelledby="htu-tab"
+                              class="accor-cont hidden py-6 md:pb-0"
+                              id="htu-tab-panel"
+                              role="tabpanel"
+                              tabindex="0"
+                            >
+                              {% if product.metafields.custom.how_to_use != blank %}
+                                {{ product.metafields.custom.how_to_use }}
+                              {% else %}
+                                Not available
+                              {% endif %}
+                            </div>
+
+                            <button
+                              aria-controls="reviews-tab-panel"
+                              class="review-btn accordion-tab border-t border-[#F0F0F0] flex justify-between py-3 w-full active"
+                              type="button"
+                            >
+                              <span class="font-bold">Reviews</span>
+                              {% render 'icon-plus' %}
+                              {% render 'icon-minus' %}
+                            </button>
+                            <div
+                              aria-labelledby="reviews-tab"
+                              class="review-con accor-cont  py-6 md:pb-0"
+                              id="reviews-tab-panel"
+                              role="tabpanel"
+                              tabindex="0"
+                            >
+                              <div>
+                                <!--
+                                  <div
+                                    class="yotpo yotpo-main-widget"
+                                    data-product-id="{{ product.id }}"
+                                    data-name="{{ product.title | escape }}"
+                                    data-url="{{ shop.url }}{{ product.url }}"
+                                    data-image-url="{{ product.featured_image | product_img_url: "large" |replace: '?', '%3F' | replace: '&','%26'}}"
+                                    data-description="{{ product.description | escape }}"
+                                  ></div>
+                                -->
+                                <!-- Start of Judge.me code -->
+                                <div style="clear:both"></div>
+                                <div
+                                  id="judgeme_product_reviews"
+                                  class="jdgm-widget jdgm-review-widget"
+                                  data-id="{{ product.id }}"
+                                >
+                                  {{ product.metafields.judgeme.widget }}
+                                </div>
+                                <!-- End of Judge.me code -->
+                              </div>
+                            </div>
+
+                            {% if product.metafields.custom.third_party_testing_list != blank %}
+                              <div class="third-party-accordian">
+                                <button
+                                  aria-controls="testing-tab-panel"
+                                  class="accordion-tab border-t border-[#F0F0F0] flex justify-between py-3 w-full "
+                                  type="button"
+                                >
+                                  <span class="font-bold">3rd-Party Testing</span>
+                                  {% render 'icon-plus' %}
+                                  {% render 'icon-minus' %}
+                                </button>
+                                <div
+                                  aria-labelledby="testing-tab"
+                                  class="accor-cont hidden py-6 md:pb-0"
+                                  id="testing-tab-panel"
+                                  role="tabpanel"
+                                  tabindex="0"
+                                >
+                                  {% assign json_content = product.metafields.custom.third_party_testing_description %}
+                                  {{ json_content | metafield_tag }}
+                                  <div class="space-y-4" id="testing-content">
+                                    <button
+                                      class="bg-blue-light font-bold py-2 rounded text-white w-full "
+                                      onclick="openPopup()"
+                                      id="testing-button"
+                                      type="button"
+                                    >
+                                      <span id="view_results" true="">View Test Results</span>
+                                    </button>
+                                  </div>
+                                </div>
+                              </div>
+                            {% endif %}
+
+                            {% comment %}
+                            <button
+                              aria-controls="faq-tab-panel"
+                              class="accordion-tab border-t border-[#F0F0F0] flex justify-between py-3 w-full "
+                              type="button"
+                            >
+                              <span class="font-bold">FAQs</span>
+                              {% render 'icon-plus' %}
+                              {% render 'icon-minus' %}
+                              
+                            </button>
+                            {% endcomment %}
+
+                            <button
+                              class=" border-t border-[#F0F0F0] flex justify-between py-3 w-full "
+                            >
+                              <span class="font-bold">FAQs</span>
+                              
+                            </button>
+                            
+                            <div
+                              aria-labelledby="faq-tab"
+                              class="accor-cont  py-6 md:pb-0"
+                              id="faq-tab-panel"
+                              role="tabpanel"
+                              tabindex="0"
+                            >
+                              <div class="space-y-4" id="faq-content" itemscope itemtype="https://schema.org/FAQPage"></div>
+                            </div>
+                          {% endif %}
+                        </custom-tabs>
+                      </div>
+
+                      <div></div>
+                    </div>
+                  </div>
+
+                  <div class="hidden" id="raw-faq-content">
+                    {{ product.metafields.product_details.faq }}
+                  </div>
+
+                  <div class="hidden" id="raw-ingredients-content">
+                    {{ product.metafields.product_details.ingredients }}
+                  </div>
+
+                  {% raw %}
+<script id="faq-template" type="text/x-handlebars-template">
+  {{#each items}}
+  <div>
+    <custom-accordion>
+      <div class="bg-white rounded-xl text-blue-500" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
+        <button
+          aria-controls="faq-{{index}}"
+          class="border-2 border-transparent flex items-center justify-between p-4 rounded-xl text-left transition-all w-full hover:border-blue-400 hover:opacity-70"
+          type="button"
+        >
+          <div class="flex items-center">
+            <div class="bg-orange-400 bg-opacity-20 font-semibold py-2 rounded-md text-center text-orange-400 w-8">
+              Q.
+            </div>
+            <div class="flex-1 mx-3 text-sm sm:text-base" itemprop="name" >{{{header}}}</div>
+          </div>
+          {% endraw %}
+                  <div class="plus-icon text-blue-400 transition-transform">
+                    {% render 'icon-plus' %}
+                  </div>
+                  {% raw %}
+        </button>
+
+        <div
+          aria-labelled-by="faq-{{index}}"
+          class="max-h-0 overflow-hidden text-sm"
+          role="region"
+        >
+          <div class="p-4">
+            <div class="flex h-full" itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+              <div class="bg-blue-400 bg-opacity-20 font-semibold mr-3 py-2 rounded-md text-blue-400 text-center w-8">
+                A.
+              </div>
+
+              <div class="flex-1 font-semibold" itemprop="text">
+                {{{description}}}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </custom-accordion>
+  </div>
+  {{/each}}
+</script>
+{% endraw %}
+
+                  {% raw %}
+<script id="ingredients-template" type="text/x-handlebars-template">
+  {{#each items}}
+  <div class="ingredients-element">
+    <custom-accordion>
+      <div class="bg-white rounded-xl text-blue-500">
+        <button
+          aria-controls="ingredient-acc-{{index}}"
+          class="border-2 border-transparent flex items-center justify-between p-4 rounded-xl text-left transition-all w-full hover:border-blue-400 hover:opacity-70"
+          type="button"
+        >
+          <span class="text-sm sm:text-base">{{{title}}}</span>
+          {{#unless emptyDescription}}
+          {% endraw %}
+                  <div class="plus-icon text-blue-400 transition-transform">
+                    {% render 'icon-plus' %}
+                  </div>
+                  {% raw %}
+          {{/unless}}
+        </button>
+
+        <div
+          aria-labelled-by="ingredient-acc-{{index}}"
+          class="max-h-0 overflow-hidden text-sm"
+          role="region"
+        >
+          <div class="p-6 rich-text">
+            {{{description}}}
+          </div>
+        </div>
+      </div>
+    </custom-accordion>
+  </div>
+  {{/each}}
+</script>
+{% endraw %}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script type="text/javascript">
+      var variant_values = {{ product.variants | json }};
+      var len = variant_values.length;
+
+      // get recharge selling plan group
+      var rechargeSellingPlanGroup = {{ product.selling_plan_groups | where: "app_id", "SKIO" | json }}
+
+      for(var i = 0; i < len; i++)
+      {
+        //console.log(variant_values[i].id);
+
+        // create array of selling plan allocations that are recharge's
+        var rechargeAllocations = variant_values[i].selling_plan_allocations.filter(allocation => allocation.selling_plan_group_id == rechargeSellingPlanGroup[0].id)
+
+        var len2 = rechargeAllocations.length;
+        var plans = rechargeAllocations;
+        for(var j=0; j < len2; j++)
+        {
+          if(i==0){
+          if(j == 0)
+          {
+            $("#selling_plan_{{ product.id }}").append('<option value="selling_plan_00">15 days</option>');
+          }
+          if(j == 1)
+          {
+            $("#selling_plan_{{ product.id }}").append('<option selected value="selling_plan_11">30 days</option>');
+          }
+          if(j == 2)
+          {
+            $("#selling_plan_{{ product.id }}").append('<option value="selling_plan_22">45 days</option>');
+          }}
+          $(".p1_selling_plan").append('<input type=hidden data-stack="'+variant_values[i].id+'" data-price='+ Shopify.formatMoney(plans[j].price) +' data-otp= '+ Shopify.formatMoney(plans[j].compare_at_price)+'  class="selling_plan_'+j+j+'" name="selling_plan" value="'+plans[j].selling_plan_id+'">');
+          //console.log(plans);
+        }
+        // if(i == 0)
+        // {
+        //    break;
+        // }
+      }
+    </script>
+    <script
+      type="text/javascript"
+    >
+      
+      
+      
+      
+  function lletsDoThis_{{product.id}}()
+  {
+    
+      {% if product.options[0] %}
+        var opt1 = $("#select-one1_{{ product.id}}").val();
+      {% endif %}
+      {% if product.options[1] %}
+        var opt2 = $("#select-two2_{{ product.id}}").val();
+      {% endif %}
+      {% if product.options[2] %}
+        var opt3 = $("#select-three3_{{ product.id}}").val();
+      {% endif %}
+
+    console.log(opt1);
+
+      var id = '';
+      {% for v in product.variants %}
+        {% unless v.metafields.secomapp.freegifts %}
+          {% unless v.title contains '(Freegifts)' %}
+            if(opt1=="{{ v.option1 }}"{% if product.options[1] %} && opt2=="{{ v.option2 }}"{% endif %}{% if product.options[2] %} && opt3=="{{ v.option3 }}"{% endif %}) 
+            {
+              var id = {{ v.id }};
+              var price = "{{ v.price | money }}";
+              var condition = "{{ v.available }}";
+              var com_at_price = "{{ product.price }}";
+              var feature_image ="{{v.featured_image | img_url : 'master'}}";
+              {% if v.selling_plan_allocations.size > 0 %}
+                  $("#subSave").prop('disabled', false); 
+                 $("#hidesubscription").show(); 
+              {% else %}
+                  $("#subSave").prop('disabled', true); 
+                  $("#hidesubscription").hide(); 
+                 $('.onetimeprice').text(price);
+              {% endif %}
+            }
+         {%endunless%}
+       {%endunless%}
+     {% endfor %}
+  
+    if(typeof opt1 !== 'undefined' && typeof opt2 !== 'undefined')
+      {
+          var media = {{ product.media | json }};
+          var variants = {{ product.variants | json }};
+          var product_title = "{{ product.title }}";
+          var flag = false;
+          var x = 1;
+          for(var j=0; j < media.length; j++)
+          {
+             //second way to remove slides
+              $('.swiper-slide2').last().remove();
+              $('.swiper-slide1').last().remove();
+              swiper2.update();
+              swiper.update();
+          }
+          /* add selected variant im age at first position       */
+        
+        
+          /* console.log(feature_image); */
+          if(feature_image == null)
+          {
+              console.log("Variant image is not defined. Please define variant image.")
+          }
+          else
+          {
+              var htmlString = `<div class="h-36 xt-thumb object-contain w-36"><lazy-image><div class="relative"><img class="relative z-0 h-36 object-contain opacity-0" data-placeholder="" height="1200" loading="lazy" src="`+feature_image+`" width="1200"><img  class="absolute h-full inset-0 opacity-100 transition-opacity w-full z-10 h-36 object-contain" data-src="`+feature_image+`" loading="lazy" src="`+feature_image+`"></div></lazy-image></div>`;
+              swiper.appendSlide(`<div class="swiper-slide swiper-slide2">`+htmlString+`</div>`);
+              
+              var mainhtmlstring = `<lazy-image><div class="relative"><img class="relative z-0 max-h-[300px] object-contain lg:max-h-[600px] opacity-0" data-placeholder="" height="960" loading="lazy" src="`+feature_image+`" width="960"><img class="absolute h-full inset-0 opacity-100 transition-opacity w-full z-10 max-h-[300px] object-contain lg:max-h-[600px]" data-src="`+feature_image+`" loading="lazy" src="`+feature_image+`"></div></lazy-image>`;
+              swiper2.appendSlide(`<div class="swiper-slide swiper-slide1">`+mainhtmlstring+`</div>`);
+          } 
+          
+          for(var i=0; i < media.length; i++)
+          {
+             if(media[i].alt !== null )
+             {
+                var text  = media[i].alt;
+                var text1 = text.split('-');
+               // console.log("alt value ="+text +" |one value="+text1[0] +"| opt1="+opt1+"| opt2="+opt2);
+                if(opt2 === text1[0] && opt1 === text1[1] )
+                { 
+                  console.log("inside condition alt value ="+text +" |one value="+text1[0] +"| opt1="+opt1+"| opt2="+opt2);
+                    flag = true;
+                    htmlString = `<div class="h-36 xt-thumb object-contain w-36"><lazy-image><div class="relative"><img class="relative z-0 h-36 object-contain opacity-0" data-placeholder="" height="1200" loading="lazy" src="`+media[i].src+`" width="1200"><img  class="absolute h-full inset-0 opacity-100 transition-opacity w-full z-10 h-36 object-contain" data-src="`+media[i].src+`" loading="lazy" src="`+media[i].src+`"></div></lazy-image></div>`;
+                    swiper.appendSlide(`<div class="swiper-slide swiper-slide2">`+htmlString+`</div>`);
+                    mainhtmlstring = `<lazy-image><div class="relative"><img class="relative z-0 max-h-[300px] object-contain lg:max-h-[600px] opacity-0" data-placeholder="" height="960" loading="lazy" src="`+media[i].src+`" width="960"><img  class="absolute h-full inset-0 opacity-100 transition-opacity w-full z-10 max-h-[300px] object-contain lg:max-h-[600px]" data-src="`+media[i].src+`" loading="lazy" src="`+media[i].src+`"></div></lazy-image>`;
+                    swiper2.appendSlide(`<div class="swiper-slide swiper-slide1">`+mainhtmlstring+`</div>`);
+                    x = x+1;
+                }
+                else if(opt2 === text && opt1 !== text1[1])
+                {
+                    flag = true;
+                    htmlString = `<div class="h-36 xt-thumb object-contain w-36"><lazy-image><div class="relative"><img class="relative z-0 h-36 object-contain opacity-0" data-placeholder="" height="1200" loading="lazy" src="`+media[i].src+`" width="1200"><img class="absolute h-full inset-0 opacity-100 transition-opacity w-full z-10 h-36 object-contain" data-src="`+media[i].src+`" loading="lazy" src="`+media[i].src+`"></div></lazy-image></div>`;
+                    swiper.appendSlide(`<div class="swiper-slide swiper-slide2">`+htmlString+`</div>`);
+                    mainhtmlstring = `<lazy-image><div class="relative"><img class="relative z-0 max-h-[300px] object-contain lg:max-h-[600px] opacity-0" data-placeholder="" height="960" loading="lazy" src="`+media[i].src+`" width="960"><img  class="absolute h-full inset-0 opacity-100 transition-opacity w-full z-10 max-h-[300px] object-contain lg:max-h-[600px]" data-src="`+media[i].src+`" loading="lazy" src="`+media[i].src+`"></div></lazy-image>`;
+                    swiper2.appendSlide(`<div class="swiper-slide swiper-slide1">`+mainhtmlstring+`</div>`);
+                    x = x+1;          
+                }
+                else if(text1[0] === 'all')
+                {
+                    flag = true;
+                    htmlString = `<div class="h-36 xt-thumb object-contain w-36"><lazy-image><div class="relative"><img class="relative z-0 h-36 object-contain opacity-0" data-placeholder="" height="1200" loading="lazy" src="`+media[i].src+`" width="1200"><img  class="absolute h-full inset-0 opacity-100 transition-opacity w-full z-10 h-36 object-contain" data-src="`+media[i].src+`" loading="lazy" src="`+media[i].src+`"></div></lazy-image></div>`;
+                    swiper.appendSlide(`<div class="swiper-slide swiper-slide2">`+htmlString+`</div>`);
+                    mainhtmlstring = `<lazy-image><div class="relative"><img class="relative z-0 max-h-[300px] object-contain lg:max-h-[600px] opacity-0" data-placeholder="" height="960" loading="lazy" src="`+media[i].src+`" width="960"><img  class="absolute h-full inset-0 opacity-100 transition-opacity w-full z-10 max-h-[300px] object-contain lg:max-h-[600px]" data-src="`+media[i].src+`" loading="lazy" src="`+media[i].src+`"></div></lazy-image>`;
+                    swiper2.appendSlide(`<div class="swiper-slide swiper-slide1">`+mainhtmlstring+`</div>`);
+                    x = x+1; 
+                }
+                else
+                {
+                  
+                }
+    
+            }
+            else
+            {
+                // flag = true;
+                // htmlString = `<div class="h-36 xt-thumb object-contain w-36"><lazy-image><div class="relative"><img class="relative z-0 h-36 object-contain opacity-0" data-placeholder="" height="1200" loading="lazy" src="`+media[i].src+`" width="1200"><img  class="absolute h-full inset-0 opacity-100 transition-opacity w-full z-10 h-36 object-contain" data-src="`+media[i].src+`" loading="lazy" src="`+media[i].src+`"></div></lazy-image></div>`;
+                // swiper.appendSlide(`<div class="swiper-slide swiper-slide2">`+htmlString+`</div>`);
+                // mainhtmlstring = `<lazy-image><div class="relative"><img class="relative z-0 max-h-[300px] object-contain lg:max-h-[600px] opacity-0" data-placeholder="" height="960" loading="lazy" src="`+media[i].src+`" width="960"><img  class="absolute h-full inset-0 opacity-100 transition-opacity w-full z-10 max-h-[300px] object-contain lg:max-h-[600px]" data-src="`+media[i].src+`" loading="lazy" src="`+media[i].src+`"></div></lazy-image>`;
+                // swiper2.appendSlide(`<div class="swiper-slide swiper-slide1">`+mainhtmlstring+`</div>`);
+                // x = x+1;
+            }
+         }
+      }
+
+      if(typeof opt1 !== 'undefined' && typeof opt2 === 'undefined')
+      {
+          var media = {{ product.media | json }};
+          var variants = {{ product.variants | json }};
+ 
+          var product_title = "{{ product.title }}";
+          var flag = false;
+          var x = 1;
+          for(var j=0; j < media.length; j++)
+          {
+             //second way to remove slides
+              $('.swiper-slide2').last().remove();
+              $('.swiper-slide1').last().remove();
+              swiper2.update();
+              swiper.update();
+          }
+          /* add selected variant im age at first position       */
+        
+        
+          /* console.log(feature_image); */
+/*           if(feature_image == null)
+          {
+              console.log("Variant image is not defined. Please define variant image.")
+          }
+          else
+          {
+              var htmlString = `<div class="h-36 xt-thumb object-contain w-36"><lazy-image><div class="relative"><img class="relative z-0 h-36 object-contain opacity-0" data-placeholder="" height="1200" loading="lazy" src="`+feature_image+`" width="1200"><img  class="absolute h-full inset-0 opacity-100 transition-opacity w-full z-10 h-36 object-contain" data-src="`+feature_image+`" loading="lazy" src="`+feature_image+`"></div></lazy-image></div>`;
+              swiper.appendSlide(`<div class="swiper-slide swiper-slide2">`+htmlString+`</div>`);
+              
+              var mainhtmlstring = `<lazy-image><div class="relative"><img class="relative z-0 max-h-[300px] object-contain lg:max-h-[600px] opacity-0" data-placeholder="" height="960" loading="lazy" src="`+feature_image+`" width="960"><img class="absolute h-full inset-0 opacity-100 transition-opacity w-full z-10 max-h-[300px] object-contain lg:max-h-[600px]" data-src="`+feature_image+`" loading="lazy" src="`+feature_image+`"></div></lazy-image>`;
+              swiper2.appendSlide(`<div class="swiper-slide swiper-slide1">`+mainhtmlstring+`</div>`);
+          }  */
+          
+          for(var i=0; i < media.length; i++)
+          {
+             if(media[i].alt !== null )
+             {
+                var text  = media[i].alt;
+                var text1 = text.split('-');
+               
+                if(opt1 === text)
+                {
+                    flag = true;
+                    htmlString = `<div class="h-36 xt-thumb object-contain w-36"><lazy-image><div class="relative"><img class="relative z-0 h-36 object-contain opacity-0" data-placeholder="" height="1200" loading="lazy" src="`+media[i].src+`" width="1200"><img class="absolute h-full inset-0 opacity-100 transition-opacity w-full z-10 h-36 object-contain" data-src="`+media[i].src+`" loading="lazy" src="`+media[i].src+`"></div></lazy-image></div>`;
+                    swiper.appendSlide(`<div class="swiper-slide swiper-slide2">`+htmlString+`</div>`);
+                    mainhtmlstring = `<lazy-image><div class="relative"><img class="relative z-0 max-h-[300px] object-contain lg:max-h-[600px] opacity-0" data-placeholder="" height="960" loading="lazy" src="`+media[i].src+`" width="960"><img  class="absolute h-full inset-0 opacity-100 transition-opacity w-full z-10 max-h-[300px] object-contain lg:max-h-[600px]" data-src="`+media[i].src+`" loading="lazy" src="`+media[i].src+`"></div></lazy-image>`;
+                    swiper2.appendSlide(`<div class="swiper-slide swiper-slide1">`+mainhtmlstring+`</div>`);
+                    x = x+1;          
+                }
+                else if(text1[0] === 'all')
+                {
+                    flag = true;
+                    htmlString = `<div class="h-36 xt-thumb object-contain w-36"><lazy-image><div class="relative"><img class="relative z-0 h-36 object-contain opacity-0" data-placeholder="" height="1200" loading="lazy" src="`+media[i].src+`" width="1200"><img  class="absolute h-full inset-0 opacity-100 transition-opacity w-full z-10 h-36 object-contain" data-src="`+media[i].src+`" loading="lazy" src="`+media[i].src+`"></div></lazy-image></div>`;
+                    swiper.appendSlide(`<div class="swiper-slide swiper-slide2">`+htmlString+`</div>`);
+                    mainhtmlstring = `<lazy-image><div class="relative"><img class="relative z-0 max-h-[300px] object-contain lg:max-h-[600px] opacity-0" data-placeholder="" height="960" loading="lazy" src="`+media[i].src+`" width="960"><img  class="absolute h-full inset-0 opacity-100 transition-opacity w-full z-10 max-h-[300px] object-contain lg:max-h-[600px]" data-src="`+media[i].src+`" loading="lazy" src="`+media[i].src+`"></div></lazy-image>`;
+                    swiper2.appendSlide(`<div class="swiper-slide swiper-slide1">`+mainhtmlstring+`</div>`);
+                    x = x+1; 
+                }
+                else
+                {
+                  
+                }
+    
+            }
+            else
+            {
+                // flag = true;
+                // htmlString = `<div class="h-36 xt-thumb object-contain w-36"><lazy-image><div class="relative"><img class="relative z-0 h-36 object-contain opacity-0" data-placeholder="" height="1200" loading="lazy" src="`+media[i].src+`" width="1200"><img  class="absolute h-full inset-0 opacity-100 transition-opacity w-full z-10 h-36 object-contain" data-src="`+media[i].src+`" loading="lazy" src="`+media[i].src+`"></div></lazy-image></div>`;
+                // swiper.appendSlide(`<div class="swiper-slide swiper-slide2">`+htmlString+`</div>`);
+                // mainhtmlstring = `<lazy-image><div class="relative"><img class="relative z-0 max-h-[300px] object-contain lg:max-h-[600px] opacity-0" data-placeholder="" height="960" loading="lazy" src="`+media[i].src+`" width="960"><img  class="absolute h-full inset-0 opacity-100 transition-opacity w-full z-10 max-h-[300px] object-contain lg:max-h-[600px]" data-src="`+media[i].src+`" loading="lazy" src="`+media[i].src+`"></div></lazy-image>`;
+                // swiper2.appendSlide(`<div class="swiper-slide swiper-slide1">`+mainhtmlstring+`</div>`);
+                // x = x+1;
+            }
+         }
+      }
+
+  if(typeof opt1 === 'undefined' && typeof opt2 === 'undefined')
+   {
+      var media = {{ product.media | json }};
+      var product_title = "{{ product.title }}";
+      var flag = false;
+      var x = 1;
+       var y = 1;
+
+        
+      for(var i=0; i < media.length; i++)
+      {
+         if(media[i].alt !== null )
+         {
+            var text  = media[i].alt;
+            var text1 = text.split('-');
+            if(opt1 === text)
+            {
+                 flag = true;
+                htmlString = `<div class="h-36 xt-thumb object-contain w-36"><lazy-image><div class="relative"><img class="relative z-0 h-36 object-contain opacity-0" data-placeholder="" height="1200" loading="lazy" src="`+media[i].src+`" width="1200"><img  class="absolute h-full inset-0 opacity-100 transition-opacity w-full z-10 h-36 object-contain" data-src="`+media[i].src+`" loading="lazy" src="`+media[i].src+`"></div></lazy-image></div>`;
+                swiper.appendSlide(`<div class="swiper-slide swiper-slide2">`+htmlString+`</div>`);
+                mainhtmlstring = `<lazy-image><div class="relative"><img class="relative z-0 max-h-[300px] object-contain lg:max-h-[600px] opacity-0" data-placeholder="" height="960" loading="lazy" src="`+media[i].src+`" width="960"><img  class="absolute h-full inset-0 opacity-100 transition-opacity w-full z-10 max-h-[300px] object-contain lg:max-h-[600px]" data-src="`+media[i].src+`" loading="lazy" src="`+media[i].src+`"></div></lazy-image>`;
+                swiper2.appendSlide(`<div class="swiper-slide swiper-slide1">`+mainhtmlstring+`</div>`);
+                x = x+1;          
+            }
+            else if(text1[0] === '')
+            {
+                flag = true;
+                htmlString = `<div class="h-36 xt-thumb object-contain w-36"><lazy-image><div class="relative"><img class="relative z-0 h-36 object-contain opacity-0" data-placeholder="" height="1200" loading="lazy" src="`+media[i].src+`" width="1200"><img  class="absolute h-full inset-0 opacity-100 transition-opacity w-full z-10 h-36 object-contain" data-src="`+media[i].src+`" loading="lazy" src="`+media[i].src+`"></div></lazy-image></div>`;
+                swiper.appendSlide(`<div class="swiper-slide swiper-slide2">`+htmlString+`</div>`);
+                mainhtmlstring = `<lazy-image><div class="relative"><img class="relative z-0 max-h-[300px] object-contain lg:max-h-[600px] opacity-0" data-placeholder="" height="960" loading="lazy" src="`+media[i].src+`" width="960"><img  class="absolute h-full inset-0 opacity-100 transition-opacity w-full z-10 max-h-[300px] object-contain lg:max-h-[600px]" data-src="`+media[i].src+`" loading="lazy" src="`+media[i].src+`"></div></lazy-image>`;
+                swiper2.appendSlide(`<div class="swiper-slide swiper-slide1">`+mainhtmlstring+`</div>`);
+                x = x+1; 
+            }
+            else
+            {
+                            
+            }
+  
+        }
+        else
+        {
+            //flag = true;
+            //htmlString = `<div class="h-36 xt-thumb object-contain w-36"><lazy-image><div class="relative"><img class="relative z-0 h-36 object-contain opacity-0" data-placeholder="" height="1200" loading="lazy" src="`+media[i].src+`" width="1200"><img class="absolute h-full inset-0 opacity-100 transition-opacity w-full z-10 h-36 object-contain" data-src="`+media[i].src+`" loading="lazy" src="`+media[i].src+`"></div></lazy-image></div>`;
+            //swiper.appendSlide(`<div class="swiper-slide swiper-slide2">`+htmlString+`</div>`);
+            //mainhtmlstring = `<lazy-image><div class="relative"><img class="relative z-0 max-h-[300px] object-contain lg:max-h-[600px] opacity-0" data-placeholder="" height="960" loading="lazy" src="`+media[i].src+`" width="960"><img alt="Watermelon" class="absolute h-full inset-0 opacity-100 transition-opacity w-full z-10 max-h-[300px] object-contain lg:max-h-[600px]" data-src="`+media[i].src+`" loading="lazy" src="`+media[i].src+`"></div></lazy-image>`;
+            //swiper2.appendSlide(`<div class="swiper-slide swiper-slide1">`+mainhtmlstring+`</div>`);
+            //x = x+1;
+        }
+     }
+  }
+ 
+  if(condition == 'true') 
+  {
+      document.getElementById('product-select_{{product.id}}').value = id;
+      var selling_plan_val = $("input[name='newpurchaseoption']:checked").val();
+      $(".p1_selling_plan [data-stack]").each(function(i,Data)
+      {
+       
+          var vid = parseInt($(Data).data("stack"));
+          if(vid == id)
+          {
+              var otpprice = $(Data).data("otp");
+              var new_price = $(Data).data("price");
+            console.log(otpprice);
+            console.log(new_price);
+
+              var oldprice = otpprice.split("$");
+              var discounted_price = new_price.split("$");
+              
+              var save_price = parseFloat(oldprice[1]) - parseFloat(discounted_price[1]);
+  
+              $('.onetimeprice').text(otpprice);
+              $(".sub_price").html(new_price+"<br><span class='line_thue'>"+otpprice+"</span>");  
+              $('.save_price').text("& save $"+save_price.toFixed()+" + Free Shipping");
+          }
+          else
+          {
+            
+          }
+      });
+      if(selling_plan_val == "onetime")
+      {
+        $("#product-availability").text("Add to Cart"); 
+        $("#add-to-cart-button").removeClass("opacity-70"); 
+        $("#add-to-cart-button").prop('disabled', false); 
+      }
+      else
+      {
+        $("#product-availability").text("Subscribe"); 
+        $("#add-to-cart-button").removeClass("opacity-70"); 
+        $("#add-to-cart-button").prop('disabled', false); 
+      }
+  }  
+  else if(condition == 'false')
+  {
+      var selling_plan_val = $("input[name='newpurchaseoption']:checked").val();
+      $(".p1_selling_plan [data-stack]").each(function(i,Data)
+      {
+        var vid = parseInt($(Data).data("stack"));
+        if(vid == id)
+        {
+              var otpprice = $(Data).data("otp");
+              var new_price = $(Data).data("price");
+          
+              var oldprice = otpprice.split("$");
+              var discounted_price = new_price.split("$");
+              
+              var save_price = parseFloat(oldprice[1]) - parseFloat(discounted_price[1]);
+  
+              $('.onetimeprice').text(otpprice);
+              $(".sub_price").html(new_price+"<br><span class='line_thue'>"+otpprice+"</span>");  
+              $('.save_price').text("& save $"+save_price.toFixed()+" + Free Shipping");
+        }
+      });
+        document.getElementById('product-select_{{product.id}}').value = '';
+        $("#product-availability").text("Sold Out"); 
+        $("#add-to-cart-button").addClass("opacity-70"); 
+        $("#add-to-cart-button").prop('disabled', true);  
+  }
+  else 
+  {
+      document.getElementById('product-select_{{product.id}}').value = "000";
+      $("#product-availability").text("Unavailable"); 
+      $("#add-to-cart-button").addClass("opacity-70"); 
+      $("#add-to-cart-button").prop('disabled', true);
+  }
+}
+    </script>
+
+    <script>
+      
+      
+      
+      
+  $(document).ready(function()
+  {
+    var feature_image = "{{ current_variant.featured_image | img_url: 'master' }}";
+    
+    var opt1 = $("#select-one1_{{ product.id}}").val();
+    var opt2 = $("#select-two2_{{ product.id}}").val();
+
+    $('input[type=radio][name=newpurchaseoption]').change(function() 
+    {
+      $(".stack-row-item").removeClass("active_class");
+      $(this).parent().addClass("active_class");
+    });
+    
+    var idd = $("#product-select_{{ product.id }}").val();
+    document.querySelectorAll('div[data-variant-sfp]').forEach((elem) => {
+      if (elem.dataset.variantSfp == idd) 
+      {
+        elem.classList.remove('hidden');
+      } 
+      else 
+      {
+        elem.classList.add('hidden');
+      }
+    });
+  
+  
+   if(typeof opt1 !== 'undefined' && typeof opt2 !== 'undefined')
+   {
+
+      var media = {{ product.media | json }};
+      var product_title = "{{ product.title }}";
+      var flag = false;
+      var x = 1;
+       var y = 1;
+
+      if(feature_image == null)
+      {
+        console.log("Variant image is not defined. Please define variant image.")
+      }
+      else
+      {
+        var htmlString = `<div class="h-36 xt-thumb object-contain w-36"><lazy-image><div class="relative"><img class="relative z-0 h-36 object-contain opacity-0" data-placeholder="" height="1200" loading="lazy" src="`+feature_image+`" width="1200"><img  class="absolute h-full inset-0 opacity-100 transition-opacity w-full z-10 h-36 object-contain" data-src="`+feature_image+`" loading="lazy" src="`+feature_image+`"></div></lazy-image></div>`;
+        swiper.appendSlide(`<div class="swiper-slide swiper-slide2">`+htmlString+`</div>`);
+        
+        var mainhtmlstring = `<lazy-image><div class="relative"><img class="relative z-0 max-h-[300px] object-contain lg:max-h-[600px] opacity-0" data-placeholder="" height="960" loading="lazy" src="`+feature_image+`" width="960"><img  class="absolute h-full inset-0 opacity-100 transition-opacity w-full z-10 max-h-[300px] object-contain lg:max-h-[600px]" data-src="`+feature_image+`" loading="lazy" src="`+feature_image+`"></div></lazy-image>`;
+        swiper2.appendSlide(`<div class="swiper-slide swiper-slide1">`+mainhtmlstring+`</div>`);
+      }  
+        
+      for(var i=0; i < media.length; i++)
+      {
+         if(media[i].alt !== null )
+         {
+            var text  = media[i].alt;
+            var text1 = text.split('-');
+            if(opt2 === text1[0] && opt1 === text1[1] )
+            { 
+                flag = true;
+               var htmlString = `<div class="h-36 xt-thumb object-contain w-36"><lazy-image><div class="relative"><img class="relative z-0 h-36 object-contain opacity-0" data-placeholder="" height="1200" loading="lazy" src="`+media[i].src+`" width="1200"><img  class="absolute h-full inset-0 opacity-100 transition-opacity w-full z-10 h-36 object-contain" data-src="`+media[i].src+`" loading="lazy" src="`+media[i].src+`"></div></lazy-image></div>`;
+                swiper.appendSlide(`<div class="swiper-slide swiper-slide2">`+htmlString+`</div>`);
+                var mainhtmlstring = `<lazy-image><div class="relative"><img class="relative z-0 max-h-[300px] object-contain lg:max-h-[600px] opacity-0" data-placeholder="" height="960" loading="lazy" src="`+media[i].src+`" width="960"><img  class="absolute h-full inset-0 opacity-100 transition-opacity w-full z-10 max-h-[300px] object-contain lg:max-h-[600px]" data-src="`+media[i].src+`" loading="lazy" src="`+media[i].src+`"></div></lazy-image>`;
+                swiper2.appendSlide(`<div class="swiper-slide swiper-slide1">`+mainhtmlstring+`</div>`);
+                x = x+1;
+            }
+            else if(opt2 === text && opt1 !== text1[1])
+            {
+                 flag = true;
+               var htmlString = `<div class="h-36 xt-thumb object-contain w-36"><lazy-image><div class="relative"><img class="relative z-0 h-36 object-contain opacity-0" data-placeholder="" height="1200" loading="lazy" src="`+media[i].src+`" width="1200"><img  class="absolute h-full inset-0 opacity-100 transition-opacity w-full z-10 h-36 object-contain" data-src="`+media[i].src+`" loading="lazy" src="`+media[i].src+`"></div></lazy-image></div>`;
+                swiper.appendSlide(`<div class="swiper-slide swiper-slide2">`+htmlString+`</div>`);
+               var mainhtmlstring = `<lazy-image><div class="relative"><img class="relative z-0 max-h-[300px] object-contain lg:max-h-[600px] opacity-0" data-placeholder="" height="960" loading="lazy" src="`+media[i].src+`" width="960"><img  class="absolute h-full inset-0 opacity-100 transition-opacity w-full z-10 max-h-[300px] object-contain lg:max-h-[600px]" data-src="`+media[i].src+`" loading="lazy" src="`+media[i].src+`"></div></lazy-image>`;
+                swiper2.appendSlide(`<div class="swiper-slide swiper-slide1">`+mainhtmlstring+`</div>`);
+                x = x+1;          
+            }
+            else if(text1[0] === 'all')
+            {
+                flag = true;
+               var htmlString = `<div class="h-36 xt-thumb object-contain w-36"><lazy-image><div class="relative"><img class="relative z-0 h-36 object-contain opacity-0" data-placeholder="" height="1200" loading="lazy" src="`+media[i].src+`" width="1200"><img  class="absolute h-full inset-0 opacity-100 transition-opacity w-full z-10 h-36 object-contain" data-src="`+media[i].src+`" loading="lazy" src="`+media[i].src+`"></div></lazy-image></div>`;
+                swiper.appendSlide(`<div class="swiper-slide swiper-slide2">`+htmlString+`</div>`);
+               var mainhtmlstring = `<lazy-image><div class="relative"><img class="relative z-0 max-h-[300px] object-contain lg:max-h-[600px] opacity-0" data-placeholder="" height="960" loading="lazy" src="`+media[i].src+`" width="960"><img  class="absolute h-full inset-0 opacity-100 transition-opacity w-full z-10 max-h-[300px] object-contain lg:max-h-[600px]" data-src="`+media[i].src+`" loading="lazy" src="`+media[i].src+`"></div></lazy-image>`;
+                swiper2.appendSlide(`<div class="swiper-slide swiper-slide1">`+mainhtmlstring+`</div>`);
+                x = x+1; 
+            }
+            else
+            {
+                            
+            }
+  
+        }
+        else
+        {
+            //flag = true;
+            //htmlString = `<div class="h-36 xt-thumb object-contain w-36"><lazy-image><div class="relative"><img class="relative z-0 h-36 object-contain opacity-0" data-placeholder="" height="1200" loading="lazy" src="`+media[i].src+`" width="1200"><img class="absolute h-full inset-0 opacity-100 transition-opacity w-full z-10 h-36 object-contain" data-src="`+media[i].src+`" loading="lazy" src="`+media[i].src+`"></div></lazy-image></div>`;
+            //swiper.appendSlide(`<div class="swiper-slide swiper-slide2">`+htmlString+`</div>`);
+            //mainhtmlstring = `<lazy-image><div class="relative"><img class="relative z-0 max-h-[300px] object-contain lg:max-h-[600px] opacity-0" data-placeholder="" height="960" loading="lazy" src="`+media[i].src+`" width="960"><img alt="Watermelon" class="absolute h-full inset-0 opacity-100 transition-opacity w-full z-10 max-h-[300px] object-contain lg:max-h-[600px]" data-src="`+media[i].src+`" loading="lazy" src="`+media[i].src+`"></div></lazy-image>`;
+            //swiper2.appendSlide(`<div class="swiper-slide swiper-slide1">`+mainhtmlstring+`</div>`);
+            //x = x+1;
+        }
+     }
+  }
+        
+   if(typeof opt1 !== 'undefined' && typeof opt2 === 'undefined')
+   {
+      var media = {{ product.media | json }};
+      var product_title = "{{ product.title }}";
+      var flag = false;
+      var x = 1;
+       var y = 1;
+
+        
+      for(var i=0; i < media.length; i++)
+      {
+         if(media[i].alt !== null )
+         {
+            var text  = media[i].alt;
+            var text1 = text.split('-');
+            if(opt1 === text)
+            {
+                 flag = true;
+                htmlString = `<div class="h-36 xt-thumb object-contain w-36"><lazy-image><div class="relative"><img class="relative z-0 h-36 object-contain opacity-0" data-placeholder="" height="1200" loading="lazy" src="`+media[i].src+`" width="1200"><img  class="absolute h-full inset-0 opacity-100 transition-opacity w-full z-10 h-36 object-contain" data-src="`+media[i].src+`" loading="lazy" src="`+media[i].src+`"></div></lazy-image></div>`;
+                swiper.appendSlide(`<div class="swiper-slide swiper-slide2">`+htmlString+`</div>`);
+                mainhtmlstring = `<lazy-image><div class="relative"><img class="relative z-0 max-h-[300px] object-contain lg:max-h-[600px] opacity-0" data-placeholder="" height="960" loading="lazy" src="`+media[i].src+`" width="960"><img  class="absolute h-full inset-0 opacity-100 transition-opacity w-full z-10 max-h-[300px] object-contain lg:max-h-[600px]" data-src="`+media[i].src+`" loading="lazy" src="`+media[i].src+`"></div></lazy-image>`;
+                swiper2.appendSlide(`<div class="swiper-slide swiper-slide1">`+mainhtmlstring+`</div>`);
+                x = x+1;          
+            }
+            else if(text1[0] === 'all')
+            {
+                flag = true;
+                htmlString = `<div class="h-36 xt-thumb object-contain w-36"><lazy-image><div class="relative"><img class="relative z-0 h-36 object-contain opacity-0" data-placeholder="" height="1200" loading="lazy" src="`+media[i].src+`" width="1200"><img  class="absolute h-full inset-0 opacity-100 transition-opacity w-full z-10 h-36 object-contain" data-src="`+media[i].src+`" loading="lazy" src="`+media[i].src+`"></div></lazy-image></div>`;
+                swiper.appendSlide(`<div class="swiper-slide swiper-slide2">`+htmlString+`</div>`);
+                mainhtmlstring = `<lazy-image><div class="relative"><img class="relative z-0 max-h-[300px] object-contain lg:max-h-[600px] opacity-0" data-placeholder="" height="960" loading="lazy" src="`+media[i].src+`" width="960"><img  class="absolute h-full inset-0 opacity-100 transition-opacity w-full z-10 max-h-[300px] object-contain lg:max-h-[600px]" data-src="`+media[i].src+`" loading="lazy" src="`+media[i].src+`"></div></lazy-image>`;
+                swiper2.appendSlide(`<div class="swiper-slide swiper-slide1">`+mainhtmlstring+`</div>`);
+                x = x+1; 
+            }
+            else
+            {
+                            
+            }
+  
+        }
+        else
+        {
+            //flag = true;
+            //htmlString = `<div class="h-36 xt-thumb object-contain w-36"><lazy-image><div class="relative"><img class="relative z-0 h-36 object-contain opacity-0" data-placeholder="" height="1200" loading="lazy" src="`+media[i].src+`" width="1200"><img class="absolute h-full inset-0 opacity-100 transition-opacity w-full z-10 h-36 object-contain" data-src="`+media[i].src+`" loading="lazy" src="`+media[i].src+`"></div></lazy-image></div>`;
+            //swiper.appendSlide(`<div class="swiper-slide swiper-slide2">`+htmlString+`</div>`);
+            //mainhtmlstring = `<lazy-image><div class="relative"><img class="relative z-0 max-h-[300px] object-contain lg:max-h-[600px] opacity-0" data-placeholder="" height="960" loading="lazy" src="`+media[i].src+`" width="960"><img alt="Watermelon" class="absolute h-full inset-0 opacity-100 transition-opacity w-full z-10 max-h-[300px] object-contain lg:max-h-[600px]" data-src="`+media[i].src+`" loading="lazy" src="`+media[i].src+`"></div></lazy-image>`;
+            //swiper2.appendSlide(`<div class="swiper-slide swiper-slide1">`+mainhtmlstring+`</div>`);
+            //x = x+1;
+        }
+     }
+  }
+
+    if(typeof opt1 === 'undefined' && typeof opt2 === 'undefined')
+   {
+      var media = {{ product.media | json }};
+      var product_title = "{{ product.title }}";
+      var flag = false;
+      var x = 1;
+       var y = 1;
+
+        
+      for(var i=0; i < media.length; i++)
+      {
+         if(media[i].alt !== null )
+         {
+            var text  = media[i].alt;
+            var text1 = text.split('-');
+
+            if(opt1 === text)
+            {
+                 flag = true;
+                htmlString = `<div class="h-36 xt-thumb object-contain w-36"><lazy-image><div class="relative"><img class="relative z-0 h-36 object-contain opacity-0" data-placeholder="" height="1200" loading="lazy" src="`+media[i].src+`" width="1200"><img  class="absolute h-full inset-0 opacity-100 transition-opacity w-full z-10 h-36 object-contain" data-src="`+media[i].src+`" loading="lazy" src="`+media[i].src+`"></div></lazy-image></div>`;
+                swiper.appendSlide(`<div class="swiper-slide swiper-slide2">`+htmlString+`</div>`);
+                mainhtmlstring = `<lazy-image><div class="relative"><img class="relative z-0 max-h-[300px] object-contain lg:max-h-[600px] opacity-0" data-placeholder="" height="960" loading="lazy" src="`+media[i].src+`" width="960"><img  class="absolute h-full inset-0 opacity-100 transition-opacity w-full z-10 max-h-[300px] object-contain lg:max-h-[600px]" data-src="`+media[i].src+`" loading="lazy" src="`+media[i].src+`"></div></lazy-image>`;
+                swiper2.appendSlide(`<div class="swiper-slide swiper-slide1">`+mainhtmlstring+`</div>`);
+                x = x+1;          
+            }
+            else if(text1[0] === 'all')
+            {
+                flag = true;
+                htmlString = `<div class="h-36 xt-thumb object-contain w-36"><lazy-image><div class="relative"><img class="relative z-0 h-36 object-contain opacity-0" data-placeholder="" height="1200" loading="lazy" src="`+media[i].src+`" width="1200"><img  class="absolute h-full inset-0 opacity-100 transition-opacity w-full z-10 h-36 object-contain" data-src="`+media[i].src+`" loading="lazy" src="`+media[i].src+`"></div></lazy-image></div>`;
+                swiper.appendSlide(`<div class="swiper-slide swiper-slide2">`+htmlString+`</div>`);
+                mainhtmlstring = `<lazy-image><div class="relative"><img class="relative z-0 max-h-[300px] object-contain lg:max-h-[600px] opacity-0" data-placeholder="" height="960" loading="lazy" src="`+media[i].src+`" width="960"><img  class="absolute h-full inset-0 opacity-100 transition-opacity w-full z-10 max-h-[300px] object-contain lg:max-h-[600px]" data-src="`+media[i].src+`" loading="lazy" src="`+media[i].src+`"></div></lazy-image>`;
+                swiper2.appendSlide(`<div class="swiper-slide swiper-slide1">`+mainhtmlstring+`</div>`);
+                x = x+1; 
+            }
+            else
+            {
+                            
+            }
+  
+        }
+        else
+        {
+            flag = true;
+            htmlString = `<div class="h-36 xt-thumb object-contain w-36"><lazy-image><div class="relative"><img class="relative z-0 h-36 object-contain opacity-0" data-placeholder="" height="1200" loading="lazy" src="`+media[i].src+`" width="1200"><img class="absolute h-full inset-0 opacity-100 transition-opacity w-full z-10 h-36 object-contain" data-src="`+media[i].src+`" loading="lazy" src="`+media[i].src+`"></div></lazy-image></div>`;
+            swiper.appendSlide(`<div class="swiper-slide swiper-slide2">`+htmlString+`</div>`);
+            mainhtmlstring = `<lazy-image><div class="relative"><img class="relative z-0 max-h-[300px] object-contain lg:max-h-[600px] opacity-0" data-placeholder="" height="960" loading="lazy" src="`+media[i].src+`" width="960"><img alt="Watermelon" class="absolute h-full inset-0 opacity-100 transition-opacity w-full z-10 max-h-[300px] object-contain lg:max-h-[600px]" data-src="`+media[i].src+`" loading="lazy" src="`+media[i].src+`"></div></lazy-image>`;
+            swiper2.appendSlide(`<div class="swiper-slide swiper-slide1">`+mainhtmlstring+`</div>`);
+            x = x+1; 
+        }
+     }
+  }
+  
+             
+  var selling_plan_val = $("input[name='newpurchaseoption']:checked").val();
+  // var available = document.getElementById('product-select_{{product.id}}').value;
+  // var available = $('product-select_{{product.id}}').find(':selected').data('available');
+    
+    if(selling_plan_val == "onetime")
+    {   
+      var current_variant_id =  $("input[name='id']").val();
+      $(".p1_selling_plan [data-stack]").each(function(i,Data){
+        var vid = parseInt($(Data).data("stack"));
+          //console.log(vid);
+          if(vid == current_variant_id)
+          {
+            var otpprice = $(Data).data("otp");
+            var new_price = $(Data).data("price");
+              var oldprice = otpprice.split("$");
+              var discounted_price = new_price.split("$");
+              var save_price = parseFloat(oldprice[1]) - parseFloat(discounted_price[1]);
+              $('.onetimeprice').text(otpprice);
+              $(".sub_price").html(new_price+"<br><span class='line_thue'>"+otpprice+"</span>");  
+              $('.save_price').text("& save $"+save_price.toFixed()+" + Free Shipping");
+          }
+      });
+    }
+    else
+    {
+      var current_variant_id =  $("input[name='id']").val();
+       $(".p1_selling_plan [data-stack]").each(function(i,Data){
+        var vid = parseInt($(Data).data("stack"));
+          //console.log(vid);
+          if(vid == current_variant_id)
+          {
+            var otpprice = $(Data).data("otp");
+            var new_price = $(Data).data("price");
+              var oldprice = otpprice.split("$");
+              var discounted_price = new_price.split("$");
+              var save_price = parseFloat(oldprice[1]) - parseFloat(discounted_price[1]);
+              $(".sub_price").html(new_price+"<br><span class='line_thue'>"+otpprice+"</span>");  
+              $('.save_price').text("& save $"+save_price.toFixed()+" + Free Shipping");
+          }
+      });
+    }
+
+    $('#selling_plan_{{product.id}}').change(function() 
+    {
+      var selected_plan_val = $('#selling_plan_{{product.id}}').val();
+      var selling_plan_val = $("input[name='newpurchaseoption']:checked").val();
+      if(selling_plan_val == "subSave")
+      {
+        var total  = 0;
+        var otptotal  = 0;
+        if(selected_plan_val == "selling_plan_00")
+        {
+          var selling_plan = parseInt($(".selling_plan_00").val());
+          $("#selected_selling_plan").val(selling_plan);
+        }
+        if(selected_plan_val == "selling_plan_11")
+        {
+          var selling_plan = parseInt($(".selling_plan_11").val());
+          $("#selected_selling_plan").val(selling_plan);
+        }
+        if( selected_plan_val == "selling_plan_22")
+        {
+          var selling_plan = parseInt($(".selling_plan_22").val());
+          $("#selected_selling_plan").val(selling_plan);
+        }
+        if( selected_plan_val == "selling_plan_33")
+        {
+          var selling_plan = parseInt($(".selling_plan_33").val());
+          $("#selected_selling_plan").val(selling_plan);
+        }
+        if( selected_plan_val == "selling_plan_44")
+        {
+          var selling_plan = parseInt($(".selling_plan_44").val());
+          $("#selected_selling_plan").val(selling_plan);
+        }
+      }
+      else
+      {
+      
+      }
+    });
+
+
+      $('input[type=radio][name=newpurchaseoption]').change(function() 
+      {
+        $(".take_price_ss").slideUp();
+        $(this).siblings (".take_price_ss").slideDown();
+        
+        var selling_plan_val = $("input[name='newpurchaseoption']:checked").val();
+        if(selling_plan_val == "onetime")
+        {
+          
+          $('.bundle-badge, .off25').removeClass('unlocked');
+          $('.bundle-badge, .off25addmsg').text('Subscribe to Unlock Your Free Starter Kit');
+          var current_variant_id =  $("input[name='id']").val();
+            // $("#product-availability").text("Add to Cart"); 
+           $(".p1_selling_plan [data-stack]").each(function(i,Data){
+            var vid = parseInt($(Data).data("stack"));
+            console.log(vid);
+            if(vid == current_variant_id)
+            {
+              var otpprice = $(Data).data("otp");
+              var new_price = $(Data).data("price");
+               var oldprice = otpprice.split("$");
+              var discounted_price = new_price.split("$");
+              var save_price = parseFloat(oldprice[1]) - parseFloat(discounted_price[1]);
+              $('.onetimeprice').text(otpprice);
+              $(".sub_price").html(new_price+"<br><span class='line_thue'>"+otpprice+"</span>");  
+              $('.save_price').text("& save $"+save_price.toFixed()+" + Free Shipping");
+            }
+          });
+          document.querySelector('select[name="id"]', 'input[name="id"]').dispatchEvent(new Event('change'));
+        }
+        else
+        {
+          $('.bundle-badge, .off25').addClass('unlocked');
+          $('.bundle-badge, .off25').text('Free Starter Kit Unlocked!');
+          var current_variant_id =  $("input[name='id']").val();
+          $(".p1_selling_plan [data-stack]").each(function(i,Data)
+          {
+            var vid = parseInt($(Data).data("stack"));
+            console.log(vid);
+            if(vid == current_variant_id)
+            {
+              var otpprice = $(Data).data("otp");
+              var new_price = $(Data).data("price");
+              var oldprice = otpprice.split("$");
+              var discounted_price = new_price.split("$");
+              var save_price = parseFloat(oldprice[1]) - parseFloat(discounted_price[1]);
+              $(".sub_price").html(new_price+"<br><span class='line_thue'>"+otpprice+"</span>");  
+              $('.save_price').text("& save $"+save_price.toFixed()+" + Free Shipping");
+            }
+          });
+          document.querySelector('select[name="id"]', 'input[name="id"]').dispatchEvent(new Event('change'));
+        }
+      });
+
+      $("#add-to-cart-button").on("click", function ()
+      {
+          
+
+        
+          var selling_plan_val= "";
+          var items = [];
+          var selected_plan_val = $('#selling_plan_{{product.id}}').val();
+          var selling_plan_val = $("input[name='newpurchaseoption']:checked").val();
+          if(selling_plan_val == "subSave")
+          {
+            var selectedOption = $("#select-one1_{{product.id}}").val();
+            var productHandle = 'protein-starter-kit';
+            $.ajax({
+              url: '/products/' + productHandle + '.js',
+              method: 'GET',
+              dataType: 'json',
+              success: function(productJson) {
+                // Step 3: Loop through the product variants and find the one with the matching option
+                 var matchingVariant = null;
+                $.each(productJson.variants, function(index, variant) {
+                  // Compare the selected option with the variant option (assuming it's for option1)
+                  if (variant.option1 === selectedOption) {  // Adjust if your option is option2, option3, etc.
+                    matchingVariant = variant;
+                    return false;  // Exit loop once a match is found
+                  }
+                });
+          
+                // Step 4: Check if a matching variant was found
+                if (matchingVariant) {
+                  console.log("Matching Variant ID: " + matchingVariant.id);
+                  // You can now perform any actions with the matching variant
+                  var total  = 0;
+                  var otptotal  = 0;
+                  if(selected_plan_val == "selling_plan_00")
+                  {
+                      var data = { id: matchingVariant.id, quantity:$("input[name='quantity']").val(), selling_plan: parseInt($('.'+selected_plan_val).val()) }
+                  }
+                  else if(selected_plan_val == "selling_plan_11")
+                  {
+                      var data = {id: matchingVariant.id, quantity:$("input[name='quantity']").val(), selling_plan: parseInt($('.'+selected_plan_val).val()) }
+                  }
+    
+                  else if( selected_plan_val == "selling_plan_22")
+                  {
+                      var data = {id: matchingVariant.id, quantity:$("input[name='quantity']").val(), selling_plan: parseInt($('.'+selected_plan_val).val()) }
+                  }
+                
+                  else if( selected_plan_val == "selling_plan_33")
+                  {
+                      var data = {id: matchingVariant.id, quantity:$("input[name='quantity']").val(), selling_plan: parseInt($('.'+selected_plan_val).val()) }
+                  }
+                
+                  else if( selected_plan_val == "selling_plan_44")
+                  {
+                      var data = {id: matchingVariant.id, quantity:$("input[name='quantity']").val(), selling_plan: parseInt($('.'+selected_plan_val).val()) }
+                  }
+    
+                  // call ajax 
+                  jQuery.ajax({
+                  type: 'POST',
+                  url: '/cart/add.js',
+                  data: data,
+                  dataType: 'json',
+                  success: function(response) 
+                  { 
+                    $.getJSON('/cart.js', function(cart) 
+                    {
+                      if(cart.item_count < 1 )
+                      {
+                          $('#cart-count').html("");
+                      }
+                      else
+                      {
+                          $('#cart-count').html("<number class='number'>"+cart.item_count+"</number>");
+                      }
+                                         
+                    }); 
+                      openCartMenu();
+                  }
+              });
+                } else {
+                  console.log("No matching variant found.");
+                }
+              },
+              error: function() {
+                console.log('Error fetching product JSON');
+              }
+            });
+            
+              
+      }
+      else
+      {
+          var data = {id: parseInt($('.stack_vid').val()), quantity:$("input[name='quantity']").val() }
+          jQuery.ajax({
+              type: 'POST',
+              url: '/cart/add.js',
+              data: data,
+              dataType: 'json',
+              success: function(response) 
+              {
+                $.getJSON('/cart.js', function(cart) 
+                {
+                  if(cart.item_count < 1 )
+                  {
+                      $('#cart-count').html("");
+                  }
+                  else
+                  {
+                      $('#cart-count').html("<number class='number'>"+cart.item_count+"</number>");
+                  }
+                                     
+                }); 
+                  openCartMenu();
+              }
+          });
+      }
+  });
+  });
+  
+  $(".open-ingradiant-details").click(function(){
+    $(".accordion-tab-1").removeClass("active");
+    $(".accordion-tab").removeClass("active");
+    $(".accor-cont ").addClass("hidden");
+      $(".ingred-btn").addClass("active");
+      $(".ingred-con").removeClass("hidden");
+       
+document.getElementById('ingredients-tab-panel').scrollIntoView({
+  behavior: 'smooth'
+});
+  document.getElementById('ingredients-tab-panel-1').scrollIntoView({
+  behavior: 'smooth'
+});
+  });
+  
+  $(".open-review-details").click(function(){
+    $(".accordion-tab-1").removeClass("active");
+    $(".accordion-tab").removeClass("active");
+    $(".accor-cont ").addClass("hidden");
+      $(".review-btn").addClass("active");
+      $(".review-con").removeClass("hidden");
+
+    document.getElementById('reviews-tab-panel').scrollIntoView({
+      behavior: 'smooth'
+});
+  document.getElementById('reviews-tab-panel-1').scrollIntoView({
+  behavior: 'smooth'
+});
+  });
+
+  
+
+ // Function to open the popup
+    function openPopup() {
+        document.getElementById('imagePopup').style.display = 'block';
+    }
+
+    // Function to close the popup
+    function closePopup() {
+        document.getElementById('imagePopup').style.display = 'none';
+    }
+    </script>
+  </div>
+{% endif %}
+
+
+
+
+
+<script type="application/ld+json">
+  {
+    "@context": "http://schema.org/",
+    "@type": "Product",
+    "name": {{ product.title | json }},
+    "url": {{ shop.url | append: product.url | json }},
+    "image": {{ product.featured_image | img_url | json }},
+    "@id": {{ canonical_url | append: '#product' | json }},
+    "description": {{ product.description | strip_html | truncate: 400 | json }},
+    {% if product.selected_or_first_available_variant.sku != blank -%}
+      "sku": {{ product.selected_or_first_available_variant.sku | json }},
+    {%- endif %}
+    "brand": {
+      "@type": "Brand",
+      "name": {{ product.vendor | json }}
+    },
+    "aggregateRating": {
+      "@type": "AggregateRating",
+      "ratingValue": 4.6,
+      "ratingCount": 55
+    },
+
+ "offers": [
+        {%- for variant in product.variants -%}
+          {
+            "@type" : "Offer",
+            {%- if variant.sku != blank -%}
+              "sku": {{ variant.sku | json }},
+            {%- endif -%}
+            {%- if variant.barcode.size == 12 -%}
+              "gtin12": {{ variant.barcode }},
+            {%- endif -%}
+            {%- if variant.barcode.size == 13 -%}
+              "gtin13": {{ variant.barcode }},
+            {%- endif -%}
+            {%- if variant.barcode.size == 14 -%}
+              "gtin14": {{ variant.barcode }},
+            {%- endif -%}
+            "availability" : "http://schema.org/{% if variant.available %}InStock{% else %}OutOfStock{% endif %}",
+            "price" : {{ variant.price | divided_by: 100.00 | json }},
+            "priceCurrency" : {{ cart.currency.iso_code | json }},
+            "priceValidUntil": {{ 'now' | date: '%Y-%m-%d' | json  }},
+            "url" : {{ request.origin | append: variant.url | json }},
+            
+          
+          "hasMerchantReturnPolicy": {
+              "@type": "MerchantReturnPolicy",
+               "applicableCountry": ["US"],
+              "returnPolicyCountry": "US",
+              "returnPolicyCategory": "https://schema.org/MerchantReturnFiniteReturnWindow",
+              "merchantReturnDays": 10,
+              "returnMethod": "https://schema.org/ReturnByMail",
+              "returnFees": "https://schema.org/FreeReturn"
+            },
+          "shippingDetails": {
+            "@type": "OfferShippingDetails",
+            "shippingRate": {
+              "@type": "MonetaryAmount",
+              "value": "0",
+              "currency": {{ cart.currency.iso_code | json }}
+            },
+            "shippingDestination": [
+              {
+                "@type": "DefinedRegion",
+                "addressCountry": "US",
+                "addressRegion": ["US"]
+              }
+            ],
+            "deliveryTime": {
+            "@type": "ShippingDeliveryTime",
+            "handlingTime": {
+              "@type": "QuantitativeValue",
+              "minValue": 0,
+              "maxValue": 1,
+              "unitCode": "DAY"
+            },
+            "transitTime": {
+              "@type": "QuantitativeValue",
+              "minValue": 1,
+              "maxValue": 2,
+              "unitCode": "DAY"
+            }
+          }
+
+
+
+
+          
+          }
+          }{% unless forloop.last %},{% endunless %}
+        {%- endfor -%}
+      ]
+
+
+  
+  }
+</script>
+
+
+
+
+
+{% schema %}
+{
+  "name": "xt Product hero bundle",
+  "settings": [
+    {
+      	"type":"text",
+      	"id":"tag",
+      	"label":"Paroduct tag",
+		"default":"Product tag"
+      },
+      {
+      	"type":"text",
+      	"id":"sdetail",
+      	"label":"Badge 1",
+		"default":"NEW!"
+      },
+      {
+      	"type":"text",
+      	"id":"sdetail1",
+      	"label":"Badge 2",
+		"default":"15% off"
+      },
+      {
+      	"type":"text",
+      	"id":"sdetail2",
+      	"label":"Badge 3",
+		"default":"Free Shipping"
+      },
+      {
+      	"type":"textarea",
+      	"id":"slistinformation",
+      	"label":"information"
+      },{
+    	"type":"text",
+        "id":"title",
+        "label":"Section Title"
+	},
+    {
+    	"type":"textarea",
+        "id":"subtitle",
+        "label":"Section Subtitle"
+	},
+	{
+    	"type":"text",
+        "id":"onetimetext",
+        "label":"One time purchase text",
+		"default":"One-Time Purchase"
+	},
+	{
+    	"type":"text",
+        "id":"subscribetext",
+        "label":"Subscribe and Save text",
+		"default":"Subscribe & Save",
+        "info":"Use <span></span> tag to make text in other color"
+	},
+    {
+      "content": "Accordian Section",
+      "type": "header"
+    },
+    {
+      "id": "overview",
+      "label": "Overview",
+      "type": "richtext"
+    },
+    {
+      "default": true,
+      "id": "no_sweetners",
+      "label": "No Artificial Sweetners?",
+      "type": "checkbox"
+    },
+    {
+      "default": true,
+      "id": "no_artificial_coloring",
+      "label": "No Artificial Coloring?",
+      "type": "checkbox"
+    },
+    {
+      "default": true,
+      "id": "gluten_free",
+      "label": "Gluten Free?",
+      "type": "checkbox"
+    },
+    {
+      "default": true,
+      "id": "no_preservatives",
+      "label": "No Artificial Preservatives?",
+      "type": "checkbox"
+    },
+     {
+      "type": "range",
+      "id": "width_desktop",
+      "min": 0,
+      "max": 200,
+      "step": 2,
+      "unit": "px",
+      "label": "Desktop badge icon width",
+      "default": 100
+    },
+     {
+      "type": "range",
+      "id": "width_mobile",
+      "min": 0,
+      "max": 200,
+      "step": 2,
+      "unit": "px",
+      "label": "Mobile badge icon width",
+      "default": 100
+    }
+],
+"blocks": [
+    {
+      "name": "Frequently Asked Question",
+      "settings": [
+        {
+          "id": "question",
+          "label": "Question",
+          "type": "textarea"
+        },
+        {
+          "id": "answer",
+          "label": "Answer",
+          "type": "richtext"
+        }
+      ],
+      "type": "faq"
+    }
+  ],
+"presets":[
+		{
+			"name": "xt Product hero bundle"
+		}
+	]
+}
+{% endschema %}

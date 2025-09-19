@@ -1,0 +1,46 @@
+<div class="review-content-inner">
+  <div class="author-details">
+    {% if block.settings.author_name != blank %}
+      <div class="author-initial">{{ block.settings.author_name | slice: 0, 1 }}</div>
+      <div class="author-name">{{ block.settings.author_name }}</div>
+    {% endif %}
+  </div>
+  {% if block.settings.review_title != blank %}
+    <div class="review-title">{{ block.settings.review_title }}</div>
+  {% endif %}
+  {% if block.settings.review_description != blank %}
+    <div class="review-description">{{ block.settings.review_description }}</div>
+  {% endif %}
+</div>
+{% if block.settings.product != blank %}
+  {% assign product = block.settings.product %}
+  <div class="review-product">
+    <div class="review-product-image">
+      {% assign selected_variant = product.selected_or_first_available_variant %}
+      {% if selected_variant.media %}
+        {% assign variant_image = selected_variant.media.preview_image %}
+        {% render 'responsive-image-400', image: variant_image, image_alt: variant_image.alt %}
+        {% comment %}
+          <img src="{{ variant_image.src | img_url: 'large' }}" alt="{{ variant_image.alt }}" loading="lazy" width="100%" height="100%" />
+          
+        {% endcomment %}
+      {% else %}
+        <!-- Fallback to product's first image if the variant has no media -->
+        {% if product.media.size > 0 %}
+          {% assign first_image = product.media | first %}
+          {% if first_image.media_type == 'image' %}
+            {% render 'responsive-image-400', image: first_image.preview_image, image_alt: first_image.alt %}
+            {% comment %}
+              <img src="{{ first_image.preview_image.src | img_url: 'large' }}" alt="{{ first_image.alt }}" loading="lazy" width="100%" height="100%" />
+            {% endcomment %}
+          {% endif %}
+        {% endif %}
+      {% endif %}
+
+    </div>
+    <div class="review-product-details">
+      <div class="review-product-name">{{ product.title }}</div>
+      <a href="{{ product.url }}" class="review-product-link link"><span>shop product</span> {% render 'right-arrow' %}</a>
+    </div>
+  </div>
+{% endif %}

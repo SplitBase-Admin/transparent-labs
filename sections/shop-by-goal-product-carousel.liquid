@@ -1,0 +1,95 @@
+<div class="a-b-shop-by-goal"></div>
+<section class="featured-collections-tabs goal-product-carousel">
+  <div class="container">
+    <div class="section-header">
+      {% if section.settings.heading != blank %}
+        <h2>{{ section.settings.heading }}</h2>
+        {% for block in section.blocks %}<a href="{{ block.settings.collection.url }}" class="tab-collection-link {% if forloop.first %}active{% endif %}" data-id="{{ block.id }}">view All {% render 'right-arrow' %}</a>{% endfor %}
+      {% endif %}
+    </div>
+    <div class="collection-tabs tabs">
+      {% for block in section.blocks %}
+        <a 
+          class="tab-button {% if forloop.first %}active{% endif %}" 
+          data-tab="{{ block.id }}"
+          data-tab-index="{{ forloop.index0 }}" href="#tab-{{ block.id }}">
+          {% if block.settings.collection_title != blank %}{{ block.settings.collection_title }}{% else %}{{ block.settings.collection.title }}{% endif %}
+        </a>
+      {% endfor %}
+    </div>
+  
+    <div class="tab-content">
+    {% for block in section.blocks %}
+      {% assign collection_object = collections[block.settings.collection] %}
+      {% if collection_object %}
+        <div 
+          class="tab-panel {% if forloop.first %}active{% endif %}" 
+          id="{{ block.id }}">
+          
+          <div class="collection-swiper-container">
+            <div class="scroll-snap-track product-item-wrapper">
+              {% for product in collection_object.products, limit: 7 %}
+                <div class="scroll-snap-item">
+                  {%- render 'goal-product-grid',
+                    product: product,
+                    section: section
+                  -%}
+                </div>
+              {% endfor %}
+            </div>
+          </div>
+          <div class="featured-collections-slider-bottom">
+            <div class="featured-collections-pagination"></div>
+            <!-- Fractional Pagination (Slide Counter) -->
+            <div class="featured-collections-fraction slider-counter-fraction"></div>
+          </div>
+        </div>
+      {% endif %}
+    {% endfor %}
+  </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Goal Product Carousel",
+  "class": "section-shop-by-goal shop-by-goal-hidden",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_atc_btns",
+      "label": "Show Add To Cart Buttons",
+      "default": false
+    }
+  ],
+  "blocks": [
+    {
+      "type": "collection_tab",
+      "name": "Collection Tab",
+      "settings": [
+        {
+          "type": "collection",
+          "id": "collection",
+          "label": "Select Collection"
+        },
+        {
+          "type": "text",
+          "id": "collection_title",
+          "label": "Tab Title"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Goal Product Carousel"
+    }
+  ]
+}
+{% endschema %}
+

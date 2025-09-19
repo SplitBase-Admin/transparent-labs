@@ -1,0 +1,206 @@
+{{ 'featured-articles.css' | asset_url | stylesheet_tag }}
+
+<section class="featured-articles-tabs">
+  <div class="container">
+    <div class="section-header">
+      {% if section.settings.heading != blank %}
+        <h2>{{ section.settings.heading }}</h2>
+        {% for block in section.blocks %}<a href="{{ blogs[block.settings.blog].url }}" class="tab-article-link {% if forloop.first %}active{% endif %}" data-id="{{ block.id }}">view All {% render 'right-arrow' %}</a>{% endfor %}
+      {% endif %}
+    </div>
+    
+    <div class="article-tabs tabs">
+      {% for block in section.blocks %}
+        <a 
+          class="tab-button {% if forloop.first %}active{% endif %}" 
+          data-tab="{{ block.id }}"
+          data-tab-index="{{ forloop.index0 }}">
+          {% if block.settings.article_title != blank %}{{ block.settings.article_title }}{% else %}{{  blogs[block.settings.blog].title }}{% endif %}
+        </a>
+      {% endfor %}
+
+        {% for tag in blog.all_tags %}
+          {% assign start = tag | slice: 0, 9 | downcase %}
+
+          {% if start == 'category-' %}
+            <li>
+              <a
+                class="{% if current_tags contains tag %}border-2 border-orange-400 text-orange-400{% endif %} px-4 py-2 rounded-md"
+                href="{{ blog.url }}/tagged/{{ tag }}"
+              >
+                {% assign formatted_tag = tag | replace: '-', ' ' | split: ' ' %}
+
+                {% for word in formatted_tag %}
+                  {{ word | capitalize }}
+                {% endfor %}
+              </a>
+            </li>
+          {% endif %}
+        {% endfor %}
+
+      
+    </div>
+
+        
+  
+    <div class="tab-content">
+      {% for block in section.blocks %}
+        {% assign blog_object = blogs[block.settings.blog] %}
+        {% if blog_object %}
+          <div 
+            class="tab-panel {% if forloop.first %}active{% endif %}" 
+            id="{{ block.id }}">
+            
+            <div class="article-swiper-container">
+              <div class="swiper-wrapper article-item-wrapper">
+                {% for article in blog_object.articles %}
+                  <div class="swiper-slide">
+                    {% render 'article-item', article: article %}
+                  </div>
+                {% endfor %}
+              </div>
+              <div class="featured-articles-slider-bottom">
+                <div class="featured-articles-pagination"></div>
+                <!-- Fractional Pagination (Slide Counter) -->
+                <div class="featured-articles-fraction slider-counter-fraction"></div>
+              </div>
+            </div>
+          </div>
+        {% endif %}
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+<script>
+  window.swiperBreakpointsFeaturedArticles = {
+  640: { slidesPerView: 2.2, spaceBetween: 24 },
+  768: { slidesPerView: 2.4, spaceBetween: 24 },
+  1024: { slidesPerView: 2.9, spaceBetween: 24 },
+  1200: { slidesPerView: 3.44 },
+  1921: { slidesPerView: 4 }
+};
+
+document.addEventListener("DOMContentLoaded", () => {
+  let swiperInstances = [];
+
+  // Initialize Swiper sliders for collection containers
+  document.querySelectorAll('.article-swiper-container').forEach(swiperContainer => {
+    const articleSwiper = new Swiper(swiperContainer, {
+      slidesPerView: 1.17,
+      spaceBetween: 24,
+      pagination: {
+        el: ".featured-articles-pagination",
+        clickable: true
+      },
+      mousewheel: {
+        invert: false, // Normal scrolling behavior
+        sensitivity: 1, // Adjust trackpad/mousewheel sensitivity
+        forceToAxis: true, // Only scroll in the "slide direction"
+      },
+      breakpoints: window.swiperBreakpointsFeaturedArticles,
+      on: {
+        init: function () {
+          window.updateFraction(this, '.featured-articles-fraction');
+        },
+        slideChange: function () {
+          window.updateFraction(this, '.featured-articles-fraction');
+        }
+      }
+    });
+
+    swiperInstances.push(articleSwiper);
+  });
+
+  // Handle tab switching logic
+  const tabs = document.querySelectorAll(".featured-articles-tabs .tab-button");
+  const panels = document.querySelectorAll(".featured-articles-tabs .tab-panel");
+  const articleLinks = document.querySelectorAll(".tab-article-link");
+
+  tabs.forEach(tab => {
+    tab.addEventListener("click", event => {
+      event.preventDefault();
+      tabs.forEach(t => t.classList.remove("active"));
+      panels.forEach(p => p.classList.remove("active"));
+      articleLinks.forEach(c => c.classList.remove("active"));
+
+      tab.classList.add("active");
+      const panelId = tab.dataset.tab;
+      const activePanel = document.getElementById(panelId);
+      activePanel.classList.add("active");
+      document.querySelector(`.tab-article-link[data-id="${panelId}"]`).classList.add("active");
+
+      // match height function
+      equalizeBlogTitleHeights();
+    });
+  });
+
+  // Handle window resize to update fraction
+  window.addEventListener("resize", () => {
+    const activeTab = document.querySelector(".featured-articles-tabs .tab-button.active");
+    if (activeTab) {
+      const panelId = activeTab.dataset.tab;
+      const activeSwiper = swiperInstances.find(swiper =>
+        swiper.el.closest(`#${panelId}`)
+      );
+      if (activeSwiper) {
+        window.updateFraction(activeSwiper, '.featured-articles-fraction');
+      }
+    }
+  });
+
+  function equalizeBlogTitleHeights() {
+    const blogtitles = document.querySelectorAll('.featured-articles-tabs .tab-panel.active .article-item-box h3');
+    blogtitles.forEach(el => el.style.height = 'auto');
+  
+    let maxHeight = 0;
+    blogtitles.forEach(el => {
+      const height = el.offsetHeight;
+      if (height > maxHeight) maxHeight = height;
+    });
+  
+    blogtitles.forEach(el => {
+      el.style.height = maxHeight + 'px';
+    });
+  }
+  
+  window.addEventListener('load', equalizeBlogTitleHeights);
+  window.addEventListener('resize', equalizeBlogTitleHeights);
+});
+</script>
+
+{% schema %}
+  {
+    "name": "Featured Article Tabs",
+    "settings": [
+      {
+        "type": "text",
+        "id": "heading",
+        "label": "Heading"
+      }
+    ],
+    "blocks": [
+      {
+        "type": "article_tab",
+        "name": "Article Tab",
+        "settings": [
+          {
+            "type": "blog",
+            "id": "blog",
+            "label": "Select Blog"
+          },
+          {
+            "type": "text",
+            "id": "article_title",
+            "label": "Tab Title"
+          }
+        ]
+      }
+    ],
+    "presets": [
+      {
+        "name": "Featured Article Tabs"
+      }
+    ]
+  }
+{% endschema %}

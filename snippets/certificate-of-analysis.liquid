@@ -1,0 +1,20 @@
+{%- capture contentForQuerystring -%}{{ content_for_header }}{%- endcapture -%}
+{%- assign pageUrlWithHost = contentForQuerystring | split:'"pageurl":"' | last | split:'"' | first |
+   replace:'\/','/' | 
+   replace:'%20',' ' | 
+   replace:'\u0026','&'
+-%}
+{%- if pageUrlWithHost contains 'ajaxjsondata' -%}
+  <div class="" ajaxjsondata >
+  {%- assign ajax_json_data_handles = pageUrlWithHost | split: "ajaxjsondata=" | last | split: "@@" -%}
+    {%- for custom_handle in ajax_json_data_handles -%}
+      {%- assign stripped_custom_handle = custom_handle | strip -%}
+        {%- unless stripped_custom_handle == "" -%}
+          {%- assign current_product = collections["all"].products | where: 'handle', custom_handle | first -%}
+          {%- if current_product -%}
+          {{ current_product | json }}{% unless forloop.last %}##JSONSEPARATOR##{% endunless %}
+        {%- endif -%}
+      {%- endunless -%}
+    {%- endfor -%}
+  </div>
+{%- endif -%}

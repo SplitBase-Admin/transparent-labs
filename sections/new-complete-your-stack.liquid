@@ -1,0 +1,80 @@
+{{ 'new-complete-your-stack.css' | asset_url | stylesheet_tag }}
+
+
+{% assign complete_product_list = product.metafields.custom.complete_your_stack_product_list.value %}
+
+
+{% if complete_product_list %}
+  <section class="complete-stack-container">
+  
+    <div class="container">
+  
+      {% if section.settings.section-heading != blank %}
+        <h2>{{ section.settings.section-heading }}</h2>
+      {% endif %}
+  
+      {% if section.settings.section-description-before != blank or section.settings.section-description-after != blank %}
+        <div class="section-description">
+          <span>{{ section.settings.section-description-before }}</span> <span>{{ product.title }}</span> <span>{{ section.settings.section-description-after }}</span>
+        </div>
+      {% endif %}
+    
+  
+  
+      <div class="product-item-wrapper">
+        {% for complete_product in complete_product_list %}
+          {% assign product_custom_tag = complete_product.product_card_tag  %}
+          {% assign product_custom_title = complete_product.custom_product_title  %}
+          {% render 'complete-stack-product-grid', product: complete_product.product_item.value, product_custom_tag:product_custom_tag, product_custom_title:product_custom_title  %}
+        {% endfor %}
+      </div>
+  
+    </div>
+  
+  </section>
+{% endif %}
+
+{% style %}
+
+  
+  .complete-stack-container {
+    background: {{ section.settings.section-bg }};
+  }
+
+  
+{% endstyle %}
+
+{% schema %}
+{
+  "name": "Complete Your Stack",
+  "settings": [
+    {
+      "id": "section-bg",
+      "label": "Section Background",
+      "type": "color",
+      "default": "#F8F9FB"
+    },
+    {
+      "id": "section-heading",
+      "label": "Section Heading",
+      "type": "text",
+    },
+    {
+      "id": "section-description-before",
+      "label": "Section Description Before",
+      "type": "text",
+    },
+    {
+      "id": "section-description-after",
+      "label": "Section Description After",
+      "type": "text",
+    }
+  ],
+  "presets": [
+    {
+      "name": "Complete Your Stack",
+      "category": "Custom"
+    }
+  ]
+}
+{% endschema %}

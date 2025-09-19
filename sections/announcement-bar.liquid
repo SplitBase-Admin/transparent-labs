@@ -1,0 +1,50 @@
+{{ 'announcement-bar.css' | asset_url | stylesheet_tag }}
+
+{% if section.settings.show %}
+<div class="bg-blue-500 p-4 text-xs text-white announcement-bar-wrapper">
+  {% for block in section.blocks %}
+    {% if block.type == 'announcement' %}
+      {% if block.settings.url %}
+        <a class="space-y-2 text-center" href="{{ block.settings.url }}">
+          {{ block.settings.text }}
+        </a>
+      {% else %}
+        <div class="space-y-2 text-center">
+          {{ block.settings.text }}
+        </div>
+      {% endif %}
+    {% endif %}
+  {% endfor %}
+</div>
+{% endif %}
+
+{% schema %}
+{
+  "blocks": [
+    {
+      "name": "Announcement",
+      "settings": [
+        {
+          "id": "text",
+          "label": "Text",
+          "type": "richtext"
+        },
+        {
+          "id": "url",
+          "label": "Url",
+          "type": "url"
+        }
+      ],
+      "type": "announcement"
+    }
+  ],
+  "name": "Announcement Bar",
+  "settings": [
+    {
+      "id": "show",
+      "label": "Show Announcement Bar?",
+      "type": "checkbox"
+    }
+  ]
+}
+{% endschema %}

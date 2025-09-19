@@ -1,0 +1,84 @@
+{{ 'new-compare-products.css' | asset_url | stylesheet_tag }}
+{{ 'goal-product-grid.css' | asset_url | stylesheet_tag }}
+
+<div class="product-grid-item" product-handle="{{ product.handle }}">
+  <a href="{{ product.url }}" class="product-card-url">product card url</a>
+  {% assign best-seller = false %}
+  {% assign new_arrival = false %}
+  {% for tag in product.tags %}
+    {% if product.tags contains "best-seller" %}
+      {% assign best-seller = true %}
+    {% endif %}
+    {% if product.tags contains "new" or product.tags contains "New" %}
+      {% assign new_arrival = true %}
+    {% endif %}
+  {% endfor %}
+
+  <div class="product__tag--wrapper">
+    {% if best-seller %}
+      <div class="product-tag">{{ 'products.product.tags.best_seller' | t }}</div>
+    {% endif %}
+  
+    {% if new_arrival %}
+      <div class="product-tag new_arrival">{{ 'products.product.tags.new' | t }}</div>
+    {% endif %}
+  </div>
+  <!-- Main Product Image Slider -->
+  <div class="product_image_slider">
+    <div class="swiper-wrapper">
+      {%- for media in product.media -%}
+        <div class="product-media-item swiper-slide">
+          {% render 'responsive-image-400', image: media %}
+        </div>
+      {% endfor %}
+    </div>
+    <div class="swiper-button-next"></div>
+    <div class="swiper-button-prev"></div>
+  </div>
+
+  <div class="product-content-wrapper">
+
+    <div class="product-details-wrapper">
+      <div class='jdgm-widget jdgm-preview-badge goal-product-grid-reviews' data-id='{{ product.id }}'> 
+        {{ product.metafields.judgeme.badge }}
+      </div> 
+
+      <a href="{{ product.url }}" class="product-title">{{ product.title }}</a>
+
+      <div class="compare-product-feature-list">
+
+        {% assign compare_product_feature_list = product.metafields.custom.goal_product_feature_list.value %}
+        {% if compare_product_feature_list %}
+          <div class="feature-list-item">
+            {{ compare_product_feature_list.image | image_url: width: auto, height: auto | image_tag }}
+            <div class="feature-list-text">{{ compare_product_feature_list.title | metafield_tag }}</div>
+          </div>
+        {% endif %}
+
+        <div class="feature-list-item">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="25" viewBox="0 0 24 25" fill="none">
+            <rect x="0.333333" y="0.868734" width="23.3333" height="23.3333" rx="11.6667" stroke="#676767" stroke-width="0.666667"/>
+            <path d="M12 7C12.0913 7 12.1793 7.0396 12.2439 7.1098L12.3087 7.1797C12.6218 7.5172 13.4808 8.4427 14.2874 9.6481C15.1503 10.9372 16 12.613 16 14.275C16 15.8878 15.5589 17.0821 14.8105 17.872C14.0648 18.6595 13.0563 19 12 19C10.9437 19 9.93517 18.6592 9.18952 17.872C8.44138 17.0824 8 15.8881 8 14.275C8 12.6145 8.83117 10.9579 9.68634 9.6766C10.4836 8.4823 11.3404 7.5583 11.6822 7.1896L11.7561 7.1098C11.7882 7.07498 11.8262 7.04736 11.868 7.02852C11.9099 7.00968 11.9547 6.99999 12 7ZM10.2447 10.117C9.41021 11.3674 8.68966 12.8608 8.68966 14.275C8.68966 15.7372 9.08607 16.7179 9.66979 17.3341C10.2566 17.953 11.0759 18.25 12 18.25C12.9241 18.25 13.7434 17.953 14.3302 17.3341C14.9139 16.7179 15.3103 15.7372 15.3103 14.275C15.3103 12.862 14.5738 11.35 13.7297 10.0894C13.0764 9.1129 12.3862 8.3269 12 7.9042C11.6006 8.3407 10.901 9.1333 10.2447 10.117Z" fill="#676767"/>
+          </svg>
+          {% for option in product.options_with_values %}
+            {% if option.name == "Flavor" %}
+              {% assign flavor_count = option.values | size %}
+            {% endif %}
+          {% endfor %}
+          <div class="feature-list-text"><p>Available in {% if flavor_count > 0 %}{{ flavor_count }} {% if flavor_count > 0 %}flavors{% else %}flavor{% endif %}{% endif %}</p></div>
+        </div>
+              
+        <div class="feature-list-item">
+          <svg width="24" height="25" viewBox="0 0 24 25" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect x="0.333333" y="0.868734" width="23.3333" height="23.3333" rx="11.6667" stroke="#676767" stroke-width="0.666667"/>
+            <path d="M13.4512 10.9355L13.5107 11.0723L13.6592 11.085L17.373 11.3955L14.5693 13.7412L14.4512 13.8408L14.4873 13.9912L15.3252 17.4893L12.126 15.627L12 15.5537L11.874 15.627L8.67383 17.4893L9.5127 13.9912L9.54883 13.8408L9.43066 13.7412L6.62598 11.3955L10.3408 11.085L10.4893 11.0723L10.5488 10.9355L12 7.62207L13.4512 10.9355Z" stroke="#676767" stroke-width="0.5"/>
+          </svg>
+          <div class="feature-list-text"><p><b>{{ product.metafields.reviews.rating.value }}</b> rating from {{ product.metafields.reviews.rating_count }} {% if product.metafields.reviews.rating_count > 1 %}reviews{% else %}review{% endif %}</p></div>
+        </div>              
+      </div>
+    </div>
+
+    {% render 'quick-view-button', show_quick_view: section.settings.show_atc_btns, product: product, is_ab_test: true %}
+        
+  </div>
+</div>

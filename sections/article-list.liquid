@@ -1,0 +1,43 @@
+{{ 'article-list.css' | asset_url | stylesheet_tag }}
+
+<div class="article-list-section">
+  <div class="container">
+    {% paginate blog.articles by 9 %}
+      <div class="gap-4 grid grid-cols-1 sm:gap-8 sm:grid-cols-2 lg:grid-cols-3 article-list-wrapper">
+        {% for article in blog.articles %}
+          <div class="relative article-block-item">
+            {% render 'article-item', article: article %}
+          </div>
+        {% endfor %}
+      </div>
+  
+      {% if paginate.pages > 1 %}
+        <div class="flex justify-between mt-8 space-x-4 text-center previous_next_buttons">
+          {% if paginate.previous.is_link %}
+            <a href="{{ paginate.previous.url }}" class="btn previous">Previous {% render 'icon-right-arrow' %}</a>
+          {% else %}
+            <div></div>
+          {% endif %}
+  
+          {% if paginate.next.is_link %}
+            <a href="{{ paginate.next.url }}" class="btn next">Next {% render 'icon-right-arrow' %}</a>
+          {% else %}
+            <div></div>
+          {% endif %}
+        </div>
+      {% endif %}
+    {% endpaginate %}
+  </div>
+</div>
+
+{% schema %}
+  {
+    "name": "Article List",
+    "settings": [],
+    "presets": [
+      {
+        "name": "Article List"
+      }
+    ]
+  }
+{% endschema %}

@@ -1,0 +1,601 @@
+{{ 'new-main-product.css' | asset_url | stylesheet_tag }}
+{{ 'variant-drawer.css' | asset_url | stylesheet_tag }}
+
+{%- capture contentForQuerystring -%}{{ content_for_header }}{%- endcapture -%}
+  {%- assign pageUrl = contentForQuerystring
+    | split: '"pageurl":"'
+    | last
+    | split: '"'
+    | first
+    | split: '.myshopify.com'
+    | last
+    | replace: '\/', '/'
+    | replace: '%20', ' '
+    | replace: '\u0026', '&'
+  -%}
+  {% capture finalurl %}https://{{ pageUrl }}{% endcapture %}
+
+<script src="{{ 'new-custom.js' | asset_url }}" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0/dist/fancybox/fancybox.umd.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0/dist/fancybox/fancybox.css" />
+
+{%- liquid
+  assign current_variant = product.selected_or_first_available_variant
+-%}
+
+{% assign form_id = "product-form-" | append: section.id %}
+
+<div class="product-main-section" id="product-main-section">
+
+  <div class="product-sticky-header">
+    <div class="container">
+      <div class="product-sticky-inner">
+        <div class="sticky-header-left">
+          <div class="product-sticky-image">
+            {{ product.featured_media | image_url: width: auto, height: auto | image_tag }}
+          </div>
+          <div>
+            <div class="sticky-product-title">{{ product.title }}</div>
+            <div class='jdgm-widget jdgm-preview-badge' data-id='{{ product.id }}'> 
+              {{ product.metafields.judgeme.badge }} 
+            </div> 
+          </div>
+        </div>
+    
+        <div id="sticky-add-to-cart-button-container" class="{% unless product.selected_or_first_available_variant.available %} out_of_stock{% endunless %}">
+          {% comment %}
+            
+          
+          <button
+            class="button black-button {% unless current_variant.available %}opacity-70{% endunless %} sm:mt-0 add-to-cart-button"
+            id="sticky-add-to-cart-button"
+            type="button"
+          >
+            <span id="product-availability">Add to Cart</span>
+          </button>
+          {% endcomment %}
+
+          <a href="#variant-buy-box-wrapper" id="sticky-add-to-cart-button" class="button black-button sticky-add-to-cart-button {% unless current_variant.available %}opacity-70{% endunless %}"><span id="product-availability">Add to Cart</span></a>
+          <a  id="hideme" klaviyo-bis-trigger style="display:none;" class="klaviyo-bis-trigger button black-button" href="#"><span>Notify Me When Available</span></a>
+        </div>
+
+      </div>
+    </div>
+  </div>
+  
+  <div class="container">
+    <div class="product-main-wrap">
+      <div class="product-main-left">
+        <div class="product-images-gallery" id="product-images">
+          {% capture tags_and_badges %}
+            <div class="product-main-left-tag small-hide">
+              {% for tag in product.tags %}
+                {% if tag == 'best-seller' %}
+                  <span class="best-seller-tag">
+                  {{ 'products.product.tags.best_seller' | t }}
+                  </span>
+                {% endif %}
+                {% if tag == 'new' or tag == 'New' %}
+                  <span class="new-tag">
+                  {{ 'products.product.tags.new' | t }}
+                  </span>
+                {% endif %}
+              {% endfor %}
+            </div>
+            {% if product.metafields.custom.trust_badge != blank %}
+              <p class="tl-badge-img">
+                <img
+                  loading="lazy"
+                  src="{{ product.metafields.custom.trust_badge.value | img_url: 'master' }}"
+                  width="100px"
+                  height="100px"
+                  alt="Trust Badge"
+                >
+              </p>
+            {% endif %}
+            {% comment %}
+              {%- if product.selected_or_first_available_variant.featured_media != null -%}
+              {%- assign featured_media = product.selected_or_first_available_variant.featured_media -%}
+                 <div class="product-images-gallery-items">
+                  {%- render 'lazy-image',
+                    height: 600
+                    image: featured_media,
+                    width: 800
+                  -%}
+                </div>
+              {%- endif -%}
+            {% endcomment %}
+          {% endcapture %}
+
+          <div class="product-images-gallery-items gallery-slider swiper">
+            <div class="swiper-wrapper"> 
+              {%- for media in product.media -%}
+
+              {% if media.media_type != "image" and media.media_type != "model" %}
+                {% unless finalurl contains "A-B-pdp-video" %} {% continue %} {% endunless %}
+              {% endif %}
+              
+                <div class="product-images-gallery-items product-images-gallery-items-inner  swiper-slide product-slide-item {% if media.media_type == 'external_video' %} product-video-gallery-items{% endif %}" data-media-id="{{ media.id }}">
+                  {{ tags_and_badges }}
+                  {% if media.media_type == "image" %}
+                    <a href="{{ media | image_url: width: 800  }}" data-fancybox="gallery" >
+                      {%- render 'lazy-image',
+                        height: 600,
+                        image: media.src,
+                        width: 800 
+                      -%}
+                      <div class="product-image-zoom-icon">
+                        <svg role="presentation" fill="none" stroke-width="2" focusable="false" width="15" height="15" class="icon icon-image-zoom" viewBox="0 0 15 15">
+                          <circle cx="7.067" cy="7.067" r="6.067" stroke="currentColor"></circle>
+                          <path d="M11.4 11.4 14 14" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"></path>
+                          <path d="M7 4v6M4 7h6" stroke="currentColor"></path>
+                        </svg>
+                      </div>
+                    </a>
+                  {% else %}                    
+                    {%- assign href = media.preview_image | image_url: width: 800 -%}
+
+                    {%- if media.media_type == 'external_video' -%}
+                      {%- assign href = media | external_video_url -%}
+                    {%- elsif media.media_type == 'video' -%}
+                      {%- assign href = media.sources[1].url -%}
+                    {%- endif -%}
+                    
+                    <a href="{{ href }}" data-fancybox="gallery">
+                      {%- if media.media_type == 'external_video' -%}
+                        {% assign video_class = 'js-' | append: media.host %}
+                        {% if media.host == 'youtube' %}
+                          {{ media | external_video_url: autoplay: false, loop: true, controls: false, playlist: media.external_id | external_video_tag: class: video_class, loading: 'lazy' }}
+                        {% else %}
+                          {{ media | external_video_url: autoplay: false, loop: true, controls: false | external_video_tag: class: video_class, loading: 'lazy' }}
+                        {% endif %}
+                    
+                      {%- elsif media.media_type == 'video' -%}
+                        {{ media | media_tag: image_size: '2048x', autoplay: false, loop: true, controls: false, preload: 'none' }}
+                    
+                      {%- elsif media.media_type == 'model' -%}
+                        {{ media | media_tag: image_size: '2048x', toggleable: true }}
+                    
+                      {%- else -%}
+                        {% comment %}<img src="{{ media.preview_image | image_url: width: 800 }}" alt="{{ media.alt | escape }}" loading="lazy">{% endcomment %}
+                      {%- endif -%}
+                    
+                      <div class="product-image-zoom-icon">
+                        <svg role="presentation" fill="none" stroke-width="2" focusable="false" width="15" height="15" class="icon icon-image-zoom" viewBox="0 0 15 15">
+                          <circle cx="7.067" cy="7.067" r="6.067" stroke="currentColor"></circle>
+                          <path d="M11.4 11.4 14 14" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"></path>
+                          <path d="M7 4v6M4 7h6" stroke="currentColor"></path>
+                        </svg>
+                      </div>
+                    </a>
+
+                  {% endif %}
+                </div>
+              {% endfor %}
+            </div>
+          
+            <div class="gallery-slider-pagination"></div>
+          </div>
+          
+        </div>
+
+        {% comment %}
+        <div class="product-images-gallery-thumbnails gallery-thumbs"> 
+          <div class=" swiper-wrapper">
+            {%- for media in product.media -%}
+              <div class="product-images-gallery-items swiper-slide" data-media-id="{{ media.id }}">
+                {%- render 'lazy-image',
+                  height: 600
+                  image: media.src,
+                  width: 800
+                -%}
+              </div>
+            {% endfor %}
+
+          </div>
+        </div>
+        {% endcomment %}
+        
+      </div>
+      <div class="product-main-right-wrap">
+        <div class="product-main-right-wrap-main">
+          
+          <div class="product-main-left-tag large-up-hide medium-hide">
+            {% assign product_tags_counter = 0 %}
+            {% for tag in product.tags %}
+              {% if tag == 'best-seller' %}
+                {% assign product_tags_counter = product_tags_counter | plus: 1 %}
+                <span class="best-seller-tag product--tag">
+                {{ 'products.product.tags.best_seller' | t }}
+                </span>
+              {% endif %}
+              {% if tag == 'new' or tag == 'New' %}
+                {% assign product_tags_counter = product_tags_counter | plus: 1 %}
+                <span class="new-tag product--tag">
+                {{ 'products.product.tags.new' | t }}
+                </span>
+              {% endif %}
+            {% endfor %}
+          </div>
+          <div class="product-main-right-items breadcrumbs-main {% if product_tags_counter == 0 %}no_product_tag{% endif %}">
+            <div class="breadcrumbs-wrap">
+              <a class="" href="/collections/all">
+                All
+              </a>
+              {% if collection %}
+                <span class="text-gray-400">/</span>
+                <a class="" href="{{ collection.url }}">
+                  {{ collection.title }}
+                </a>
+              {% endif %}
+              <span class="">
+                <slash>/</slash> {{ product.title }}
+              </span>
+            </div>
+          </div>
+          <div class="product-main-right-items product-main-title">
+            <h1 class="h2">{{ product.title }}</h1>
+          </div>
+
+          {%- for block in section.blocks -%}
+              {%- case block.type -%}
+                {%- when '@app' -%}
+                {% render block %}
+                
+                {%- when 'rating' -%}
+                  <div class="product-main-right-items product-main-review">
+                    <a class="anchor-link flex flex-wrap justify-between my-4 text-blue-400 text-sm sm:text-base" href="#reviews-section">
+                      <div class="flex mb-2 space-x-1 sm:mb-0">
+                        {%- assign review_average = product.metafields.yotpo.reviews_average | times: 1 -%}
+                        {%- for i in (1..5) -%}
+                          {%- assign index_minus_one = i | minus: 1 -%}
+                          {%- assign mod = review_average | modulo: index_minus_one -%}
+            
+                          {%- if review_average >= i -%}
+                            <svg class="h-6 w-6" version="1.1" viewBox="0 0 128 128" xmlns="http://www.w3.org/2000/svg">
+                              <path d="m47.961 48h-47.945l39.914 31.543-15.941 48.441 40.059-29.871 39.938 29.871-15.871-48.863 39.918-31.121h-47.945l-16.094-47.996z" fill="#41B5E8"/>
+                            </svg>
+                          {%- elsif mod >= 0.5 -%}
+                            <svg class="h-6 w-6" version="1.1" viewBox="0 0 128 128" xmlns="http://www.w3.org/2000/svg">
+                              <path d="m128.02 48h-47.953l-16.094-48-16.031 48h-47.969l39.937 31.555-15.953 48.445 39.984-29.812 0.09375-0.0625 39.938 29.875-15.875-48.867zm-39.594 58.531-24.371-18.547-0.058594 0.0625v-56.953l10.164 24.906h29.812l-25.453 19.43z" fill="#41B5E8"/>
+                             </svg>
+                          {%- else -%}
+                            <svg class="h-6 w-6" version="1.1" viewBox="0 0 128 128" xmlns="http://www.w3.org/2000/svg">
+                              <path d="m64.008 31.113 10.172 24.887h29.809l-25.449 19.426 9.9023 31.105-24.387-18.543-24.387 18.109 9.8711-30.156-25.539-19.941h29.871l10.137-24.887m-16.043 16.887h-47.949l39.914 31.551-15.93 48.445 40.055-29.867 39.934 29.871-15.875-48.871 39.918-31.129h-47.945l-16.094-47.996z" fill="#41B5E8"/>
+                            </svg>
+                          {%- endif %}
+                        {%- endfor -%}
+                      </div>
+            
+                      {{ product.metafields.yotpo.reviews_count }} Reviews | Leave a Review
+                    </a>
+                  </div>
+                
+                {%- when 'short-description' -%}
+                  {% if block.settings.text %}                        
+                  <div class="product-main-right-items product-main-short">
+                    {{ block.settings.text }}
+                  </div>
+                  {% endif %}    
+                {%- when 'Icon-list' -%}
+                  <div class="product-main-right-items product-main-list-icon">
+                    {% for item in product.metafields.custom.product_info_text_icon_new.value %}
+                      <div class="product-main-list-icon-items">
+                        <div class="product-main-list-icon-only">
+                          <img src="{{ item.list_icon | image_url: width: item.list_icon.width }}" alt="{{ item.list_item_name }}" width="{{ item.list_icon.width }}" height="{{ item.list_icon.height }}">
+                        </div>
+                        <p>{{ item.list_item_name }}</p>
+                      </div>
+                    {% endfor %}
+                  </div>
+                {%- when 'variant_picker' -%}
+                  
+                  <div id="variant-buy-box-wrapper">
+                    <div class=" grid grid-cols-1">
+                      {% for product_option in product.options_with_values %}
+                        {% if product_option.name == 'Quantity' %}
+                          {% continue %}
+                        {% endif %}
+
+                        {% assign product_option_name_downcase = product_option.name | downcase %}
+        
+                        <div class="product-main-right-items">
+                          <p class="option__label font-semibold mb-2 text-blue-500 text-sm sm:text-base">
+                            {% if product_option_name_downcase == "flavor" or product_option_name_downcase == "flavour" %}
+                              {% assign flavor_count = product_option.values | size %}
+                              {{ flavor_count }} {{ product_option.name }}{% if flavor_count > 1 %}s{% endif %} Available:
+                            {% else %}
+                              {{ product_option.name }}:
+                            {% endif %}
+                          </p>
+        
+                          <custom-select>
+                            <div class="relative variants-container">
+
+                              
+                              {% if product_option_name_downcase == "flavor" or product_option_name_downcase == "flavour" %}
+
+                              <button
+                                aria-haspopup="listbox"
+                                class="select flavor-selector-button {% unless product.selected_or_first_available_variant.available %} oos_unavailable{% endunless %}"
+                                type="button"
+                                data-button-value="{{ product_option.selected_value }}"
+                                
+                              >
+                                <div class="flex-1 text selected-flavor-label"></div>
+        
+                                <div class="block-arrow">
+                                  {% render 'block-arrow' %}
+                                </div>
+                              </button>
+                              {% endif %}
+
+
+                              <div class="{% if product_option_name_downcase == "flavor" or product_option_name_downcase == "flavour" %}variant-drawer-wrapper hidden{% endif %}" {% if product_option_name_downcase == "flavor" or product_option_name_downcase == "flavour" %}variant-drawer-wrapper{% endif %}>
+
+                                {% if product_option_name_downcase == "flavor" or product_option_name_downcase == "flavour" %}
+                                  <div class="variant-header">
+                                    <div class="">Flavor:</div>
+                                    <div class="close-variant-drawer">{% render 'icon-close' %}</div>
+                                  </div>
+                                  <div class="overlay">
+                                  </div>
+                                {% endif %}
+                                <ul
+                                  class="{% if product_option_name_downcase == "flavor" or product_option_name_downcase == "flavour" %}select-list hidden{% else %}option__button--wrapper{% endif %}"
+                                  role="listbox" aria-label="Select an option"
+                                >
+                                  {% for value in product_option.values %}
+                                  	{% for variant in product.variants %}
+                                      {% if product_option.position == 1 and variant.option1 == value %}
+                                        {% assign swatch_variant = variant %}
+                                      {% elsif product_option.position == 2 and variant.option2 == value %}
+                                        {% assign swatch_variant = variant %}
+                                      {% elsif product_option.position == 3 and variant.option3 == value %}
+                                        {% assign swatch_variant = variant %}
+                                      {% endif %}
+                                    {% endfor %}
+          
+                                    {% if swatch_variant.metafields.secomapp.freegifts == blank %}
+                                      <li
+                                      class="{% if product_option_name_downcase == "flavor" or product_option_name_downcase == "flavour" %}select-option{% else %}option__button{% endif %}"
+                                      data-value="{{ value }}"
+                                      role="option"
+                                      >
+                                        <div class="variant-name-image-wrapper flex">
+                                          {% assign product_option_name_downcase = product_option.name | downcase %}
+                                          {% if product_option_name_downcase == "flavor" or product_option_name_downcase == "flavour" %}
+                                            <span class="variant-image"><img src='{{ value | replace: " ", "_" | replace: "'", "_" | append: ".jpg" | file_url }}' alt="Variant {{ value }}"></span>
+                                          {% endif %}
+                                          <span class="variant-title">{{ value }}</span>
+                                        </div>
+  
+                                        {% if product_option_name_downcase == "flavor" or product_option_name_downcase == "flavour" %}
+                                          <div class="variant-tags-main" variant-tags-main>
+                                            <span class="low-stock-variant variant-tags visually-hidden" variant-tags low-stock-variant>Low Stock</span>
+                                            <span class="out-of-stock-variant variant-tags visually-hidden" variant-tags out-of-stock-variant>Out of Stock</span>
+                                            <span class="new-variant variant-tags visually-hidden" variant-tags new-variant>New!</span>
+                                            <span class="unavailable variant-tags visually-hidden" variant-tags unavailable>Unavailable</span>
+                                          </div>
+                                        {% endif %}
+                                      </li>
+                                    {% endif %}
+                                  {% endfor %}
+                                </ul>
+                              </div>
+        
+                              <select class="hidden" data-option-position="{{ product_option.position }}">
+                                {% for value in product_option.values %}
+                                  <option {% if product_option.selected_value == value %}selected{% endif %}>
+                                    {{ value }}
+                                  </option>
+                                {% endfor %}
+                              </select>
+                            </div>
+                          </custom-select>
+                        </div>
+                      {% endfor %}
+                    </div>
+                  </div>
+                
+                {%- when 'buy_buttons' -%}
+                  <div>
+                    {% form 'product', product, data-productid: product.id, id: form_id %}
+                      <select class="hidden" name="id" data-productid="{{ product.id }}">
+                        {% for variant in product.variants %}
+                          <option
+                            data-available="{{ variant.available }}"
+                            data-option-1="{{ variant.option1 }}"
+                            data-option-2="{{ variant.option2 }}"
+                            data-price="{{ variant.price }}"
+                            {% if current_variant.id == variant.id %}selected{% endif %}
+                            value="{{ variant.id }}"
+                          >
+                            {{ variant.title }}
+                          </option>
+                        {% endfor %}
+                      </select>
+        
+                      <div class="quantity-cta-wrapper flex">
+                        <quantity-input>
+                            <div class="quantity-button-wrapper flex">
+                              <button
+                                class="quantity-button"
+                                type="button"
+                                aria-label="Decrease quantity"
+                              >
+                                {% render 'qty-icon-minus' %}
+                              </button>
+                              <label for="quantitybox" class="visually-hidden">Quantity</label>
+                              <input
+                                class="border-0 bg-transparent hide-selectors outline-none text-center w-16"
+                                min="1"
+                                name="quantity"
+                                readonly
+                                type="number"
+                                value="1"
+                                id="quantitybox"
+                              />
+        
+                              <button
+                                class="quantity-button"
+                                type="button"
+                                aria-label="Increase quantity"
+                              >
+                                {% render 'qty-icon-plus' %}
+                              </button>
+                            </div>
+                          </quantity-input>
+
+        
+                        <div class="w-full {% unless product.selected_or_first_available_variant.available %}out_of_stock{% endunless %}" id="add-to-cart-button-container">
+                          <button
+                            class="button mt-4 text-base w-full {% unless current_variant.available %}opacity-70{% endunless %} sm:mt-0 add-to-cart-button"
+                            id="add-to-cart-button"
+                            type="submit"
+                          >
+                            {% comment %}
+                            <span id="total-price">{{ product.price | money }}</span>
+                            <span class="mx-2">|</span>
+                            {% endcomment %}
+                            <span id="product-availability">Add to Cart</span>
+                          </button>
+
+                          <a  id="hideme" style="display:none;" klaviyo-bis-trigger class="klaviyo-bis-trigger button black-button" href="#"><span>Notify Me When Available</span></a>
+                        </div>
+                      </div>
+                    {% endform %}
+                  </div>
+
+                {%- when 'compare_button' -%}
+                {% assign compare_product_list = product.metafields.custom.compare_product_list.value %}
+                {% if compare_product_list %}
+                  <a href="{{ block.settings.button_url }}" class="compare-button button outlined-black-button">{{ block.settings.button_text }}</a>
+                {% endif %}
+              {%- endcase -%}
+          {%- endfor -%}
+                                
+          {% render "free-trial-kit", product: product %}
+              
+        </div>        
+      </div>
+    </div>    
+  </div>
+</div>
+<div class="A-B-pdp-video"></div>
+
+                  
+<script>
+  window.MediaCaptureTags_and_badges = `{{ tags_and_badges }}`;
+  window.sectionSettings = {{ section.settings | json }};
+  window.globalSettings = {{ settings | json }};
+  window.productCustomData = {
+    'current_product_json': {{ product | json }},
+    'free_trial_kit': {{ product.metafields.custom.free_starter_kit.value.starter_kit.value | json }},
+  };
+
+  {% for variant in product.variants %}
+    {% if variant.inventory_management == "shopify" and variant.inventory_policy == "deny"  %}
+      window.productCustomData.current_product_json.variants.find(variant => variant.id == {{ variant.id }})['inventory_quantity'] = {{ variant.inventory_quantity }};
+      window.productCustomData.current_product_json.variants.find(variant => variant.id == {{ variant.id }})['inventory_management'] = `{{ variant.inventory_management }}`;
+      window.productCustomData.current_product_json.variants.find(variant => variant.id == {{ variant.id }})['inventory_policy'] = `{{ variant.inventory_policy }}`;
+      
+    {% elsif variant.inventory_management == "shopify" and variant.inventory_policy == "continue" %}
+      window.productCustomData.current_product_json.variants.find(variant => variant.id == {{ variant.id }})['inventory_quantity'] = 9999999999999;
+      window.productCustomData.current_product_json.variants.find(variant => variant.id == {{ variant.id }})['inventory_management'] = `{{ variant.inventory_management }}`;
+      window.productCustomData.current_product_json.variants.find(variant => variant.id == {{ variant.id }})['inventory_policy'] = `{{ variant.inventory_policy }}`;
+      
+    {% else %}
+      window.productCustomData.current_product_json.variants.find(variant => variant.id == {{ variant.id }})['inventory_quantity'] = 9999999999999;
+      
+    {% endif %}
+
+    window.productCustomData.current_product_json.variants.find(variant => variant.id == {{ variant.id }})["metafields"] = {{ variant.metafields.custom | json }}
+    
+  {% endfor %}
+</script>
+                                
+{% schema %}
+  {
+    "name": "New Main Product",
+    "settings": [
+      {
+        "type": "header",
+        "content": "SKIO App Addons",
+        "info": "Anything that done in a custom way, should be created from here and add add it to the Widget"
+      },
+      {
+        "type": "richtext",
+        "id": "skio_subscription_text",
+        "label": "Skio - Subscription Text"
+      },
+      {
+        "type": "richtext",
+        "id": "kit_unlocked_message",
+        "label": "Kit Unlocked Message"
+      }
+    ],
+    "blocks": [
+      {
+      "type": "@app"
+      },
+      {
+        "name": "Short description",
+        "type": "short-description",
+        "settings": [
+          {
+            "type": "richtext",
+            "id": "text",
+            "label": "Content"
+          }
+        ]
+      },
+      {
+        "name": "Icon list",
+        "type": "Icon-list",
+        "settings": [
+        ]
+      },
+      {
+        "name": "Variant picker",
+        "type": "variant_picker",
+        "settings": [
+        ]
+      },
+      {
+        "name": "Buy buttons",
+        "type": "buy_buttons",
+        "settings": [
+        ]
+      },
+      {
+        "name": "Compare Button",
+        "type": "compare_button",
+        "settings": [
+          {
+            "type": "text",
+            "id": "button_text",
+            "label": "Button Text"
+          },
+          {
+            "type": "url",
+            "id": "button_url",
+            "label": "Button URL"
+          }
+        ]
+      },
+      {
+        "type": "rating",
+        "name": "Rating",
+        "limit": 1,
+        "settings": [
+        ]
+      }
+    ],
+    "presets":[
+      {
+          "name": "New Main Product"
+      }
+    ]
+  }
+{% endschema %}

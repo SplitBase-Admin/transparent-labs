@@ -1,0 +1,31 @@
+.product-benefit-blocks-section .block-header p {
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.product-benefit-blocks-section .section_heading a {
+  display: none !important;
+}
+
+.template--product .right-section .grid-item {
+  pointer-events: none;
+}
+
+.template--product .right-section .grid-item:hover .responsive-image-wrapper img {
+  transform: none;
+}
+
+
+.product-benefit-blocks-section .section-header .section_heading {
+  margin: 0 0 20px;
+}
+
+@media (max-width: 767px) {
+
+  .product-benefit-blocks-section .section-header .section_heading {
+    margin: 0 0 16px;
+  }
+  
+}

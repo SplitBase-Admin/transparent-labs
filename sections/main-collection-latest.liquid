@@ -1,0 +1,295 @@
+<script src="https://unpkg.com/flickity@2/dist/flickity.pkgd.min.js"></script><!-- CSS -->
+<link href="https://unpkg.com/flickity@2/dist/flickity.min.css" rel="stylesheet">
+{{ 'latest-collection.css' | asset_url | stylesheet_tag }}
+
+<style>
+.xt-collection-detail .xt-collection-top
+{
+  
+  {% if section.settings.mobile_img!=blank %}
+    background:url("{{ section.settings.mobile_img | img_url : 'master' }}");
+    background-size: cover;
+    height:350px;
+  {% endif %}
+}
+@media only screen and (min-width:768px)
+{
+  .xt-collection-detail .xt-collection-top
+  {
+    
+    {% if section.settings.desktop_img!=blank %}
+      background:url("{{ section.settings.desktop_img | img_url : 'master' }}");
+      background-size: cover;
+      height:450px;
+    {% endif %}
+  }
+}
+</style>
+
+<div class="xt-collection-detail">
+  <div class="xt-collection-top">
+    <div class="container">
+      {% if section.settings.breadcrumb == true %}
+      <ul class="breadcrumb">
+        
+        <li><a href="/">Home</a></li>
+        <li>{% render 'icon-chevron-right' %}</li> 
+        <li><a href=""><a href="/collections/">Collections</a></li>
+        <li>{% render 'icon-chevron-right' %}</li> 
+        <li>{{ collection.title | link_to: collection.url }}</li>
+      </ul>
+      {% endif %}
+      
+      {% if collection.title != blank %}
+        <h1>{{ collection.title }}</h1>
+        {% else %}
+        <h1>{{ section.settings.title }}</h1>
+      {% endif %}
+
+      {% if collection.description != blank %}
+        <p>{{ collection.description }}</p>
+        {% else %}
+        <p>{{ section.settings.subtitle }}</p>
+      {% endif %}
+      
+      
+    </div>
+  </div>
+</div>
+
+
+
+<div class="flex {{collection.handle}}">
+  <div class="bg-white hidden max-w-sm p-8 text-blue-500 xl:block 2xl:pr-16 filters">
+    <div class="space-y-4 sticky top-8">
+      <h2 class="text-xl">
+        SHOP OUR PRODUCTS
+      </h2>
+
+
+      {% assign filter_tags = 'type-;series-;goal-' | split: ';' %}
+
+      {% for filter_tag in filter_tags %}
+        <div>
+          <h3 class="mb-4 text-lg">
+            {{ filter_tag | upcase | replace: '-', '' }}
+          </h3>
+
+          <ul style="padding-bottom:30px;">
+            {% for tag in collections.all.tags %}
+              {% assign start = tag | slice: 0, filter_tag.size | downcase %}
+
+              {% if start == filter_tag %}
+                <li class="flex items-center transition-colors hover:text-orange-400 {% if current_tags contains tag %}active-tag{% endif %} ">
+             
+
+                  {%- assign formatted_tag = tag | replace: filter_tag, '' | replace: '-', ' ' | split: ' ' -%}
+
+                  {%- capture tag_text -%}
+                    {%- for word in formatted_tag -%}
+                      {{ word | upcase }}
+                    {%- endfor -%}
+                  {%- endcapture -%}
+
+                  {%- if current_tags contains tag -%}
+                    {{ tag_text | link_to_remove_tag: tag }}
+                  {%- else -%}
+                    {{ tag_text | link_to_add_tag: tag }}
+                  {%- endif -%}
+                </li>
+              {% endif %}
+            {% endfor %}
+          </ul>
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+
+  <div class="bg-gray-300 flex-1">
+    <div class="pt-4 px-4 md:pt-8 md:px-8">
+
+      {% paginate collection.products by 250 %}
+        <div class="gap-8 grid grid-cols-1 mb-8 sm:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4 3xl:grid-cols-5">
+          {% for product in collection.products %}
+            {%- if product.tags contains 'hidden-by-tag' -%}
+              {%- continue -%}
+            {%- endif -%}
+
+            {% if product.tags contains 'stack'  %}
+                
+             {% else %}
+                 {% render 'product-card' with product: product %}
+            {% endif %}
+            {% comment %}{% render 'product-grid-item' with product: product %}{% endcomment %}
+          {% endfor %}
+        </div>
+      {% endpaginate %}
+    </div>
+  </div>
+</div>
+
+<style>
+.xgen-product-img img {
+    max-width: 100%;
+    height: auto;
+    height: 230px;
+    margin: auto;
+}
+.shopAll_cta {
+    border-top: 1px solid #dedede;
+    padding: 20px;
+    display: flex;
+    justify-content: center;
+    font-size: 2rem;
+    text-align: center;
+    line-height: 1.1em;
+    letter-spacing: -.5px;
+}
+
+  :root {
+    --swiper-navigation-size: 24px;
+    --swiper-theme-color: #41B5E8;
+  }
+.filters {display:none;}
+.all .filters, .bestsellers .filters {display:block;}
+.TL_col_title {
+    background: #132836;
+    color: #ffffff;
+    padding: 12px 20px;
+    border-radius: 4px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 35px;
+background: rgb(19,40,54);
+background: linear-gradient(111deg, rgba(19,40,54,1) 69%, rgba(64,181,232,1) 69%);
+}
+.TL_col_title h1 {
+color:#ffffff;
+}
+
+.TL_col_title custom-select {
+width:100%;
+max-width:260px;
+}
+
+.TL_col_title button {
+    border-radius: 4px;
+    padding: 12px;
+}
+
+.filters a {
+    display: flex;
+    align-items: center;
+    font-size:14px;
+}
+
+.filters a:before {
+    content: '';
+    height: 16px;
+    width: 16px;
+    display: inline-block;
+    background: rgba(184, 184, 189, 0.3);
+    border-radius: 4px;
+    margin-right: 6px;
+    position: relative;
+    top: -1px;
+}
+
+.active-tag a:before {background:rgb(253, 106, 76);}
+
+.button-alt {
+    background: #127EAD;
+    border: 1px solid #127EAD;
+    color: #ffffff;
+    border-radius: 8px;
+}
+
+.variant-price {
+    color: #000 !important;
+}
+
+.filters ul li {
+    border-bottom: 1px solid #f0f0f0;
+    padding-bottom: 8px;
+    margin-top: 10px;
+}
+
+.TL_explore_full {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 16px;
+    font-size: 18px;
+    margin-bottom: 32px;
+    color: #ffffff;
+    font-weight: 700;
+    border-radius: 4px;
+    background: #137ead;
+    width: -webkit-fill-available;
+    margin: 0 auto;
+    margin-bottom: 32px;
+    line-height: 1.2em;
+    max-width: 320px;
+    text-align: center;
+}
+
+
+@media only screen and (max-width: 600px) {
+
+.TL_col_title {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+    padding: 20px;
+    background: linear-gradient(95deg, rgba(19,40,54,1) 90%, rgba(64,181,232,1) 90%);
+}
+.all .filters, .bestsellers .filters {display:none;}
+
+}
+
+</style>
+
+
+
+{% schema %}
+  {
+    "name": "Main collection latest",
+    "settings": [
+    {
+        "id": "breadcrumb",
+        "label": "Enable breadcrumb",
+        "type": "checkbox",
+        "default":true
+    },
+    {
+        "id": "title",
+        "label": "Collection list banner text",
+        "type": "text",
+        "default":"Collections"
+    },
+    {
+        "id": "subtitle",
+        "label": "Collection list banner subtext",
+        "type": "textarea",
+        "default":"All the energy you need before workout. Lorem ipsum dolor sit amet."
+    },
+    {
+        "id": "desktop_img",
+        "label": "Desktop Image",
+        "type": "image_picker"
+    },
+    {
+        "id": "mobile_img",
+        "label": "Mobile Image",
+        "type": "image_picker"
+    }
+    ]
+  }
+{% endschema %}
+
+{% stylesheet %}
+{% endstylesheet %}
+
+{% javascript %}
+{% endjavascript %}

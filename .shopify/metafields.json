@@ -1,0 +1,1030 @@
+{
+  "article": [
+    {
+      "key": "custom_product_handle",
+      "namespace": "custom",
+      "name": "custom product handle",
+      "description": "Use comma separated product handles.",
+      "type": {
+        "name": "single_line_text_field",
+        "category": "TEXT"
+      }
+    },
+    {
+      "key": "hide_best_seller_text",
+      "namespace": "custom",
+      "name": "hide best seller text",
+      "description": "",
+      "type": {
+        "name": "boolean",
+        "category": "TRUE_FALSE"
+      }
+    },
+    {
+      "key": "hide_free_shipping_badge",
+      "namespace": "custom",
+      "name": "hide free shipping badge",
+      "description": "",
+      "type": {
+        "name": "boolean",
+        "category": "TRUE_FALSE"
+      }
+    },
+    {
+      "key": "add_percentage_text",
+      "namespace": "custom",
+      "name": "add percentage text",
+      "description": "",
+      "type": {
+        "name": "single_line_text_field",
+        "category": "TEXT"
+      }
+    },
+    {
+      "key": "article_on_product",
+      "namespace": "custom",
+      "name": "Product On Article ",
+      "description": "Select product",
+      "type": {
+        "name": "product_reference",
+        "category": "REFERENCE"
+      }
+    },
+    {
+      "key": "author_image",
+      "namespace": "custom",
+      "name": "Author Image",
+      "description": "Enter Author Image",
+      "type": {
+        "name": "file_reference",
+        "category": "REFERENCE"
+      }
+    },
+    {
+      "key": "review_by",
+      "namespace": "custom",
+      "name": "Review By",
+      "description": "",
+      "type": {
+        "name": "single_line_text_field",
+        "category": "TEXT"
+      }
+    },
+    {
+      "key": "author_details",
+      "namespace": "custom",
+      "name": "Author Details",
+      "description": "",
+      "type": {
+        "name": "mixed_reference",
+        "category": "REFERENCE"
+      }
+    }
+  ],
+  "blog": [
+    {
+      "key": "blog_tags",
+      "namespace": "custom",
+      "name": "Blog Tags",
+      "description": "",
+      "type": {
+        "name": "list.single_line_text_field",
+        "category": "TEXT"
+      }
+    },
+    {
+      "key": "blog_tab_details",
+      "namespace": "custom",
+      "name": "Blog Tab Details",
+      "description": "",
+      "type": {
+        "name": "list.mixed_reference",
+        "category": "REFERENCE"
+      }
+    }
+  ],
+  "collection": [
+    {
+      "key": "xt_multiple_collection",
+      "namespace": "custom",
+      "name": "Select Submenu Collection",
+      "description": "",
+      "type": {
+        "name": "list.collection_reference",
+        "category": "REFERENCE"
+      }
+    },
+    {
+      "key": "cc-creator-drop-product-enhancement-media",
+      "namespace": "creator",
+      "name": "CC Drop Product Enhancement Media",
+      "description": null,
+      "type": {
+        "name": "list.single_line_text_field",
+        "category": "TEXT"
+      }
+    },
+    {
+      "key": "cc-creator-drop-creator",
+      "namespace": "creator",
+      "name": "CC Drop Creator",
+      "description": null,
+      "type": {
+        "name": "metaobject_reference",
+        "category": "REFERENCE"
+      }
+    },
+    {
+      "key": "cc-creator-drop-products",
+      "namespace": "creator",
+      "name": "CC Drop Products",
+      "description": null,
+      "type": {
+        "name": "list.product_reference",
+        "category": "REFERENCE"
+      }
+    },
+    {
+      "key": "cc-creator-drop-product-enhancement-notes",
+      "namespace": "creator",
+      "name": "CC Drop Product Enhancement Notes",
+      "description": null,
+      "type": {
+        "name": "list.single_line_text_field",
+        "category": "TEXT"
+      }
+    },
+    {
+      "key": "cc-creator-drop-data",
+      "namespace": "creator",
+      "name": "CC Drop Data",
+      "description": null,
+      "type": {
+        "name": "json",
+        "category": "JSON"
+      }
+    },
+    {
+      "key": "blogs",
+      "namespace": "custom",
+      "name": "Blogs",
+      "description": "Add article handle with blog name",
+      "type": {
+        "name": "list.single_line_text_field",
+        "category": "TEXT"
+      }
+    },
+    {
+      "key": "review_carousel",
+      "namespace": "custom",
+      "name": "Review Carousel",
+      "description": "",
+      "type": {
+        "name": "list.metaobject_reference",
+        "category": "REFERENCE"
+      }
+    },
+    {
+      "key": "faq",
+      "namespace": "custom",
+      "name": "Faq",
+      "description": "",
+      "type": {
+        "name": "list.mixed_reference",
+        "category": "REFERENCE"
+      }
+    },
+    {
+      "key": "custom_collection_title",
+      "namespace": "custom",
+      "name": "Custom Collection Title",
+      "description": "",
+      "type": {
+        "name": "single_line_text_field",
+        "category": "TEXT"
+      }
+    }
+  ],
+  "company": [],
+  "company_location": [],
+  "location": [],
+  "market": [],
+  "order": [],
+  "page": [
+    {
+      "key": "hidden",
+      "namespace": "seo",
+      "name": "seo.hidden",
+      "description": null,
+      "type": {
+        "name": "number_integer",
+        "category": "NUMBER"
+      }
+    }
+  ],
+  "product": [
+    {
+      "key": "faqs",
+      "namespace": "ingredients",
+      "name": "FAQ's",
+      "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus sodales congue est sed vestibulum. ",
+      "type": {
+        "name": "multi_line_text_field",
+        "category": "TEXT"
+      }
+    },
+    {
+      "key": "list",
+      "namespace": "ingredients",
+      "name": "Ingredients List",
+      "description": "Ingredient Title 1 - Ingredient Dose (8000mg) / Ingredient Title 2 - Ingredient Dose (600mg)  ",
+      "type": {
+        "name": "multi_line_text_field",
+        "category": "TEXT"
+      }
+    },
+    {
+      "key": "suggestions",
+      "namespace": "Ingredients",
+      "name": "Ingredient Suggestions",
+      "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus sodales congue est sed vestibulum. ",
+      "type": {
+        "name": "multi_line_text_field",
+        "category": "TEXT"
+      }
+    },
+    {
+      "key": "servings_container",
+      "namespace": "ingredients",
+      "name": "Ingredients Servings Per Container",
+      "description": "30",
+      "type": {
+        "name": "single_line_text_field",
+        "category": "TEXT"
+      }
+    },
+    {
+      "key": "serving_size",
+      "namespace": "ingredients",
+      "name": "Ingredient Serving Size",
+      "description": "1 Scoop (16.14g)",
+      "type": {
+        "name": "single_line_text_field",
+        "category": "TEXT"
+      }
+    },
+    {
+      "key": "directions",
+      "namespace": "ingredients",
+      "name": "Ingredient Directions",
+      "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus sodales congue est sed vestibulum. ",
+      "type": {
+        "name": "multi_line_text_field",
+        "category": "TEXT"
+      }
+    },
+    {
+      "key": "sfp",
+      "namespace": "product_details",
+      "name": "Supplement Facts ",
+      "description": "",
+      "type": {
+        "name": "file_reference",
+        "category": "REFERENCE"
+      }
+    },
+    {
+      "key": "stack_products",
+      "namespace": "my_fields",
+      "name": "Stack products",
+      "description": "Use comma separated handle of products [ For example: product-handle-one,product-handle-two ]",
+      "type": {
+        "name": "multi_line_text_field",
+        "category": "TEXT"
+      }
+    },
+    {
+      "key": "sub_coll_product_details",
+      "namespace": "my_fields",
+      "name": "sub_coll_product_details",
+      "description": "Add description of sub product",
+      "type": {
+        "name": "multi_line_text_field",
+        "category": "TEXT"
+      }
+    },
+    {
+      "key": "product_overview_detail",
+      "namespace": "custom",
+      "name": "Product overview detail",
+      "description": "Use this metafield for product overview detail",
+      "type": {
+        "name": "multi_line_text_field",
+        "category": "TEXT"
+      }
+    },
+    {
+      "key": "key_benifit_imge_1",
+      "namespace": "custom",
+      "name": "Key benifit imge 1",
+      "description": "Select image",
+      "type": {
+        "name": "file_reference",
+        "category": "REFERENCE"
+      }
+    },
+    {
+      "key": "key_benifit_imge_2",
+      "namespace": "custom",
+      "name": "Key benifit imge 2",
+      "description": "Select image",
+      "type": {
+        "name": "file_reference",
+        "category": "REFERENCE"
+      }
+    },
+    {
+      "key": "key_benifit_imge_3",
+      "namespace": "custom",
+      "name": "Key benifit imge 3",
+      "description": "Select Image",
+      "type": {
+        "name": "file_reference",
+        "category": "REFERENCE"
+      }
+    },
+    {
+      "key": "key_benifit_imge_4",
+      "namespace": "custom",
+      "name": "Key benifit imge 4",
+      "description": "Select Image",
+      "type": {
+        "name": "file_reference",
+        "category": "REFERENCE"
+      }
+    },
+    {
+      "key": "key_benefit_title_1",
+      "namespace": "custom",
+      "name": "Key benefit title 1",
+      "description": "Benefit title",
+      "type": {
+        "name": "single_line_text_field",
+        "category": "TEXT"
+      }
+    },
+    {
+      "key": "key_benefit_title_2",
+      "namespace": "custom",
+      "name": "Key benefit title 2",
+      "description": "Benefit title",
+      "type": {
+        "name": "single_line_text_field",
+        "category": "TEXT"
+      }
+    },
+    {
+      "key": "key_benefit_title_3",
+      "namespace": "custom",
+      "name": "Key benefit title 3",
+      "description": "Benefit title",
+      "type": {
+        "name": "single_line_text_field",
+        "category": "TEXT"
+      }
+    },
+    {
+      "key": "key_benefit_title_4",
+      "namespace": "custom",
+      "name": "Key benefit title 4",
+      "description": "Benefit title",
+      "type": {
+        "name": "single_line_text_field",
+        "category": "TEXT"
+      }
+    },
+    {
+      "key": "key_benefit_description_1",
+      "namespace": "custom",
+      "name": "Key benefit description 1",
+      "description": "Benefit description",
+      "type": {
+        "name": "multi_line_text_field",
+        "category": "TEXT"
+      }
+    },
+    {
+      "key": "key_benefit_description_2",
+      "namespace": "custom",
+      "name": "Key benefit description 2",
+      "description": "Benefit description",
+      "type": {
+        "name": "multi_line_text_field",
+        "category": "TEXT"
+      }
+    },
+    {
+      "key": "key_benefit_description_3",
+      "namespace": "custom",
+      "name": "Key benefit description 3",
+      "description": "Benefit description",
+      "type": {
+        "name": "multi_line_text_field",
+        "category": "TEXT"
+      }
+    },
+    {
+      "key": "key_benefit_description_4",
+      "namespace": "custom",
+      "name": "Key benefit description 4",
+      "description": "Benefit description",
+      "type": {
+        "name": "multi_line_text_field",
+        "category": "TEXT"
+      }
+    },
+    {
+      "key": "subscription_frequency_text",
+      "namespace": "custom",
+      "name": "Subscription frequency text",
+      "description": "Add subscription frequency text.",
+      "type": {
+        "name": "single_line_text_field",
+        "category": "TEXT"
+      }
+    },
+    {
+      "key": "hide_free_shipping_badge",
+      "namespace": "custom",
+      "name": "show free shipping text",
+      "description": "Make this option true to show free shipping text",
+      "type": {
+        "name": "boolean",
+        "category": "TRUE_FALSE"
+      }
+    },
+    {
+      "key": "hide_best_seller_text",
+      "namespace": "custom",
+      "name": "Show best seller text",
+      "description": "Make this option true to show best seller text in product grid",
+      "type": {
+        "name": "boolean",
+        "category": "TRUE_FALSE"
+      }
+    },
+    {
+      "key": "add_percentage_text",
+      "namespace": "custom",
+      "name": "Add percentage text",
+      "description": "Use this area to add percentage detail to the product grid",
+      "type": {
+        "name": "single_line_text_field",
+        "category": "TEXT"
+      }
+    },
+    {
+      "key": "how_to_use",
+      "namespace": "custom",
+      "name": "How to use",
+      "description": "Use this metafield to show instruction in terms of How to use?",
+      "type": {
+        "name": "multi_line_text_field",
+        "category": "TEXT"
+      }
+    },
+    {
+      "key": "best_seller_text_and_other_text",
+      "namespace": "custom",
+      "name": "Best seller text",
+      "description": "Bestseller tag and other tags",
+      "type": {
+        "name": "single_line_text_field",
+        "category": "TEXT"
+      }
+    },
+    {
+      "key": "related_article_tag",
+      "namespace": "custom",
+      "name": "Related article tag",
+      "description": "define related article tag",
+      "type": {
+        "name": "single_line_text_field",
+        "category": "TEXT"
+      }
+    },
+    {
+      "key": "queries",
+      "namespace": "shopify--discovery--product_search_boost",
+      "name": "Search product boosts",
+      "description": "List of search queries for which a product gets higher rank in search results",
+      "type": {
+        "name": "list.single_line_text_field",
+        "category": "TEXT"
+      }
+    },
+    {
+      "key": "related_products",
+      "namespace": "shopify--discovery--product_recommendation",
+      "name": "Related products",
+      "description": "List of related products",
+      "type": {
+        "name": "list.product_reference",
+        "category": "REFERENCE"
+      }
+    },
+    {
+      "key": "related_products_display",
+      "namespace": "shopify--discovery--product_recommendation",
+      "name": "Related products settings",
+      "description": "Determines how related products are displayed along with algorithmic product recommendations",
+      "type": {
+        "name": "single_line_text_field",
+        "category": "TEXT"
+      }
+    },
+    {
+      "key": "complementary_products",
+      "namespace": "shopify--discovery--product_recommendation",
+      "name": "Complementary products",
+      "description": "List of complementary products",
+      "type": {
+        "name": "list.product_reference",
+        "category": "REFERENCE"
+      }
+    },
+    {
+      "key": "filter_series",
+      "namespace": "custom",
+      "name": "Filter SERIES",
+      "description": "",
+      "type": {
+        "name": "list.single_line_text_field",
+        "category": "TEXT"
+      }
+    },
+    {
+      "key": "filter_goal",
+      "namespace": "custom",
+      "name": "Filter GOAL",
+      "description": "",
+      "type": {
+        "name": "list.single_line_text_field",
+        "category": "TEXT"
+      }
+    },
+    {
+      "key": "trust_badge",
+      "namespace": "custom",
+      "name": "Trust badge",
+      "description": "Add trust badge to the product using this metafields.",
+      "type": {
+        "name": "file_reference",
+        "category": "REFERENCE"
+      }
+    },
+    {
+      "key": "trust_badge_width",
+      "namespace": "custom",
+      "name": "trust badge width",
+      "description": "Define your trust badge width in numbers. (Desktop/Mobile) for example: 150/92",
+      "type": {
+        "name": "single_line_text_field",
+        "category": "TEXT"
+      }
+    },
+    {
+      "key": "third_party_testing_list",
+      "namespace": "custom",
+      "name": "Third party testing list",
+      "description": "",
+      "type": {
+        "name": "list.file_reference",
+        "category": "REFERENCE"
+      }
+    },
+    {
+      "key": "third_party_testing_description",
+      "namespace": "custom",
+      "name": "Third party testing description",
+      "description": "Use this metafield to add description of ",
+      "type": {
+        "name": "rich_text_field",
+        "category": "TEXT"
+      }
+    },
+    {
+      "key": "custom_product",
+      "namespace": "mm-google-shopping",
+      "name": "Google: Custom Product",
+      "description": "Use to indicate whether or not the unique product identifiers (UPIs) GTIN, MPN, and brand are available for your product.",
+      "type": {
+        "name": "boolean",
+        "category": "TRUE_FALSE"
+      }
+    },
+    {
+      "key": "hidden",
+      "namespace": "seo",
+      "name": "Hidden from SEO",
+      "description": "Hide products from SEO",
+      "type": {
+        "name": "number_integer",
+        "category": "NUMBER"
+      }
+    },
+    {
+      "key": "rating",
+      "namespace": "reviews",
+      "name": "Product rating",
+      "description": "Average rating from customers",
+      "type": {
+        "name": "rating",
+        "category": "RATING"
+      }
+    },
+    {
+      "key": "rating_count",
+      "namespace": "reviews",
+      "name": "Product rating count",
+      "description": "Total number of ratings from customers",
+      "type": {
+        "name": "number_integer",
+        "category": "NUMBER"
+      }
+    },
+    {
+      "key": "food-supplement-form",
+      "namespace": "shopify",
+      "name": "Food supplement form",
+      "description": "Specifies the format of a health supplement, such as liquid or tablets",
+      "type": {
+        "name": "list.metaobject_reference",
+        "category": "REFERENCE"
+      }
+    },
+    {
+      "key": "short_description",
+      "namespace": "custom",
+      "name": "Short description",
+      "description": "",
+      "type": {
+        "name": "multi_line_text_field",
+        "category": "TEXT"
+      }
+    },
+    {
+      "key": "product_info_text_icon_new",
+      "namespace": "custom",
+      "name": "Product info text icon New",
+      "description": "",
+      "type": {
+        "name": "list.mixed_reference",
+        "category": "REFERENCE"
+      }
+    },
+    {
+      "key": "product_benefit_section_description",
+      "namespace": "custom",
+      "name": "Product Benefit Section Description",
+      "description": "",
+      "type": {
+        "name": "single_line_text_field",
+        "category": "TEXT"
+      }
+    },
+    {
+      "key": "product_benefit_blocks",
+      "namespace": "custom",
+      "name": "Product Benefit Blocks",
+      "description": "",
+      "type": {
+        "name": "list.mixed_reference",
+        "category": "REFERENCE"
+      }
+    },
+    {
+      "key": "free_starter_kit",
+      "namespace": "custom",
+      "name": "Free Starter Kit",
+      "description": "",
+      "type": {
+        "name": "metaobject_reference",
+        "category": "REFERENCE"
+      }
+    },
+    {
+      "key": "product_description_links",
+      "namespace": "custom",
+      "name": "Product Description Links",
+      "description": "",
+      "type": {
+        "name": "list.mixed_reference",
+        "category": "REFERENCE"
+      }
+    },
+    {
+      "key": "product_description_heading",
+      "namespace": "custom",
+      "name": "Third Party Testing Heading",
+      "description": "",
+      "type": {
+        "name": "single_line_text_field",
+        "category": "TEXT"
+      }
+    },
+    {
+      "key": "how_to_use_section_description",
+      "namespace": "custom",
+      "name": "How to Use Section Description",
+      "description": "",
+      "type": {
+        "name": "rich_text_field",
+        "category": "TEXT"
+      }
+    },
+    {
+      "key": "how_to_use_steps",
+      "namespace": "custom",
+      "name": "How to Use Steps",
+      "description": "",
+      "type": {
+        "name": "list.mixed_reference",
+        "category": "REFERENCE"
+      }
+    },
+    {
+      "key": "how_to_use_section_desclaimer",
+      "namespace": "custom",
+      "name": "How to Use Section Desclaimer",
+      "description": "",
+      "type": {
+        "name": "rich_text_field",
+        "category": "TEXT"
+      }
+    },
+    {
+      "key": "complete_your_stack_product_list",
+      "namespace": "custom",
+      "name": "Complete Your Stack Product List",
+      "description": "",
+      "type": {
+        "name": "list.mixed_reference",
+        "category": "REFERENCE"
+      }
+    },
+    {
+      "key": "compare_product_list",
+      "namespace": "custom",
+      "name": "Compare Product List",
+      "description": "",
+      "type": {
+        "name": "list.product_reference",
+        "category": "REFERENCE"
+      }
+    },
+    {
+      "key": "compare_product_feature_list",
+      "namespace": "custom",
+      "name": "Compare Product Feature List",
+      "description": "",
+      "type": {
+        "name": "list.mixed_reference",
+        "category": "REFERENCE"
+      }
+    },
+    {
+      "key": "product_key_ingredients_list",
+      "namespace": "custom",
+      "name": "Product Key Ingredients List",
+      "description": "",
+      "type": {
+        "name": "list.mixed_reference",
+        "category": "REFERENCE"
+      }
+    },
+    {
+      "key": "produc_faqs",
+      "namespace": "custom",
+      "name": "Produc FAQs",
+      "description": "",
+      "type": {
+        "name": "mixed_reference",
+        "category": "REFERENCE"
+      }
+    },
+    {
+      "key": "new_produc_faqs",
+      "namespace": "custom",
+      "name": "New Product FAQs",
+      "description": "",
+      "type": {
+        "name": "list.mixed_reference",
+        "category": "REFERENCE"
+      }
+    },
+    {
+      "key": "product_description_txt",
+      "namespace": "custom",
+      "name": "Third-Party Testing Description",
+      "description": "",
+      "type": {
+        "name": "rich_text_field",
+        "category": "TEXT"
+      }
+    },
+    {
+      "key": "plp_product_short_description",
+      "namespace": "custom",
+      "name": "PLP Product Short Description",
+      "description": "",
+      "type": {
+        "name": "single_line_text_field",
+        "category": "TEXT"
+      }
+    },
+    {
+      "key": "product_informed_choice_badges",
+      "namespace": "custom",
+      "name": "Product Informed Choice Badges",
+      "description": "",
+      "type": {
+        "name": "list.file_reference",
+        "category": "REFERENCE"
+      }
+    },
+    {
+      "key": "flavor",
+      "namespace": "shopify",
+      "name": "Flavor",
+      "description": "Specifies the taste or flavor of a product, e.g. vanilla, mint",
+      "type": {
+        "name": "list.metaobject_reference",
+        "category": "REFERENCE"
+      }
+    },
+    {
+      "key": "goal_product_feature_list",
+      "namespace": "custom",
+      "name": "Goal Product Feature List",
+      "description": "",
+      "type": {
+        "name": "mixed_reference",
+        "category": "REFERENCE"
+      }
+    },
+    {
+      "key": "color-pattern",
+      "namespace": "shopify",
+      "name": "Color",
+      "description": "Defines the primary color or pattern, such as blue or striped",
+      "type": {
+        "name": "list.metaobject_reference",
+        "category": "REFERENCE"
+      }
+    }
+  ],
+  "variant": [
+    {
+      "key": "sfp",
+      "namespace": "product_details",
+      "name": "Supplement Facts",
+      "description": "",
+      "type": {
+        "name": "file_reference",
+        "category": "REFERENCE"
+      }
+    },
+    {
+      "key": "custom_label_4",
+      "namespace": "mm-google-shopping",
+      "name": "Google: Custom Label 4",
+      "description": "Label that you assign to a product to help organize bidding and reporting in Shopping campaigns",
+      "type": {
+        "name": "single_line_text_field",
+        "category": "TEXT"
+      }
+    },
+    {
+      "key": "custom_label_3",
+      "namespace": "mm-google-shopping",
+      "name": "Google: Custom Label 3",
+      "description": "Label that you assign to a product to help organize bidding and reporting in Shopping campaigns",
+      "type": {
+        "name": "single_line_text_field",
+        "category": "TEXT"
+      }
+    },
+    {
+      "key": "custom_label_2",
+      "namespace": "mm-google-shopping",
+      "name": "Google: Custom Label 2",
+      "description": "Label that you assign to a product to help organize bidding and reporting in Shopping campaigns",
+      "type": {
+        "name": "single_line_text_field",
+        "category": "TEXT"
+      }
+    },
+    {
+      "key": "custom_label_1",
+      "namespace": "mm-google-shopping",
+      "name": "Google: Custom Label 1",
+      "description": "Label that you assign to a product to help organize bidding and reporting in Shopping campaigns",
+      "type": {
+        "name": "single_line_text_field",
+        "category": "TEXT"
+      }
+    },
+    {
+      "key": "custom_label_0",
+      "namespace": "mm-google-shopping",
+      "name": "Google: Custom Label 0",
+      "description": "Label that you assign to a product to help organize bidding and reporting in Shopping campaigns",
+      "type": {
+        "name": "single_line_text_field",
+        "category": "TEXT"
+      }
+    },
+    {
+      "key": "size_system",
+      "namespace": "mm-google-shopping",
+      "name": "Google: Size System",
+      "description": "The country of the size system used by your product.",
+      "type": {
+        "name": "single_line_text_field",
+        "category": "TEXT"
+      }
+    },
+    {
+      "key": "size_type",
+      "namespace": "mm-google-shopping",
+      "name": "Google: Size Type",
+      "description": "Your apparel product’s cut.",
+      "type": {
+        "name": "single_line_text_field",
+        "category": "TEXT"
+      }
+    },
+    {
+      "key": "mpn",
+      "namespace": "mm-google-shopping",
+      "name": "Google: MPN",
+      "description": "Your product’s Manufacturer Part Number (MPN).",
+      "type": {
+        "name": "single_line_text_field",
+        "category": "TEXT"
+      }
+    },
+    {
+      "key": "gender",
+      "namespace": "mm-google-shopping",
+      "name": "Google: Gender",
+      "description": "The gender for which your product is intended.",
+      "type": {
+        "name": "single_line_text_field",
+        "category": "TEXT"
+      }
+    },
+    {
+      "key": "condition",
+      "namespace": "mm-google-shopping",
+      "name": "Google: Condition",
+      "description": "The condition of your product at time of sale.",
+      "type": {
+        "name": "single_line_text_field",
+        "category": "TEXT"
+      }
+    },
+    {
+      "key": "age_group",
+      "namespace": "mm-google-shopping",
+      "name": "Google: Age Group",
+      "description": "The demographic for which your product is intended.",
+      "type": {
+        "name": "single_line_text_field",
+        "category": "TEXT"
+      }
+    },
+    {
+      "key": "variant_images",
+      "namespace": "custom",
+      "name": "variant images",
+      "description": "Add images to show on product page",
+      "type": {
+        "name": "list.file_reference",
+        "category": "REFERENCE"
+      }
+    },
+    {
+      "key": "new_variant",
+      "namespace": "custom",
+      "name": "New variant?",
+      "description": "",
+      "type": {
+        "name": "boolean",
+        "category": "TRUE_FALSE"
+      }
+    }
+  ],
+  "shop": []
+}

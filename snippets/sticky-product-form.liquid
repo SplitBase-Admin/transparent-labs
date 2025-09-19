@@ -1,0 +1,781 @@
+{%  assign current_variant = product.selected_or_first_available_variant %}
+            <div class="mobile-product-form-sticky">
+              {% form 'product', product, data-productid: product.id %}
+                <div class="p1_selling_plan_sticky"></div>
+                <select class="hidden" name="id" data-productid="{{ product.id }}">
+                 
+                  {% for variant in product.variants %}
+                    <option
+                      data-available="{{ variant.available }}"
+                      data-option-1="{{ variant.option1 }}"
+                      data-option-2="{{ variant.option2 }}"
+                      data-price="{{ variant.price }}"
+                      {% if current_variant.id == variant.id %}
+                        selected
+                      {% endif %}
+                      value="{{ variant.id }}"
+                    >
+                      {{ variant.title }}
+                    </option>
+                  {% endfor %}
+                </select>
+                <input
+                  type="hidden"
+                  name="id"
+                  id="product-select_sticky{{product.id}}"
+                  class="stack_vidsticky"
+                  value="{{ product.selected_or_first_available_variant.id }}"
+                >
+                <input type="hidden" name="sp" id="selected_selling_plansticky" class="" value="">
+                    
+                  <div class="xt-sticky-buttons step2">
+                       
+                    <div class="xt_image_content">
+                      <div class="pimg">
+                       {% assign image_name = product.featured_image | split: '/' | last | split: '.' | first | replace: '/', ' ' | replace: '-', ' ' | replace: '_', ' ' %}
+                       <img src="{{ product.featured_image |image_url }}" width="" height="" alt="{% if product.featured_image.alt %}{{ product.featured_image.alt }}{% else %}{{ image_name }}{% endif %}" loading="lazy">  
+                      </div>
+                    <div class="xt_product_buttons"> 
+                     <div class="xt_product_title">
+                        <h4>{{ product.title }}</h4>
+                         <svg class="clsbtn" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                          <path d="M17 14L12 9L7 14" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+                         </svg>
+
+                     </div>
+                  <div class="subscrib-box" {{ product.variants.size }}>
+                    <div class="stack-row-itemsticky onetime active_class">
+                      <label class="stack-100">
+                        <input
+                          type="radio"
+                          id="onetime1"
+                          data-text="One-Time Purchase"
+                          class="stack-radio-2"
+                          name="newpurchaseoptionsticky"
+                          value="onetime"
+                          checked
+                        >
+                        {% if section.settings.onetimetext %}
+                          {{ section.settings.onetimetext }}
+                        {% endif %}
+                      </label>
+                    </div>
+                    <div class="stack-row-itemsticky subsave" id="stack-row-itemsticky">
+                      <label class="stack-100">
+                        <input
+                          type="radio"
+                          id="subsave1"
+                          data-text="Deliver Every Month"
+                          class="stack-radio ddoption1"
+                          name="newpurchaseoptionsticky"
+                          value="subsave"
+                        >
+                        {% if section.settings.subscribetext %}
+                          {{ section.settings.subscribetext }}
+                        {% endif %}
+                      </label>
+                        {% if section.settings.sdetail1 != blank %}
+                          <span>{{ section.settings.sdetail1 }}</span>
+                        {% endif %}
+                      <div class="take_price_ss" style="display:none;">
+                        <div class="input-wraper">
+                          <select
+                            id="selling_plan_sticky{{ product.id }}"
+                            class="rc_widget__option__plans__dropdown rc-selling-plans__dropdown"
+                          >
+                          </select>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="xtbtn-group">
+                    <div class="flavor">
+                      {% if product.variants.size > 1 %}
+                          {% if product.options[0] %}
+                            {% assign used = '' %}
+                            <div class="input-wraper ">
+                              <label for="select-one1_sticky{{product.id}}">Select {{ product.options[0] }}:</label>
+                              <select
+                                data-option-position="1"
+                                id="select-one1_sticky{{ product.id}}"
+                                dataval="{{ product.variants.first.id }}"
+                                onchange="lletsDoThis_sticky{{ product.id}}()"
+                              >
+                                {% for variant in product.variants %}
+                                  {% unless variant.metafields.secomapp.freegifts %}
+                                    {% unless variant.title contains '(Freegifts)' %}
+                                      {% unless used contains variant.option1 %}
+                                        {% if product.selected_or_first_available_variant.id == variant.id %}
+                                          <option value="{{ variant.option1 }}" selected>{{ variant.option1 }}</option>
+                                        {% else %}
+                                          <option value="{{ variant.option1 }}">{{ variant.option1 }}</option>
+                                        {% endif %}
+                                        {% capture used %}{{ used }} {{ variant.option1 }}{% endcapture %}
+                                      {% elsif used contains 'Peanut Butter' %}
+                                        {% if product.selected_or_first_available_variant.id == variant.id %}
+                                          <option value="{{ variant.option1 }}" selected>{{ variant.option1 }}</option>
+                                        {% else %}
+                                          <option value="{{ variant.option1 }}">{{ variant.option1 }}</option>
+                                        {% endif %}
+                                      {% endunless %}
+                                    {% endunless %}
+                                  {% endunless %}
+                                {% endfor %}
+                              </select>
+                            </div>
+                          {% endif %}
+  
+                          {% if product.options[1] %}
+                            <div
+                              class="input-wraper"
+                              {%- for value in product.options_by_name.quantity.values %}
+                                {% if value == '1 Tub' or value == '2 Tub' %} style="display:none;" {% endif %}
+                              {% endfor %}
+                            >
+                              {% assign used = '' %}
+                              <label for="select-two2_sticky{{ product.id}}">Select {{ product.options[1] }}:</label>
+                              <select
+                                id="select-two2_sticky{{ product.id}}"
+                                dataval="{{ product.variants.first.id }}"
+                                onchange="lletsDoThis_sticky{{ product.id}}()"
+                              >
+                                {% for variant in product.variants %}
+                                  {% unless variant.metafields.secomapp.freegifts %}
+                                    {% unless variant.title contains '(Freegifts)' %}
+                                      {% unless used contains variant.option2 %}
+                                        {% if product.selected_or_first_available_variant.id == variant.id %}
+                                          <option {{ used }} value="{{ variant.option2 }}" selected>
+                                            {{ variant.option2 }}
+                                          </option>
+                                        {% else %}
+                                          <option value="{{ variant.option2 }}">{{ variant.option2 }}</option>
+                                        {% endif %}
+                                        {% capture used %}{{ used }} {{ variant.option2 }}{% endcapture %}
+                                      {% endunless %}
+                                    {% endunless %}
+                                  {% endunless %}
+                                {% endfor %}
+                              </select>
+                            </div>
+                          {% endif %}
+  
+                          {% if product.options[2] %}
+                            <div class="input-wraper">
+                              {% assign used = '' %}
+                              <label for="select-three3_sticky{{product.id}}">Select {{ product.options[2] }}:</label>
+                              <select
+                                id="select-three3_sticky{{product.id}}"
+                                dataval="{{ product.variants.first.id }}"
+                                onchange="lletsDoThis_sticky{{product.id}}()"
+                              >
+                                {% for variant in product.variants %}
+                                  {% unless variant.metafields.secomapp.freegifts %}
+                                    {% unless variant.title contains '(Freegifts)' %}
+                                      {% unless used contains variant.option3 %}
+                                        {% if product.selected_or_first_available_variant.id == variant.id %}
+                                          <option value="{{ variant.option3 }}" selected>{{ variant.option3 }}</option>
+                                        {% else %}
+                                          <option value="{{ variant.option3 }}">{{ variant.option3 }}</option>
+                                        {% endif %}
+                                        {% capture used %}{{ used }} {{ variant.option3 }}{% endcapture %}
+                                      {% endunless %}
+                                    {% endunless %}
+                                  {% endunless %}
+                                {% endfor %}
+                              </select>
+                            </div>
+                          {% endif %}
+                    {% endif %}
+                    </div>
+  
+                    <div class="crtbtn" id="add-to-cart-button-container">
+                      <button
+                        class="bg-blue-light font-bold py-2 rounded text-white w-full {% unless current_variant.available %}opacity-70{% endunless %}"
+                        id="add-to-cart-buttonsticky"
+                        type="button"
+                      >
+                        <span id="product-availabilitysticky" {{ current_variant.available }}>
+                          {%- if current_variant.available %}Add to Cart{% else %}Sold Out{% endif -%}
+                        </span>
+                      </button>
+                    </div>
+                  </div>
+                </div>
+                </div>
+                 </div>
+                <!--  -->
+              {% endform %}
+            </div>
+
+ <script>
+  $(document).ready(function() 
+  {
+    var $cartButton = $('.mobile-product-form-main');
+    var $cartButton2 = $('.mobile-product-form-sticky');
+    // var buttonOffset = $cartButton.offset().top + $cartButton.height();
+    var buttonOffset = 950;
+    //   var flag = window.innerHeight - buttonOffset;
+    console.log("buttonOffset",buttonOffset +"hieght ",window.innerHeight);
+    $(window).scroll(function() 
+    {
+      if ($(window).scrollTop() > buttonOffset) 
+      {
+        $cartButton2.addClass('xtsticky');
+        $('body').addClass('body-sticky-atc');
+        document.querySelector('body').style.setProperty('--sticky-atc-height',(document.querySelector('.mobile-product-form-sticky').offsetHeight - 5) + 'px')
+         // $cartButton.hide();
+      } 
+      else 
+      {
+        $cartButton2.removeClass('xtsticky');
+        $('body').removeClass('body-sticky-atc');
+         // $cartButton.();
+      }
+    });
+    
+    $(".xt_product_title svg").click(function() 
+    {
+      var element = $(".xt-sticky-buttons");
+      element.removeClass("step3");
+      element.addClass("step2");
+    });
+    
+  });
+   
+ </script>
+  <!--  -->
+     <script type="text/javascript">
+      var variant_values = {{ product.variants | json }};
+      var len = variant_values.length;
+
+      // get recharge selling plan group
+      var rechargeSellingPlanGroup = {{ product.selling_plan_groups | where: "app_id", "SKIO" | json }}
+
+      for(var i = 0; i < len; i++)
+      {
+        //console.log(variant_values[i].id);
+
+        // create array of selling plan allocations that are recharge's
+        var rechargeAllocations = variant_values[i].selling_plan_allocations.filter(allocation => allocation.selling_plan_group_id == rechargeSellingPlanGroup[0].id)
+
+        var len2 = rechargeAllocations.length;
+        var plans = rechargeAllocations;
+        for(var j=0; j < len2; j++)
+        {
+          if(i==0){
+          if(j == 0)
+          {
+            $("#selling_plan_sticky{{ product.id }}").append('<option value="selling_plan_sticky00">15 days</option>');
+          }
+          if(j == 1)
+          {
+            $("#selling_plan_sticky{{ product.id }}").append('<option selected value="selling_plan_sticky11">30 days</option>');
+          }
+          if(j == 2)
+          {
+            $("#selling_plan_sticky{{ product.id }}").append('<option value="selling_plan_sticky22">45 days</option>');
+          }}
+          $(".p1_selling_plan_sticky").append('<input type=hidden data-stack="'+variant_values[i].id+'" data-price='+ Shopify.formatMoney(plans[j].price) +' data-otp= '+ Shopify.formatMoney(plans[j].compare_at_price)+'  class="selling_plan_sticky'+j+j+'" name="selling_plan" value="'+plans[j].selling_plan_id+'">');
+          //console.log(plans);
+        }
+        // if(i == 0)
+        // {
+        //    break;
+        // }
+      }
+    </script>
+    <script type="text/javascript">
+      
+    //     $('.stack-row-itemsticky label').on('click', function() {
+    //      // alert("hello");
+    //       console.log($(this).attr('for'));
+    //       if( $(this).attr('for') =="onetimesticky"){
+    //          $('#onetime').prop('checked', true);
+    //       }
+    //       else {
+    //      $('#subsave').prop('checked', true);
+    //    }
+    // });
+      
+  function lletsDoThis_sticky{{product.id}}()
+  {
+    
+      {% if product.options[0] %}
+        var opt1 = $("#select-one1_sticky{{ product.id}}").val();
+      {% endif %}
+      {% if product.options[1] %}
+        var opt2 = $("#select-two2_sticky{{ product.id}}").val();
+      {% endif %}
+      {% if product.options[2] %}
+        var opt3 = $("#select-three3_sticky{{ product.id}}").val();
+      {% endif %}
+
+      var id = '';
+      {% for v in product.variants %}
+        {% unless v.metafields.secomapp.freegifts %}
+          {% unless v.title contains '(Freegifts)' %}
+            if(opt1=="{{ v.option1 }}"{% if product.options[1] %} && opt2=="{{ v.option2 }}"{% endif %}{% if product.options[2] %} && opt3=="{{ v.option3 }}"{% endif %}) 
+            {
+              var id = {{ v.id }};
+              var price = "{{ v.price | money }}";
+              var condition = "{{ v.available }}";
+              var com_at_price = "{{ product.price }}";
+              var feature_image ="{{v.featured_image | img_url : 'master'}}";
+              {% if v.selling_plan_allocations.size > 0 %}           
+                 $("#stack-row-itemsticky").show(); 
+              {% else %}
+                  $("#stack-row-itemsticky").hide();     
+              {% endif %}
+            }
+         {%endunless%}
+       {%endunless%}
+     {% endfor %}
+  if(condition == 'true') 
+  {
+      document.getElementById('product-select_sticky{{product.id}}').value = id;
+      var selling_plan_val = $("input[name='newpurchaseoptionsticky']:checked").val();
+      $(".p1_selling_plan_sticky [data-stack]").each(function(i,Data)
+      {
+          var vid = parseInt($(Data).data("stack"));
+          if(vid == id)
+          {
+              var otpprice = $(Data).data("otp");
+              var new_price = $(Data).data("price");
+
+              var oldprice = otpprice.split("$");
+              var discounted_price = new_price.split("$");
+              
+              var save_price = parseFloat(oldprice[1]) - parseFloat(discounted_price[1]);
+  
+             // $('.onetimeprice').text(otpprice);
+            //  $(".sub_price").html(new_price+"<br><span class='line_thue'>"+otpprice+"</span>");  
+              //$('.save_price').text("& save $"+save_price.toFixed()+" + Free Shipping");
+          }
+      });
+      if(selling_plan_val == "onetime")
+      {
+        $("#product-availabilitysticky").text("Add to Cart"); 
+        $("#add-to-cart-buttonsticky").removeClass("opacity-70"); 
+        $("#add-to-cart-buttonsticky").prop('disabled', false); 
+      }
+      else
+      {
+        $("#product-availabilitysticky").text("Subscribe"); 
+        $("#add-to-cart-buttonsticky").removeClass("opacity-70"); 
+        $("#add-to-cart-buttonsticky").prop('disabled', false); 
+      }
+  }  
+  else if(condition == 'false')
+  {
+      var selling_plan_val = $("input[name='newpurchaseoptionsticky']:checked").val();
+      $(".p1_selling_plan_sticky [data-stack]").each(function(i,Data)
+      {
+        var vid = parseInt($(Data).data("stack"));
+        if(vid == id)
+        {
+              var otpprice = $(Data).data("otp");
+              var new_price = $(Data).data("price");
+          
+              var oldprice = otpprice.split("$");
+              var discounted_price = new_price.split("$");
+              
+              var save_price = parseFloat(oldprice[1]) - parseFloat(discounted_price[1]);
+  
+             // $('.onetimeprice').text(otpprice);
+              //$(".sub_price").html(new_price+"<br><span class='line_thue'>"+otpprice+"</span>");  
+            //  $('.save_price').text("& save $"+save_price.toFixed()+" + Free Shipping");
+        }
+      });
+        document.getElementById('product-select_sticky{{product.id}}').value = '';
+        $("#product-availabilitysticky").text("Sold Out"); 
+        $("#add-to-cart-buttonsticky").addClass("opacity-70"); 
+        $("#add-to-cart-buttonsticky").prop('disabled', true);  
+  }
+  else 
+  {
+      document.getElementById('product-select_sticky{{product.id}}').value = "000";
+      $("#product-availabilitysticky").text("Unavailable"); 
+      $("#add-to-cart-buttonsticky").addClass("opacity-70"); 
+      $("#add-to-cart-buttonsticky").prop('disabled', true);
+  }
+}
+
+
+    document.addEventListener('DOMContentLoaded', function() {
+  // Function to handle the dynamic dropdown logic
+  function handleSelectChange() {
+    const value = $("select[name='id']").val();
+    console.log(value);
+    const button = document.getElementById('add-to-cart-button');
+    const selectedOption = $("select[name='id'] option:selected")[0];
+    console.log(selectedOption);
+    var vid = $("input[name='id']").val();
+    console.log(vid);
+
+    var selected_op1 = $(selectedOption).attr('data-option-1');
+    
+    var data_ids = '';
+    var dataoption2 = [];
+    $("select[name='id'] option").each(function(i, item) {
+      if (selected_op1 == $(this).data('option-1')) {
+        dataoption2.push($(this).data('option-2'));
+        data_ids = $("select[name='id']").data('productid');
+      }
+    });
+
+    $("#select-two2_" + data_ids + " option").each(function(i, newdata) {
+      if ($.inArray(newdata.value, dataoption2) !== -1) {
+        $(newdata).prop('disabled', false); // Enable option if it matches
+      } else {
+        if (newdata.value == $("#select-two2_" + data_ids).val()) {
+          $("#select-two2_" + data_ids).val(dataoption2[0]);
+          $("#select-two2_" + data_ids).trigger('change');
+        }
+        $(newdata).prop('disabled', true); // Disable option if it doesn't match
+      }
+    });
+
+    $("#select-two2_sticky" + data_ids + " option").each(function(i, newdata) {
+      if ($.inArray(newdata.value, dataoption2) !== -1) {
+        $(newdata).prop('disabled', false); // Enable option if it matches
+      } else {
+        if (newdata.value == $("#select-two2_sticky" + data_ids).val()) {
+          $("#select-two2_sticky" + data_ids).val(dataoption2[0]);
+          $("#select-two2_sticky" + data_ids).trigger('change');
+        }
+        $(newdata).prop('disabled', true); // Disable option if it doesn't match
+      }
+    });
+
+  }
+
+  // Call the function to run on page load
+  handleSelectChange();
+
+  // Also attach the function to the select change event, in case of future changes
+  $("select[name='id'], input[name='id']").on('change', handleSelectChange);
+});
+
+      
+  $(document).ready(function()
+  {
+    var feature_image = "{{ current_variant.featured_image | img_url: 'master' }}";
+    
+    var opt1 = $("#select-one1_{{ product.id}}").val();
+    var opt2 = $("#select-two2_{{ product.id}}").val();
+
+  
+    $(".accordion-tab").click(function(){
+      $(this).toggleClass("active");
+    });
+    $(".accordion-tab-1").click(function(){
+      $(this).toggleClass("active");
+    });
+
+    $('input[type=radio][name=newpurchaseoptionsticky]').change(function() {
+    $(".stack-row-itemsticky").removeClass("active_class");
+    $(this).parent().parent().addClass("active_class");
+});
+    
+  var idd = $("#product-select_{{ product.id }}").val();
+  //console.log(idd);
+  document.querySelectorAll('div[data-variant-sfp]').forEach((elem) => {
+    if (elem.dataset.variantSfp == idd) 
+    {
+      elem.classList.remove('hidden');
+    } 
+    else 
+    {
+      elem.classList.add('hidden');
+    }
+  });
+             
+  var selling_plan_val = $("input[name='newpurchaseoptionsticky']:checked").val();
+  // var available = document.getElementById('product-select_{{product.id}}').value;
+  // var available = $('product-select_{{product.id}}').find(':selected').data('available');
+    
+    if(selling_plan_val == "onetime")
+    {
+      
+      var current_variant_id =  $("input[name='id']").val();
+      // if(available == "")
+      // {
+      //   $("#product-availability").text("Sold Out"); 
+      //   $("#add-to-cart-button").addClass("opacity-70"); 
+      //   $("#add-to-cart-button").prop('disabled', true);
+      // }
+      // else if(available == "000")
+      // {
+      //   $("#product-availability").text("Unavailable"); 
+      //   $("#add-to-cart-button").addClass("opacity-70"); 
+      //   $("#add-to-cart-button").prop('disabled', true);
+      // }
+      // else
+      // {
+      //   $("#product-availability").text("Add to Cart"); 
+      //   $("#add-to-cart-button").removeClass("opacity-70"); 
+      //   $("#add-to-cart-button").prop('disabled', false);
+      // }
+      $(".p1_selling_plan_sticky [data-stack]").each(function(i,Data){
+        var vid = parseInt($(Data).data("stack"));
+          //console.log(vid);
+          if(vid == current_variant_id)
+          {
+            var otpprice = $(Data).data("otp");
+            var new_price = $(Data).data("price");
+              var oldprice = otpprice.split("$");
+              var discounted_price = new_price.split("$");
+              var save_price = parseFloat(oldprice[1]) - parseFloat(discounted_price[1]);
+           //   $('.onetimeprice').text(otpprice);
+         //     $(".sub_price").html(new_price+"<br><span class='line_thue'>"+otpprice+"</span>");  
+           //   $('.save_price').text("& save $"+save_price.toFixed()+" + Free Shipping");
+          }
+      });
+    }
+    else
+    {
+      var current_variant_id =  $("input[name='id']").val();
+      // if(available == "")
+      // {
+      //   $("#product-availability").text("Sold Out"); 
+      //   $("#add-to-cart-button").addClass("opacity-70"); 
+      //   $("#add-to-cart-button").prop('disabled', true);
+      // }
+      // else if(available == "000")
+      // {
+      //   $("#product-availability").text("Unavailable"); 
+      //   $("#add-to-cart-button").addClass("opacity-70"); 
+      //   $("#add-to-cart-button").prop('disabled', true);
+      // }
+      // else
+      // {
+      //   $("#product-availability").text("Subscribe"); 
+      //   $("#add-to-cart-button").removeClass("opacity-70"); 
+      //   $("#add-to-cart-button").prop('disabled', false);
+      // }
+       $(".p1_selling_plan_sticky [data-stack]").each(function(i,Data){
+        var vid = parseInt($(Data).data("stack"));
+          //console.log(vid);
+          if(vid == current_variant_id)
+          {
+            var otpprice = $(Data).data("otp");
+            var new_price = $(Data).data("price");
+              var oldprice = otpprice.split("$");
+              var discounted_price = new_price.split("$");
+              var save_price = parseFloat(oldprice[1]) - parseFloat(discounted_price[1]);
+              $(".sub_price").html(new_price+"<br><span class='line_thue'>"+otpprice+"</span>");  
+              $('.save_price').text("& save $"+save_price.toFixed()+" + Free Shipping");
+          }
+      });
+    }
+
+    $('#selling_plan_sticky{{product.id}}').change(function() 
+    {
+      var selected_plan_val = $('#selling_plan_sticky{{product.id}}').val();
+      var selling_plan_val = $("input[name='newpurchaseoptionsticky']:checked").val();
+      if(selling_plan_val == "subsave")
+      {
+        var total  = 0;
+        var otptotal  = 0;
+        if(selected_plan_val == "selling_plan_sticky00")
+        {
+          var selling_plan = parseInt($(".selling_plan_sticky00").val());
+          $("#selected_selling_plansticky").val(selling_plan);
+        }
+        if(selected_plan_val == "selling_plan_sticky11")
+        {
+          var selling_plan = parseInt($(".selling_plan_sticky11").val());
+          $("#selected_selling_plansticky").val(selling_plan);
+        }
+        if( selected_plan_val == "selling_plan_sticky22")
+        {
+          var selling_plan = parseInt($(".selling_plan_sticky22").val());
+          $("#selected_selling_plansticky").val(selling_plan);
+        }
+        if( selected_plan_val == "selling_plan_sticky33")
+        {
+          var selling_plan = parseInt($(".selling_plan_sticky33").val());
+          $("#selected_selling_plansticky").val(selling_plan);
+        }
+        if( selected_plan_val == "selling_plan_sticky44")
+        {
+          var selling_plan = parseInt($(".selling_plan_sticky44").val());
+          $("#selected_selling_plansticky").val(selling_plan);
+        }
+      }
+      else
+      {
+      
+      }
+    });
+
+
+      $('input[type=radio][name=newpurchaseoptionsticky]').change(function() 
+      {
+        $(".take_price_ss").slideUp();
+        $(this).siblings(".take_price_ss").slideDown();
+        
+        var selling_plan_val = $("input[name='newpurchaseoptionsticky']:checked").val();
+        if(selling_plan_val == "onetime")
+        {
+          var current_variant_id =  $("input[name='id']").val();
+            // $("#product-availability").text("Add to Cart"); 
+           $(".p1_selling_plan_sticky [data-stack]").each(function(i,Data){
+            var vid = parseInt($(Data).data("stack"));
+            console.log(vid);
+            if(vid == current_variant_id)
+            {
+              var otpprice = $(Data).data("otp");
+              var new_price = $(Data).data("price");
+               var oldprice = otpprice.split("$");
+              var discounted_price = new_price.split("$");
+              var save_price = parseFloat(oldprice[1]) - parseFloat(discounted_price[1]);
+            //  $('.onetimeprice').text(otpprice);
+              //$(".sub_price").html(new_price+"<br><span class='line_thue'>"+otpprice+"</span>");  
+              //$('.save_price').text("& save $"+save_price.toFixed()+" + Free Shipping");
+            }
+          });
+          document.querySelector('select[name="id"]', 'input[name="id"]').dispatchEvent(new Event('change'));
+           if($("#product-availabilitysticky").text() == 'Subscribe') {
+           $("#product-availabilitysticky").text("Add to Cart"); 
+        // $("#add-to-cart-buttonsticky").removeClass("opacity-70"); 
+        // $("#add-to-cart-buttonsticky").prop('disabled', false);     
+       }
+        }
+        else
+        {
+          var current_variant_id =  $("input[name='id']").val();
+          $(".p1_selling_plan_sticky [data-stack]").each(function(i,Data)
+          {
+            var vid = parseInt($(Data).data("stack"));
+            console.log(vid);
+            if(vid == current_variant_id)
+            {
+              var otpprice = $(Data).data("otp");
+              var new_price = $(Data).data("price");
+               var oldprice = otpprice.split("$");
+              var discounted_price = new_price.split("$");
+              var save_price = parseFloat(oldprice[1]) - parseFloat(discounted_price[1]);
+              $(".sub_price").html(new_price+"<br><span class='line_thue'>"+otpprice+"</span>");  
+              $('.save_price').text("& save $"+save_price.toFixed()+" + Free Shipping");
+            }
+          });
+          document.querySelector('select[name="id"]', 'input[name="id"]').dispatchEvent(new Event('change'));
+           if($("#product-availabilitysticky").text() == 'Add to Cart') {
+            $("#product-availabilitysticky").text("Subscribe"); 
+        // $("#add-to-cart-buttonsticky").removeClass("opacity-70"); 
+        // $("#add-to-cart-buttonsticky").prop('disabled', false); 
+           }
+        }
+      });
+
+      $("#add-to-cart-buttonsticky").on("click", function ()
+      {
+         var element = $(".xt-sticky-buttons");
+         if (element.hasClass("step1") ) {
+           element.removeClass("step1");
+           element.addClass("step2");
+         }
+         else if(element.hasClass("step2"))
+         {
+           element.removeClass("step2");
+           element.addClass("step3");
+         }
+        else 
+        {
+          var selling_plan_val= "";
+          var items = [];
+          var selected_plan_val = $('#selling_plan_sticky{{product.id}}').val();
+          var selling_plan_val = $("input[name='newpurchaseoptionsticky']:checked").val();
+          if(selling_plan_val == "subsave")
+          {
+              var total  = 0;
+              var otptotal  = 0;
+              if(selected_plan_val == "selling_plan_sticky00")
+              {
+                  var data = { id: parseInt($('.stack_vidsticky').val()), quantity:$("input[name='quantity']").val(), selling_plan: parseInt($('.'+selected_plan_val).val()) }
+              }
+              else if(selected_plan_val == "selling_plan_sticky11")
+              {
+                  var data = {id: parseInt($('.stack_vidsticky').val()), quantity:$("input[name='quantity']").val(), selling_plan: parseInt($('.'+selected_plan_val).val()) }
+              }
+
+              else if( selected_plan_val == "selling_plan_sticky22")
+              {
+                  var data = {id: parseInt($('.stack_vidsticky').val()), quantity:$("input[name='quantity']").val(), selling_plan: parseInt($('.'+selected_plan_val).val()) }
+              }
+            
+              else if( selected_plan_val == "selling_plan_sticky33")
+              {
+                  var data = {id: parseInt($('.stack_vidsticky').val()), quantity:$("input[name='quantity']").val(), selling_plan: parseInt($('.'+selected_plan_val).val()) }
+              }
+            
+              else if( selected_plan_val == "selling_plan_sticky44")
+              {
+                  var data = {id: parseInt($('.stack_vidsticky').val()), quantity:$("input[name='quantity']").val(), selling_plan: parseInt($('.'+selected_plan_val).val()) }
+              }
+               console.log(data);         
+              // call ajax 
+              jQuery.ajax({
+              type: 'POST',
+              url: '/cart/add.js',
+              data: data,
+              dataType: 'json',
+              success: function(response) 
+              { 
+                $.getJSON('/cart.js', function(cart) 
+                {
+                  if(cart.item_count < 1 )
+                  {
+                      $('#cart-count').html("");
+                  }
+                  else
+                  {
+                      $('#cart-count').html("<number class='number'>"+cart.item_count+"</number>");
+                  }
+                                     
+                }); 
+                  openCartMenu();
+              }
+          });
+      }
+      else
+      {
+          var data = {id: parseInt($('.stack_vidsticky').val()), quantity:$("input[name='quantity']").val() }
+          jQuery.ajax({
+              type: 'POST',
+              url: '/cart/add.js',
+              data: data,
+              dataType: 'json',
+              success: function(response) 
+              {
+                $.getJSON('/cart.js', function(cart) 
+                {
+                  if(cart.item_count < 1 )
+                  {
+                      $('#cart-count').html("");
+                  }
+                  else
+                  {
+                      $('#cart-count').html("<number class='number'>"+cart.item_count+"</number>");
+                  }
+                                     
+                }); 
+                  openCartMenu();
+              }
+          });
+      }
+        }
+  });
+  });
+ // Function to open the popup
+    function openPopup() {
+        document.getElementById('imagePopup').style.display = 'block';
+    }
+
+    // Function to close the popup
+    function closePopup() {
+        document.getElementById('imagePopup').style.display = 'none';
+    }
+
+    </script>

@@ -1,0 +1,718 @@
+{{ 'latest-blog-article.css' | asset_url | stylesheet_tag }}
+{{ 'latest-blog.css' | asset_url | stylesheet_tag }}
+<link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css"/>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick-theme.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.js"></script>
+<style>
+
+@media only screen and (min-width: 0px) and (max-width: 767px){
+
+  .blog-wraper .blog-column {    flex: 0 0 100%;    min-height: auto;}
+  .xt-latest-blog {        padding: 0 0 0px;}
+  
+  }
+  
+</style>
+<div class="bread-audio">
+  {% render 'breadcrumb' %}
+  
+  <a  class="xt-audio" title="play this audio">
+    {% render 'icon-audio' %} <span onclick="playVid()"> Listen to Audio</span><span onclick="pauseVid()">Pause</span>
+  </a>
+      <video id="myVideo" style="display: none;">
+      <source src="{{ section.settings.audiourl }}" type="video/mp4">
+      <source src="{{ section.settings.audiourl }}" type="video/ogg">
+      Your browser does not support HTML5 video.
+    </video>
+  <script> 
+    var vid = document.getElementById("myVideo"); 
+      function playVid() {   vid.play(); } 
+    function pauseVid() {   vid.pause(); } 
+    </script> 
+</div>
+
+<section class="latest-article">
+  
+  <div class="TL_BlogPost">
+    <div class="TL_PostSection">
+      <div>
+        <h1 class="main-title">{{ article.title }}</h1>
+        {% if section.settings.hide_info == true %}
+        <div class="author-wraper">
+            <div class="author-img">
+              <img src="https://assets.codepen.io/12005/suspension-bridge.jpg" alt="The Clifton Suspension Bridge" width="50" loading="lazy" />
+            </div>
+            <div class="author-text">
+              <h4>{{ article.author }}</h4>
+              <span>M.S.(C), CISSN, CNC</span>
+            </div>
+          </div>
+          {% endif %}
+
+        {%- if article.tags.size > 0 -%}
+          <div class="TL_PostTags">
+            {%- for tag in article.tags -%}
+              <div class="TL_PostTag"><a href="{{ blog.url }}/tagged/{{ tag | handle }}">{{ tag }}</a></div>
+            {%- endfor -%}
+          </div>
+        {%- endif -%}
+
+        <div class="TL_PostImage">
+          <img src="{{ article.image.src | img_url: '1200x1200' }}" alt="{% if article.image.alt %}{{ article.image.alt }}{% else %}Article Image{% endif %}" loading="lazy">
+        </div>
+
+        <div class="TL_PostContent">
+          <p>{{ article.content }}</p>
+        </div>
+        
+        <a href="javascript:void(0)" class="share-btn">{% render 'icon-share' %}Share</a>
+        
+        <!--<div class="previous_next_buttons">
+          <a href="{{ blog.previous_article }}" class="btn">Previous post</a>
+          <a href="{{ blog.next_article }}" class="btn">Next post</a>
+        </div>-->
+      </div>
+      {% assign handles = article.metafields.custom.custom_product_handle | split:','  %}
+      <div class="xt-latest-blog">
+        <div class="pt">
+        {% if section.settings.pro_title != blank %}
+            <h2 class="title">{{ section.settings.pro_title }}</h2>
+          {% endif %}
+          
+          <div class="blog-wraper product_slider">
+          	{% for product in handles %}
+              	{% assign stripped_handle = product | strip %}
+                {% assign newprod = all_products[stripped_handle] %}
+                {%- assign review_average = newprod.metafields.yotpo.reviews_average | times: 1 -%}
+               
+                 {% if product.tags contains 'stack'  %}
+                
+                 {% else %}
+                 {% render 'product-card' with product: newprod %}
+                {% endif %}
+              
+<!--                    <div class="blog-column single">
+                        <div class="blog-item">
+                            <img src="{{ newprod.featured_image | img_url: "master" }}" alt="{{ newprod.featured_image.alt }}" loading="lazy">
+                          <div class="blog-item-desc">
+                            <h2>{{ newprod.title | truncate: 35}}</h2>
+                      
+                            <div class="author-wraper">
+                           <div class="flex space-x-1 text-orange-400" style="margin-bottom:16px;">
+                            {%- assign review_average = newprod.metafields.yotpo.reviews_average | times: 1 -%}
+                            {%- for i in (1..5) -%}
+                              {%- assign index_minus_one = i | minus: 1 -%}
+                              {%- assign mod = review_average | modulo: index_minus_one -%}
+            
+                              {%- if review_average >= i -%}
+                                <svg class="h-4 w-4" version="1.1" viewBox="0 0 128 128" xmlns="http://www.w3.org/2000/svg">
+                                  <path d="m47.961 48h-47.945l39.914 31.543-15.941 48.441 40.059-29.871 39.938 29.871-15.871-48.863 39.918-31.121h-47.945l-16.094-47.996z" fill="currentColor"></path>
+                                </svg>
+                              {%- elsif mod >= 0.5 -%}
+                                <svg class="h-4 w-4" version="1.1" viewBox="0 0 128 128" xmlns="http://www.w3.org/2000/svg">
+                                  <path d="m128.02 48h-47.953l-16.094-48-16.031 48h-47.969l39.937 31.555-15.953 48.445 39.984-29.812 0.09375-0.0625 39.938 29.875-15.875-48.867zm-39.594 58.531-24.371-18.547-0.058594 0.0625v-56.953l10.164 24.906h29.812l-25.453 19.43z" fill="currentColor"></path>
+                                </svg>
+                              {%- else -%}
+                                <svg class="h-4 w-4" version="1.1" viewBox="0 0 128 128" xmlns="http://www.w3.org/2000/svg">
+                                  <path d="m64.008 31.113 10.172 24.887h29.809l-25.449 19.426 9.9023 31.105-24.387-18.543-24.387 18.109 9.8711-30.156-25.539-19.941h29.871l10.137-24.887m-16.043 16.887h-47.949l39.914 31.551-15.93 48.445 40.055-29.867 39.934 29.871-15.875-48.871 39.918-31.129h-47.945l-16.094-47.996z" fill="currentColor"></path>
+                                </svg>
+                              {%- endif %}
+                            {%- endfor -%}
+                          </div>
+                            </div>
+                            <div class="price">
+                              {{ newprod.price | money }}
+                            </div>
+                          </div>
+                        </div>
+                      </div> -->
+                  {% endfor %}
+              </div>
+        </div>
+      </div>
+    </div>
+
+
+    <div class="TL_PostSidebar">
+      <div class="subscribe-box">
+        <h3>{{ section.settings.title }}</h3>
+        <p>{{ section.settings.subtitle }}</p>
+         {% form 'customer' %}
+              {% if form.posted_successfully? %}
+                <p>Thanks for subscribing!</p>
+              {% elsif form.errors %}
+                {% for field in form.errors %}
+                  <p><em>{{ field }} - {{ form.errors.messages[field] }}</em></p>
+                {% endfor %}
+              {% endif %}
+
+<input type="hidden" name="challenge" value="false" />
+
+
+      <input
+        autocapitalize="off"
+        autocorrect="off"
+        class="text-input"
+        name="contact[email]"
+        placeholder="Email Address"
+        required
+        type="email"
+      />
+        <input type="submit" value="Subscribe"/>
+        
+           {% endform %}
+           {% comment %}
+        <form>
+          <input type="email" placeholder="username@gmail.com">
+          <input type="submit" value="Subscribe">
+        </form>
+        {% endcomment %}
+      </div>
+      
+
+      <div class="TL_SidebarBox TL_Socials">
+        <h3>Follow us on</h3>
+        <ul>
+         {% if section.settings.fblink != blank %} <li><a href="{{ section.settings.fblink }}">{% render "icon-facebook" %}</a></li>{% endif %}
+         {% if section.settings.iglink != blank %} <li><a href="{{ section.settings.iglink }}">{% render "icon-instagram" %}</a></li>{% endif %}
+         {% if section.settings.twlink != blank %} <li><a href="{{ section.settings.twlink }}">{% render "icon-twitter" %}</a></li>{% endif %}
+        </ul>
+      </div>
+  
+      
+      <div class="TL_SidebarBoxAlt">
+        <a href="{{ section.settings.bannerlink }}">
+          <img src="https://cdn.shopify.com/s/files/1/0866/7664/products/BULKSOURGRAPEFINALVIEW1-3_256x256.png?v=1653068524" alt="Article Banner" loading="lazy">
+          <h3>
+            <span>EXPLORE THE FULL<br></span>
+            Transparent Labs Catalog 
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
+              <path d="M438.6 278.6l-160 160C272.4 444.9 264.2 448 256 448s-16.38-3.125-22.62-9.375c-12.5-12.5-12.5-32.75 0-45.25L338.8 288H32C14.33 288 .0016 273.7 .0016 256S14.33 224 32 224h306.8l-105.4-105.4c-12.5-12.5-12.5-32.75 0-45.25s32.75-12.5 45.25 0l160 160C451.1 245.9 451.1 266.1 438.6 278.6z"/></svg></h3>
+        </a>
+      </div>
+     
+
+      <div class="TL_SidebarBox recent-post">
+        
+        <h3>You may also find these posts useful</h3>
+        <ul>
+          {%- for article in section.settings.blogs.articles limit:3 -%}
+            <li>
+              <a href="{{ article.url }}">
+                <img src="{{ article.image.src | img_url: 'small' }}"> 
+                <div>
+                  {{ article.title }}
+                  <span>Nutrition</span>
+                </div>
+              </a>
+            </li>
+          {%- endfor -%}
+        </ul>
+      </div>
+  
+  
+      
+  
+    </div>
+
+  </div>
+</section>
+
+        {% if article.metafields.custom.hide_best_seller_text == true %}  
+                  {% assign bestsellert_text = "Bestseller" %}
+                {% elsif article.metafields.custom.hide_best_seller_text == false %}
+                  {% assign bestsellert_text = "" %}
+                {% else %}
+                  {% assign bestsellert_text = "Bestseller" %}
+                {% endif  %}
+      
+                {% if article.metafields.custom.hide_free_shipping_badge == true %} 
+                    {% assign freeshipping_text = "Free Shipping" %}
+                {% elsif article.metafields.custom.hide_free_shipping_badge == false %}
+                    {% assign freeshipping_text = "" %}
+                {% else %}
+                    {% assign freeshipping_text = "Free Shipping" %}
+                {% endif  %}
+      
+                {% if article.metafields.custom.add_percentage_text != blank %}
+                    {% assign off_text = article.metafields.custom.add_percentage_text %}
+                {% else %}
+                  {% assign off_text = "10% Off" %}
+                {% endif %}
+                
+<script>
+  var productes= "";
+  $(".products_on_hover").each(function(){
+    //  productes = productes+","+ $(this).data("product");
+    // console.log("productes",$(this).data("product"));
+
+    var data_val = $(this).data("product");
+    
+ 
+            $.getJSON('/products/'+data_val+'.js', function(product) 
+        	{
+              //console.log(product);
+              var option1  = product.options[0];
+              var option2  = product.options[1];
+              var option3  = product.options[2];
+              var selling_plan_groups = product.selling_plan_groups[0].selling_plans;
+              var percent_off_val = product.selling_plan_groups[0].selling_plans[0].price_adjustments[0].value;
+              var first_variant_price = product.variants[0].price;
+              var com_price = first_variant_price * percent_off_val / 100;
+              var _com_price = first_variant_price - com_price;
+              var rating = "{{review_average}}";
+              var best_seller_text = "{{ bestsellert_text }}";
+              var freeshippingtext = "{{ freeshipping_text }}";
+              var offtext = "{{ off_text }}";
+              
+        		
+              var variants = product.variants;
+              
+              var html ='<div class="article-col-4">';
+              html += '<product-grid-item class="product-card bg-white flex flex-col p-4 rounded-xl text-blue-500 xgen-new-product stack-products_'+product.id+'">';
+              html += '<div class="xgen-product-img">';
+              html += '<a class="block mx-auto w-64" href="'+product.url+'" tabindex="0">';
+              html += '<img src="'+product.featured_image+'">';
+              html += '</a></div>';
+              
+              html +='<div class="xgen-product-info">';
+        
+              html +='<div class="xgen-product-info-in"><div class="flex rctitle-flex"><p class="font-semibold text-xl xgen-ptitle">'+product.title+'</p><div class="font-semibold  text-blue-400 text-xl variant-price"><div class="real_price_'+product.id+'">'+Shopify.formatMoney(product.price)+'</div><del class="com_price_'+product.id+'">'+Shopify.formatMoney(_com_price)+'</del></div></div><div class="flex items-center text-sm prating"><div class="flex space-x-1 text-orange-400"><svg class="h-4 w-4" version="1.1" viewBox="0 0 128 128" xmlns="http://www.w3.org/2000/svg"><path d="m47.961 48h-47.945l39.914 31.543-15.941 48.441 40.059-29.871 39.938 29.871-15.871-48.863 39.918-31.121h-47.945l-16.094-47.996z" fill="currentColor"></path></svg><svg class="h-4 w-4" version="1.1" viewBox="0 0 128 128" xmlns="http://www.w3.org/2000/svg"><path d="m47.961 48h-47.945l39.914 31.543-15.941 48.441 40.059-29.871 39.938 29.871-15.871-48.863 39.918-31.121h-47.945l-16.094-47.996z" fill="currentColor"></path></svg><svg class="h-4 w-4" version="1.1" viewBox="0 0 128 128" xmlns="http://www.w3.org/2000/svg"><path d="m47.961 48h-47.945l39.914 31.543-15.941 48.441 40.059-29.871 39.938 29.871-15.871-48.863 39.918-31.121h-47.945l-16.094-47.996z" fill="currentColor"></path></svg><svg class="h-4 w-4" version="1.1" viewBox="0 0 128 128" xmlns="http://www.w3.org/2000/svg"><path d="m47.961 48h-47.945l39.914 31.543-15.941 48.441 40.059-29.871 39.938 29.871-15.871-48.863 39.918-31.121h-47.945l-16.094-47.996z" fill="currentColor"></path></svg><svg class="h-4 w-4" version="1.1" viewBox="0 0 128 128" xmlns="http://www.w3.org/2000/svg"><path d="m128.02 48h-47.953l-16.094-48-16.031 48h-47.969l39.937 31.555-15.953 48.445 39.984-29.812 0.09375-0.0625 39.938 29.875-15.875-48.867zm-39.594 58.531-24.371-18.547-0.058594 0.0625v-56.953l10.164 24.906h29.812l-25.453 19.43z" fill="currentColor"></path></svg></div><p class="ml-3 text-gray-500"><span class="font-bold text-black">'+rating+'</span>/5.0</p></div>';
+              if(best_seller_text == "Bestseller")
+              {
+                html +='<div class="xgan-ptag">Bestseller</div>';
+              }
+              html +='<div class="xtags" style="display:none"><span></span></div></div>';
+        
+              //html +='<div class="xgen-pdesc product_detail_'+product.id+'">{{ product.metafields.custom.product_overview_detail | truncate: 150}}</div>';
+        
+             html +='<div class="package-list-wraper stack-text">';
+              
+              html +='<div class="package-list"><div class="input-wraper"><label for="select-one_'+product.id+'">'+option1.name+'</label><select name="id" class="stack_vid3" id="select-one_'+product.id+'" onchange="letsDoThis_'+product.id+'('+product.handle+')" tabindex="0">';
+              for(var i=0; i < product.variants.length; i++){ 
+                 //console.log("product.variants[i]",product.variants[i])
+                if(product.variants[i].available == false){
+               html +='<option value="'+product.variants[i].id+'" disabled="disabled">'+product.variants[i].title+'</option>';   
+                    }else{
+                  html +='<option value="'+product.variants[i].id+'">'+product.variants[i].title+'</option>';   
+                    }
+              
+              }
+              
+              html +='</select></div></div>';
+              
+              // if(option1 != undefined )
+              // {
+              //   html +='<div class="package-list"><div class="input-wraper"><label for="select-one_'+product.id+'">'+option1.name+'</label><select id="select-one_'+product.id+'" onchange="letsDoThis_'+product.id+'('+product.handle+')" tabindex="0">';
+              //   var option_size = option1.values.length;
+              //   console.log(option_size);
+              //   for(var i=0; i < option_size; i++)
+              //   {
+              //       if(option1.values[i] != "undefined")
+              //       {
+              //           html +='<option value="'+option1.values[i]+'">'+option1.values[i]+'</option>';
+              //       }
+              //   }
+              //   html +='</select></div></div>';
+              // }
+              // if(option2 != undefined )
+              // {
+              //   html +='<div class="package-list"><div class="input-wraper"><label for="select-two_'+product.id+'">'+option2.name+'</label><select id="select-two_'+product.id+'" onchange="letsDoThis_'+product.id+'('+product.handle+')" tabindex="0">';
+              //   var option_size = option2.values.length;
+              //   console.log(option_size);
+              //   for(var i=0; i < option_size; i++)
+              //   {
+              //       if(option2.values[i] != 'undefined')
+              //       {
+              //         html +='<option value="'+option2.values[i]+'">'+option2.values[i]+'</option>';
+              //       }
+              //   }
+              //   html +='</select></div></div>';
+              // }
+              // if(option3 != undefined )
+              // {
+              //   html +='<div class="package-list"><div class="input-wraper"><label for="select-three_'+product.id+'">'+option3.name+'</label><select id="select-three_'+product.id+'" onchange="letsDoThis_'+product.id+'('+product.handle+')" tabindex="0">';
+              //   var option_size = option3.values.length;
+              //   console.log(option_size);
+              //   for(var i=0; i < option_size; i++)
+              //   {
+              //       if(option3.values[i] != 'undefined')
+              //       {
+              //         html +='<option value="'+option3.values[i]+'">'+option3.values[i]+'</option>';
+              //       }
+              //   }
+              //   html +='</select></div></div>';
+              // }
+              
+              html +='<input type="hidden" name="id" id="product-select_'+product.id+'" class="stack_vid3" value="'+product.variants[0].id+'">';
+              html +='<div class="p1_selling_plan_'+product.id+'" style="display:none;">';
+              var selling_plan_len = selling_plan_groups.length;
+              for(var i=0; i < selling_plan_len; i++)
+              {
+                  html +='<input class="selling_plan_'+i+'" name="selling_plan" value="'+selling_plan_groups[i].id+'">';
+              }
+              
+            html +='</div>';
+            
+            html +='<div class="deliveryf"><label><input type="radio" name="purchase_option_'+product.id+'" value="onetime" checked="" tabindex="0"><div class="dtext"><span class="ltext">One time order</span><span class="stext">Give it a Try</span></div></label></div>';
+              
+            html +='<div class="deliveryf dlast"><label><input type="radio" name="purchase_option_'+product.id+'" value="subsave" tabindex="0"><span class="ltext">Deliver Every</span>';
+              
+            html +='<select class="selling_plan_'+product.id+'" tabindex="0">';
+            var selling_plan_len = selling_plan_groups.length;
+              for(var i=0; i < selling_plan_len; i++)
+              {
+                if(selling_plan_groups[i].name == "Delivery every 30 Days"){
+                html +='<option value="selling_plan_'+i+'">30 Days</option>';  
+                }
+                if(selling_plan_groups[i].name == "Delivery every 45 Days"){
+                  html +='<option value="selling_plan_'+i+'">45 Days</option>';  
+                }
+                if(selling_plan_groups[i].name == "Delivery every 60 Days"){
+                  html +='<option value="selling_plan_'+i+'">60 Days</option>';  
+                }
+              }
+            html +='</select></label><div class="xtags">';
+            if(offtext != '')
+            {
+              html +='<span>'+offtext+'</span>';
+            }
+            else
+            {
+                html +='<span>'+offtext+'</span>';
+            }
+            if(freeshippingtext != '')         
+            {
+                html +='<span>'+freeshippingtext+'</span>';
+            }
+            else
+            {
+               
+            }
+            html +='</div></div>';
+            html +='</div>';
+            html +='<div class="price-btn-grid"><div class=" pricetext"><div class="flex items-center quant-btn">';
+            html +='<div class=""><quantity-input><div class="flex items-center text-blue-500"><button class="bg-gray-300 flex h-10 items-center justify-center rounded-full text-blue-light w-10" type="button" tabindex="0"><svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 12H4"></path></svg></button><input class="border-2 border-gray-300 bg-transparent hide-selectors outline-none mx-2 rounded text-center w-16 focus:ring-0" min="1" name="quantity" type="number" value="1" id="stack-products_qty_'+product.id+'" tabindex="0"><button class="bg-gray-300 flex h-10 items-center justify-center rounded-full text-blue-light w-10" type="button" tabindex="0"><svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path></svg></button></div></quantity-input></div>';
+            html +='<div class="w-full" id="add-to-cart-button-container"><button class="submit-stack-products_'+product.id+' button-alt" tabindex="0">Add</button></div>';
+            html +=' </div></div></div>';
+            html +='</product-grid-item></div>';
+            html +='<script>var pval=""; function letsDoThis_'+product.id+'(pval) {';
+            html +='$.getJSON("/products/"+pval+".js", function(c_product){ alert(c_product.title); });';
+              
+            html +='var opt1 = document.getElementById("select-one_'+product.id+'").value;';
+              html +='var opt2 = document.getElementById("select-two_'+product.id+'").value;';
+              html +='var opt3 = document.getElementById("select-three_'+product.id+'").value;';
+              
+              // html +='var variants = product.variants;';
+              // html +='var variant_size = variants.length;';
+              // html +='console.log(variant_size);';
+              // for(var i=0; i < variant_size; i++)
+              // {
+              //     if(variants.values[i] != "undefined")
+              //     {
+              //         html +='<option value="'+option1.values[i]+'">'+option1.values[i]+'</option>';
+              //     }
+              // }
+                                                                  
+              html +='var id = ""; {% for v in product.variants %}';   
+                html +='{% unless v.inventory_quantity == 0 %} ';
+                  html +=' if(opt1=="{{ v.option1 }}" {% if product.options[1] %} && opt2 =="{{ v.option2 }}" {% endif %} {% if product.options[2] %} && opt3 == "{{ v.option3 }}" {% endif %}) { ';
+                    html +='var id = {{ v.id }};';
+                    html +='var quantititit = {{ v.inventory_quantity }}; ';
+                    html +='var price = "{{ v.price | money }}"; } ';
+                  html +='{% endunless %}   ';
+                html +='{% endfor %}  alert(id); ';
+              html +='if(id != "" && quantititit > 0 ) { ';
+                  html +='$(".real_price_'+product.id+'").html(price);'; 
+                  html +='$(".com_price_'+product.id+'").show();';
+                  html +='document.getElementById("product-select_'+product.id+'").value = id;  ';
+                  // html +='$(".submit-stack-products_'+product.id+'").attr("disabled", false); ';
+            html +='} ';
+            html +='else';  
+            html +='{ ';
+                  html +='$(".real_price_'+product.id+'").html("<i>Sold</i>");';
+                  html +='$(".com_price_'+product.id+'").hide();';
+                  html +='document.getElementById("product-select_'+product.id+'").value = "sold"; ';
+                  // html +='$(".submit-stack-products_'+product.id+'").attr("disabled", true); ';
+            html +='} ';
+            html +='}<\/script>';
+
+              html += '<script>';
+              html += '$("input[type=radio][name=purchase_option_'+product.id+']").change(function() { var choosen_option = $("input[name=purchase_option_'+product.id+']:checked").val();if(choosen_option == "subsave"){$(".real_price_'+product.id+'").show();$(".com_price_'+product.id+'").show(); $(".submit-stack-products_'+product.id+'").text("Subscribe"); } else { $(".com_price_'+product.id+'").hide();$(".submit-stack-products_'+product.id+'").text("Add to Cart");}';
+              html += ' });';
+
+              html += '$(".submit-stack-products_'+product.id+'").on("click", function (){ ';
+              html += 'var selling_plan_val= "";';
+              html += 'var items = [];';
+              html += 'var selling_plan_val = $(".selling_plan_{{block_id}}_{{ product.id }}").val();';
+              html += 'var choosen_option = $("input[name=purchase_option_'+product.id+']:checked").val();';
+              html += 'if(choosen_option == "onetime"){';
+              html += '$(".stack-products_'+product.id+'").find(".stack-text").each(function (i,data){';
+              html += 'items.push({ id: parseInt($(data).find(".stack_vid3").val()), quantity:$("#stack-products_qty_'+product.id+'").val()});});';
+              
+              html += 'Shopify.queue = [];';
+              html += 'Shopify.queue = items;';
+              html += 'var quantity = {{ cart.item_count }} ;';
+              html += 'Shopify.moveAlong = function() {';
+                  html += 'if (Shopify.queue.length) ';
+                  html += '{';
+                  	html += 'var request = Shopify.queue.shift();';
+                      html += '$.ajax({';
+                      	html += 'type: "POST",';
+                          html += 'url: "/cart/add.js",';
+                          html += 'dataType: "json",';
+                          html += 'data: request,';
+                          html += 'success: function(res)';
+                        	html += '{';
+                            html += '$(".submit-stack-products_'+product.id+'").text("Subscribing...");';
+                          	html += 'Shopify.moveAlong();';
+                              html += 'quantity += 1;';
+                          html += ' }, ';
+                          html += 'error: function(eres)';
+                        	html += '{console.log(eres.description);';
+                              html += 'if (Shopify.queue.length)';
+                              html += '{';
+                              	html += 'Shopify.moveAlong()';
+                              html += '} ';
+                            	html += 'else ';
+                              html += '{';
+                                  html += 'openCartMenu();';
+                              html += '}';
+                        	html += '}';
+              		html += '});';
+              	html += '}';
+              	
+                html += '  else ';
+                  html += '{';
+                  	html += 'quantity += 1;';
+                    	html += '$(".submit-stack-products_'+product.id+'").text("Subscribe");';
+                      
+                      html += 'openCartMenu();';
+              	html += '}';
+              html += '};';
+              html += 'Shopify.moveAlong();';
+
+              
+              
+             html += ' }';
+              html += 'else{ ';
+
+                 html += 'var selling_plan_val = $(".selling_plan_'+product.id+'").val();';
+             	html += '$(".stack-products_'+product.id+'").find(".stack-text").each(function (i,data)';
+               	html += '{';
+               		html += 'items.push({ id: parseInt($(data).find(".stack_vid3").val()), quantity:$("#stack-products_qty_'+product.id+'").val(), selling_plan: parseInt($(data).find("."+selling_plan_val).val()) });';
+        		html += ' }); ';
+              html += 'Shopify.queue = [];';
+              html += 'Shopify.queue = items;';
+              html += 'var quantity = {{ cart.item_count }} ;';
+              html += 'Shopify.moveAlong = function() {';
+                  html += 'if (Shopify.queue.length) ';
+                  html += '{';
+                  	html += 'var request = Shopify.queue.shift();';
+                      html += '$.ajax({';
+                      	html += 'type: "POST",';
+                          html += 'url: "/cart/add.js",';
+                          html += 'dataType: "json",';
+                          html += 'data: request,';
+                          html += 'success: function(res)';
+                        	html += '{';
+                            html += '$(".submit-stack-products_'+product.id+'").text("Subscribing...");';
+                          	html += 'Shopify.moveAlong();';
+                              html += 'quantity += 1;';
+                          html += ' }, ';
+                          html += 'error: function()';
+                        	html += '{';
+                              html += 'if (Shopify.queue.length)';
+                              html += '{';
+                              	html += 'Shopify.moveAlong()';
+                              html += '} ';
+                            	html += 'else ';
+                              html += '{';
+                                  html += 'openCartMenu();';
+                              html += '}';
+                        	html += '}';
+              		html += '});';
+              	html += '}';
+              	
+                html += '  else ';
+                  html += '{';
+                  	html += 'quantity += 1;';
+                    	html += '$(".submit-stack-products_'+product.id+'").text("Subscribe");';
+                      
+                      html += 'openCartMenu();';
+              	html += '}';
+              html += '};';
+              html += 'Shopify.moveAlong();';
+             html +=  ' }';
+              html += '});';
+                  
+              html +='<\/script>';
+
+              var test_demo = "."+data_val;
+            $(test_demo).append(html);
+               // $(test_demo).append("html");
+            //console.log("Html",data_val);
+        
+        }); 
+
+    
+  });
+  
+</script>
+<style>
+.tooltip {
+  position: relative;
+  display: block;
+  border-bottom: 1px dotted black;
+  width: fit-content;
+}
+.tooltip p{
+  padding:0 !important;
+  cursor:pointer;
+}
+  
+.tooltip .tooltiptext {
+  visibility: hidden;
+  width: 350px;
+  background-color: black;
+  color: #fff;
+  text-align: center;
+  border-radius: 6px;
+  padding: 0;
+
+  /* Position the tooltip */
+  position: absolute;
+  z-index: 1;
+  bottom: 100%;
+  left: 0%;
+      box-shadow: 0px 0px 10px #000;
+}
+
+.tooltip:hover .tooltiptext {
+  visibility: visible;
+}
+  .product-card .xgen-product-info{
+    text-align:left;
+  }
+  .product-card .xgen-product-info .prating{
+    align-items: baseline;
+  }
+  @media only screen and (max-width: 600px) {
+   .tooltip .tooltiptext {
+     right:0;
+   }
+}
+</style>
+{% schema %}
+{
+  "name": "article section",
+  "settings": [
+        {
+          "type":"header",
+          "content":"Audio"
+        },
+        {
+          "type": "url",
+          "id": "audiourl",
+          "label": "Audio Link"
+        },
+        {
+            "id": "hide_info",
+            "label": "hide author information",
+            "type": "checkbox",
+            "default":true
+        },
+        {
+          "type":"header",
+          "content":"Newsletter"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title"
+        },
+        {
+          "type": "text",
+          "id": "subtitle",
+          "label": "Sub Title"
+        },
+        {
+          "type":"header",
+          "content":"social Media"
+        },
+        {
+          "type": "url",
+          "id": "fblink",
+          "label": "Facebook Link"
+        },
+        {
+          "type": "url",
+          "id": "iglink",
+          "label": "Instagram Link"
+        },
+        {
+          "type": "url",
+          "id": "twlink",
+          "label": "Twitter Link"
+        },
+        {
+          "type":"header",
+          "content":"Banner Link"
+        },
+        {
+          "type": "url",
+          "id": "bannerlink",
+          "label": "Banner link"
+        },
+        {
+          "type":"header",
+          "content":"Blogs"
+        },
+        {
+          "type": "blog",
+          "id": "blogs",
+          "label": "Blog"
+        },
+        {
+          "type": "text",
+          "id": "pro_title",
+          "label": "Mentioned product title",
+          "default":"Products mentioned in this article"
+        }
+  ]
+}
+{% endschema %}
+
+<script>
+  $(".product_slider").slick({
+    dots: false,
+    infinite: false,
+    slidesToShow: 3,
+    slidesToScroll: 1,
+    arrows:false,
+    prevArrow:"<button class='slick-prev slick-arrow' aria-label='Previous' type='button'><img src='https://cdn.shopify.com/s/files/1/0866/7664/files/chevron_right.png?v=1660762411'></button>",
+    nextArrow:"<button class='slick-next slick-arrow' aria-label='Previous' type='button'><img src='https://cdn.shopify.com/s/files/1/0866/7664/files/chevron_right.png?v=1660762411'></button>",
+    responsive:[
+      {
+            breakpoint: 1366,
+            settings: {
+                slidesToShow: 3
+            }
+        },
+        {
+            breakpoint: 1023,
+            settings: {
+                slidesToShow: 2
+            }
+        },
+        {
+            breakpoint: 767,
+            settings: {
+                slidesToShow: 1,
+                arrows:false,
+                centerMode:true
+            }
+        }
+    ]
+  });
+</script>

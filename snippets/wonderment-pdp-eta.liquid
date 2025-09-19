@@ -1,0 +1,360 @@
+<style>
+  #wonderment-pdp-eta {
+    display: none;
+  }
+  #wonderment-pdp-eta-display {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+  }
+
+  #wonderment-pdp-eta-text {
+    margin-left: 8px;
+  }
+
+  #wonderment-pdp-eta-icon {
+    display: none;
+    margin-right: 8px;
+  }
+
+  #wonderment-pdp-eta-eta-text {
+    margin-bottom: 4px;
+    line-height: 130%;
+  }
+
+  #wonderment-pdp-eta-hint-text {
+    color: grey;
+    margin-left: 32px;
+  }
+
+  #wonderment-zip-code-picker {
+    cursor: pointer;
+    width: fit-content;
+    padding-top: 4px;
+    display: flex;
+    justify-content: center;
+    justify-items: center;
+    flex-direction: row;
+    display: inline-block;
+    border-bottom: 1px solid transparent;
+  }
+
+  #wonderment-zip-code-picker:hover {
+    border-bottom-color: #8b91b5;
+  }
+
+  #wonderment-zip-code-picker-icon {
+    display: inline-block;
+  }
+
+  #wonderment-zip-code-picker-text {
+    display: inline-block;
+    font-weight: bold;
+  }
+
+  #wonderment-zip-code-picker-parent-wrapper {
+    display: none;
+    background-color: #f0eff2;
+    padding: 4px;
+    border-radius: 12px;
+    width: fit-content;
+    cursor: default;
+    margin-left: 32px;
+    box-shadow: 0px 4px 6px -2px rgba(0, 0, 0, 0.05), 0px 10px 15px -3px rgba(0, 0, 0, 0.10);
+    border: 1px solid #dfe1e7;
+    margin-bottom: 6px;
+  }
+
+  #wonderment-zip-code-picker-actions-wrapper {
+    background-color: white;
+    border-radius: 8px;
+    border: 1px solid #e0e0e0;
+    display: flex;
+  }
+
+  #wonderment-zip-code-picker-zip-code {
+    width: fit-content;
+    border-right: 1px solid #e0e0e0;
+    padding: 4px 8px;
+  }
+
+  #wonderment-zip-code-picker-zip-code-text {
+    color: #a2a8b5;
+    font-weight: 400;
+    margin-right: 2px;
+    font-size: 14px;
+  }
+
+  #wonderment-zip-code-picker-zip-code-input {
+    color: #6d7b91;
+    width: 13ch;
+    outline: none;
+    box-shadow: none;
+    height: 100%;
+    --webkit-appearance: none;
+    font-size: 16px;
+    border: 0 none;
+    font-weight: 500;
+  }
+
+  #wonderment-zip-code-picker-save-button {
+    padding: 4px 16px;
+    cursor: pointer;
+    font-weight: 500;
+  }
+
+  #wonderment-zip-code-picker-save-button:active {
+    background-color: #f0eff2;
+    border-radius: 0px 8px 8px 0px;
+  }
+
+  #wonderment-zip-code-picker-error-text {
+    color: #df443b;
+    margin-left: 6px;
+    margin-top: 4px;
+    display: none;
+  }
+
+  body #wonderment-zip-code-picker-parent-wrapper {
+    margin-left: 0;
+    }
+
+    #wonderment-pdp-eta {
+      padding: 0 25px 20px;
+      font-size: 14px !important;
+    }
+
+    #wonderment-pdp-eta-text {
+      margin-left: 0 !important;
+    }
+
+    @media screen and (max-width: 1279px) {
+    #wonderment-pdp-eta {
+      padding: 0 0px 20px;
+    }
+  }
+  [data-temp="product.2023-merch"] #wonderment-pdp-eta {
+    padding: 0 0px 20px;
+  }
+  [data-temp="product.stack"] #wonderment-pdp-eta {
+    padding: 10px 0px 20px;
+    font-size: 14px !important;
+  }
+</style>
+
+<div id="wonderment-pdp-eta">
+  <div id="wonderment-pdp-eta-text">
+    <div id="wonderment-pdp-eta-display">
+      <img
+        height="24"
+        width="24"
+        loading="eager"
+        id="wonderment-pdp-eta-icon"
+        alt="Wonderment Product ETA Icon"
+        loading="lazy"
+      >
+
+      <div id="wonderment-pdp-eta-eta-text"></div>
+    </div>
+
+    <div id="wonderment-zip-code-picker-parent-wrapper">
+      <div id="wonderment-zip-code-picker-actions-wrapper">
+        <div id="wonderment-zip-code-picker-zip-code">
+          <span id="wonderment-zip-code-picker-zip-code-text">Zip Code</span>
+
+          <input
+            id="wonderment-zip-code-picker-zip-code-input"
+            minlength="5"
+            maxlength="5"
+          >
+        </div>
+
+        <div id="wonderment-zip-code-picker-save-button">Save</div>
+      </div>
+
+      <div id="wonderment-zip-code-picker-error-text">Invalid zip code</div>
+    </div>
+
+    <div id="wonderment-pdp-eta-hint-text"></div>
+  </div>
+</div>
+
+<script>
+  // TODO - remove the brackets here. consolidate var declaration
+  const API_BASE_URL = '/apps/wonderment';
+  const ZIP_LOCAL_STORAGE_KEY = 'wonderment-pdp-eta-zip';
+  
+  const etaTextFontSize = '16px';
+  document.getElementById('wonderment-pdp-eta').style.fontSize = etaTextFontSize;
+  document.getElementById('wonderment-zip-code-picker-zip-code-text').style.fontSize = etaTextFontSize;
+  document.getElementById('wonderment-zip-code-picker-save-button').style.fontSize = etaTextFontSize;
+  
+  const iconSize = '8px';
+
+  const hintTextFontSize = '12px';
+  document.getElementById('wonderment-zip-code-picker-error-text').style.fontSize = hintTextFontSize;
+  document.getElementById('wonderment-pdp-eta-hint-text').style.fontSize = hintTextFontSize;
+
+  let isModalOpen = false;
+  let addedZipCodePickerListener = false;
+
+  const cachedZip = localStorage.getItem(ZIP_LOCAL_STORAGE_KEY);
+
+  const productID = {{ product.id }};
+  const isAvailable = {{ product.available }};
+
+  var productTags = {{ product.tags | json }};
+
+  const showEtas = !productTags.includes('hide_eta')
+
+  function updateEta(overrideZip) { 
+    fetch(`${API_BASE_URL}/etas/pdp?product_id=${productID}&is_available=${isAvailable}&cached_zip=${overrideZip || ''}`)
+      .then(response => response.json())
+      .then(json => {
+        const {zip, iconUrl, hintText, etaTextTemplate, minDate, maxDate} = json;
+
+        let etaText = etaTextTemplate;
+        etaText = etaText.replaceAll(
+          "{min_date}",
+          `<div style="font-weight: bold; display: inline-block">${minDate}</div>`
+        );
+        etaText = etaText.replaceAll(
+          "{max_date}",
+          `<div style="font-weight: bold; display: inline-block">${maxDate}</div>`
+        );
+        etaText = etaText.replaceAll(
+          "{zip_code}",
+          `
+          <div id="wonderment-zip-code-picker">
+            <div id="wonderment-zip-code-picker-text">${zip}</div>
+
+            <img
+              height="${iconSize}"
+              width="${iconSize}"
+              loading="eager"
+              src="https://s3config-imageassets8b277104-1w91ygk51i0o7.s3.amazonaws.com/pdp_eta_icons/pencil-01.svg"
+              id="wonderment-zip-code-picker-icon"
+              alt="Wonderment Zip Code Picker Icon"
+            />
+          </div>
+          `
+        );
+
+        document.getElementById("wonderment-pdp-eta-eta-text").innerHTML = etaText;
+        document.getElementById("wonderment-pdp-eta-hint-text").innerHTML = hintText;
+
+        if (iconUrl){
+          document.getElementById("wonderment-pdp-eta-icon").src = iconUrl;
+          document.getElementById("wonderment-pdp-eta-icon").style.display = "block";
+        } else {
+          document.getElementById('wonderment-pdp-eta-hint-text').style.marginLeft = '0px';
+        }
+
+        // Need to add event listener again
+        addedZipCodePickerListener = false;
+    })
+  }
+  
+  function togglePickerOpen() {
+    isModalOpen = !isModalOpen;
+
+    document.getElementById(
+      "wonderment-zip-code-picker-parent-wrapper"
+    ).style.display = isModalOpen ? "block" : "none";
+
+    document
+      .getElementById("wonderment-zip-code-picker-zip-code-input")
+      .focus();
+  }
+
+  if (showEtas) {
+    updateEta(cachedZip)
+
+    // EVENT HANDLING
+    const observer = new MutationObserver(function (mutations) {
+      let zipCodePicker = document.getElementById("wonderment-zip-code-picker");
+
+      if (zipCodePicker && !addedZipCodePickerListener) {
+        addedZipCodePickerListener = true
+        document
+          .getElementById("wonderment-zip-code-picker")
+          .addEventListener("click", function (e) {
+            togglePickerOpen();
+          });
+      }
+    });
+
+    observer.observe(document, {
+      attributes: false,
+      childList: true,
+      characterData: false,
+      subtree: true,
+    });  
+
+    function handleNewZip(newZip) {
+      if (newZip.length === 5) {
+          // Set new zip
+          document.getElementById("wonderment-zip-code-picker-text").innerHTML =
+            newZip;
+
+          // Hide picker
+          togglePickerOpen();
+
+          // Clear error
+          document.getElementById(
+            "wonderment-zip-code-picker-error-text"
+          ).style.display = "none";
+
+          // Update local storage cache
+          localStorage.setItem(ZIP_LOCAL_STORAGE_KEY, newZip);
+
+          // Clear input
+          document.getElementById(
+            "wonderment-zip-code-picker-zip-code-input"
+          ).value = "";
+
+          // Call API to get new ETA
+          updateEta(newZip)
+        } else {
+          document.getElementById(
+            "wonderment-zip-code-picker-error-text"
+          ).style.display = "block";
+        }
+    }
+    
+    document
+      .getElementById("wonderment-zip-code-picker-save-button")
+      .addEventListener("click", function (e) {
+        
+        const newZip = document.getElementById(
+          "wonderment-zip-code-picker-zip-code-input"
+        ).value;
+
+        handleNewZip(newZip);
+      });
+
+    document
+      .getElementById("wonderment-zip-code-picker-zip-code-input")
+      .addEventListener("keydown", (e) => {
+        const currZip = document.getElementById(
+          "wonderment-zip-code-picker-zip-code-input"
+        ).value;
+
+        if (e.key === "Enter") {
+          handleNewZip(currZip);
+        } else if (
+          e.key !== "Backspace" &&
+          (isNaN(e.key) || currZip.length >= 5)
+        ) {
+          handleNewZip(currZip)
+        }
+      });
+
+    window.addEventListener("click", function (e) {
+      if (isModalOpen && !e.target.id.includes("wonderment-zip-code-picker")) {
+        togglePickerOpen();
+      }
+    });
+      
+  }
+</script>

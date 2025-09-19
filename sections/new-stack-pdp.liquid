@@ -1,0 +1,844 @@
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick-theme.css">
+
+<style>
+.slick-prev {    left: 25px !important;    z-index: 1;}
+.slick-next {    right: 25px !important;    z-index: 1;}
+  .panel{
+    visibility:hidden;
+    height:0;
+  }
+</style>
+{% assign sca_product = product %}{% assign sca_product_id_text = "," | append : sca_product.id | append : "," %}{% assign sca_price = sca_product.price %}{% assign sca_price_min = sca_product.price_min %}{% assign sca_price_max = sca_product.price_max %}{% assign sca_compare_at_price = sca_product.compare_at_price %}{% assign sca_compare_at_price_min = sca_product.compare_at_price_min %}{% assign sca_compare_at_price_max = sca_product.compare_at_price_max %}{% assign sca_product_available = sca_product.available %}{% assign sca_product_variantCount = sca_product.variants.size %}{% assign sca_compare_at_price_varies = sca_product.compare_at_price_varies %}{% assign sca_price_varies = sca_product.price_varies %}{% assign sca_has_only_default_variant = false %}{% capture sca_product_variants_json %}{{sca_product.variants | json }}{% endcapture %} {% capture sca_product_json %}{ {% if sca_all_gift_products_ids == null or sca_all_gift_products_ids contains sca_product_id_text %}{% assign sca_product_available = false %}{% assign sca_product_variantCount = 0 %}{% assign sca_has_only_default_variant = true %}{% assign sca_is_first_variant = true %}{% capture sca_variants_json %} [{% for variant in sca_product.variants %}{% unless variant.metafields.secomapp.freegifts %}{% unless variant.title contains '(Freegifts)' %}{% unless variant.title contains '% Off' %}{% unless variant.metafields.shappify_qb.qb_hide == "1" %}{% unless variant.metafields.shappify_bundle.is_bundle == "true" %}{% unless variant.metafields.brodev_scn.hide == "true" %}{% unless variant.metafields.wholesaler2.wholesale %}{% unless variant.metafields.Wholesaler.level %}{% unless variant.title contains '(Wholesale' %}{% if sca_is_first_variant%} {{ variant | json }}{% assign sca_price = variant.price %} {% assign sca_price_min = variant.price %} {% assign sca_price_max = variant.price %} {% assign sca_compare_at_price = variant.compare_at_price %} {% assign sca_compare_at_price_min = variant.compare_at_price %} {% assign sca_compare_at_price_max = variant.compare_at_price %} {% assign sca_product_available = variant.available %} {% assign sca_product_variantCount = 1 %} {% assign sca_is_first_variant = false%}{% else %},{{variant | json }} {% if sca_price_min >= variant.price %} {% assign sca_price_min = variant.price %} {% assign sca_price = variant.price %}{% endif %} {% if sca_price_max <= variant.price %} {% assign sca_price_max = variant.price %} {% endif %} {% if variant.compare_at_price %} {% if sca_compare_at_price_min==null or sca_compare_at_price_min >= variant.compare_at_price %} {% assign sca_compare_at_price_min = variant.compare_at_price %} {% assign sca_compare_at_price = variant.compare_at_price %} {% endif %} {% if sca_compare_at_price_max==null or sca_compare_at_price_max < variant.compare_at_price %} {% assign sca_compare_at_price_max = variant.compare_at_price %} {% endif %} {% endif %} {% if variant.available == true %} {% assign sca_product_available = true %} {% endif %} {% assign sca_product_variantCount = sca_product_variantCount | plus: 1 %}{% endif %}{% endunless %}{% endunless %}{% endunless %}{% endunless %}{% endunless %}{% endunless %}{% endunless %}{% endunless %}{% endunless %}{%endfor%} ]{% endcapture %}{% if sca_price_min < sca_price_max %}{% assign sca_price_varies = true %}{% else %}{% assign sca_price_varies = false %}{% endif %}{% if sca_compare_at_price_min < sca_compare_at_price_max %}{% assign sca_compare_at_price_varies = true %}{% else %}{% assign sca_compare_at_price_varies = false %}{% endif %}{% if sca_product_variantCount > 1 %}{% assign sca_has_only_default_variant = false %}{% endif %}{% if sca_product_variantCount == sca_product.variants.size %} "variants":{{ sca_product.variants }},{% else %}{%assign sca_product_variants_json = sca_variants_json %} "variants":{{ sca_variants_json }},{% endif %}{% else %} "variants":{{ sca_product_variants_json }},{% endif %} "id": {{sca_product.id}}, "title": {{sca_product.title | json}}, "handle": {{sca_product.handle | json}}, "description": {{sca_product.description | json}}, "published_at": "{{sca_product.published_at | date: "%Y-%m-%dT%H-%M-%S%:z" }}", "created_at": "{{sca_product.created_at | date: "%Y-%m-%dT%H-%M-%S%:z" }}", "vendor": {{sca_product.vendor | json}}, "type": {{sca_product.type | json}}, "tags": {{sca_product.tags | json}}, "price": {{sca_price}}, "price_min": {{sca_price_min}}, "price_max": {{sca_price_max}}, "available": {{sca_product.available}}, "price_varies": {{sca_price_varies}}, "compare_at_price": {{sca_compare_at_price}}, "compare_at_price_min": {{sca_compare_at_price_min}}, "compare_at_price_max": {{sca_compare_at_price_max}}, "compare_at_price_varies": {{sca_compare_at_price_varies}}, "images": {{sca_product.images | json}}, "featured_image": {{sca_product.featured_image | json }}, "options": {{sca_product.options | json}}, "media": {{sca_product.media | json }}, "content": {{sca_product.content | json }}} {% endcapture sca_product_json %}
+<div class="xgen-stack-product stack-products_{{section.id}}">
+  <div class="xgen-inner">
+  	<div class="stack-product-wraper">
+      <div class="stack-product-img">
+        {% assign image_name = product.featured_image | split: '/' | last | split: '.' | first | replace: '/', ' ' | replace: '-', ' ' | replace: '_', ' ' %}
+        <img src="{{ product.featured_image | img_url:'original' }}" alt="{% if product.featured_image.alt %}{{ product.featured_image.alt }}{% else %}{{ image_name }}{% endif %}" loading="lazy">
+        
+        <ul class="tabs">
+  			<li class="active" rel="tab1">Overview</li>
+  			<li rel="tab2">Ingredients</li>
+            <li rel="tab3">How to use</li>
+  			<li rel="tab4">Reviews</li>
+  			<li rel="tab5">FAQs</li>
+		</ul>
+		<div class="tab_container">
+  			<h3 class="d_active tab_drawer_heading" rel="tab1">Overview</h3>
+  			<div id="tab1" class="tab_content">
+    			<p>{{ product.description | truncatewords: 25 }}</p>
+              <div class="gap-4 flex flex-col mt-4 uppercase md:gap-8 md:grid md:grid-flow-col md:auto-cols-fr">
+               {% if section.settings.show_nas %}
+                <div class="flex txt_b items-center">
+                  <div class="">
+                    <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path fill-rule="evenodd" clip-rule="evenodd" d="M31.0253 17.4722C31.0253 12.7707 27.2 8.94116 22.4943 8.94116C17.7885 8.94116 13.9633 12.7664 13.9633 17.4722C13.9633 19.3869 14.6172 21.2547 15.8054 22.7592L10.9116 27.7213C10.7364 27.9009 10.6423 28.1317 10.6423 28.3796C10.6423 28.6274 10.7406 28.8625 10.9201 29.0378C11.0954 29.2087 11.3262 29.307 11.5741 29.307C11.8262 29.307 12.0613 29.2087 12.2366 29.0292L17.1175 24.0799C18.6391 25.3193 20.541 25.9989 22.4943 25.9989C27.2 26.0032 31.0253 22.1736 31.0253 17.4722ZM22.4943 24.1397C18.8186 24.1397 15.8268 21.1479 15.8268 17.4722C15.8268 13.7965 18.8186 10.8046 22.4943 10.8046C26.17 10.8046 29.1618 13.7965 29.1618 17.4722C29.1618 21.1479 26.17 24.1397 22.4943 24.1397ZM22.5842 14.741C21.1395 14.741 19.9685 15.9163 19.9685 17.3567C19.9685 18.7971 21.1438 19.9724 22.5842 19.9724C24.0245 19.9724 25.1999 18.7971 25.1999 17.3567C25.1999 15.9163 24.0288 14.741 22.5842 14.741ZM22.5842 18.1089C22.1696 18.1089 21.8319 17.7713 21.8319 17.3567C21.8319 16.9421 22.1696 16.6045 22.5842 16.6045C22.9988 16.6045 23.3364 16.9421 23.3364 17.3567C23.3364 17.7713 22.9988 18.1089 22.5842 18.1089ZM16.9553 17.3567C16.9553 14.2537 19.4813 11.7277 22.5843 11.7277C25.6872 11.7277 28.2132 14.2537 28.2132 17.3567C28.2132 20.4596 25.6872 22.9856 22.5843 22.9856C19.4813 22.9856 16.9553 20.4596 16.9553 17.3567ZM18.8188 17.3567C18.8188 19.4339 20.5071 21.1221 22.5843 21.1221C24.6614 21.1221 26.3497 19.4339 26.3497 17.3567C26.3497 15.2795 24.6614 13.5912 22.5843 13.5912C20.5071 13.5912 18.8188 15.2795 18.8188 17.3567Z" fill="#1A1A1A"></path>
+                      <path d="M31.8285 31.726C34.816 28.7128 36.6667 24.5712 36.6667 20.0022C36.6667 10.813 29.1914 3.33344 19.9979 3.33344C15.4375 3.33344 11.2959 5.17983 8.287 8.16311C8.2699 8.17594 8.25281 8.18021 8.23571 8.19731C8.22716 8.20585 8.22289 8.22295 8.21007 8.2315C5.20113 11.249 3.33337 15.4119 3.33337 20.0022C3.33337 29.1915 10.8087 36.6668 20.0022 36.6668C24.5968 36.6668 28.764 34.799 31.7815 31.7773C31.79 31.7687 31.7986 31.7687 31.8028 31.7602C31.8157 31.7516 31.8157 31.7388 31.8285 31.726ZM5.90208 20.0022C5.90208 16.5659 7.14155 13.4159 9.18883 10.9669L11.6336 13.4116C11.8858 13.6638 12.2149 13.7878 12.5397 13.7878C12.8645 13.7878 13.1979 13.6638 13.4458 13.4116C13.9458 12.9116 13.9458 12.0952 13.4458 11.5952L11.001 9.15042C13.4501 7.12452 16.5829 5.90214 20.0022 5.90214C27.7767 5.90214 34.1023 12.2277 34.1023 20.0022C34.1023 23.4172 32.8799 26.5544 30.8497 28.9948L28.405 26.5501C27.9049 26.05 27.0928 26.05 26.5885 26.5501C26.0842 27.0501 26.0884 27.8622 26.5885 28.3666L29.0332 30.8113C26.5842 32.8629 23.4342 34.0981 19.9979 34.0981C12.2277 34.0981 5.90208 27.7725 5.90208 20.0022Z" fill="#FF4242"></path>
+                    </svg>
+
+                  </div>
+
+                  <p class="font-bold ml-3 text-xs">No Artificial Sweetners</p>
+                </div>
+                {% endif %}
+                
+                {% if section.settings.show_nac %}
+                <div class="flex txt_b items-center">
+                <div class="">
+                  <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M36.4844 17.5096C35.4074 10.1777 29.3986 4.33346 22.0521 3.45705C16.6971 2.81577 11.7824 4.71396 8.32921 8.12129C8.29075 8.14694 8.26511 8.17259 8.23947 8.19824C8.22665 8.21107 8.22664 8.21106 8.22664 8.22389C8.201 8.23672 8.18818 8.24954 8.17536 8.27519C5.18377 11.2807 3.33325 15.4276 3.33325 20.0021C3.33325 24.0635 4.79913 27.8 7.2266 30.6858C7.78645 31.3527 8.84205 31.2586 9.29507 30.519C9.58995 30.0402 9.5173 29.4374 9.15831 29.0056C7.11976 26.5602 5.89747 23.4265 5.89747 20.0021C5.89747 16.5605 7.1283 13.414 9.18395 10.96L16.0219 17.8003C16.5219 18.3005 17.3339 18.3005 17.8339 17.8046C18.3382 17.3044 18.3382 16.4878 17.8382 15.9834L11.0088 9.15161C13.9491 6.71047 17.9023 5.44074 22.0905 6.05637C28.3045 6.96698 33.2748 12.0801 33.9928 18.3091C34.4672 22.3791 33.2107 26.1583 30.8474 28.9928L24.0094 22.1525C23.5094 21.6523 22.6974 21.6523 22.1974 22.1482C21.6931 22.6484 21.6931 23.465 22.1931 23.9694L29.0353 30.814C26.595 32.8704 23.4368 34.1017 19.9964 34.1017C18.5733 34.1017 17.1971 33.8964 15.9022 33.4988C15.274 33.3065 14.6073 33.6528 14.3637 34.2684C14.2996 34.4223 14.2739 34.5762 14.2739 34.7301C14.2739 35.2816 14.6329 35.7946 15.2099 35.9614C16.7228 36.4231 18.3297 36.6668 20.0007 36.6668C24.5693 36.6668 28.7062 34.8284 31.7363 31.823C31.7619 31.8101 31.7747 31.7973 31.7876 31.7717C31.8004 31.7717 31.8004 31.7717 31.8132 31.7588C31.8645 31.7075 31.9158 31.6562 31.9414 31.6049L31.9799 31.5665C35.3946 28.0565 37.2836 22.969 36.4844 17.5096Z" fill="#FF4242"></path>
+                    <path fill-rule="evenodd" clip-rule="evenodd" d="M25.1294 11.1609C26.1295 10.1605 27.7535 10.1605 28.7535 11.1609C29.7536 12.1613 29.7536 13.7859 28.7535 14.7863L26.1038 17.4369L26.1722 17.5053C26.7235 18.0526 26.7235 18.9461 26.1722 19.4976C25.6252 20.0491 24.732 20.0491 24.1806 19.4976L20.4155 15.7311C19.8642 15.1839 19.8642 14.2904 20.4155 13.7389C20.9625 13.1874 21.8558 13.1874 22.4071 13.7389L22.4797 13.8116L25.1294 11.1609ZM12.0989 25.3504C12.0968 25.3547 12.0947 25.3579 12.0925 25.3611C12.0904 25.3643 12.0883 25.3675 12.0861 25.3718L11.4622 28.001C11.4194 28.2832 11.6801 28.544 11.9622 28.5012L14.6119 27.907C14.6162 27.9048 14.6194 27.9027 14.6226 27.9005C14.6258 27.8984 14.629 27.8963 14.6332 27.8941L22.5311 19.9936L19.9925 17.4541L12.0989 25.3504ZM12.3038 30.9209C11.9192 30.2582 10.9576 30.2625 10.5858 30.9337L9.85496 32.2419C9.17117 33.4689 10.0558 34.9737 11.4619 34.9737C12.8765 34.9737 13.7611 33.4432 13.0517 32.2162L12.3038 30.9209Z" fill="#1A1A1A"></path>
+                  </svg>
+
+                </div>
+
+                <p class="font-bold ml-3 text-xs">No Artificial Coloring</p>
+                </div>
+                {% endif %}
+                {% if section.settings.show_gfng %}
+                <div class="flex txt_b items-center">
+                  <div class="">
+                    
+                    <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path fill-rule="evenodd" clip-rule="evenodd" d="M21.6854 11.4029C21.4717 10.5096 21.1084 9.65056 20.6041 8.85986L20.5998 8.85558C20.4075 8.54785 20.1895 8.25721 19.9502 7.9794C19.8091 8.14181 19.6809 8.3085 19.5612 8.48374C18.8261 9.51806 18.3474 10.6721 18.1337 11.8602C17.9585 12.7834 17.9457 13.728 18.0824 14.6469C18.3004 16.1685 18.9372 17.6345 19.9716 18.8569C20.0314 18.7928 20.0827 18.7286 20.1297 18.6603C21.7966 16.5403 22.2966 13.8519 21.6854 11.4029ZM24.2149 17.4936C25.2578 16.8824 26.4417 16.4977 27.7068 16.3866C27.9162 16.3652 28.1257 16.3567 28.3437 16.3567C28.2838 16.72 28.2026 17.0747 28.0958 17.4209V17.4252C27.8265 18.3227 27.4034 19.1562 26.8648 19.8999C25.3988 21.9514 23.031 23.3191 20.3383 23.4302C20.2529 23.4388 20.1717 23.4431 20.0862 23.4388C20.3426 21.8574 21.0436 20.4213 22.0608 19.2673C22.672 18.5621 23.3986 17.9594 24.2149 17.4936ZM18.3687 26.4646C17.343 25.0285 15.8727 23.9258 14.1673 23.3574C13.3553 23.0838 12.4919 22.9342 11.5901 22.9257C11.5986 22.9983 11.6115 23.0667 11.6286 23.1394C12.0987 25.5884 13.6245 27.6656 15.7188 28.8709C16.7617 29.4778 17.9456 29.8668 19.2065 29.9779C19.4202 29.9992 19.6296 30.0078 19.8476 30.0078C19.792 29.6445 19.7108 29.2897 19.5997 28.9436C19.3261 28.046 18.9073 27.2083 18.3687 26.4646ZM21.565 26.4646C21.0265 27.2083 20.6033 28.0417 20.3341 28.9436C20.2272 29.2897 20.1417 29.6445 20.0862 30.0078C20.3042 30.0078 20.5136 29.9992 20.7273 29.9779C21.9881 29.8668 23.172 29.4778 24.2149 28.8709C26.2921 27.6742 27.8137 25.6141 28.3009 23.1821V23.1779C28.318 23.0967 28.3351 23.0154 28.3437 22.9257C27.4547 22.9342 26.5956 23.0838 25.792 23.3488C24.0739 23.9215 22.595 25.0242 21.565 26.4646ZM18.0689 19.5065C18.975 20.6177 19.5991 21.964 19.8427 23.4386C19.817 23.4429 19.7914 23.4429 19.7658 23.4429H19.7657C16.9962 23.383 14.5642 22.0025 13.064 19.9039C12.5255 19.1602 12.1066 18.3225 11.8331 17.4293V17.425C11.722 17.0788 11.6408 16.724 11.5852 16.3607C11.8032 16.3607 12.0126 16.3693 12.222 16.3907C13.4872 16.5018 14.6711 16.8865 15.7139 17.4976C16.62 18.0148 17.415 18.6987 18.0689 19.5065Z" fill="#1A1A1A"/>
+                      <path d="M31.8326 31.7217C34.8202 28.7084 36.6666 24.5669 36.6666 19.9979C36.6666 10.8087 29.1913 3.3334 20.002 3.3334C15.4374 3.3334 11.3001 5.17979 8.28687 8.15881C8.26977 8.17163 8.25268 8.1759 8.23558 8.193C8.22276 8.20582 8.22276 8.21865 8.20994 8.23147C5.19673 11.2489 3.33325 15.4119 3.33325 19.9979C3.33325 29.1871 10.8086 36.6667 20.002 36.6667C24.5967 36.6667 28.7639 34.799 31.7813 31.7815C31.7899 31.7729 31.7984 31.7729 31.807 31.7644C31.8198 31.7516 31.8198 31.7345 31.8326 31.7217ZM5.90623 19.9979C5.90623 16.5616 7.14571 13.4116 9.19298 10.9626L13.4585 15.2324C13.7106 15.4845 14.0397 15.6085 14.3646 15.6085C14.6937 15.6085 15.0228 15.4845 15.2707 15.2324C15.7707 14.7323 15.7707 13.9202 15.2707 13.4159L11.0052 9.14611C13.4457 7.11594 16.5828 5.89784 19.9978 5.89784C27.7723 5.89784 34.0936 12.2234 34.0936 19.9979C34.0936 23.4129 32.8712 26.5501 30.8453 28.9905L29.5161 27.6741C29.016 27.1741 28.204 27.1741 27.6996 27.6741C27.1996 28.1742 27.1996 28.9863 27.6996 29.4906L29.0288 30.807C26.5798 32.8586 23.4298 34.0938 19.9935 34.0938C12.2276 34.098 5.90623 27.7724 5.90623 19.9979Z" fill="#FF4242"/>
+                    </svg>
+                    
+                  </div>
+
+                  <p class="font-bold ml-3 text-xs">Gluten-free and Non-GMO</p>
+                </div>
+                {% endif %}
+                
+                {% if section.settings.show_nap %}
+                <div class="flex txt_b items-center">
+                  <div class="">
+                    <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path d="M21.8573 19.1174C21.7675 18.9764 21.7205 18.814 21.7205 18.6516V11.7233H18.1517V18.6516C18.1517 18.8183 18.1047 18.9807 18.0192 19.1174L14.1127 25.3405C13.1938 26.8065 14.2452 28.7084 15.9762 28.7084H23.9046C25.6313 28.7084 26.687 26.8065 25.7681 25.3405L21.8573 19.1174Z" fill="#1A1A1A"></path>
+                      <path d="M31.8284 31.7302C34.8159 28.717 36.6666 24.5712 36.6666 20.0022C36.6666 10.813 29.1913 3.33344 19.9978 3.33344C15.4374 3.33344 11.3001 5.17983 8.28688 8.15884C8.27406 8.17166 8.25268 8.17594 8.23986 8.18876C8.23131 8.19731 8.22704 8.21013 8.21849 8.22295C5.20101 11.2404 3.33325 15.4076 3.33325 20.0022C3.33325 29.1914 10.8086 36.6668 20.0021 36.6668C24.5967 36.6668 28.7639 34.799 31.7813 31.7773C31.7899 31.7687 31.7984 31.7687 31.8027 31.7602C31.8155 31.7559 31.8198 31.7431 31.8284 31.7302ZM5.90195 20.0065C5.90195 16.5744 7.13716 13.4287 9.18443 10.9797L14.6039 16.4676C14.8561 16.724 15.1852 16.848 15.5186 16.848C15.8434 16.848 16.1725 16.724 16.4204 16.4761C16.9247 15.9804 16.929 15.164 16.4332 14.6597L11.0052 9.16324C13.4499 7.13307 16.5871 5.90641 20.0021 5.90641C27.7766 5.90641 34.1022 12.232 34.1022 20.0065C34.1022 23.4215 32.8798 26.5586 30.8496 28.9991L29.2212 27.3707C28.7211 26.8706 27.9091 26.8706 27.4047 27.3707C26.9047 27.8708 26.9047 28.6828 27.4047 29.1872L29.0331 30.8156C26.5841 32.8671 23.4341 34.1023 19.9978 34.1023C12.2276 34.1023 5.90195 27.7767 5.90195 20.0065Z" fill="#FF4242"></path>
+                    </svg>
+                  </div>
+                  <p class="font-bold ml-3 text-xs">No Artificial Preservatives</p>
+                </div>
+              {% endif %}
+              </div>
+              
+  			</div>
+
+  			<h3 class="tab_drawer_heading" rel="tab2">Ingredients</h3>
+  			<div id="tab2" class="tab_content">
+    			<p>{{ product.metafields.ingredients.list }}</p>
+  			</div>
+
+  			<h3 class="tab_drawer_heading" rel="tab3">Reviews</h3>
+  			<div id="tab3" class="tab_content">
+              <div class="yotpo yotpo-main-widget"
+                   data-product-id="{{ product.id }}"
+                   data-name="{{ product.title | escape }}"
+                   data-url="{{ shop.url }}{{ product.url }}"
+                   data-image-url="{{ product.featured_image | product_img_url: "large" |replace: '?', '%3F' | replace: '&','%26'}}"
+                   data-description="{{ product.description | escape }}">
+              </div>
+          </div>
+
+          <h3 class="tab_drawer_heading" rel="tab4">FAQs</h3>
+          <div id="tab4" class="tab_content">
+            <div aria-labelledby="faq-tab" class="py-6 md:pb-0" id="faq-tab-panel" role="tabpanel" tabindex="0">
+              <div class="space-y-4" id="faq-content">
+                <div class="space-y-4" id="faq-content">
+                  {% for block in section.blocks %}
+                  <div>
+                    <custom-accordion>
+                      <div class="bg-white rounded-xl text-blue-500">
+                        <button aria-controls="faq-0" class="border-2 border-transparent flex items-center justify-between p-4 rounded-xl text-left transition-all w-full hover:border-blue-400 hover:opacity-70" type="button">
+                          <div class="flex items-center">
+                            <div class="bg-orange-400 bg-opacity-20 font-semibold py-2 rounded-md text-center text-orange-400 w-8">
+                              Q.
+                            </div>
+                            <div class="flex-1 mx-3 text-sm sm:text-base"><p style="margin-left:0px;"><strong>Q: {{ block.settings.question }}</strong></p></div>
+                          </div>
+
+                          <div class="plus-icon text-blue-400 transition-transform">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path>
+                            </svg>
+
+                          </div>
+
+                        </button>
+
+                        <div aria-labelled-by="faq-0" class="max-h-0 overflow-hidden text-sm" role="region">
+                          <div class="p-4">
+                            <div class="flex h-full">
+                              <div class="bg-blue-400 bg-opacity-20 font-semibold mr-3 py-2 rounded-md text-blue-400 text-center w-8">
+                                A.
+                              </div>
+
+                              <div class="flex-1 font-semibold">
+                                <p style="margin-left:0px;">A: {{ block.settings.answer }}</p>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </custom-accordion>
+                  </div>
+                  {% endfor %}
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+
+      </div>
+    
+      
+      <div class="stack-product-info">
+      <div class="ctag">Bulking</div>
+      <h2 class="title">{{ product.title }}</h2>
+       
+        <div class="yotpo bottomLine"
+             data-appkey="BTTbhJYlSrhgxyxq7pzHkXai0lo0iExD0uiVbjEZ"
+             data-domain="{{shop.permanent_domain | escape }}"
+             data-product-id="{{ product.id }}"
+             data-product-models="{{ product.id }}"
+             data-name="{{ product.title | escape }}"
+             data-url="{{ shop.url }}{{ product.url }}"
+             data-image-url="{{ product.featured_image | product_img_url: 'large' |replace: '?', '%3F' | replace: '&','%26'}}"
+             data-description="{{ product.description | escape }}"
+             data-bread-crumbs="{% for tag in product.tags %}{{ tag | escape }};{% endfor %}">
+        </div>
+
+        <div class="desc">{{ product.description | truncatewords: 30 }}</div>
+      
+      <div id="myDiv" class="package-list-wraper">
+        <div class="package-list accordions">
+          <p>Package includes</p>
+          <h5>4 Pre-selected Items  {% render 'sdark-arrow'%}</h5>
+          {% assign stack_products = product.metafields.my_fields.stack_products | split:',' %}
+          {% assign stack_products_length =  stack_products.size %}
+        </div>
+			{% if stack_products_length > 0 %}
+          <div class="packageslide slider panel">
+            {% for product_handle in stack_products %}
+			{% assign pure_product = all_products[product_handle] %}
+            <div class="items stack-item">
+              <div class="items-img">
+                {% assign image_name1 = pure_product.featured_image | split: '/' | last | split: '.' | first | replace: '/', ' ' | replace: '-', ' ' | replace: '_', ' ' %}
+                <img src="{{ pure_product.featured_image | img_url:'' }}" alt="{% if pure_product.featured_image.alt %}{{ pure_product.featured_image.alt }}{% else %}{{ image_name1 }}{% endif %}">
+              </div>
+              <div class="stack-text">
+                <h3>{{ pure_product.title }}</h3>
+                
+                {% if pure_product.options[0] %}
+                {% assign used = '' %}
+                <div class="input-wraper">
+                  <label for="select-one_{{pure_product.id}}">{{ pure_product.options[0] }}</label>
+                  
+                  <select data-option-position="1" id='select-one_{{pure_product.id}}' onchange="letsDoThis_{{pure_product.id}}()">
+                    {% for variant in pure_product.variants %}
+{% unless variant.metafields.secomapp.freegifts %}
+{% unless variant.title contains '(Freegifts)' %}
+
+                    {% unless used contains variant.option1 %}
+                    <option value="{{ variant.option1 }}">{{ variant.option1 }}</option>
+                    {% capture used %}{{ used }} {{ variant.option1 }}{% endcapture %}
+                    {% endunless %}
+
+{%endunless%}
+{%endunless%}
+                    {% endfor %}
+                  </select>
+                </div>
+                {% endif %}
+                
+                {% if pure_product.options[1] %}
+                  <div class="input-wraper">
+                    {% assign used = '' %}
+                    <label for="select-one_{{pure_product.id}}">{{ pure_product.options[1] }}</label>
+                    <select id='select-two_{{pure_product.id}}' onchange="letsDoThis_{{pure_product.id}}()">
+                      {% for variant in pure_product.variants %}
+{% unless variant.metafields.secomapp.freegifts %}
+{% unless variant.title contains '(Freegifts)' %}
+
+                      {% unless used contains variant.option2 %}
+                      <option  value="{{ variant.option2 }}">{{ variant.option2 }}</option>
+                      {% capture used %}{{ used }} {{ variant.option2 }}{% endcapture %}
+                      {% endunless %}
+
+{%endunless%}
+{%endunless%}
+                      {% endfor %}
+                    </select>
+                  </div>
+                {% endif %}
+                
+                {% if pure_product.options[2] %}
+                <div class="input-wraper">
+                  {% assign used = '' %}
+                  <label for="select-one">{{ pure_product.options[2] }}</label>
+                  <select  id='select-three' onchange="letsDoThis_{{pure_product.id}}()">
+                    {% for variant in pure_product.variants %}
+{% unless variant.metafields.secomapp.freegifts %}
+{% unless variant.title contains '(Freegifts)' %}
+
+                    {% unless used contains variant.option3 %}
+                    <option  value="{{ variant.option3 }}">{{ variant.option3 }}</option>
+                    {% capture used %}{{ used }} {{ variant.option3 }}{% endcapture %}
+                    {% endunless %}
+
+{%endunless%}
+{%endunless%}
+                    {% endfor %}
+                  </select>
+                </div>
+                {% endif %}
+
+                
+                 <div class="p1_selling_plan_{{forloop.index}}"></div>
+                <input type="hidden" name="id" id="product-select_{{pure_product.id}}" class="stack_vid" value="{{ pure_product.variants.first.id }}" />	
+              </div>
+                          <script>
+              function letsDoThis_{{pure_product.id}}() 
+              {
+
+                {% if pure_product.options[0] %}
+                	var opt1 = document.getElementById('select-one_{{pure_product.id}}').value;
+                {% endif %}
+                                                       
+                                                       {% if pure_product.options[1] %}
+                                                       var opt2 = document.getElementById('select-two_{{pure_product.id}}').value;
+
+                                                       {% endif %}
+                                                       {% if pure_product.options[2] %}
+                                                       var opt3 = document.getElementById('select-three_{{pure_product.id}}').value;
+
+                                                       {% endif %}
+                                                       var id = '';
+                                                       {% for v in pure_product.variants %}
+{% unless v.metafields.secomapp.freegifts %}
+{% unless v.title contains '(Freegifts)' %}
+
+                                                       if(opt1=="{{ v.option1 }}"{% if pure_product.options[1] %} && opt2=="{{ v.option2 }}"{% endif %}{% if pure_product.options[2] %} && opt3=="{{ v.option3 }}"{% endif %}) {
+                  var id = {{ v.id }};
+                  var price = "{{ v.price | money }}";
+                }
+
+{%endunless%}
+{%endunless%}
+                {% endfor %}
+                if(id!='') {
+                  document.getElementById('product-select_{{pure_product.id}}').value = id;
+                                          document.getElementById('price').innerHTML = price;
+                } else {
+                  document.getElementById('product-select_{{pure_product.id}}').value = '';
+                                          document.getElementById('price').innerHTML = 'Unavailable';
+                }
+
+              }
+            </script>
+            <script type="text/javascript">
+              var variant_values = {{ pure_product.variants | json }};
+              var len = variant_values.length;
+              for(var i = 0; i < len; i++)
+              {
+                //console.log(variant_values[i].id);
+                var len2 = variant_values[i].selling_plan_allocations.length;
+                var plans = variant_values[i].selling_plan_allocations;
+                
+                  for(var j=0; j < len2; j++)
+                  {
+                    $(".p1_selling_plan_{{forloop.index}}").append('<input type=hidden data-stack="{{ product.id }}" data-price='+ Shopify.formatMoney(plans[j].price) +' data-otp= '+ Shopify.formatMoney(plans[j].compare_at_price)+'  class="selling_plan_'+j+'" name="selling_plan" value="'+plans[j].selling_plan_id+'">');
+                      console.log(plans);
+                  }
+                  if(i == 0)
+                  {
+                  	break;
+                  }
+                
+              }
+            </script>
+            </div>
+            {% endfor %}
+            
+        </div>
+		{% endif %}
+        
+        <div class="package-list accordions np_last">
+          <p>Deliver</p>
+          <h5><div class="freq_text"></div><div class="price_update"></div> {% render 'sdark-arrow'%}</h5>
+        </div>
+        
+        <div class="package-list panel">
+          <div class="stack-row">
+            <div class="stack-row-item">
+              <input type="radio" data-text="One-Time Purchase" class="stack-radio-2" name="purchaseoption_{{section.id}}" value="onetime"> 
+              <div class="">One-Time Purchase <br> <small>Give it a try</small></div>
+              <span class="pass_otp take_price"></span>
+            </div>
+
+            <div class="stack-row-item active_class">
+              <input type="radio" data-text="Deliver Every Month" class="stack-radio ddoption1" name="purchaseoption_{{section.id}}" value="selling_plan_0" checked>
+              <div class=""> Deliver Every Month<br> <small>10% off + free shipping</small></div>
+              <span class="sub_price take_price"></span>
+            </div>
+
+            <div class="stack-row-item">
+              <input type="radio" data-text="Deliver Every 45 days" class="stack-radio ddoption1" name="purchaseoption_{{section.id}}" value="selling_plan_1" > 
+              <div class=""> Deliver Every 45 days <br> <small>10% off + free shipping</small></div>
+              <span class="sub_price take_price"></span>
+            </div>
+
+            <div class="stack-row-item">
+              <input type="radio" data-text="Deliver Every 60 days" class="stack-radio ddoption1" name="purchaseoption_{{section.id}}" value="selling_plan_2" > 
+              <div class=""> Deliver Every 60 days <br> <small>10% off + free shipping</small></div>
+              <span class="sub_price take_price"></span>
+            </div>
+            
+          </div>
+        </div>
+        <h6 class="update_main_price">
+        {{ sca_price | money }}
+        </h6>
+    </div>
+     
+      <div class="stack-btn-group">
+        <quantity-input>
+          <div class="flex items-center text-blue-500">
+            <button
+                    class="quantity-button"
+                    type="button"
+                    >
+              {% render 'icon-minus' %}
+            </button>
+
+            <input
+                   class="border-0 bg-transparent hide-selectors outline-none text-center w-12"
+                   min="1"
+                   name="quantity"
+                   readonly
+                   type="number"
+                   value="1"
+                   />
+
+            <button
+                    class="quantity-button"
+                    type="button"
+                    >
+              {% render 'icon-plus' %}
+            </button>
+          </div>
+        </quantity-input>
+        
+        <button class="btn submit-stack-products_{{section.id}}">Subscribe</button>
+      </div>
+
+      <ul id="accordion" class="accordion stack-product-acc">
+          <li>
+            <div class="link"><p>Overview</p> {% render 'icon-chevron-down' %}</div>
+            <ul class="submenu">
+              <p>{{ product.description | truncatewords: 15 }}</p>
+				<div class="gap-4 flex flex-col mt-4 uppercase md:gap-8 md:grid md:grid-flow-col md:auto-cols-fr">
+                
+				               {% if section.settings.show_nas %}
+                <div class="flex txt_b items-center">
+                  <div class="">
+                    <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path fill-rule="evenodd" clip-rule="evenodd" d="M31.0253 17.4722C31.0253 12.7707 27.2 8.94116 22.4943 8.94116C17.7885 8.94116 13.9633 12.7664 13.9633 17.4722C13.9633 19.3869 14.6172 21.2547 15.8054 22.7592L10.9116 27.7213C10.7364 27.9009 10.6423 28.1317 10.6423 28.3796C10.6423 28.6274 10.7406 28.8625 10.9201 29.0378C11.0954 29.2087 11.3262 29.307 11.5741 29.307C11.8262 29.307 12.0613 29.2087 12.2366 29.0292L17.1175 24.0799C18.6391 25.3193 20.541 25.9989 22.4943 25.9989C27.2 26.0032 31.0253 22.1736 31.0253 17.4722ZM22.4943 24.1397C18.8186 24.1397 15.8268 21.1479 15.8268 17.4722C15.8268 13.7965 18.8186 10.8046 22.4943 10.8046C26.17 10.8046 29.1618 13.7965 29.1618 17.4722C29.1618 21.1479 26.17 24.1397 22.4943 24.1397ZM22.5842 14.741C21.1395 14.741 19.9685 15.9163 19.9685 17.3567C19.9685 18.7971 21.1438 19.9724 22.5842 19.9724C24.0245 19.9724 25.1999 18.7971 25.1999 17.3567C25.1999 15.9163 24.0288 14.741 22.5842 14.741ZM22.5842 18.1089C22.1696 18.1089 21.8319 17.7713 21.8319 17.3567C21.8319 16.9421 22.1696 16.6045 22.5842 16.6045C22.9988 16.6045 23.3364 16.9421 23.3364 17.3567C23.3364 17.7713 22.9988 18.1089 22.5842 18.1089ZM16.9553 17.3567C16.9553 14.2537 19.4813 11.7277 22.5843 11.7277C25.6872 11.7277 28.2132 14.2537 28.2132 17.3567C28.2132 20.4596 25.6872 22.9856 22.5843 22.9856C19.4813 22.9856 16.9553 20.4596 16.9553 17.3567ZM18.8188 17.3567C18.8188 19.4339 20.5071 21.1221 22.5843 21.1221C24.6614 21.1221 26.3497 19.4339 26.3497 17.3567C26.3497 15.2795 24.6614 13.5912 22.5843 13.5912C20.5071 13.5912 18.8188 15.2795 18.8188 17.3567Z" fill="#1A1A1A"></path>
+                      <path d="M31.8285 31.726C34.816 28.7128 36.6667 24.5712 36.6667 20.0022C36.6667 10.813 29.1914 3.33344 19.9979 3.33344C15.4375 3.33344 11.2959 5.17983 8.287 8.16311C8.2699 8.17594 8.25281 8.18021 8.23571 8.19731C8.22716 8.20585 8.22289 8.22295 8.21007 8.2315C5.20113 11.249 3.33337 15.4119 3.33337 20.0022C3.33337 29.1915 10.8087 36.6668 20.0022 36.6668C24.5968 36.6668 28.764 34.799 31.7815 31.7773C31.79 31.7687 31.7986 31.7687 31.8028 31.7602C31.8157 31.7516 31.8157 31.7388 31.8285 31.726ZM5.90208 20.0022C5.90208 16.5659 7.14155 13.4159 9.18883 10.9669L11.6336 13.4116C11.8858 13.6638 12.2149 13.7878 12.5397 13.7878C12.8645 13.7878 13.1979 13.6638 13.4458 13.4116C13.9458 12.9116 13.9458 12.0952 13.4458 11.5952L11.001 9.15042C13.4501 7.12452 16.5829 5.90214 20.0022 5.90214C27.7767 5.90214 34.1023 12.2277 34.1023 20.0022C34.1023 23.4172 32.8799 26.5544 30.8497 28.9948L28.405 26.5501C27.9049 26.05 27.0928 26.05 26.5885 26.5501C26.0842 27.0501 26.0884 27.8622 26.5885 28.3666L29.0332 30.8113C26.5842 32.8629 23.4342 34.0981 19.9979 34.0981C12.2277 34.0981 5.90208 27.7725 5.90208 20.0022Z" fill="#FF4242"></path>
+                    </svg>
+
+                  </div>
+
+                  <p class="font-bold ml-3 text-xs">No Artificial Sweetners</p>
+                </div>
+                {% endif %}
+                
+                {% if section.settings.show_nac %}
+                <div class="flex txt_b items-center">
+                <div class="">
+                  <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M36.4844 17.5096C35.4074 10.1777 29.3986 4.33346 22.0521 3.45705C16.6971 2.81577 11.7824 4.71396 8.32921 8.12129C8.29075 8.14694 8.26511 8.17259 8.23947 8.19824C8.22665 8.21107 8.22664 8.21106 8.22664 8.22389C8.201 8.23672 8.18818 8.24954 8.17536 8.27519C5.18377 11.2807 3.33325 15.4276 3.33325 20.0021C3.33325 24.0635 4.79913 27.8 7.2266 30.6858C7.78645 31.3527 8.84205 31.2586 9.29507 30.519C9.58995 30.0402 9.5173 29.4374 9.15831 29.0056C7.11976 26.5602 5.89747 23.4265 5.89747 20.0021C5.89747 16.5605 7.1283 13.414 9.18395 10.96L16.0219 17.8003C16.5219 18.3005 17.3339 18.3005 17.8339 17.8046C18.3382 17.3044 18.3382 16.4878 17.8382 15.9834L11.0088 9.15161C13.9491 6.71047 17.9023 5.44074 22.0905 6.05637C28.3045 6.96698 33.2748 12.0801 33.9928 18.3091C34.4672 22.3791 33.2107 26.1583 30.8474 28.9928L24.0094 22.1525C23.5094 21.6523 22.6974 21.6523 22.1974 22.1482C21.6931 22.6484 21.6931 23.465 22.1931 23.9694L29.0353 30.814C26.595 32.8704 23.4368 34.1017 19.9964 34.1017C18.5733 34.1017 17.1971 33.8964 15.9022 33.4988C15.274 33.3065 14.6073 33.6528 14.3637 34.2684C14.2996 34.4223 14.2739 34.5762 14.2739 34.7301C14.2739 35.2816 14.6329 35.7946 15.2099 35.9614C16.7228 36.4231 18.3297 36.6668 20.0007 36.6668C24.5693 36.6668 28.7062 34.8284 31.7363 31.823C31.7619 31.8101 31.7747 31.7973 31.7876 31.7717C31.8004 31.7717 31.8004 31.7717 31.8132 31.7588C31.8645 31.7075 31.9158 31.6562 31.9414 31.6049L31.9799 31.5665C35.3946 28.0565 37.2836 22.969 36.4844 17.5096Z" fill="#FF4242"></path>
+                    <path fill-rule="evenodd" clip-rule="evenodd" d="M25.1294 11.1609C26.1295 10.1605 27.7535 10.1605 28.7535 11.1609C29.7536 12.1613 29.7536 13.7859 28.7535 14.7863L26.1038 17.4369L26.1722 17.5053C26.7235 18.0526 26.7235 18.9461 26.1722 19.4976C25.6252 20.0491 24.732 20.0491 24.1806 19.4976L20.4155 15.7311C19.8642 15.1839 19.8642 14.2904 20.4155 13.7389C20.9625 13.1874 21.8558 13.1874 22.4071 13.7389L22.4797 13.8116L25.1294 11.1609ZM12.0989 25.3504C12.0968 25.3547 12.0947 25.3579 12.0925 25.3611C12.0904 25.3643 12.0883 25.3675 12.0861 25.3718L11.4622 28.001C11.4194 28.2832 11.6801 28.544 11.9622 28.5012L14.6119 27.907C14.6162 27.9048 14.6194 27.9027 14.6226 27.9005C14.6258 27.8984 14.629 27.8963 14.6332 27.8941L22.5311 19.9936L19.9925 17.4541L12.0989 25.3504ZM12.3038 30.9209C11.9192 30.2582 10.9576 30.2625 10.5858 30.9337L9.85496 32.2419C9.17117 33.4689 10.0558 34.9737 11.4619 34.9737C12.8765 34.9737 13.7611 33.4432 13.0517 32.2162L12.3038 30.9209Z" fill="#1A1A1A"></path>
+                  </svg>
+
+                </div>
+
+                <p class="font-bold ml-3 text-xs">No Artificial Coloring</p>
+                </div>
+                {% endif %}
+                {% if section.settings.show_gfng %}
+                <div class="flex txt_b items-center">
+                  <div class="">
+                    <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path fill-rule="evenodd" clip-rule="evenodd" d="M21.6854 11.4029C21.4717 10.5096 21.1084 9.65056 20.6041 8.85986L20.5998 8.85558C20.4075 8.54785 20.1895 8.25721 19.9502 7.9794C19.8091 8.14181 19.6809 8.3085 19.5612 8.48374C18.8261 9.51806 18.3474 10.6721 18.1337 11.8602C17.9585 12.7834 17.9457 13.728 18.0824 14.6469C18.3004 16.1685 18.9372 17.6345 19.9716 18.8569C20.0314 18.7928 20.0827 18.7286 20.1297 18.6603C21.7966 16.5403 22.2966 13.8519 21.6854 11.4029ZM24.2149 17.4936C25.2578 16.8824 26.4417 16.4977 27.7068 16.3866C27.9162 16.3652 28.1257 16.3567 28.3437 16.3567C28.2838 16.72 28.2026 17.0747 28.0958 17.4209V17.4252C27.8265 18.3227 27.4034 19.1562 26.8648 19.8999C25.3988 21.9514 23.031 23.3191 20.3383 23.4302C20.2529 23.4388 20.1717 23.4431 20.0862 23.4388C20.3426 21.8574 21.0436 20.4213 22.0608 19.2673C22.672 18.5621 23.3986 17.9594 24.2149 17.4936ZM18.3687 26.4646C17.343 25.0285 15.8727 23.9258 14.1673 23.3574C13.3553 23.0838 12.4919 22.9342 11.5901 22.9257C11.5986 22.9983 11.6115 23.0667 11.6286 23.1394C12.0987 25.5884 13.6245 27.6656 15.7188 28.8709C16.7617 29.4778 17.9456 29.8668 19.2065 29.9779C19.4202 29.9992 19.6296 30.0078 19.8476 30.0078C19.792 29.6445 19.7108 29.2897 19.5997 28.9436C19.3261 28.046 18.9073 27.2083 18.3687 26.4646ZM21.565 26.4646C21.0265 27.2083 20.6033 28.0417 20.3341 28.9436C20.2272 29.2897 20.1417 29.6445 20.0862 30.0078C20.3042 30.0078 20.5136 29.9992 20.7273 29.9779C21.9881 29.8668 23.172 29.4778 24.2149 28.8709C26.2921 27.6742 27.8137 25.6141 28.3009 23.1821V23.1779C28.318 23.0967 28.3351 23.0154 28.3437 22.9257C27.4547 22.9342 26.5956 23.0838 25.792 23.3488C24.0739 23.9215 22.595 25.0242 21.565 26.4646ZM18.0689 19.5065C18.975 20.6177 19.5991 21.964 19.8427 23.4386C19.817 23.4429 19.7914 23.4429 19.7658 23.4429H19.7657C16.9962 23.383 14.5642 22.0025 13.064 19.9039C12.5255 19.1602 12.1066 18.3225 11.8331 17.4293V17.425C11.722 17.0788 11.6408 16.724 11.5852 16.3607C11.8032 16.3607 12.0126 16.3693 12.222 16.3907C13.4872 16.5018 14.6711 16.8865 15.7139 17.4976C16.62 18.0148 17.415 18.6987 18.0689 19.5065Z" fill="#1A1A1A"/>
+                      <path d="M31.8326 31.7217C34.8202 28.7084 36.6666 24.5669 36.6666 19.9979C36.6666 10.8087 29.1913 3.3334 20.002 3.3334C15.4374 3.3334 11.3001 5.17979 8.28687 8.15881C8.26977 8.17163 8.25268 8.1759 8.23558 8.193C8.22276 8.20582 8.22276 8.21865 8.20994 8.23147C5.19673 11.2489 3.33325 15.4119 3.33325 19.9979C3.33325 29.1871 10.8086 36.6667 20.002 36.6667C24.5967 36.6667 28.7639 34.799 31.7813 31.7815C31.7899 31.7729 31.7984 31.7729 31.807 31.7644C31.8198 31.7516 31.8198 31.7345 31.8326 31.7217ZM5.90623 19.9979C5.90623 16.5616 7.14571 13.4116 9.19298 10.9626L13.4585 15.2324C13.7106 15.4845 14.0397 15.6085 14.3646 15.6085C14.6937 15.6085 15.0228 15.4845 15.2707 15.2324C15.7707 14.7323 15.7707 13.9202 15.2707 13.4159L11.0052 9.14611C13.4457 7.11594 16.5828 5.89784 19.9978 5.89784C27.7723 5.89784 34.0936 12.2234 34.0936 19.9979C34.0936 23.4129 32.8712 26.5501 30.8453 28.9905L29.5161 27.6741C29.016 27.1741 28.204 27.1741 27.6996 27.6741C27.1996 28.1742 27.1996 28.9863 27.6996 29.4906L29.0288 30.807C26.5798 32.8586 23.4298 34.0938 19.9935 34.0938C12.2276 34.098 5.90623 27.7724 5.90623 19.9979Z" fill="#FF4242"/>
+                    </svg>
+                    
+                  </div>
+
+                  <p class="font-bold ml-3 text-xs">Gluten-free and Non-GMO</p>
+                </div>
+                {% endif %}
+                
+                {% if section.settings.show_nap %}
+                <div class="flex txt_b items-center">
+                  <div class="">
+                    <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path d="M21.8573 19.1174C21.7675 18.9764 21.7205 18.814 21.7205 18.6516V11.7233H18.1517V18.6516C18.1517 18.8183 18.1047 18.9807 18.0192 19.1174L14.1127 25.3405C13.1938 26.8065 14.2452 28.7084 15.9762 28.7084H23.9046C25.6313 28.7084 26.687 26.8065 25.7681 25.3405L21.8573 19.1174Z" fill="#1A1A1A"></path>
+                      <path d="M31.8284 31.7302C34.8159 28.717 36.6666 24.5712 36.6666 20.0022C36.6666 10.813 29.1913 3.33344 19.9978 3.33344C15.4374 3.33344 11.3001 5.17983 8.28688 8.15884C8.27406 8.17166 8.25268 8.17594 8.23986 8.18876C8.23131 8.19731 8.22704 8.21013 8.21849 8.22295C5.20101 11.2404 3.33325 15.4076 3.33325 20.0022C3.33325 29.1914 10.8086 36.6668 20.0021 36.6668C24.5967 36.6668 28.7639 34.799 31.7813 31.7773C31.7899 31.7687 31.7984 31.7687 31.8027 31.7602C31.8155 31.7559 31.8198 31.7431 31.8284 31.7302ZM5.90195 20.0065C5.90195 16.5744 7.13716 13.4287 9.18443 10.9797L14.6039 16.4676C14.8561 16.724 15.1852 16.848 15.5186 16.848C15.8434 16.848 16.1725 16.724 16.4204 16.4761C16.9247 15.9804 16.929 15.164 16.4332 14.6597L11.0052 9.16324C13.4499 7.13307 16.5871 5.90641 20.0021 5.90641C27.7766 5.90641 34.1022 12.232 34.1022 20.0065C34.1022 23.4215 32.8798 26.5586 30.8496 28.9991L29.2212 27.3707C28.7211 26.8706 27.9091 26.8706 27.4047 27.3707C26.9047 27.8708 26.9047 28.6828 27.4047 29.1872L29.0331 30.8156C26.5841 32.8671 23.4341 34.1023 19.9978 34.1023C12.2276 34.1023 5.90195 27.7767 5.90195 20.0065Z" fill="#FF4242"></path>
+                    </svg>
+                  </div>
+                  <p class="font-bold ml-3 text-xs">No Artificial Preservatives</p>
+                </div>
+              {% endif %}
+                  
+              </div>
+			  
+            </ul>
+          </li>
+          <li>
+            <div class="link"><p>Ingredients</p> {% render 'icon-chevron-down' %}</div>
+            <ul class="submenu">
+              <p>{{ product.metafields.ingredients.list }}</p>
+            </ul>
+          </li>
+          <li>
+            <div class="link"><p>Reviews</p> {% render 'icon-chevron-down' %}</div>
+            <ul class="submenu">
+              <div class="yotpo yotpo-main-widget"
+                   data-product-id="{{ product.id }}"
+                   data-name="{{ product.title | escape }}"
+                   data-url="{{ shop.url }}{{ product.url }}"
+                   data-image-url="{{ product.featured_image | product_img_url: "large" |replace: '?', '%3F' | replace: '&','%26'}}"
+                   data-description="{{ product.description | escape }}">
+              </div>
+          </ul>
+          </li>
+          <li>
+            <div class="link"><p>Frequently Asked Questions</p> {% render 'icon-chevron-down' %}</div>
+            <ul class="submenu">
+				{% for block in section.blocks %}
+                  <div>
+                    <custom-accordion>
+                      <div class="bg-white rounded-xl text-blue-500">
+                        <button aria-controls="faq-0" class="border-2 border-transparent flex items-center justify-between p-4 rounded-xl text-left transition-all w-full hover:border-blue-400 hover:opacity-70" type="button">
+                          <div class="flex items-center">
+                            <div class="bg-orange-400 bg-opacity-20 font-semibold py-2 rounded-md text-center text-orange-400 w-8">
+                              Q.
+                            </div>
+                            <div class="flex-1 mx-3 text-sm sm:text-base"><p style="margin-left:0px;"><strong>Q: {{ block.settings.question }}</strong></p></div>
+                          </div>
+
+                          <div class="plus-icon text-blue-400 transition-transform">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path>
+                            </svg>
+
+                          </div>
+
+                        </button>
+
+                        <div aria-labelled-by="faq-0" class="max-h-0 overflow-hidden text-sm" role="region">
+                          <div class="p-4">
+                            <div class="flex h-full">
+                              <div class="bg-blue-400 bg-opacity-20 font-semibold mr-3 py-2 rounded-md text-blue-400 text-center w-8">
+                                A.
+                              </div>
+
+                              <div class="flex-1 font-semibold">
+                                <p style="margin-left:0px;">A: {{ block.settings.answer }}</p>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </custom-accordion>
+                  </div>
+                  {% endfor %}
+            </ul>
+          </li>
+
+
+
+        </ul>
+
+  	</div>
+  
+	</div>
+  </div>
+</div>
+<div class="fix-subscription-btn">
+        <quantity-input>
+          <div class="flex items-center text-blue-500">
+            <button
+                    class="quantity-button"
+                    type="button"
+                    >
+              {% render 'icon-minus' %}
+            </button>
+
+            <input
+                   class="border-0 bg-transparent hide-selectors outline-none text-center w-12"
+                   min="1"
+                   name="quantity"
+                   readonly
+                   type="number"
+                   value="1"
+                   />
+
+            <button
+                    class="quantity-button"
+                    type="button"
+                    >
+              {% render 'icon-plus' %}
+            </button>
+          </div>
+        </quantity-input>
+        
+        <button id="myButton" class="btn scroll_top">Subscribe</button>
+      </div>
+
+  <script type="text/javascript" src="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
+  <script type="text/javascript">
+    $(document).ready(function(){
+      var total  = 0;
+      
+      $(".selling_plan_0").each(function(i,Data){
+        var price = parseInt($(Data).data("otp").replace('$', ''));;
+        console.log("Index",price);
+        total = total + price;
+        $('.pass_otp').text('$'+total.toFixed(2));
+      });
+      
+      total = 0;
+      $(".selling_plan_1").each(function(i,Data){
+        var price = parseInt($(Data).data("price").replace('$', ''));;
+        console.log("Index",price);
+        total = total + price;
+        $('.sub_price').text('$'+total.toFixed(2));
+      });
+      
+      
+      $("#myButton").click(function() {
+        $('html, body').animate({
+          scrollTop: $("#myDiv").offset().top
+        }, 1000);
+      });
+      
+      var acc = document.getElementsByClassName("accordions");
+      var i;
+
+      for (i = 0; i < acc.length; i++) {
+        acc[i].addEventListener("click", function() {
+          this.classList.toggle("active");
+          var panel = this.nextElementSibling;
+          panel.classList.toggle("showaccord");
+//           if (panel.style.display === "block") {
+//             panel.style.display = "none";
+//           } else {
+//             panel.style.display = "block";
+//           }
+        });
+      }
+      
+     /* $(".packageslide").slick({
+        dots: false,
+        infinite: false,
+        slidesToShow: 1,
+        slidesToScroll: 1,
+        arrows:true
+      });*/
+
+      var freq_val = $("input[name='purchaseoption_{{section.id}}']:checked").data("text");
+                       $(".freq_text").text(freq_val);
+      
+      var main_price = $("input[name='purchaseoption_{{section.id}}']:checked").siblings(".take_price").text();
+      
+	  var new_price = main_price + '<span class="line_thue">'+ $(".pass_otp").text() +'</span>';
+      $(".price_update").html(new_price);
+      
+      $('input[type=radio][name=purchaseoption_{{section.id}}]').change(function() {
+        $(".freq_text").text($(this).data("text"));
+      $(".stack-row-item").removeClass("active_class");
+      $(this).parents().addClass("active_class");
+      var text_val = $(this).siblings (".take_price").text();
+      console.log("text_val",text_val);
+      var hatml_price = text_val + '<span class="line_thue">'+ $(".pass_otp").text() +'</span>';
+      $(".price_update").html(hatml_price);
+	  $(".update_main_price").text(text_val);
+    });
+                     
+                     
+      $(".stack-products_{{section.id}} .submit-stack-products_{{section.id}}").on("click", function (){
+        console.log("Called!");
+      var selling_plan_val= "";
+      var items = [];
+      if($("input[name='purchaseoption_{{section.id}}']:checked").val() == "selling_plan_0" || $("input[name='purchaseoption_{{section.id}}']:checked").val() == "selling_plan_1" || $("input[name='purchaseoption_{{section.id}}']:checked").val() == "selling_plan_2" ){
+           selling_plan_val = $("input[name='purchaseoption_{{section.id}}']:checked").val();
+			
+           const stack_id = new Date().getTime().toString();
+           
+           console.log(selling_plan_val);
+         $(".stack-products_{{section.id}}").find(".stack-item").each(function (i,data){
+
+           items.push({
+         	id: parseInt($(data).find('.stack_vid').val()),
+        	quantity:$("input[name='quantity']").val(),
+          	selling_plan: parseInt($(data).find('.'+selling_plan_val).val()),
+            properties: { stack_id: '{{product.id}}', stack_product: '{{product.title}}'  }
+    });
+    });
+    }else if($("input[name='purchaseoption_{{section.id}}']:checked").val() == "onetime"){
+      $(".stack-products_{{section.id}}").find(".stack-item").each(function (i,data){
+        items.push({
+        id: parseInt($(data).find('.stack_vid').val()),
+        quantity:$("input[name='quantity']").val()
+    });
+    });
+    }
+
+    console.log("Items",items); 
+
+    Shopify.queue = [];
+    Shopify.queue = items;
+    var quantity = {{ cart.item_count }} ;
+
+
+    Shopify.moveAlong = function() {
+      // If we still have requests in the queue, let's process the next one.
+      if (Shopify.queue.length) {
+        var request = Shopify.queue.shift();
+        console.log("request",request); 
+        var data = 'id='+ request.variantId + '&quantity=1'
+        $.ajax({
+          type: 'POST',
+          url: '/cart/add.js',
+          dataType: 'json',
+          data: request,
+          success: function(res){
+            $(".submit-stack-products_{{section.id}}").text("Subscribing...");
+            Shopify.moveAlong();
+            quantity += 1;
+          },
+          error: function(){
+            // if it's not last one Move Along else update the cart number with the current quantity
+            if (Shopify.queue.length){
+              Shopify.moveAlong()
+            } else {
+              //  window.location="/cart";
+            }
+          }
+        });
+      }
+      // If the queue is empty, we add 1 to cart
+      else {
+        quantity += 1;
+        window.location="/cart";
+      }
+    };
+    Shopify.moveAlong();
+    
+    });
+    });
+  </script>
+
+  
+  <script type="text/javascript">
+    $(document).ready(function(e) { 
+      $(function() {
+        var Accordion = function(el, multiple) {
+          this.el = el || {};
+          this.multiple = multiple || false;
+
+          // Variables privadas
+          var links = this.el.find('.link');
+          // Evento
+          links.on('click', {el: this.el, multiple: this.multiple}, this.dropdown)
+        }
+
+        Accordion.prototype.dropdown = function(e) {
+          var $el = e.data.el;
+          $this = $(this),
+            $next = $this.next();
+
+          $next.slideToggle();
+          $this.parent().toggleClass('open');
+
+          if (!e.data.multiple) {
+            $el.find('.submenu').not($next).slideUp().parent().removeClass('open');
+          };
+        }	
+
+        var accordion = new Accordion($('.accordion'), false);
+      });
+    });
+  </script>
+  
+{% schema %}
+  {
+    "name": "Stack PDP",
+    "settings": [
+        {
+          "type": "checkbox",
+          "id": "show_nas",
+          "default": false,
+          "label": "Enable No Artificial Sweetners"
+        },
+{
+          "type": "checkbox",
+          "id": "show_nac",
+          "default": false,
+          "label": "No Artificial Coloring"
+        },{
+          "type": "checkbox",
+          "id": "show_gfng",
+          "default": false,
+          "label": "Enable Gluten-free and Non-GMO"
+        },{
+          "type": "checkbox",
+          "id": "show_nap",
+          "default": false,
+          "label": "Enable No Artificial Preservatives"
+        }
+	],
+"blocks": [
+    {
+      "name": "Frequently Asked Question",
+      "settings": [
+        {
+          "id": "question",
+          "label": "Question",
+          "type": "textarea"
+        },
+        {
+          "id": "answer",
+          "label": "Answer",
+          "type": "richtext"
+        }
+      ],
+      "type": "faq"
+    }
+  ],
+	"presets": [
+		{
+			"name": "Stack PDP"
+		}
+	]
+  }
+{% endschema %}
+
+{% stylesheet %}
+{% endstylesheet %}
+
+{% javascript %}
+ 
+    $(".tab_content").hide();
+    $(".tab_content:first").show();
+
+  
+    $("ul.tabs li").click(function() {
+		
+      $(".tab_content").hide();
+      var activeTab = $(this).attr("rel"); 
+      $("#"+activeTab).fadeIn();		
+		
+      $("ul.tabs li").removeClass("active");
+      $(this).addClass("active");
+
+	  $(".tab_drawer_heading").removeClass("d_active");
+	  $(".tab_drawer_heading[rel^='"+activeTab+"']").addClass("d_active");
+	  
+    });
+	
+
+
+	$(".tab_drawer_heading").click(function() {
+      
+      $(".tab_content").hide();
+      var d_activeTab = $(this).attr("rel"); 
+      $("#"+d_activeTab).fadeIn();
+	  
+	  $(".tab_drawer_heading").removeClass("d_active");
+      $(this).addClass("d_active");
+	  
+	  $("ul.tabs li").removeClass("active");
+	  $("ul.tabs li[rel^='"+d_activeTab+"']").addClass("active");
+    });
+	
+	
+	
+	$('ul.tabs li').last().addClass("tab_last");
+	
+{% endjavascript %}
+
+<div class="hidden" id="raw-faq-content">
+  {{ product.metafields.product_details.faq }}
+</div>
+
+<div class="hidden" id="raw-ingredients-content">
+  {{ product.metafields.product_details.ingredients }}
+</div>

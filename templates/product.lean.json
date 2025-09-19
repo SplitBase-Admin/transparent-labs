@@ -1,0 +1,120 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "hero": {
+      "type": "product-hero",
+      "settings": {}
+    },
+    "details": {
+      "type": "product-details",
+      "settings": {
+        "overview": "<p><strong>PreSeries LEAN</strong> was developed for a single purpose - to be the most exceptional <em>\"cutting\"</em> pre-workout supplement available for men and women alike. The key ingredients, citrulline malate, beta-alanine, betaine, and branched-chain amino acids (to name a few), are all included at <em>clinically effective dosages</em> and contain zero colored dyes, unnecessary fillers, or harmful additives.</p><p>With 100% formula transparency and a potent <em>Fat Burning</em> and <em>Thyroid Support </em>complex, which includes Chromium Picolinate and Zinc, PreSeries LEAN is most effective for those looking to target stubborn fat, while simultaneously focusing on preventing lean muscle loss. </p><p>There's a reason PreSeries LEAN comes in jumbo-sized jugs! Each serving exceeds 15 grams and includes 21 active ingredients synergistically designed to provide a high-intensity pre-workout experience, while focusing systematically on fat loss and additional energy expenditure. </p>",
+        "no_sweetners": true,
+        "no_artificial_coloring": true,
+        "gluten_free": false,
+        "no_preservatives": true
+      }
+    },
+    "bundle": {
+      "type": "product-bundle",
+      "blocks": {
+        "af04df99-6e90-45cf-b3c3-082aa3ab9e4f": {
+          "type": "bundle_product",
+          "settings": {
+            "product": "bcaa-powder"
+          }
+        },
+        "9b7def1d-9f34-409a-8468-38a687016580": {
+          "type": "bundle_product",
+          "settings": {
+            "product": "physiqueseries-fat-burner"
+          }
+        },
+        "10dac13b-7987-4ea3-92ff-11ec70a53acc": {
+          "type": "bundle_product",
+          "settings": {
+            "product": "casein-protein"
+          }
+        }
+      },
+      "block_order": [
+        "af04df99-6e90-45cf-b3c3-082aa3ab9e4f",
+        "9b7def1d-9f34-409a-8468-38a687016580",
+        "10dac13b-7987-4ea3-92ff-11ec70a53acc"
+      ],
+      "settings": {
+        "subtitle": "Get the most out of your training with these recommended products to optimize your performance and recovery."
+      }
+    },
+    "benefits": {
+      "type": "product-benefits",
+      "blocks": {
+        "f0e88676-206f-403d-b661-015e7fef79fc": {
+          "type": "benefit",
+          "settings": {
+            "image": "shopify://shop_images/image_4.png",
+            "title": "Engineered for athletes and gym-goers looking to lose weight and maintain muscle mass",
+            "description": "LEAN is ideal for active individuals that want to perform at a high level during a cutting or body recomposition phase."
+          }
+        },
+        "8e83ec87-4601-4180-8472-316acd991feb": {
+          "type": "benefit",
+          "settings": {
+            "image": "shopify://shop_images/image_4_1.png",
+            "title": "Improve aerobic and anaerobic performance",
+            "description": "Each scoop of LEAN packs clinically effective doses of ergogenic aids that bolster strength, endurance, and recovery."
+          }
+        },
+        "c17db1d7-648f-4626-af6a-3eb97716eefd": {
+          "type": "benefit",
+          "settings": {
+            "image": "shopify://shop_images/image_5.png",
+            "title": "Contains a targeted micronutrient complex to support thyroid hormone production",
+            "description": "Designed to encourage proper metabolic function, LEAN delivers key vitamins and minerals that assist thyroid hormone synthesis."
+          }
+        },
+        "26eba933-32e7-4a7d-b1d1-c5b20e1dc806": {
+          "type": "benefit",
+          "settings": {
+            "image": "shopify://shop_images/image_5_1.png",
+            "title": "Provides potent nootropics to promote mental acuity, drive, and energy",
+            "description": "Get your mind right before every workout and stay in the zone until your last rep with ingredients like Infinergy™ sustained-release caffeine, acetyl-L-carnitine, and taurine."
+          }
+        }
+      },
+      "block_order": [
+        "f0e88676-206f-403d-b661-015e7fef79fc",
+        "8e83ec87-4601-4180-8472-316acd991feb",
+        "c17db1d7-648f-4626-af6a-3eb97716eefd",
+        "26eba933-32e7-4a7d-b1d1-c5b20e1dc806"
+      ],
+      "settings": {}
+    },
+    "main": {
+      "type": "main-product",
+      "disabled": true,
+      "settings": {}
+    },
+    "recommended-products": {
+      "type": "product-recommendations",
+      "disabled": true,
+      "settings": {}
+    }
+  },
+  "order": [
+    "hero",
+    "details",
+    "bundle",
+    "benefits",
+    "main",
+    "recommended-products"
+  ]
+}

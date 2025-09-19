@@ -1,0 +1,52 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "main": {
+      "type": "main-blog",
+      "blocks": {
+        "2623b9bb-975e-4480-a840-dceb1fedb51a": {
+          "type": "top_article",
+          "settings": {
+            "article_ref": "all/push-pull-legs-routine-guide-to-ppl"
+          }
+        },
+        "ac73d103-0e94-4bae-a6bc-ee80e51d8bfb": {
+          "type": "top_article",
+          "settings": {
+            "article_ref": "all/powerbuilding-program-for-strength-and-size"
+          }
+        },
+        "8704a3f2-f0d3-4ba8-a2f8-6630a7f1971d": {
+          "type": "top_article",
+          "settings": {
+            "article_ref": "all/best-pre-workout"
+          }
+        }
+      },
+      "block_order": [
+        "2623b9bb-975e-4480-a840-dceb1fedb51a",
+        "ac73d103-0e94-4bae-a6bc-ee80e51d8bfb",
+        "8704a3f2-f0d3-4ba8-a2f8-6630a7f1971d"
+      ],
+      "settings": {
+        "featured_article": "all/body-recomposition-how-to-lose-fat-and-gain-muscle"
+      }
+    },
+    "recently-viewed-products": {
+      "type": "recently-viewed-products",
+      "settings": {}
+    }
+  },
+  "order": [
+    "main",
+    "recently-viewed-products"
+  ]
+}

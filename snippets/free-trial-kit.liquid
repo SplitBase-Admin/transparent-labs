@@ -1,0 +1,46 @@
+{% comment %}
+  Renders a Starter Kit bundle Box
+
+  Accepts:
+  - product: {Object} Product Liquid object (optional)
+
+  Usage:
+  {% render 'card-product',product: product %}
+{% endcomment %}
+
+{% liquid
+   assign selling_plan_selected = false
+   if product.selected_selling_plan
+     assign selling_plan_selected = true
+   endif
+%}
+
+{% if product.metafields.custom.free_starter_kit.value.starter_kit.value %}
+  {% assign prod_mf_mo = product.metafields.custom.free_starter_kit.value %}
+  <div class="xt-bundle-box {% if selling_plan_selected %}subscription-active{% endif %} free-trial-kit-wrapper" free-trial-bundle-box>
+    <div class="xt-bundle-boxin">
+      <div class="xt-bundle-wrapper">
+         {% assign custom_image = prod_mf_mo.image | default: prod_mf_mo.starter_kit.value.featured_image %}
+         {{ custom_image | image_url: width: 600 | image_tag }}
+        <div class="info">  
+          <div class="name">{{ prod_mf_mo.custom_product_title }}</div>
+          <div class="description">
+            {{ prod_mf_mo.extra_details | metafield_tag }}
+          </div>
+          <div class="custom-badge hide-mobile">
+            <div class="subscription-progress-bar"></div>
+            <div class="onetime">{{ prod_mf_mo.badge_before_subscription | metafield_tag }}</div>
+            <div class="subscription">{% render 'tick' %}{{ prod_mf_mo.badge_after_subscription | metafield_tag }}</div>
+          </div>
+        </div>
+      </div>
+      <div class="custom-badge hide-desktop">
+        <div class="subscription-progress-bar"></div>
+        <div class="onetime">{{ prod_mf_mo.badge_before_subscription | metafield_tag }}</div>
+        <div class="subscription">
+          {% render 'tick' %}
+          {{ prod_mf_mo.badge_after_subscription | metafield_tag  }}</div>
+      </div>
+    </div>
+  </div>
+{% endif %}

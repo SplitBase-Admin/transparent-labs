@@ -1,0 +1,244 @@
+<footer class="footer-main">
+  <div class="max-w-7xl mx-auto pb-4 px-4 pt-12 footer-container container">
+    <div class="footer-wrapper">
+      <div class="footer-wrapper-block footer-wrapper-desktop">
+        <h3 class="footer-menu-title">
+          {{ section.settings.menu_title_one }}
+        </h3>
+        <ul class="footer-menu-list">
+          {% for link in section.settings.menu_one.links %}
+            <li>
+              <a class="footer-menu-link" href="{{ link.url }}" aria-label="Company menu">
+                {{ link.title }}
+              </a>
+            </li>
+          {% endfor %}
+        </ul>
+      </div>
+      <div class="footer-wrapper-block footer-wrapper-desktop">
+        <h3 class="footer-menu-title">
+          {{ section.settings.menu_title_two }}
+        </h3>
+        <ul class="footer-menu-list">
+          {% for link in section.settings.menu_two.links %}
+            <li>
+              <a class="footer-menu-link" href="{{ link.url }}" aria-label="Links Menu">
+                {{ link.title }}
+              </a>
+            </li>
+          {% endfor %}
+        </ul>
+      </div>
+      <div class="footer-wrapper-block footer-wrapper-desktop">
+        <h3 class="footer-menu-title">
+          {{ section.settings.menu_title_three }}
+        </h3>
+        <ul class="footer-menu-list">
+          {% for link in section.settings.menu_three.links %}
+            <li>
+              <a class="footer-menu-link" href="{{ link.url }}" aria-label="Resources Menu">
+                {{ link.title }}
+              </a>
+            </li>
+          {% endfor %}
+        </ul>
+      </div>
+      <div class="footer-wrapper-block footer-wrapper-mobile">
+        <h3 class="footer-menu-title">
+          {{ section.settings.menu_title_one }}
+          <span class="accordion-icons">
+            <svg class="accordion-icon-plus" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+              <path d="M12 3.5V20.5M20.5 12H3.5" stroke="white" stroke-linecap="round"></path>
+            </svg>
+            <svg class="accordion-icon-minus" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+              <path d="M20.5 12H3.5" stroke="white" stroke-linecap="round"></path>
+            </svg>
+          </span>
+        </h3>
+        <ul class="footer-menu-list">
+          {% for link in section.settings.menu_one.links %}
+            <li>
+              <a class="footer-menu-link" href="{{ link.url }}" aria-label="Company menu">
+                {{ link.title }}
+              </a>
+            </li>
+          {% endfor %}
+        </ul>
+      </div>
+      <div class="footer-wrapper-block footer-wrapper-mobile">
+        <h3 class="footer-menu-title">
+          {{ section.settings.menu_title_two }}
+          <span class="accordion-icons">
+            <svg class="accordion-icon-plus" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+              <path d="M12 3.5V20.5M20.5 12H3.5" stroke="white" stroke-linecap="round"></path>
+            </svg>
+            <svg class="accordion-icon-minus" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+              <path d="M20.5 12H3.5" stroke="white" stroke-linecap="round"></path>
+            </svg>
+          </span>          
+        </h3>
+        <ul class="footer-menu-list">
+          {% for link in section.settings.menu_two.links %}
+            <li>
+              <a class="footer-menu-link" href="{{ link.url }}" aria-label="Links Menu">
+                {{ link.title }}
+              </a>
+            </li>
+          {% endfor %}
+        </ul>
+      </div>
+      <div class="footer-wrapper-block footer-wrapper-mobile">
+        <h3 class="footer-menu-title">
+          {{ section.settings.menu_title_three }}
+          <span class="accordion-icons">
+            <svg class="accordion-icon-plus" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+              <path d="M12 3.5V20.5M20.5 12H3.5" stroke="white" stroke-linecap="round"></path>
+            </svg>
+            <svg class="accordion-icon-minus" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+              <path d="M20.5 12H3.5" stroke="white" stroke-linecap="round"></path>
+            </svg>
+          </span>    
+        </h3>
+        <ul class="footer-menu-list">
+          {% for link in section.settings.menu_three.links %}
+            <li>
+              <a class="footer-menu-link" href="{{ link.url }}" aria-label="Resources Menu">
+                {{ link.title }}
+              </a>
+            </li>
+          {% endfor %}
+        </ul>
+      </div>
+      <div class="footer-newsletter-main footer-wrapper-block">
+        <h3 class="footer-menu-title">
+          {{ section.settings.newsletter_title }}
+        </h3>
+
+        {%- if section.settings.newsletter_text != blank -%}
+          <p class="footer-newsletter-text">{{ section.settings.newsletter_text }}</p>
+        {%- endif -%}
+        {% render 'footer-newsletter' %}
+      </div>
+    </div>
+    <div class="footer-bottom-wrapper">
+       <div class="footer-social-icons">
+         {%- render 'social-icons' -%}
+       </div>
+      {%- if section.settings.contact_info != blank -%}
+        <div class="footer-contact-info">
+          {{ section.settings.contact_info }}
+        </div>
+      {%- endif -%}
+      {%- if section.settings.footer_bottom_text != blank -%}
+        <div class="footer-bottom-text">
+          {{ section.settings.footer_bottom_text }}
+        </div>
+      {%- endif -%}
+
+      {%- if section.settings.show_copyright -%}
+        <p class="footer-copyright">Transparent Labs &copy;{{ 'now' | date: '%Y' }}</p>
+      {%- endif -%}        
+    </div>
+  </div>
+</footer>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    document.querySelectorAll(".footer-menu-title").forEach(function (title) {
+      title.addEventListener("click", function () {
+        document.querySelectorAll(".footer-menu-title").forEach(btn => {
+          if (btn !== this) {
+            btn.classList.remove("active");
+          }
+        });
+        document.querySelectorAll(".footer-menu-list").forEach(menu => {
+          if (menu !== this.nextElementSibling) {
+            menu.classList.remove("active");
+            menu.style.maxHeight = null;
+          }
+        });
+        let menu = this.nextElementSibling;
+        if (menu.classList.contains("active")) {
+          menu.classList.remove("active");
+          menu.style.maxHeight = null;
+          this.classList.remove("active");
+        } else {
+          menu.classList.add("active");
+          menu.style.maxHeight = menu.scrollHeight + "px";
+          this.classList.add("active");
+        }
+      });
+    });
+  });
+</script>
+
+{% schema %}
+{
+  "name": "Footer",
+  "settings": [
+    {
+      "type": "text",
+      "id": "menu_title_one",
+      "label": "Menu Title One",
+      "default": "Company"
+    },
+    {
+      "id": "menu_one",
+      "label": "Menu One",
+      "type": "link_list",
+    },
+    {
+      "type": "text",
+      "id": "menu_title_two",
+      "label": "Menu Title Two",
+      "default": "Links"
+    },
+    {
+      "id": "menu_two",
+      "label": "Menu Two",
+      "type": "link_list"
+    },
+    {
+      "type": "text",
+      "id": "menu_title_three",
+      "label": "Menu Title Three",
+      "default": "Links"
+    },
+    {
+      "id": "menu_three",
+      "label": "Menu Three",
+      "type": "link_list"
+    },
+    {
+      "type": "text",
+      "id": "newsletter_title",
+      "label": "Newsletter Title",
+      "default": "Newsletter"
+    },
+    {
+      "default": "Sign up to get the latest on sales, new releases and more.",
+      "id": "newsletter_text",
+      "label": "Newsletter Text",
+      "type": "text"
+    },
+    {
+      "type": "richtext",
+      "default": "<p>Sign up to get the latest on sales, new releases and more</p>",
+      "id": "contact_info",
+      "label": "Contact Info"
+    },
+    {
+      "type": "richtext",
+      "default": "<p>Sign up to get the latest on sales, new releases and more</p>",
+      "id": "footer_bottom_text",
+      "label": "Footer Bottom Text"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_copyright",
+      "label": "Show Copyright",
+      "default": true
+    }
+  ]
+}
+{% endschema %}

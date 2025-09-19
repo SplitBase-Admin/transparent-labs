@@ -1,0 +1,295 @@
+{{ 'new-product-details.css' | asset_url | stylesheet_tag }}
+
+<section class="new-product-description-wrapper">
+  <div class="container">
+    <div class="new-product-description-inner flex {% unless section.settings.section_left_display %} justify-end{% endunless %}">
+
+      {% assign product_description_links = product.metafields.custom.product_description_links.value %}
+      {% assign informed_choice_badges = product.metafields.custom.product_informed_choice_badges.value %}
+      {%  if section.settings.section_left_display %}
+        <div class="product-description-left product-description-block {% unless product_description_links %}no_product_description_links{% endunless %}">
+          {% if product.metafields.custom.product_description_heading != blank %}
+            <h2 class="section-heading">{{ product.metafields.custom.product_description_heading }}</h2>
+          {% else %}
+          <h2 class="section-heading">{{ section.settings.section-heading }}</h2>
+          {% endif %}
+      
+          {% if product.metafields.custom.product_description_txt != blank %}
+            <div class="section-description">{{ product.metafields.custom.product_description_txt | metafield_tag }}</div>
+          {% else %}
+            <div class="section-description">{{ section.settings.section-description }}</div>
+          {% endif %}
+
+          
+
+          {% if product_description_links %}
+            <div class="product-description-links">
+              {% for link in product_description_links %}
+                {% if link.description_link != blank %}
+                  <a class="product-description-link" {% if link.description_link != blank %} href="{{ link.description_link }}" onclick="event.preventDefault(); openPDFWithJS('{{ link.description_link }}');" {% endif %}><span class="product-description-links-text">{{ link.description_link_text }}</span> {% render 'right-arrow' %}</a>
+                {% endif %}
+              {% endfor %}
+            </div>
+          {% endif %}
+
+          {% if informed_choice_badges %}
+            <div class="informed_choice_badges">
+              {% for badge in informed_choice_badges %}
+                {{ badge | image_url: width: auto, height: auto | image_tag }}
+              {% endfor %}
+            </div>
+          {% endif %}
+          
+        </div>
+      {% endif %}
+      
+      <div class="product-description-right accordion product-description-block {% unless section.settings.section_left_display %} max-w-half{% endunless %}">
+        {% for block in section.blocks %}
+          {% case block.type %}
+
+            {% when 'product-description' %}
+              {% if product.metafields.custom.product_overview_detail != blank %}
+                <div class="accordion-item {% if forloop.index == 1 %}active{% endif %}">
+                  <button class="accordion-header">{{ block.settings.title }}<span class="icon">{% render 'accordion-plus' %}</span></button>
+                  <div class="accordion-content">
+                    <div class="accordion-content-inner">
+                      {% if product.metafields.custom.product_overview_detail != blank %}
+                        {{ product.metafields.custom.product_overview_detail }}
+                      {% endif %}
+                    </div>
+                  </div>
+                </div>
+              {% endif %}
+
+            {% when 'product-tabs-text' %}
+              <div class="accordion-item {{ forloop.index }}">
+                <button class="accordion-header">{{ block.settings.title }}<span class="icon">{% render 'accordion-plus' %}</span></button>
+                <div class="accordion-content">
+                  <div class="accordion-content-inner">
+                    {{ block.settings.description }}
+                  </div>
+                </div>
+              </div>
+              
+            {% when 'product-supplement' %}
+
+              {% if product.metafields.product_details.sfp.value != blank %}
+                <div class="accordion-item product-supplement-wrapper {{ forloop.index }}">
+                  <button class="accordion-header">
+                    <span>{{ block.settings.title }}</span>
+                    <span class="icon">{% render 'accordion-plus' %}</span>
+                  </button>
+                  <div class="accordion-content image-wrapper">
+                    <div class="accordion-content-inner">
+                      {{ product.metafields.product_details.sfp.value | image_url: width: auto, height: auto | image_tag  }}
+                    </div>
+                  </div>
+                </div>
+              {% endif %}
+            
+          {% endcase %}
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+</section>
+
+{% render 'view-certificate-popup-modal' %}
+      
+
+<script>
+
+  const accordionItems = document.querySelectorAll('.accordion-item');
+  
+  accordionItems.forEach(item => {
+    const header = item.querySelector('.accordion-header');
+    const content = item.querySelector('.accordion-content');
+  
+    // Set initial height if item is active
+    if (item.classList.contains('active')) {
+      content.style.height = content.scrollHeight + 'px';
+    }
+  
+    header.addEventListener('click', () => {
+      accordionItems.forEach(i => {
+        const c = i.querySelector('.accordion-content');
+        if (i !== item) {
+          i.classList.remove('active');
+          c.style.height = '0';
+        }
+      });
+  
+      const isOpen = item.classList.contains('active');
+      if (isOpen) {
+        content.style.height = '0';
+        item.classList.remove('active');
+      } else {
+        content.style.height = content.scrollHeight + 'px';
+        item.classList.add('active');
+      }
+    });
+  });
+  
+  // Close modal and clear content
+  function closePDFJSModal() {
+    const modal = document.getElementById('pdfViewerModal');
+    const viewer = document.getElementById('pdfViewer');
+    modal.style.display = 'none';
+    viewer.innerHTML = '';
+    modal.querySelector("#pdfViewerContainer").classList.add("visually-hidden");
+  }
+  
+  // Close modal when clicking on the background
+  document.getElementById('pdfViewerModal').onclick = function (event) {
+    if (event.target === this) {
+      closePDFJSModal();
+    }
+  };
+  
+  document.querySelector("#close_pdp_popup").addEventListener("click", function(e){
+    closePDFJSModal();
+  });
+
+</script>
+
+{% style %}
+
+  .product-description-left {
+    background-color: {{ section.settings.section-left-color }};
+  }
+
+  .product-description-left * {
+    color: {{ section.settings.section-left-text-color }};
+  }
+
+  .product-description-right {
+    background-color: {{ section.settings.section-right-color }};
+  }
+
+  .product-description-right * {
+    color: {{ section.settings.section-right-text-color }};
+  }
+
+  .product-description-right .accordion-content * {
+    color: {{ section.settings.section-right-text-color | color_modify: 'alpha', 0.64 }};
+  }
+
+  .product-description-right .accordion-content strong {
+    color: {{ section.settings.section-right-text-color | color_modify: 'alpha', 0.80 }};
+  }
+
+{% endstyle %}
+
+
+{% schema %}
+  {
+    "name": "New Product Details",
+    "class": "certificate-of-analysis new-product-description-section",
+    "settings": [
+      {
+        "type": "header",
+        "content": "Left Block",
+      },
+      {
+        "id": "section_left_display",
+        "label": "Show Left Block",
+        "type": "checkbox",
+        "default": true
+      },
+      {
+        "id": "section-heading",
+        "label": "Section Heading",
+        "type": "text",
+      },
+      {
+        "id": "section-description",
+        "label": "Section Description",
+        "type": "richtext",
+      },
+      {
+        "id": "section-left-color",
+        "label": "Background",
+        "type": "color",
+        "default": "#173446"
+      },
+      {
+        "id": "section-left-text-color",
+        "label": "Color",
+        "type": "color",
+        "default": "#fff"
+      },
+      {
+        "type": "header",
+        "content": "Right Block",
+      },
+      {
+        "id": "section-right-color",
+        "label": "Background",
+        "type": "color",
+        "default": "#F8F9FB"
+      },
+      {
+        "id": "section-right-text-color",
+        "label": "Color",
+        "type": "color",
+        "default": "#111314"
+      }
+    ],
+    "blocks": [
+      {
+        "name": "Product Tabs Text",
+        "type": "product-tabs-text",
+        "settings": [
+          {
+            "id": "title",
+            "label": "Title",
+            "type": "text"
+          },
+          {
+            "id": "description",
+            "label": "Description",
+            "type": "richtext"
+          }
+        ],
+      },
+      {
+        "name": "Product Supplements",
+        "type": "product-supplement",
+        "settings": [
+          {
+            "id": "title",
+            "label": "Title",
+            "type": "text"
+          }
+        ],
+      },
+      {
+        "name": "Product Description",
+        "type": "product-description",
+        "settings": [
+          {
+            "id": "title",
+            "label": "Title",
+            "type": "text"
+          }
+        ],
+      }
+    ],
+    "presets": [
+      {
+        "name": "New Product Details",
+        "blocks": [
+          {
+            "type": "product-description"
+          },
+          {
+            "type": "product-supplement"
+          },
+          {
+            "type": "product-tabs-text"
+          }
+        ],
+      }
+    ]
+  }
+{% endschema %}

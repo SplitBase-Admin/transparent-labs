@@ -1,0 +1,324 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "new_breadcrumb_9Jgy4T": {
+      "type": "new-breadcrumb",
+      "settings": {}
+    },
+    "banner": {
+      "type": "main-collection-banner",
+      "settings": {
+        "show_collection_description": true,
+        "show_collection_image": false
+      }
+    },
+    "product-grid": {
+      "type": "main-collection-product-grid",
+      "blocks": {
+        "a9650b7c-6419-490b-89d5-a13ca940feab": {
+          "type": "filter",
+          "settings": {
+            "sort_by_series": "Pre",
+            "sort_by_goal": "Recovery"
+          }
+        },
+        "filter_9Wxcb9": {
+          "type": "filter",
+          "settings": {
+            "sort_by_series": "",
+            "sort_by_goal": ""
+          }
+        },
+        "35ee9914-bf73-4164-b42b-a9f57fa7a73b": {
+          "type": "filter",
+          "settings": {
+            "sort_by_series": "Protein",
+            "sort_by_goal": "BuildMuscle"
+          }
+        },
+        "2ba09696-0132-4545-93ac-8b54baf4ebbb": {
+          "type": "filter",
+          "settings": {
+            "sort_by_series": "Core",
+            "sort_by_goal": "WeightManagement"
+          }
+        },
+        "55bded04-b10b-4d5b-84c0-1ace8339c3fe": {
+          "type": "filter",
+          "settings": {
+            "sort_by_series": "Strength",
+            "sort_by_goal": "Energy+Focus"
+          }
+        },
+        "81e90acb-2534-47be-b751-904266dc0180": {
+          "type": "filter",
+          "settings": {
+            "sort_by_series": "Wellness",
+            "sort_by_goal": ""
+          }
+        },
+        "81ad8922-5de1-4321-8901-8f5f5f23c7f5": {
+          "type": "filter",
+          "settings": {
+            "sort_by_series": "Physique",
+            "sort_by_goal": ""
+          }
+        },
+        "d543fe52-4bea-462a-b350-d4439946468f": {
+          "type": "filter",
+          "settings": {
+            "sort_by_series": "Raw",
+            "sort_by_goal": ""
+          }
+        },
+        "79bebab2-9b2e-470f-8281-5fea37e4edfd": {
+          "type": "filter",
+          "settings": {
+            "sort_by_series": "Mind",
+            "sort_by_goal": ""
+          }
+        },
+        "filter_CaRTNU": {
+          "type": "filter",
+          "settings": {
+            "sort_by_series": "Apparel",
+            "sort_by_goal": ""
+          }
+        }
+      },
+      "block_order": [
+        "a9650b7c-6419-490b-89d5-a13ca940feab",
+        "filter_9Wxcb9",
+        "35ee9914-bf73-4164-b42b-a9f57fa7a73b",
+        "2ba09696-0132-4545-93ac-8b54baf4ebbb",
+        "55bded04-b10b-4d5b-84c0-1ace8339c3fe",
+        "81e90acb-2534-47be-b751-904266dc0180",
+        "81ad8922-5de1-4321-8901-8f5f5f23c7f5",
+        "d543fe52-4bea-462a-b350-d4439946468f",
+        "79bebab2-9b2e-470f-8281-5fea37e4edfd",
+        "filter_CaRTNU"
+      ],
+      "settings": {
+        "enable_filtering": true,
+        "filter_type": "vertical",
+        "enable_sorting": true,
+        "padding_top": 32,
+        "padding_bottom": 32
+      }
+    },
+    "review_carousel_FymNTp": {
+      "type": "review-carousel",
+      "blocks": {
+        "review_GTUkKj": {
+          "type": "review",
+          "settings": {
+            "author_name": "Jeffrey H",
+            "review_title": "I have lost over 100 pounds and feel great!",
+            "review_description": "<p>Since I started taking Transparent Labs: Vitamins, Krill Oil, grass-fed protein powder and creatine, I have lost over 100 pounds and feel great!</p>",
+            "product": "multivitamin"
+          }
+        },
+        "review_7Lq74i": {
+          "type": "review",
+          "settings": {
+            "author_name": "Ray P",
+            "review_title": "Mixes easily and no bloat",
+            "review_description": "<p>Great protein powder... tastes great, mixes easily and no bloat</p>",
+            "product": "proteinseries-100-grass-fed-whey-protein-isolate"
+          }
+        },
+        "review_mwhfbk": {
+          "type": "review",
+          "settings": {
+            "author_name": "Albert V",
+            "review_title": "II taste great , it’s dissolves great after mixing, easy on the digestive system.",
+            "review_description": "<p>It’s great creatine for a couple of reasons, it taste great , it’s dissolves great after mixing, easy on the digestive system, and most important I am seeing results </p>",
+            "product": "strengthseries-creapure-hmb-creatine-supplement"
+          }
+        },
+        "review_877YLc": {
+          "type": "review",
+          "disabled": true,
+          "settings": {
+            "author_name": "Travis",
+            "review_title": "Impressive",
+            "review_description": "<p>I am thoroughly impressed with how good these taste, while also not compromising on the ingredients. These bars have the cleanest ingredients I have found in a protein bar, and taste better then 95% of the other bars I have tried.<br/></p>",
+            "product": "protein-bars"
+          }
+        },
+        "review_R83FrJ": {
+          "type": "review",
+          "disabled": true,
+          "settings": {
+            "author_name": "Ray Circo",
+            "review_title": "Mighty Greens",
+            "review_description": "<p>These are the first greens I’ve ever purchased and they definitely set the bar high. You can feel them working from your very first serving to the very last. Will definitely buy these again!`</p>",
+            "product": "greens"
+          }
+        }
+      },
+      "block_order": [
+        "review_GTUkKj",
+        "review_7Lq74i",
+        "review_mwhfbk",
+        "review_877YLc",
+        "review_R83FrJ"
+      ],
+      "settings": {
+        "heading": "58,934 Verified 5 Star Reviews From Our Customers",
+        "bg_color": "#f8f9fb",
+        "block_bg": "#ffffff"
+      }
+    },
+    "value_props_pitmcp": {
+      "type": "value-props",
+      "blocks": {
+        "text_HbqPt7": {
+          "type": "text",
+          "settings": {
+            "icon": "shopify://shop_images/VP_-_Natural_Grass-Fed_Ingredients.svg",
+            "title": "Natural & Grass-Fed Ingredients"
+          }
+        },
+        "text_Hm3AyW": {
+          "type": "text",
+          "settings": {
+            "icon": "shopify://shop_images/VP_-_Complete_Label_Transparency.svg",
+            "title": "Complete Label Transparency"
+          }
+        },
+        "text_e98DTw": {
+          "type": "text",
+          "settings": {
+            "icon": "shopify://shop_images/VP_-_Clinically-Dosed_Formulas.svg",
+            "title": "Clinically-Dosed Formulas"
+          }
+        },
+        "text_gpPcTB": {
+          "type": "text",
+          "settings": {
+            "icon": "shopify://shop_images/VP_-_3rd-Party_Lab_Tested.svg",
+            "title": "3rd-Party Lab Tested"
+          }
+        }
+      },
+      "block_order": [
+        "text_HbqPt7",
+        "text_Hm3AyW",
+        "text_e98DTw",
+        "text_gpPcTB"
+      ],
+      "settings": {
+        "bg_color": "#173446",
+        "text_color": "#ffffff",
+        "padding-top": 36,
+        "padding-bottom": 36
+      }
+    },
+    "faq_section_zEAhLg": {
+      "type": "faq-section",
+      "blocks": {
+        "text_GFVMAA": {
+          "type": "text",
+          "settings": {
+            "question": "What certifications or testing standards do Transparent Labs products follow?",
+            "answer": "<p>In addition to our products being produced in an FDA-registered, cGMP facility, we provide <a href=\"https://www.transparentlabs.com/pages/third-party-tests\"><span style=\"text-decoration:underline\">third-party testing results</span></a> for each batch of products. All of our products are also certified by <a href=\"https://choice.wetestyoutrust.com/sites/default/files/generated-pdf/file.pdf\"><span style=\"text-decoration:underline\">Informed Choice</span></a>.</p>"
+          }
+        },
+        "text_4bphV8": {
+          "type": "text",
+          "settings": {
+            "question": "How do I know which supplements are right for my fitness goals?",
+            "answer": "<p>Our products are categorized by goal and product type to help guide your shopping experience, including <a href=\"https://www.transparentlabs.com/collections/preseries\"><span style=\"text-decoration:underline\">Pre-Workouts</span></a>, <a href=\"https://www.transparentlabs.com/collections/proteinseries\"><span style=\"text-decoration:underline\">Protein Supplements</span></a>, <a href=\"https://www.transparentlabs.com/collections/intra-strength\"><span style=\"text-decoration:underline\">Muscle-Building & Recovery Formulas</span></a>, and <a href=\"https://www.transparentlabs.com/collections/health-wellness\"><span style=\"text-decoration:underline\">Health & Wellness Products</span></a>. </p>"
+          }
+        },
+        "text_8qVxMB": {
+          "type": "text",
+          "settings": {
+            "question": "Do Transparent Labs products contain artificial sweeteners or colors?",
+            "answer": "<p>No! We use natural sweeteners and colors, such as stevia extract and spirulina powder.</p>"
+          }
+        },
+        "text_n7QNr8": {
+          "type": "text",
+          "settings": {
+            "question": "Do you offer bundles or subscriptions?",
+            "answer": "<p>Absolutely! You can subscribe to any product by clicking the “subscribe” button on the product page. You will get 10% off the product and free shipping for subscribing. </p>"
+          }
+        },
+        "text_3BbDD7": {
+          "type": "text",
+          "settings": {
+            "question": "What’s your return and refund policy?",
+            "answer": "<p>If you are not satisfied with your product, we will offer you a full refund or store credit for the value of the item within 45 days of delivery. Please refer to our <a href=\"https://www.transparentlabs.com/policies/refund-policy\"><span style=\"text-decoration:underline\">Refund Policy page</span></a> for more information.</p>"
+          }
+        },
+        "text_c9CdTy": {
+          "type": "text",
+          "settings": {
+            "question": "Where do you ship, and how long does it take?",
+            "answer": "<p>Our fulfillment center allows us to ship worldwide, with some exceptions due to fraudulent activity in certain countries; see<a href=\"https://www.transparentlabs.com/pages/shipping-tracking-delivery-guide-for-transparent-labs\"> <span style=\"text-decoration:underline\">here for more info</span></a>. Standard shipping for U.S. domestic orders typically takes 5-7 business days to arrive, and 14-21 business days for international orders. </p>"
+          }
+        }
+      },
+      "block_order": [
+        "text_GFVMAA",
+        "text_4bphV8",
+        "text_8qVxMB",
+        "text_n7QNr8",
+        "text_3BbDD7",
+        "text_c9CdTy"
+      ],
+      "settings": {
+        "title": "Frequently Asked <br>Questions",
+        "button_text": "Read All FAQs",
+        "button_url": "shopify://pages/about-us",
+        "bg_color": "#ffffff",
+        "title_color": "#111314",
+        "text_color": "#676767",
+        "padding-top": 36,
+        "padding-bottom": 36
+      }
+    },
+    "multiple_blogs_9JeDdM": {
+      "type": "multiple-blogs",
+      "blocks": {
+        "block_X3wAjH": {
+          "type": "block",
+          "settings": {
+            "select_blog": "all/how-much-protein-powder-per-day"
+          }
+        }
+      },
+      "block_order": [
+        "block_X3wAjH"
+      ],
+      "settings": {
+        "custom_title": "Start Learning",
+        "button_text": "View All",
+        "button_url": "shopify://blogs/all",
+        "text_color": "#111314",
+        "bg_color": "#f8f9fb",
+        "padding_top": 80,
+        "padding_bottom": 80
+      }
+    }
+  },
+  "order": [
+    "new_breadcrumb_9Jgy4T",
+    "banner",
+    "product-grid",
+    "review_carousel_FymNTp",
+    "value_props_pitmcp",
+    "faq_section_zEAhLg",
+    "multiple_blogs_9JeDdM"
+  ]
+}

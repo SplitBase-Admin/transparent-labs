@@ -1,0 +1,529 @@
+{{ 'multiple-calculators.css' | asset_url | stylesheet_tag }}
+<style>
+  
+  super{    color:red;  }
+  .tlres {
+    position: relative;
+}
+  .circle {
+    top: 13px;}
+</style>
+<div class="main">
+  <div class="xgen-inner">
+    <div class="cal-header">
+      {% if section.settings.header_image != blank %}
+        <img src="{{section.settings.header_image | img_url: 'master'}}" alt="section.settings.header_image">
+      {% endif %}
+
+      {% if section.settings.title != blank %}
+        <h3 style>{{ section.settings.title }}</h3>
+      {% endif %}
+
+      {% if section.settings.detail != blank %}
+        <p>{{ section.settings.detail }}</p>
+      {% endif %}
+    </div>
+
+    <form
+      id="email_signup"
+      class="tlc-form klaviyo_styling klaviyo_gdpr_embed_SgP6hy"
+      action="//manage.kmail-lists.com/subscriptions/subscribe"
+      data-ajax-submit="//manage.kmail-lists.com/ajax/subscriptions/subscribe"
+      method="GET"
+      target="_blank"
+    >
+      <input type="hidden" name="calculator-name" value="tdee">
+      <input type="hidden" name="g" value="SgP6hy">
+      <input type="hidden" name="$fields" value="$consent">
+      <input type="hidden" name="$list_fields" value="$consent" X>
+
+      <div class="form-group gender">
+        <label class="main-label">GENDER</label>
+        <input type="radio" class="fgender" name="fgender" value="female" id="female"
+        ><label for="female" class="label2">{% render 'xicon-femail' %} Female</label>
+        <input type="radio" class="fgender" name="fgender" value="male" checked id="male"
+        ><label for="male" class="label2">{% render 'xicon-mail' %} Male</label>
+        
+      </div>
+      <div style="color:red;font-size:10px;" class="height_msg"></div>
+      <div class="form-group cominput">
+        <label class="main-label">Height<super>*</super></label>
+        <div class="input-group">
+          <input type="number" name="height" value="" required="" id="height" min="0">
+          <input type="radio" name="height-unit" value="cm" id="heightcm"
+          ><label for="heightcm" class="label2">cm</label>
+          <input type="radio" name="height-unit" value="in" checked id="heightin"
+          ><label for="heightin" class="label2">in</label>
+        </div>
+      </div>
+
+      <div style="color:red;font-size:10px;" class="weight_msg"></div>
+      <div class="form-group cominput">
+        <label class="main-label">Weight<super>*</super></label>
+        <div class="input-group">
+          <input type="number" name="weight" value="" required="" id="weight" min="0">
+          <input type="radio" name="weight-unit" value="kg" required="" id="weightkg" checked
+          ><label for="weightkg" class="label2">kg</label>
+          <input type="radio" name="weight-unit" value="lbs" required="" id="weightlbs"
+          ><label for="weightlbs" class="label2">lbs</label>
+        </div>
+      </div>
+
+      <div style="color:red;font-size:10px;" class="age_msg"></div>
+      <div class="form-group">
+        <label class="main-label">Age<super>*</super></label>
+        <div class="input-group">
+          <input type="number" id="age" name="age" value="" required="">
+          <span>Years</span>
+        </div>
+      </div>
+
+      <div class="form-group mygoal">
+        <!-- add hideshow class to make this option available for womens -->
+        <label class="main-label">My Lifestyle</label>
+        <div class="input-group">
+          <input type="radio" name="activity_factor" value="1.2" checked id="Lifestyleone">
+          <label for="Lifestyleone" class="label2">
+            {% render 'xicon-sedentary' %}
+            <p>
+              Sedentary<br>
+              <span>Spend most of the day sitting ie. Working on computer, no exercise)</span>
+            </p>
+            {% render 'xicon-check' %}
+          </label>
+
+          <input type="radio" name="activity_factor" value="1.375" id="Lifestyletwo">
+          <label for="Lifestyletwo" class="label2">
+            {% render 'xicon-light-activity' %}
+            <p>
+              Light Activity <br>
+              <span>Spend a good part of the day on my feet (ie. Teacher, Real Estate)</span>
+            </p>
+            {% render 'xicon-check' %}
+          </label>
+
+          <input type="radio" name="activity_factor" value="1.55" id="Lifestylethree">
+          <label for="Lifestylethree" class="label2">
+            {% render 'xicon-active' %}
+            <p>
+              Moderately Active <br>
+              <span>Spend a good part of the day doing physical activites (ie. Waitress, UPS Driver)</span>
+            </p>
+            {% render 'xicon-check' %}
+          </label>
+
+          <input type="radio" name="activity_factor" value="1.725" id="Lifestylefour">
+          <label for="Lifestylefour" class="label2">
+            {% render 'xicon-very-active' %}
+            <p>
+              Very Active <br>
+              <span>Spend a good part of the day doing heavy physical activites (ie. Brick Layer, Mover)</span>
+            </p>
+            {% render 'xicon-check' %}
+          </label>
+
+          <input type="radio" name="activity_factor" value="1.9" id="Lifestylefive">
+          <label for="Lifestylefive" class="label2">
+            {% render 'xicon-very-active' %}
+            <p>
+              Extremely Active <br>
+              <span>Spend a good part of the day doing heavy physical activites (ie. Brick Layer, Mover)</span>
+            </p>
+            {% render 'xicon-check' %}
+          </label>
+        </div>
+      </div>
+
+      <div class="form-group mygoal">
+        <!-- add hideshow class to make this option available for womens -->
+        <label class="main-label">My Goal</label>
+        <div class="input-group">
+          <input type="radio" name="Goal" value="Lose Weight" checked id="goalone"
+          ><label for="goalone" class="label2">
+            {%- render 'xicon-lose-weight' %} Lose Weight {% render 'xicon-check' -%}
+          </label>
+          <input type="radio" name="Goal" value="Get Shredded" id="goaltwo"
+          ><label for="goaltwo" class="label2">
+            {%- render 'xicon-get-shredded' %} Get Shredded {% render 'xicon-check' -%}
+          </label>
+          <input type="radio" name="Goal" value="Body Recomposition" id="goalthree"
+          ><label for="goalthree" class="label2">
+            {%- render 'xicon-body-recomposition' %} Body Recomposition {% render 'xicon-check' -%}
+          </label>
+          <input type="radio" name="Goal" value="Bulk Up" id="goalfour"
+          ><label for="goalfour" class="label2">{% render 'xicon-bulk-up' %} Bulk Up {% render 'xicon-check' %}</label>
+        </div>
+      </div>
+
+      <div style="color:red;font-size:10px;" class="email_msg"></div>
+      <div class="form-group email">
+        <label class="main-label">Email Address<super>*</super></label>
+        <div class="input-group">
+          <input type="text" name="email" placeholder="name@example.com" id="email">
+        </div>
+      </div>
+      <div class="form-group agree">
+        <div class="input-group">
+          <input type="checkbox" name="term1" id="chkboxone"
+          ><label for="chkboxone" class="label2"
+            >I understand that the results provided by this calculator are estimations based on scientific and clinical
+            data and are not intended to replace advice from a qualified healthcare professional..</label
+          >
+        </div>
+      </div>
+      <div class="form-group agree">
+        <div class="input-group">
+          <input type="checkbox" name="term2" id="chkboxtwo" checked
+          ><label for="chkboxtwo" class="label2"
+            >Transparent Labs can occationally send me product recommendations and promotional emails.</label
+          >
+        </div>
+      </div>
+
+      <div class="form-group">
+        <button type="submit" class="bmrbtn" disabled>Calculate</button>
+      </div>
+    </form>
+    <div class="klaviyo_messages">
+      <div class="success_message" style="display:none;"></div>
+      <div class="error_message" style="display:none;"></div>
+    </div>
+     <div class="tlresult-wraper tl-tdee-r" style="display:none;">
+        <div class="max-w-7xl mx-auto">
+          <div class="xheading">
+            <h2 class="tdee-output-one">Your TDEE is 1612 and you need 1934 calories every day</h2>
+            <!-- <p>Hit these calories each day to optimize and maintain your performance day to day</p> -->
+          </div>
+          <div class="tlres">
+            <div class="circle-wraper">
+              <div class="circle">
+                <p class="tdee-output-two">
+                  You Need <br>
+                  <strong>1934</strong> <br>
+                  Cal/day
+                </p>
+              </div>
+            </div>
+
+            <div class="out-wraper">
+              <div class="xreslist">
+                <i class="xsedentary"></i>
+                <span class="xname">Sedentary</span>
+                <span class="xcount tdee-cal-one">1934</span>
+              </div>
+
+              <div class="xreslist">
+                <i class="xlight"></i>
+                <span class="xname">Light</span>
+                <span class="xcount tdee-cal-two">2217</span>
+              </div>
+
+              <div class="xreslist">
+                <i class="xmoderate"></i>
+                <span class="xname">Moderate</span>
+                <span class="xcount tdee-cal-three">2499</span>
+              </div>
+
+              <div class="xreslist">
+                <i class="xhigh"></i>
+                <span class="xname">High</span>
+                <span class="xcount tdee-cal-four">2781</span>
+              </div>
+
+              <div class="xreslist">
+                <i class="xathletic"></i>
+                <span class="xname">Athletic</span>
+                <span class="xcount tdee-cal-five">3063</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="max-w-6xl mx-auto px-4 text-blue-500 bmr-resourse-detail">
+    <div class="rich-text py-8 space-y-4">
+      {% if section.settings.resources_heading != blank %}
+        <h2 class="">{{ section.settings.resources_heading }}</h2>
+      {% endif %}
+      {% if section.settings.resources_detail != blank %}
+        <p class="">{{ section.settings.resources_detail }}</p>
+      {% endif %}
+      {% if section.settings.references_heading != blank %}
+        <h2 class="">{{ section.settings.references_heading }}</h2>
+      {% endif %}
+      {% if section.settings.references_detail != blank %}
+        <p class="">{{ section.settings.references_detail }}</p>
+      {% endif %}
+    </div>
+  </div>
+
+<script type="text/javascript" src="//www.klaviyo.com/media/js/public/klaviyo_subscribe.js"></script>
+<script>
+
+    $(document).ready(function()
+	{
+  		$("#chkboxone").change("click", function () 
+		{
+			if (this.checked)
+            {
+              	$(".bmrbtn").attr('disabled', false);
+            }
+            if (!this.checked)
+            {
+              	$(".bmrbtn").attr('disabled', true);
+            }
+  		});
+	});
+  
+     KlaviyoSubscribe.attachToForms('#email_signup', {
+       success: function ($form) {
+         console.log($form);
+         var formdata = $("#email_signup").serialize();
+         window.location.href = "https://www.transparentlabs.com/pages/calculator-results?"+formdata;
+         var email = $form.find('[name="email"]').val();
+         _learnq.push(['identify', { $email: email }]);
+         _learnq.push(['track', 'Signed Up for Newsletter']);
+       },
+       hide_form_on_success: true,
+       extra_properties: {
+         $source: '$embed',
+         $method_type: "Klaviyo Form",
+         $method_id: 'embed',
+         $consent_version: 'Embed default text'
+       }
+     });
+
+  $(document).ready(function() {
+
+    // Enable/Disable BMR button based on checkbox state
+    $("#chkboxone").change(function () {
+      $(".bmrbtn").attr('disabled', !this.checked);
+    });
+
+    // Validate height on change
+    $("#height").on('change', function () {
+      var height = parseFloat($(this).val());
+      if (isNaN(height) || height <= 0) {
+        $(".height_msg").text("Please enter a valid height greater than 0!");
+        $(".bmrbtn").attr('disabled', true);
+      } else {
+        $(".height_msg").text("");
+        checkAllFields();
+      }
+    });
+
+    // Validate weight on change
+    $("#weight").on('change', function () {
+      var weight = parseFloat($(this).val());
+      if (isNaN(weight) || weight <= 0) {
+        $(".weight_msg").text("Please enter a valid weight greater than 0!");
+        $(".bmrbtn").attr('disabled', true);
+      } else {
+        $(".weight_msg").text("");
+        checkAllFields();
+      }
+    });
+
+    // Validate age on change
+    $("#age").on('change', function () {
+      var age = parseFloat($(this).val());
+      if (isNaN(age) || age <= 0) {
+        $(".age_msg").text("Please enter a valid age greater than 0!");
+        $(".bmrbtn").attr('disabled', true);
+      } else {
+        $(".age_msg").text("");
+        checkAllFields();
+      }
+    });
+
+    // Validate email on change
+    $("#email").on('change', function () {
+      var email = $(this).val();
+      var regex = /^([a-zA-Z0-9_.+-])+\@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+      var email_ex = regex.test(email);
+
+      if (!email_ex) {
+        $(".email_msg").text("Please enter a valid email!");
+        $(".bmrbtn").attr('disabled', true);
+      } else {
+        $(".email_msg").text("");
+        checkAllFields();
+      }
+    });
+
+    // Function to enable BMR button only if all fields are valid
+    function checkAllFields() {
+      var height = parseFloat($("#height").val());
+      var weight = parseFloat($("#weight").val());
+      var age = parseFloat($("#age").val());
+      var email = $("#email").val();
+      var regex = /^([a-zA-Z0-9_.+-])+\@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+      var email_ex = regex.test(email);
+
+       // Enable button only if all fields are valid and checkbox is checked
+      if (!isNaN(height) && height > 0 &&
+          !isNaN(weight) && weight > 0 &&
+          !isNaN(age) && age > 0 &&
+          email_ex && $("#chkboxone").is(':checked')) {
+        $(".bmrbtn").attr('disabled', false);
+      } else {
+        $(".bmrbtn").attr('disabled', true);
+      }
+    }
+
+     function calculateBMR(age, gender, weight, height, weightUnit, heightUnit) {
+
+       console.log(age, gender, weight, height, weightUnit, heightUnit);
+      // Convert weight from lbs to kg if needed
+      if (weightUnit === "lbs") {
+        weight = weight / 2.205;
+      }
+
+      // Convert height from inches to cm if needed
+      if (heightUnit === "in") {
+        height = height * 2.54;
+      }
+
+      // Calculate BMR based on gender
+      let bmr;
+      if (gender === "male") {
+        bmr = (10 * weight) + (6.25 * height) - (5 * age) + 5;
+      } else if (gender === "female") {
+        bmr = (10 * weight) + (6.25 * height) - (5 * age) - 161;
+      }
+
+      // Return BMR only if it was calculated, otherwise return null
+      return bmr ? bmr.toFixed(2) : null;
+    }
+
+    // Handle BMR button click event
+    $(".bmrbtn").click(function(event){
+      event.preventDefault();
+
+      var gender = $("input[name='fgender']:checked").val();  // Get selected gender
+      var heightUnit = $("input[name='height-unit']:checked").val();  // Get selected gender
+      var weightUnit = $("input[name='weight-unit']:checked").val();  // Get selected gender
+      var height = parseFloat($("#height").val());
+      var weight = parseFloat($("#weight").val());
+      var age = parseFloat($("#age").val());
+      var email = $("#email").val();
+      var activityfactor = $("input[name='activity_factor']:checked").val();  // Get selected gender
+
+      // Initialize flag to check if there are validation errors
+      var flag = 0;
+
+      // Check each field for final validation
+      if (isNaN(height) || height <= 0) {
+        $(".height_msg").text("Please enter a valid height greater than 0!");
+        flag = 1;
+      }
+      if (isNaN(weight) || weight <= 0) {
+        $(".weight_msg").text("Please enter a valid weight greater than 0!");
+        flag = 1;
+      }
+      if (isNaN(age) || age <= 0) {
+        $(".age_msg").text("Please enter a valid age greater than 0!");
+        flag = 1;
+      }
+      if (!/^([a-zA-Z0-9_.+-])+\@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,4})+$/.test(email)) {
+        $(".email_msg").text("Please enter a valid email!");
+        flag = 1;
+      }
+
+      // Submit the form if no validation errors
+      if (flag === 0) {
+        // $("#email_signup").submit();
+        // Calculate BMR and display result
+        var BMR = calculateBMR(age, gender, weight, height, weightUnit, heightUnit);
+        $(".results").show();
+        $(".bmranswer").text("Your BMR is: " + BMR);  // Display in a result div
+        console.log(activityfactor);
+        var tdee = BMR * activityfactor;
+        
+        var fixed_tdee = tdee.toFixed();
+        console.log(fixed_tdee);
+        $(".tdee-output-one").text(fixed_tdee+ " calories per day.");
+        $(".tdee-output-two").html("<span style='color:#6C787C;'>You Need<span> <br><strong>"+fixed_tdee+"</strong> <br><span style='color:#6C787C;'>Cal/day</span>");
+
+        var Sedentary = BMR * 1.2;
+        var fixed_Sedentary = Sedentary.toFixed();;
+        $(".tdee-cal-one").text(fixed_Sedentary);
+
+        var Lightly_active=  BMR * 1.375 ;
+        var fixed_Lightly_active = Lightly_active.toFixed();;
+        $(".tdee-cal-two").text(fixed_Lightly_active);
+
+        var Moderately_active=  BMR * 1.55;
+        var fixed_Moderately_active = Moderately_active.toFixed();;
+        $(".tdee-cal-three").text(fixed_Moderately_active);
+
+        var Very_active=  BMR * 1.725;
+        var fixed_Very_active= Very_active.toFixed();;
+        $(".tdee-cal-four").text(fixed_Very_active);
+
+        var Extra_active= BMR * 1.9;
+        var fixed_Extra_active = Extra_active.toFixed();;
+        $(".tdee-cal-five").text(fixed_Extra_active);
+        $(".tl-tdee-r").show('slow');
+        
+      }
+    });
+
+  });
+</script>
+
+{% schema %}
+  {
+    "name": "TDEE-calculator",
+    "settings": [
+	{
+		"type":"image_picker",
+		"id":"header_image",
+		"label":"Choose image"
+	},
+	{
+		"type":"text",
+		"id":"title",
+		"label":"Title"
+	},
+	{
+		"type":"textarea",
+		"id":"detail",
+		"label":"Subtitle"
+	},
+	{
+    	"type":"text",
+        "id":"resources_heading",
+        "label":"Resources heading"
+	},
+    {
+        "type":"richtext",
+        "id":"resources_detail",
+        "label":"Resources details"
+    },
+    {
+        "type":"text",
+        "id":"references_heading",
+        "label":"References heading"
+     },
+    {
+    	"type":"richtext",
+    	"id":"references_detail",
+    	"label":"References details"
+    }
+],
+"presets":[
+		{
+			"name": "TDEE-calculator"
+		}
+	]
+  }
+{% endschema %}
+
+{% stylesheet %}
+{% endstylesheet %}
+
+{% javascript %}
+{% endjavascript %}

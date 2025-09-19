@@ -1,0 +1,145 @@
+.tl__info-section {
+  color: var(--text-color);
+  background: var(--bg-color);
+  padding-top: var(--PT);
+  padding-bottom: var(--PB);
+}
+
+.tl__info-section .tl__info-wrapper {
+  display: flex;
+  justify-content: space-between;
+  gap: 40px;
+}
+
+.tl__info-section .tl__info-left {
+  width: 380px;
+}
+
+.tl__info-section .tl__info-right {
+  width: calc(100% - 320px);
+  max-width: 848px;
+}
+
+.tl__info-section .tl__info-list {
+  display: flex;
+  gap: 64px;
+  flex-wrap: wrap;
+}
+
+.tl__info-section .tl__info-list h3 {
+  font-family: var(--font-aeonik);
+  margin: 0;
+  font-size: 36px;
+  line-height: 1.2;
+  font-weight: 400;
+}
+
+.tl__info-section .tl__info-list .tl__info-item {
+  width: calc(33.33% - 2 / 3* 64px);
+  position: relative;
+  padding-top: 24px;
+}
+
+.tl__info-section .tl__info-list .tl__info-item:before {
+  position: absolute;
+  content: "";
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 1px;
+  background: var(--text-color);
+  opacity: 0.3;
+}
+
+.tl__info-section .tl__info-left h2 {
+  margin: 0;
+  font-size: 40px;
+  line-height: 1.2;
+  font-weight: 600;
+  font-family: var(--font-aeonik);
+  color: inherit;
+}
+
+.tl__info-section .tl__info-box {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.tl__info-section .tl__info-text {
+  opacity: 0.72;
+}
+
+.tl__info-section .tl__info-text p {
+  margin: 0;
+  color: rgba(255, 255, 255, 0.72);
+  font-family: var(--font-neue);
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 130%; 
+}
+
+@media screen and (max-width: 1023px) {
+  
+  .tl__info-section .tl__info-wrapper {
+    flex-wrap: wrap;
+    gap: 48px;
+  }
+
+  .tl__info-section .tl__info-left {
+    width: 100%;
+  }
+
+  .tl__info-section .tl__info-right {
+    width: 100%;
+    max-width: 100%;
+  }
+
+
+
+}
+
+@media screen and (max-width: 767px) {
+
+  .tl__info-section {
+    padding: 48px 0;
+  }
+
+  .tl__info-section .tl__info-list {
+    gap: 36px;
+  }
+
+  .tl__info-section .tl__info-list .tl__info-item {
+    width: calc(33.33% - 2 / 3* 36px);
+  }
+  
+}
+
+@media screen and (max-width: 574px) {
+
+  .tl__info-section .tl__info-list {
+    display: flex;
+    gap: 32px 24px;
+    flex-wrap: wrap;
+  }
+
+  .tl__info-section .tl__info-list .tl__info-item {
+    width: calc(50% - 12px);
+    padding-top: 8px;
+  }
+
+  .tl__info-section .tl__info-box {
+    gap: 8px;
+  }
+
+  .tl__info-section .tl__info-text p {
+    line-height: 1.3;
+  }
+
+  .tl__info-section .tl__info-left h2 {
+    font-size: 28px;
+  }
+
+  
+}

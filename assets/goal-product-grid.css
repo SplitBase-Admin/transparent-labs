@@ -1,0 +1,29 @@
+.goal-product-carousel .product-content-wrapper .product-title {
+  margin-bottom: 10px;
+}
+
+.goal-product-carousel .jdgm-widget .jdgm-prev-badge__text {
+  display: inline;
+}
+
+.featured-collections-tabs .featured-collections-pagination button {
+  max-width: 62.5px;
+}
+
+.goal-product-carousel .compare-product-feature-list .feature-list-item {
+  padding: 12px 0;
+}
+
+.goal-product-carousel .feature-list-item img,
+.goal-product-carousel .feature-list-item svg {
+  width: 24px;
+  height: 24px;
+}
+
+.goal-product-carousel .featured-collections-slider-bottom {
+  margin: 24px 0 0;
+}
+
+.feature-list-text {
+  flex: 1;
+}

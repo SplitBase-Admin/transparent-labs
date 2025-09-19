@@ -1,0 +1,60 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "shogun-helper": {
+      "type": "shogun-helper",
+      "settings": {}
+    },
+    "main": {
+      "type": "new-main-article",
+      "blocks": {
+        "review_by_tVxJFU": {
+          "type": "review_by",
+          "settings": {
+            "link_text": "View All Articles"
+          }
+        },
+        "featured_product_qPfLbq": {
+          "type": "featured_product",
+          "settings": {
+            "background": "#173446",
+            "section_title": "Featured Product",
+            "show_default_product": true,
+            "featured_product": "strengthseries-creapure-hmb-creatine-supplement"
+          }
+        }
+      },
+      "block_order": [
+        "review_by_tVxJFU",
+        "featured_product_qPfLbq"
+      ],
+      "settings": {
+        "header_background": "#173446",
+        "newsletter_heading": "Stay Informed",
+        "newsletter_description": "Sign up for our weekly guide to better health.",
+        "sidebar_title": "What’s Trending",
+        "show_recent_articles": false,
+        "trending_article_1": "all/best-pre-workout-for-weight-loss",
+        "trending_article_2": "all/whey-protein-isolate-vs-concentrate",
+        "trending_article_3": "all/best-stim-free-pre-workout"
+      }
+    },
+    "shogun-optimizer": {
+      "type": "shogun-optimizer",
+      "settings": {}
+    }
+  },
+  "order": [
+    "shogun-helper",
+    "main",
+    "shogun-optimizer"
+  ]
+}

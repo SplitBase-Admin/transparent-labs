@@ -1,0 +1,124 @@
+{{ 'featured-collections.css' | asset_url | stylesheet_tag }}
+
+<script src="https://unpkg.com/embla-carousel/embla-carousel.umd.js"></script>
+
+<script type="module" src="{{ 'featured-collection-embla.js' | asset_url }}"></script>
+
+
+<style>
+  /* .embla {
+    overflow: hidden;
+  } */
+  /* .embla__viewport {
+    overflow: hidden;
+    width: 100%;
+  } */
+  .embla__container {
+    display: flex;
+  }
+  .embla__slide {
+    flex: 0 0 25%;
+  }
+  
+  .product_image_slider_embla .embla__container {
+    display: flex;
+  }
+  
+  .product_image_slider_embla .embla__slide {
+    flex: 0 0 100%;
+    min-width: 0;
+  }
+
+  .product-item-wrapper.embla__container.stop-parent-dragging {
+    transform: unset !important;
+  }
+
+</style>
+
+<section class="featured-collections-tabs">
+  <div class="container">
+    <div class="section-header">
+      {% if section.settings.heading != blank %}
+        <h2>{{ section.settings.heading }}</h2>
+        {% for block in section.blocks %}<a href="{{ block.settings.collection.url }}" class="tab-collection-link {% if forloop.first %}active{% endif %}" data-id="{{ block.id }}">view All {% render 'right-arrow' %}</a>{% endfor %}
+      {% endif %}
+    </div>
+    <div class="collection-tabs tabs">
+      {% for block in section.blocks %}
+        <a 
+          class="tab-button {% if forloop.first %}active{% endif %}" 
+          data-tab="{{ block.id }}"
+          data-tab-index="{{ forloop.index0 }}" href="#tab-{{ block.id }}">
+          {% if block.settings.collection_title != blank %}{{ block.settings.collection_title }}{% else %}{{ block.settings.collection.title }}{% endif %}
+        </a>
+      {% endfor %}
+    </div>
+  
+    <div class="tab-content">
+    {% for block in section.blocks %}
+      {% assign collection_object = collections[block.settings.collection] %}
+      {% if collection_object %}
+        <div 
+          class="tab-panel {% if forloop.first %}active{% endif %}" 
+          id="{{ block.id }}">
+          
+          <div class="embla">
+            <!-- <div class="embla__viewport"> -->
+              <div class=" product-item-wrapper embla__container">
+                {% for product in collection_object.products, limit: 7 %}
+                  <div class="embla__slide">
+                    {%- render 'custom-product-grid-embla',
+                       product: product
+                    -%}
+                  </div>
+                {% endfor %}
+              </div>
+            <!-- </div> -->
+            <div class="embla__controls">
+              <div class="embla__dots"></div> 
+              <div class="embla__selected-snap-display">-</div>
+            </div>
+          </div>
+        </div>
+      {% endif %}
+    {% endfor %}
+  </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Featured Collection Tabs",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "collection_tab",
+      "name": "Collection Tab",
+      "settings": [
+        {
+          "type": "collection",
+          "id": "collection",
+          "label": "Select Collection"
+        },
+        {
+          "type": "text",
+          "id": "collection_title",
+          "label": "Tab Title"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Featured Collection Embla"
+    }
+  ]
+}
+{% endschema %}
+

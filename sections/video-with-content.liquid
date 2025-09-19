@@ -1,0 +1,170 @@
+{{ 'video-with-content.css' | asset_url | stylesheet_tag }}
+
+<div class="video-content-section" id="section-{{ section.id }}">
+  {% assign video_type = section.settings.video_type %}
+  {% assign poster_image = section.settings.poster_image | img_url: 'master' %}
+
+  <div class="video__wrapper">
+    {% if video_type == 'youtube' %}
+      <div class="video-inner full-width {% if section.settings.video_height == "large"%}video--large{% else %}video--small{% endif %}">
+        <iframe
+          src="{{ section.settings.youtube_url | replace: 'watch?v=', 'embed/' }}?autoplay=1&mute=1"
+          title="YouTube video"
+          allow="autoplay; encrypted-media"
+          allowfullscreen
+        >
+        </iframe>
+      </div>
+  
+    {% elsif video_type == 'vimeo' %}
+      <div class="video-inner full-width {% if section.settings.video_height == "large"%}video--large{% else %}video--small{% endif %}">
+        <iframe
+          src="{{ section.settings.vimeo_url }}?autoplay=1&muted=1"
+          title="Vimeo video"
+          allow="autoplay; fullscreen; encrypted-media"
+          allowfullscreen
+        >
+        </iframe>
+      </div>
+  
+    {% elsif video_type == 'mp4' and section.settings.mp4_url %}
+      <div class="video-inner full-width {% if section.settings.video_height == "large"%}video--large{% else %}video--small{% endif %}">
+        <video
+          autoplay
+          muted
+          playsinline
+          loop
+          poster="{{ poster_image }}"
+        >
+          <source src="{{ section.settings.mp4_url }}" type="video/mp4">
+          Your browser does not support the video tag.
+        </video>
+      </div>
+    {% else %}
+      <p>No video available. Please configure the section settings.</p>
+    {% endif %}
+  </div>
+
+  <div class="content-wrapper container">
+    <div class="content__wrapper">
+      {% if section.settings.heading != blank %}
+        <div class="h2 heading">{{ section.settings.heading }}</div>
+      {% endif %}
+
+      {% if section.settings.description != blank %}
+        <div class="rte">{{ section.settings.description }}</div>
+      {% endif %}
+    </div>
+    {% if section.settings.button_url != blank %}
+      <div class="button__wrapper">
+        {% if section.settings.button_url != blank %}
+          <a href="{{ section.settings.button_url }}" class="button outlined-white-button">{{ section.settings.button_text }} {% if section.settings.show_arrow %}{% render 'button-arrow-right' %}{% endif %}</a>
+        {% endif %}
+      </div>
+    {% endif %}
+  </div>
+</div>
+
+<style>
+
+  #section-{{ section.id }} .content-wrapper .content__wrapper * {
+    color: {{ section.settings.content_color }};
+  }
+
+</style>
+
+{% schema %}
+{
+  "name": "Video With Content",
+  "settings": [
+    {
+      "type": "text",
+      "id": "youtube_url",
+      "label": "YouTube Video URL",
+      "default": "https://www.youtube.com/watch?v=example"
+    },
+    {
+      "type": "text",
+      "id": "vimeo_url",
+      "label": "Vimeo Video URL",
+      "default": "https://vimeo.com/example"
+    },
+    {
+      "type": "url",
+      "id": "mp4_url",
+      "label": "MP4 Video URL"
+    },
+    {
+      "type": "image_picker",
+      "id": "poster_image",
+      "label": "Poster Image"
+    },
+    {
+      "type": "richtext",
+      "id": "heading",
+      "label": "Heading"
+    },
+    {
+      "type": "richtext",
+      "id": "description",
+      "label": "Description",
+      "default": "<p>Take the quiz to find your perfect stack to meet your goals.<p>"
+    },
+    {
+      "type": "header",
+      "content": "Button"
+    },
+    {
+      "type": "text",
+      "id": "button_text",
+      "label": "Button Text"
+    },
+    {
+      "type": "url",
+      "id": "button_url",
+      "label": "Button URL"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_arrow",
+      "label": "Show Button Arrow"
+    },
+    {
+      "type": "select",
+      "id": "video_type",
+      "label": "Video Type",
+      "options": [
+        { "value": "youtube", "label": "YouTube" },
+        { "value": "vimeo", "label": "Vimeo" },
+        { "value": "mp4", "label": "MP4" }
+      ],
+      "default": "youtube"
+    },
+    {
+      "type": "select",
+      "id": "video_height",
+      "label": "Video Height",
+      "options": [
+        { "value": "large", "label": "Large" },
+        { "value": "small", "label": "Small" }
+      ],
+      "default": "large"
+    },
+    {
+      "type": "header",
+      "content": "Colors"
+    },
+    {
+      "type": "color",
+      "id": "content_color",
+      "label": "Content Color",
+      "default": "#fff"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Video With Content"
+    }
+  ]
+}
+{% endschema %}

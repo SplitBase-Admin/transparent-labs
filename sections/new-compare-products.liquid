@@ -1,0 +1,75 @@
+{{ 'new-compare-products.css' | asset_url | stylesheet_tag }}
+
+
+{% assign compare_product_list = product.metafields.custom.compare_product_list.value %}
+
+{% if compare_product_list %}
+  
+<section class="compare-products-container" id="compare-products-section">
+
+  <div class="container">
+
+    {% if section.settings.section-heading != blank %}
+      <h2>{{ section.settings.section-heading }}</h2>
+    {% endif %}
+  
+    {% assign compare_product_list = product.metafields.custom.compare_product_list.value %}
+
+    <div class="compare-products-swiper swiper">
+      <div class="product-item-wrapper swiper-wrapper">
+        {% for compare_product in compare_product_list %}
+          {% render 'new-compare-product-grid', product:compare_product  %}
+        {% endfor %}
+      </div>
+      <div class="compare-products-slider-bottom">
+        <div class="compare-products-pagination"></div>
+        <div class="compare-products-fraction slider-counter-fraction">
+          <span class="compare-products-pagination-current">01</span>/<span class="compare-products-pagination-total">{% if section.blocks.size < 10 %}0{% endif %}{{ section.blocks.size }}</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+</section>
+
+{% endif %}
+
+{% style %}
+  
+  .compare-products-container {
+    background: {{ section.settings.section-bg }};
+  }
+
+  
+{% endstyle %}
+
+<script>
+
+  
+</script>
+
+{% schema %}
+{
+  "name": "Compare Products",
+  "settings": [
+    {
+      "id": "section-bg",
+      "label": "Section Background",
+      "type": "color",
+      "default": "#F8F9FB"
+    },
+    {
+      "id": "section-heading",
+      "label": "Section Heading",
+      "type": "text",
+    }
+  ],
+  "presets": [
+    {
+      "name": "Compare Products",
+      "category": "Custom"
+    }
+  ]
+}
+{% endschema %}

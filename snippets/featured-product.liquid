@@ -1,0 +1,93 @@
+
+
+<div class="featured-product-section">
+  {% if block.settings.section_title != blank %}
+    <h2 class="section-title">{{ block.settings.section_title }}</h2>
+  {% endif %}
+  <div class="product-grid-item">
+    <div class="featured-product-gallery">
+      {% assign best-seller = false %}
+      {% assign new_arrival = false %}
+      {% for tag in product.tags %}
+        {% if product.tags contains "best-seller" %}
+          {% assign best-seller = true %}
+        {% endif %}
+        {% if product.tags contains "new" or product.tags contains "New" %}
+          {% assign new_arrival = true %}
+        {% endif %}
+      {% endfor %}
+      {% if best-seller %}
+        <div class="product-tag">{{ 'products.product.tags.best_seller' | t }}</div>
+      {% endif %}
+      {% if new_arrival %}
+        <div class="product-tag new_arrival">{{ 'products.product.tags.new' | t }}</div>
+      {% endif %}
+      <!-- Main Product Image Slider -->
+      <div class="product_image_slider">
+        <div class="swiper-wrapper">
+          {%- for media in product.media -%}
+            <div class="product-media-item swiper-slide">
+              {% render 'responsive-image', image: media %}
+            </div>
+          {% endfor %}
+        </div>
+        <div class="swiper-button-next"></div>
+        <div class="swiper-button-prev"></div>
+      </div>
+    </div>
+    <div class="product-content-wrapper">
+      <div class="product-details-wrapper">
+        <div class='jdgm-widget jdgm-preview-badge' data-id='{{ product.id }}'> 
+          {{ product.metafields.judgeme.badge }}
+        </div> 
+
+        <a href="{{ product.url }}" class="product-title">{{ product.title }}</a>
+
+        {% if product.metafields.custom.product_overview_detail != blank %}
+          <div class="product-description">
+            {% assign string = product.metafields.custom.product_overview_detail | strip_html %}
+            {{ string }}
+          </div>
+        {% endif %}
+      </div>
+
+      <div class="price-button-wrapper">
+        <div class="product-price">
+          {% if product.selected_or_first_available_selling_plan_allocation == blank %}
+            <div>{{ product.first_available_variant.price | money }}</div>
+            <del >{{ product.first_available_variant.compare_at_price | money }}</del>
+          {% else %}
+            <div  data-price="{{ product.first_available_variant.price | money }}"> {{ product.first_available_variant.price | money }} </div>
+            <del >{{ product.first_available_variant.compare_at_price | money }}</del>
+          {% endif %}
+        </div>
+
+        <div class="shop-now-button">
+          {%- if product.selected_or_first_available_variant.available -%}
+            {% for option in product.options_with_values %}
+              {% if option.name == "Flavor" %}
+                {% assign flavor_count = option.values | size %}
+              {% endif %}
+            {% endfor %}
+            <a href="{{ product.url }}" class="small-hide button black-button">
+              shop now 
+              <svg xmlns="http://www.w3.org/2000/svg" width="18" height="23" viewBox="0 0 18 23" fill="none">
+                <g clip-path="url(#clip0_4515_755)">
+                  <path d="M1.56522 12.6939L15.6522 12.6939M15.6522 12.6939L9 19.3461M15.6522 12.6939L9 6.04175" stroke="white" stroke-width="1.28571" stroke-linecap="round" stroke-linejoin="round"/>
+                </g>
+                <defs>
+                  <clipPath id="clip0_4515_755">
+                    <rect width="21.913" height="18" fill="white" transform="translate(18 0.563477) rotate(90)"/>
+                  </clipPath>
+                </defs>
+              </svg>
+            </a>
+            <a href="{{ product.url }}" class="medium-hide large-up-hide">shop {% if flavor_count > 0 %}{{ flavor_count }} flavors{% else %}now{% endif %} {% render 'right-arrow' %}</a>
+          {%- else -%}
+            {{ 'products.product.sold_out' | t }}
+          {%- endif -%}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

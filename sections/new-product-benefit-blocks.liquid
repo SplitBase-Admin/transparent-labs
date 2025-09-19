@@ -1,0 +1,81 @@
+{{ 'goal-blocks.css' | asset_url | stylesheet_tag }}
+{{ 'product-benefit-blocks.css' | asset_url | stylesheet_tag }}
+
+{% assign product_benefit_block = product.metafields.custom.product_benefit_blocks.value %}
+
+{% if product_benefit_block %}
+  <section class="shop-by-goal product-benefit-blocks-section">
+    <div class="container">
+      <div class="goal-wrapper">
+        <div class="left-section">
+          <div class="section-header">
+            <h2 class="section_heading">
+              {{ section.settings.section_heading }} {% if product %}{{ product.title }}{% endif %}?
+            </h2>
+            {% if product.metafields.custom.product_benefit_section_description != blank %}
+              <p>{{ product.metafields.custom.product_benefit_section_description }}</p>
+            {% endif %}
+          </div>
+        </div>
+        <div class="right-section">
+          <div class="grid">
+            {% for block in product_benefit_block %}
+              <div class="grid-item">
+                <div class="block-header">
+                  <h3 class="heading">
+                    {{ block.heading }}
+                  </h3>
+                  <p>{{ block.description }}</p>
+                </div>
+                {% if block.image != blank %}
+                  <div class="image__wrapper">{% render 'responsive-image', image: block.image, image_alt: block.heading %}</div>
+                {% else %}
+                  <div class="image__wrapper placeholder-image">{{ 'image' | placeholder_svg_tag }}</div>
+                {% endif %}
+              </div>
+            {% endfor %}
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+{% endif %}
+
+{% style %}
+  
+  .shop-by-goal {
+    background: {{ section.settings.bg_color }};
+  }
+  
+{% endstyle %}
+
+{% schema %}
+{
+  "name": "Product Benefit Blocks",
+  "settings": [
+    {
+      "type": "color",
+      "id": "bg_color",
+      "label": "Background",
+      "default": "#F8F9FB"
+    },
+    {
+      "type": "text",
+      "id": "section_heading",
+      "label": "Section Heading",
+      "default": "Shop By Goal"
+    },
+    {
+      "type": "text",
+      "id": "section_description",
+      "label": "Section Description",
+      "default": "Find products curated for your specific needs."
+    }
+  ],
+  "presets": [ 
+    {
+      "name": "Product Benefit Blocks"
+    }
+  ]
+}
+{% endschema %}

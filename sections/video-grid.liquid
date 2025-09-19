@@ -1,0 +1,189 @@
+{{ 'video-grid.css' | asset_url | stylesheet_tag }}
+<script src="{{ 'video-grid.js' | asset_url }}" defer></script>
+
+{% style %}
+  #section-{{section.id}} {
+    --bg-color: {{section.settings.bg_color}};
+    --text-color: {{section.settings.text_color}};
+  }
+{% endstyle %}
+
+<div class="section-video-grid" id="section-{{ section.id }}" >
+  <div class="container">
+    <div class="video-grid-header">
+      {% if section.settings.custom_title != blank %}
+        <h2>{{ section.settings.custom_title }}</h2>  
+      {% endif %}
+      {% if section.settings.button_text != blank %}
+        <button class="btn_link link view-button-toggle" aria-label="Toggle Video Grid">
+          <span>{{ section.settings.button_text }}</span>
+          {% render 'right-arrow' %}
+        </button>
+      {% endif %}
+    </div>
+    <div class="video-grid-content"> 
+      <div class="video-grid-inner">
+        {% for block in section.blocks %}          
+          <div class="video-item {% if forloop.index > 3 %}hidden-item{% endif %}">
+            <div class="article-item video-article-item">
+              <div class="article-item-img">
+                {% assign video_type = block.settings.video_type %}
+                {% if video_type == 'youtube' %}
+                  <div class="video-inner full-width {% if block.settings.video_height == "large"%}video--large{% else %}video--small{% endif %}">
+                    {% comment %}Extract YouTube ID from either format{% endcomment %}
+                    {% assign youtube_url = block.settings.youtube_url | strip %}
+                    {% assign youtube_id = "" %}
+                    
+                    {% if youtube_url contains "youtu.be/" %}
+                      {% assign youtube_id = youtube_url | split: "youtu.be/" | last | split: "?" | first %}
+                    {% elsif youtube_url contains "youtube.com/watch?v=" %}
+                      {% assign youtube_id = youtube_url | split: "watch?v=" | last | split: "&" | first %}
+                    {% elsif youtube_url contains "youtube.com/embed/" %}
+                      {% assign youtube_id = youtube_url | split: "youtube.com/embed/" | last | split: "?" | first %}
+                    {% endif %}
+                    
+                    {% if block.settings.poster_image != blank %}
+                      <img src="{{ block.settings.poster_image | img_url: 'master' }}" alt="{{ block.settings.heading }}" class="video-poster">
+                    {% else %}
+                      <img src="https://img.youtube.com/vi/{{ youtube_id }}/hqdefault.jpg" alt="{{ block.settings.heading }}" class="video-poster">
+                    {% endif %}
+                    
+                    <button class="video-play-button" data-youtube-id="{{ youtube_id }}">
+                     {% render 'play-button' %}
+                    </button>
+                  </div>
+                {% else %}
+                  <p>Only YouTube videos are supported. Please configure the section settings.</p>
+                {% endif %}
+              </div>
+
+              {% if block.settings.category != blank or block.settings.heading != blank %}
+                <div class="article-item-content">
+                  <div class="article-item-box">
+                    <span class="article-label">{{ block.settings.category }}</span>
+                    <h3><span>{{ block.settings.heading }}</span> {% render 'right-arrow' %} </h3>
+                  </div>
+                </div>
+              {% endif %}
+            </div>
+         </div>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Video Popup Overlay -->
+<div class="video-popup-overlay" id="video-popup-overlay">
+  <div class="video-popup-container">
+    <button class="video-popup-close">×</button>
+    <div class="video-popup-content">
+      <div id="youtube-player-container"></div>
+    </div>
+  </div>
+</div>
+
+{% schema %}
+  {
+    "name": "Video Grid",
+    "settings": [
+      {
+        "type": "text",
+        "id": "custom_title",
+        "label": "Title"
+      },
+      {
+        "type": "text",
+        "id": "button_text",
+        "label": "Button Text",
+        "default":"View All"
+      },
+      {
+        "type": "header",
+        "content": "Colors"
+      },
+      {
+        "type": "color",
+        "id": "text_color",
+        "label": "Text Color",
+        "default": "#111314"
+      },
+      {
+        "type": "color",
+        "id": "bg_color",
+        "label": "Background Color",
+        "default": "#ffffff"
+      },
+      {
+       "type": "header",
+        "content": "section padding"
+      },
+      {
+        "type": "range",
+        "id": "padding_top",
+        "label": "Padding top",
+        "min": 0,
+        "max": 120,
+        "step": 2,
+        "unit": "px",
+        "default": 80
+      },
+      {
+       "type": "range",
+        "id": "padding_bottom",
+        "label": "Paading bottom",
+        "min": 0,
+        "max": 120,
+        "step": 2,
+        "unit": "px",
+        "default": 80
+      }
+    ],
+    "blocks": [
+    {
+        "type": "block",
+        "name": "Add Video",
+        "settings": [
+          {
+            "type": "select",
+            "id": "video_type",
+            "label": "Video Type",
+            "options": [
+              { "value": "youtube", "label": "YouTube" }
+            ],
+            "default": "youtube"
+          },
+          {
+            "type": "text", 
+            "id": "youtube_url",
+            "label": "YouTube Video URL",
+            "info": "Supports both formats: youtube.com/watch?v=ID or youtu.be/ID",
+            "default": "https://www.youtube.com/watch?v=example"
+          },
+          {
+            "type": "image_picker",
+            "id": "poster_image",
+            "label": "Poster Image (Optional)"
+          },
+          {
+            "type": "text",
+            "id": "category",
+            "label": "Category",
+            "default": "Video Category"
+          },
+          {
+            "type": "richtext",
+            "id": "heading",
+            "label": "Heading",
+            "default": "<p>Video Heading</p>"
+          }
+        ]
+      }
+    ],
+    "presets": [
+      {
+        "name": "Video Grid"
+      }
+    ]
+  }
+{% endschema %}

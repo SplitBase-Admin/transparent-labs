@@ -1,0 +1,426 @@
+<script data-cfasync="false" type="text/javascript">if (typeof Shopify === "undefined") var Shopify = {}; Shopify.cart = {{ cart | json }};</script> 
+<div id="sca-fg-owl-carousel">
+  <div id="freegift_cart_container" class="sca-fg-cart-container" style="display: none;">
+    <div id="freegift_message" class="owl-carousel"></div>
+  </div> 
+  <div id="sca-fg-slider-cart" style="display: none;">
+    <div class="sca-fg-cart-title">
+      <strong>Select your free gift (s)</strong>
+    </div>
+    <div id="sca_freegift_list" class="owl-carousel"></div>
+  </div>
+</div>
+<div id="sca_fg_cart">
+{% if cart.item_count > 0 %}
+  <div class="max-w-7xl mx-auto my-8 px-4 text-blue-500">
+    <h1 class="mb-4 text-2xl md:mb-8 md:text-3xl xl:text-4xl">
+      Your Cart ({{ cart.item_count }})
+    </h1>
+
+    {% form 'cart', cart %}
+      <div class="gap-8 grid grid-cols-1 xl:grid-cols-3">
+        <div class="xl:col-span-2">
+          <div class="space-y-4">
+            {% for item in cart.items %}
+              <div class="bg-gray-300 cart-item hidden items-center p-4 rounded-md sm:flex">
+                <div class="bg-white h-36 overflow-hidden pt-4 rounded-md w-36">
+                  <a href="  {%if item.variant.metafields.secomapp.freegifts%}{{ item.product.url }}{%else%}{{ item.url }}{%endif%}">
+                    {%- render 'lazy-image'
+                      height: 168,
+                      image: item.image,
+                      width: 168,
+                    -%}
+                  </a>
+                </div>
+
+                <div class="flex-1 mx-4">
+                  <a
+                    class="font-semibold text-lg transition-colors hover:text-orange-400"
+                    href="  {%if item.variant.metafields.secomapp.freegifts%}{{ item.product.url }}{%else%}{{ item.url }}{%endif%}"
+                  >
+                    {{ item.product.title | replace: '|', '-' }}
+                  </a>
+
+                  <p class="text-sm">
+                    {{ item.variant.title | remove: '/ Default Title'| remove: 'Default Title' | remove: '/ Default' | remove: 'Default' | replace: '(Freegifts)', ''  | replace: '/ 1 Tub', '' }}
+                  </p>
+
+                  {%- if item.properties.bundle_type == 'CHILD' -%}
+                    <p class="text-sm">Bundle Item</p>
+                  {%- endif -%}
+
+                  {%- if item.properties.stack_name -%}
+                    <p class="text-sm">Stack: {{ item.properties.stack_name }}</p>
+                  {%- endif -%}
+
+                   {%- if item.properties.stack_product -%}
+                    <p class="text-sm">{{ item.properties.stack_product }}</p>
+                  {%- endif -%}
+                  
+                  {%- if item.selling_plan_allocation.selling_plan.name -%}
+                    <p class="text-sm">{{ item.selling_plan_allocation.selling_plan.name }}</p>
+                  {%- endif -%}
+
+                  {%- if item.selling_plan_allocation.selling_plan.name -%}
+                  <p class="mt-3 text-blue-400">
+                    {{ item.original_price | money }} QTY-{{ item.quantity  }}
+                  </p>
+                  {% else %}
+                  <p class="mt-3 text-blue-400">
+                    {{ item.original_price | money }}
+                  </p>
+                  {% endif %}
+
+                  <div class="mt-3">
+                    {%- if item.properties.bundle_type == 'CHILD' or item.properties.stack_name or item.variant.metafields.secomapp.freegifts or item.properties.stack_product -%}
+                      <input {%if item.variant.metafields.secomapp.freegifts%}readonly{%endif%}   name="updates[]" type="hidden" value="1">
+                    {%- else -%}
+                      <quantity-input>
+                        <div class="flex items-center">
+                          <button
+                            class="quantity-button"
+                            type="button"
+                          >
+                            {% render 'icon-minus' %}
+                          </button>
+
+                          <input
+                            class="border-0 bg-transparent hide-selectors outline-none text-blue-500 text-center w-12 desktop-quantity"
+                            min="0"
+                            name="updates[]"
+                            readonly
+                            type="number"
+                            value="{{ item.quantity }}"
+                          />
+
+                          <button
+                            class="quantity-button"
+                            type="button"
+                          >
+                            {% render 'icon-plus' %}
+                          </button>
+                        </div>
+                      </quantity-input>
+                    {%- endif -%}
+                  </div>
+                </div>
+
+                <div>
+                  {% if item.original_line_price == item.final_line_price %}
+                    <p class="font-semibold text-blue-400">
+                      {{ item.final_line_price | money }}
+                    </p>
+                  {% else %}
+                    <p>
+                      <s>{{ item.original_line_price | money }}</s>
+                    </p>
+
+                    <p class="font-semibold text-blue-400">
+                      {{ item.final_line_price | money }}
+                    </p>
+                  {% endif %}
+
+                   {% if item.properties.stack_product %}
+                  <a
+                    class="block mt-4 text-sm transition-colors hover:text-orange-400"
+                    href="  {%if item.variant.metafields.secomapp.freegifts%}{{ item.product.url }}{%else%}{{ item.url_to_remove }}{%endif%}"
+                    {% if item.properties.stack_id %}data-stack-id="{{ item.properties.stack_id }}"{% endif %}
+                  >
+                    Remove stack
+                  </a>
+                  {% else %}
+                  <a
+                    class="block mt-4 text-sm transition-colors hover:text-orange-400"
+                    href="  {%if item.variant.metafields.secomapp.freegifts%}{{ item.url_to_remove }}{%else%}{{ item.url_to_remove }}{%endif%}"
+                    {% if item.properties.stack_id %}data-stack-id="{{ item.properties.stack_id }}"{% endif %}
+                  >
+                    Remove
+                  </a>
+                  {% endif %}
+                </div>
+              </div>
+
+              <div class="bg-gray-300 items-center p-4 rounded-md space-y-4 sm:hidden">
+                <div class="bg-white h-28 mx-auto overflow-hidden pt-4 relative rounded-md w-28">
+                  <a href="  {%if item.variant.metafields.secomapp.freegifts%}{{ item.product.url }}{%else%}{{ item.url }}{%endif%}">
+                    {%- render 'lazy-image'
+                      height: 168,
+                      image: item.image,
+                      width: 168,
+                    -%}
+                  </a>
+                </div>
+
+                <div class="text-center">
+                  <a
+                    class="font-semibold transition-colors hover:text-orange-400"
+                    href="  {%if item.variant.metafields.secomapp.freegifts%}{{ item.product.url }}{%else%}{{ item.url }}{%endif%}"
+                  >
+                    {{ item.product.title | replace: '|', '-' }}
+                  </a>
+
+                  <p class="text-sm">
+                    {{ item.variant.title | remove: '/ Default Title'| remove: 'Default Title' | remove: '/ Default' | remove: 'Default' | replace: '(Freegifts)', ''  }}
+                  </p>
+                  
+                  {%- if item.properties.stack_product -%}
+                    <p class="text-sm">{{ item.properties.stack_product }}</p>
+                  {%- endif -%}
+                  
+                  {%- if item.selling_plan_allocation.selling_plan.name -%}
+                    <p class="text-sm">{{ item.selling_plan_allocation.selling_plan.name }}</p>
+                  {%- endif -%}
+
+                  {% if item.properties.stack_product %}
+                  <a
+                    class="block mt-4 text-sm transition-colors hover:text-orange-400"
+                    href="  {%if item.variant.metafields.secomapp.freegifts%}{{ item.product.url }}{%else%}{{ item.url_to_remove }}{%endif%}"
+                    {% if item.properties.stack_id %}data-stack-id="{{ item.properties.stack_id }}"{% endif %}
+                  >
+                    Remove stack
+                  </a>
+                  {% else %}
+                  <a
+                    class="block mt-4 text-sm transition-colors hover:text-orange-400"
+                    href="  {%if item.variant.metafields.secomapp.freegifts%}{{ item.product.url }}{%else%}{{ item.url_to_remove }}{%endif%}"
+                    {% if item.properties.stack_id %}data-stack-id="{{ item.properties.stack_id }}"{% endif %}
+                  >
+                    Remove
+                  </a>
+                  {% endif %}
+                </div>
+
+                <div class="flex items-center">
+                  <div>
+                    <p class="text-blue-400">
+                      {{ item.original_price | money }}
+                    </p>
+                  </div>
+
+                  <div class="flex-1 mx-4">
+                   {%- if item.properties.bundle_type == 'CHILD' or item.properties.stack_name or item.variant.metafields.secomapp.freegifts or item.properties.stack_product -%}
+                      <input {%if item.variant.metafields.secomapp.freegifts%}readonly{%endif%}   name="updates[]" type="hidden" value="1">
+                    {%- else -%}
+                      <quantity-input>
+                        <div class="flex items-center mobile-text-center">
+                          <button
+                            class="quantity-button"
+                            type="button"
+                          >
+                            {% render 'icon-minus' %}
+                          </button>
+
+                          <input
+                            class="border-0 bg-transparent hide-selectors outline-none text-blue-500 text-center w-12 mobile-quantity"
+                            min="0"
+                            name="updates[]"
+                            readonly
+                            type="number"
+                            value="{{ item.quantity }}"
+                          />
+
+                          <button
+                            class="quantity-button"
+                            type="button"
+                          >
+                            {% render 'icon-plus' %}
+                          </button>
+                        </div>
+                      </quantity-input>
+                    {%- endif -%}
+                  </div>
+
+                  <div>
+                    {% if item.original_line_price == item.final_line_price %}
+                      <p class="font-semibold text-blue-400">
+                        {{ item.final_line_price | money }}
+                      </p>
+                    {% else %}
+                      <p>
+                        <s>{{ item.original_line_price | money }}</s>
+                      </p>
+
+                      <p class="font-semibold text-blue-400">
+                        {{ item.final_line_price | money }}
+                      </p>
+                    {% endif %}
+                  </div>
+                </div>
+              </div>
+            {% endfor %}
+          </div>
+        </div>
+
+        <div>
+          <h2 class="mb-4 text-xl md:text-2xl">
+            Order Summary
+          </h2>
+
+          <div class="space-y-4">
+            <div class="flex justify-between">
+              <p>Subtotal</p>
+
+              <p class="font-bold">
+                {{ cart.original_total_price | money }}
+              </p>
+            </div>
+
+            <div class="flex justify-between">
+              <p>Total Savings</p>
+
+              <p class="font-bold">
+                {{ cart.total_discount | money }}
+              </p>
+            </div>
+
+            <div class="flex justify-between">
+              <p>Subtotal after Discounts</p>
+
+              <p class="font-bold">
+                {{ cart.total_price | money }}
+              </p>
+            </div>
+
+            <p class="text-sm">
+              <em>Shipping, taxes and discount codes are calculated at checkout.</em>
+            </p>
+          </div>
+
+          <div class="flex mt-8">
+            <button
+              class="button-alt flex-1 px-4 mr-4"
+              type="submit"
+            >
+              Update Cart
+            </button>
+
+            <button
+              class="button px-4 sm:flex-1 xl:flex-none"
+              name="checkout"
+              type="submit"
+            >
+              Continue to Checkout
+            </button>
+          </div>
+        </div>
+        {% assign auto_discount = false %}
+        {% for item in cart.items %}
+        {% if item.selling_plan_allocation.selling_plan and item.properties.stack_product %}
+        {% assign auto_discount = true %}
+        {% endif %}
+        {% endfor %}
+
+        {% if auto_discount %}
+        <input type="hidden" name="discount" value="subcription_only" >
+        {% endif %}
+      </div>
+    {% endform %}
+  </div>
+{% else %}
+  <div class="flex flex-col h-full justify-center px-4 py-16 text-center">
+    <div>
+      <h1 class="text-blue-500 text-2xl md:text-3xl xl:text-4xl">
+        Your Cart is Empty!
+      </h1>
+
+      <a
+        class="button inline-block mt-8 px-12"
+        href="/collections/all"
+      >
+        Continue Browsing
+      </a>
+    </div>
+  </div>
+{% endif %}
+
+<script type="text/javascript">
+  document.querySelectorAll('#cart_form a[data-stack-id]').forEach((elem) => {
+    elem.addEventListener('click', function(event) {
+      event.preventDefault();
+
+      const { stackId } = this.dataset;
+      const updates = [];
+
+      document.querySelectorAll('.cart-item').forEach((item) => {
+        if (item.querySelector('a[data-stack-id]')?.dataset.stackId === stackId) {
+          updates.push(0);
+        } else {
+          updates.push(parseInt(item.querySelector('input[name="updates[]"]').value, 10));
+        }
+      });
+
+      fetch('/cart/update', {
+        body: JSON.stringify({
+          updates,
+        }),
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json',
+        },
+        method: 'POST',
+      }).then((response) => response.json())
+        .then((response) => {
+          window.location.reload();
+        })
+        .catch((e) => {
+          console.error(e);
+        });
+    });
+  });
+</script>
+
+{% schema %}
+{
+  "class": "h-full",
+  "name": "Cart"
+}
+{% endschema %}
+
+<script src="https://widget.sezzle.com/v1/javascript/price-widget?uuid=61cf6d6f-dd10-47e6-a89e-f995f579159c" defer></script>
+
+<script type="text/javascript">
+  function disableInputs() { 
+    const width = window.screen.width;
+
+    if (width < 640) {
+      document.querySelectorAll('.desktop-quantity').forEach((elem) => {
+        elem.setAttribute('disabled', 'disabled');
+      });
+
+      document.querySelectorAll('.mobile-quantity').forEach((elem) => {
+        elem.removeAttribute('disabled', 'disabled');
+      });
+    } else {
+      document.querySelectorAll('.mobile-quantity').forEach((elem) => {
+        elem.setAttribute('disabled', 'disabled');
+      });
+
+      document.querySelectorAll('.desktop-quantity').forEach((elem) => {
+        elem.removeAttribute('disabled', 'disabled');
+      });
+    }
+  }
+
+  window.addEventListener('resize', disableInputs);
+
+  disableInputs();
+</script>
+
+</div>
+
+<style>
+  @media only screen and (max-width: 600px) {
+    .mobile-text-center{    justify-content: center;}
+}
+</style>
+<script>
+  gtag('event', 'conversion', {
+    'allow_custom_scripts': true,
+    'session_id': '[SessionID]',
+    'send_to': 'DC-12142970/engag0/cartf0+per_session'
+  });
+</script>
+<noscript>
+<img src="https://ad.doubleclick.net/ddm/activity/src=12142970;type=engag0;cat=cartf0;dc_lat=;dc_rdid=;tag_for_child_directed_treatment=;tfua=;npa=;gdpr=${GDPR};gdpr_consent=${GDPR_CONSENT_755};ord=[SessionID]?" width="1" height="1" alt=""/>
+</noscript>
+<!-- End of event snippet: Please do not remove -->

@@ -1,0 +1,184 @@
+<div class="bg-gray-300 py-8">
+  <div class="max-w-7xl mx-auto px-4">
+    <h2 class="font-bold text-blue-500 text-xl md:border-l-8 md:border-blue-500 md:pl-2">
+      PREVIOUSLY BROWSED
+    </h2>
+
+    <div id="recently-viewed-content"></div>
+  </div>
+</div>
+
+<style>
+  #recently-viewed-swiper .swiper-slide {
+    height: auto !important;
+  }
+</style>
+
+<script id="recently-viewed-template" type="text/x-handlebars-template">
+  {% raw %}
+  <div class="text-blue-500">
+    <div>
+      <div class="swiper" id="recently-viewed-swiper">
+        <div class="swiper-wrapper">
+          {{#each products}}
+            <div class="swiper-slide">
+              <div class="flex flex-col h-full justify-between p-4 relative rounded-md z-10">
+                <div class="absolute bg-white bottom-0 left-0 right-0 top-1/4 z-[-1]"></div>
+
+                <div>
+                  <a class="block" href="{{ url }}">
+                    <img
+                      alt="{{ image_alt }}"
+                      class="lazyload mx-auto"
+                      data-src="{{ image }}"
+                      loading="lazy"
+                    />
+                  </a>
+
+                  <div class="flex mb-4">
+                    <div class="flex-1 mr-4">
+                      <p class="text-sm">
+                        {{ subtitle }}
+                      </p>
+
+                      <p class="font-semibold text-xl">
+                        {{ title }}
+                      </p>
+                    </div>
+
+                    <div>
+                      <p class="font-semibold text-xl">{{ price }}</p>
+                    </div>
+                  </div>
+                </div>
+
+                <div>
+                  <a
+                    class="block button-alt text-center w-full"
+                    href="{{ url }}"
+                  >
+                    View Product
+                  </a>
+                </div>
+              </div>
+            </div>
+          {{/each}}
+        </div>
+
+        <div class="mt-4 recently-viewed-swiper__pagination text-center"></div>
+      </div>
+    </div>
+  </div>
+  {% endraw %}
+</script>
+
+<script>
+  function getCookie(cookieName) {
+    const name = `${cookieName}=`;
+    const decodedCookie = decodeURIComponent(document.cookie);
+    const ca = decodedCookie.split(';');
+
+    for(let i = 0; i < ca.length; i += 1) {
+      let c = ca[i];
+
+      while (c.charAt(0) === ' ') {
+        c = c.substring(1);
+      }
+
+      if (c.indexOf(name) === 0) {
+        return c.substring(name.length, c.length);
+      }
+    }
+
+    return '';
+  }
+
+  async function getProducts(handles) {
+    const max = Math.max(handles.length - 3, 0);
+    const products = [];
+    const promises = [];
+
+    for (let i = handles.length - 1; i >= max; i -= 1) {
+      promises.push(
+        fetch(`/products/${handles[i]}.js`)
+          .then((res) => res.json())
+          .catch((err) => console.error(err))
+      );
+    }
+
+    const responses = await Promise.all(promises);
+
+    const templateText = document.getElementById('recently-viewed-template').textContent;
+    const template = Handlebars.compile(templateText);
+    const { format } = new Intl.NumberFormat('en-US', { style: 'currency', currency: Shopify.currency.active });
+
+    for (let i = 0; i < responses.length; i += 1) {
+      if (responses[i].tags.includes('hidden-by-tag')) {
+        continue;
+      }
+
+      const imageUrlSplit = responses[i].featured_image.split('.');
+      imageUrlSplit[imageUrlSplit.length - 2] += '_230x230';
+      const imageUrl = imageUrlSplit.join('.');
+
+      products.push({
+        image: imageUrl,
+        image_alt: responses[i].title,
+        price: format(responses[i].price / 100),
+        subtitle: responses[i].title.split('|')[1],
+        title: responses[i].title.split('|')[0],
+        url: responses[i].url,
+      });
+    }
+
+    document.getElementById('recently-viewed-content').innerHTML = template({
+      products,
+    });
+
+    // Loop & wait for Swiper global variable to become available
+    const interval = setInterval(() => {
+      if (window.Swiper) {
+        clearInterval(interval);
+
+        new Swiper('#recently-viewed-swiper', {
+          autoplay: {
+            delay: 5000,
+          },
+          breakpoints: {
+            640: {
+              slidesPerView: 2,
+            },
+            1024: {
+              slidesPerView: 3,
+              spaceBetween: 24,
+            }
+          },
+          pagination: {
+            bulletActiveClass: 'pagination-bars-active',
+            bulletClass: 'pagination-bars',
+            clickable: true,
+            el: '.recently-viewed-swiper__pagination',
+            renderBullet: function (index, className) {
+              return `<button class="${className} bg-gray-400 h-1 mx-1 rounded-md w-4" type="button"></button>`
+            },
+          },
+          spaceBetween: 16,
+        });
+      }
+    }, 200);
+  }
+
+  const existingCookie = getCookie('tl_recent_products').split(',');
+
+  if (existingCookie.length > 1) {
+    existingCookie.pop();
+
+    getProducts(existingCookie);
+  }
+</script>
+
+{% schema %}
+{
+  "name": "Recently Viewed Products"
+}
+{% endschema %}

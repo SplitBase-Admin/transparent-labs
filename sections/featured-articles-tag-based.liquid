@@ -1,0 +1,445 @@
+{{ 'featured-articles-tag-based.css' | asset_url | stylesheet_tag }}
+
+<section class="featured-articles-tabs featured-articles-tag-tabs" id="featured-articles-tag-tabs" data-section-id="{{ section.id }}">
+  <div class="container">
+    <div class="section-header">
+      {% if section.settings.heading != blank %}
+        <h2>{{ section.settings.heading }}</h2>
+        <a 
+          href="javascript:void(0)" 
+          class=" view-all-btn link" 
+        >
+          <span>View All</span> {% render 'right-arrow' %}
+        </a>
+        
+      {% endif %}
+    </div>
+
+    {%- assign all_tags = '' -%}
+
+    {% paginate blog.articles by 1000 %}
+      {%- for article in blog.articles -%}
+        {%- for tag in article.tags -%}
+          {% unless all_tags contains tag %}
+            {% assign all_tags = all_tags | append: tag | append: '||' %}
+          {% endunless %}
+        {%- endfor -%}
+      {%- endfor -%}
+    {% endpaginate %}
+
+    {%- assign tag_array = all_tags | split: '||' | uniq -%}
+    {%- assign metafield_tags = blog.metafields.custom.blog_tab_details.value | parse_json -%}
+  
+    {% assign filtered_tags = '' %}
+
+    {% if metafield_tags != blank %}
+      {% for metafield_tag in metafield_tags %}
+        {% assign tag_name = metafield_tag.tag_name_to_display %}
+        {% assign tag_to_match = metafield_tag.tag_to_match %}
+  
+        {% if tag_array contains tag_to_match %}
+          {% assign filtered_tags = filtered_tags | append: tag_to_match | append: '||' %}
+        {% endif %}
+      {% endfor %}
+    {% else %}
+      {% assign filtered_tags = tag_array | slice: 0, 5 | join: '||' %}
+    {% endif %}
+  
+    {% assign final_tags = filtered_tags | split: '||' | uniq %}
+    <div class="article-tabs tabs">
+      <a class="article-tab-button active {% if final_tags.size == 0 %} only-active-tab{% endif %}" data-tab="all" data-tab-index="0">All</a>
+
+      {% if final_tags.size > 0 %}
+        {% for tag_to_match in final_tags %}
+          {% if tag_to_match != blank %}
+            {%- assign tag_details = metafield_tags | where: "tag_to_match", tag_to_match -%}
+            {% if tag_details.size > 0 %}
+              {% assign tag_name_to_display = tag_details[0].tag_name_to_display %}
+              <a 
+                class="article-tab-button" 
+                data-tab="{{ tag_to_match | handle }}" 
+                data-tab-index="{{ forloop.index }}"
+              >
+               {% if tag_name_to_display != blank %}{{ tag_name_to_display }}{% else %}{{ tag_to_match }}{% endif %}
+              </a>
+            {% else %}
+              <a 
+                class="article-tab-button" 
+                data-tab="{{ tag_to_match | handle }}" 
+                data-tab-index="{{ forloop.index }}"
+              >
+                {{ tag_to_match }}
+              </a>
+            {% endif %}
+          {% endif %}
+        {% endfor %}
+      {% else %}
+        <p>No tags to display.</p>
+      {% endif %}
+    </div>
+
+    {%- paginate blog.articles by 12 -%}
+    <div class="tab-content ">
+      <!-- ALL ARTICLES TAB PANEL (default) -->
+      <div class="tab-panel active" id="all">
+        <div class="article-swiper-container">
+          <div class="swiper-wrapper article-item-wrapper">
+            {% for article in blog.articles %}
+              <div class="article-slide">
+                {% render 'article-item', article: article %}
+              </div>
+            {% endfor %}
+          </div>
+        </div>
+      </div>
+
+      <!-- TAG-SPECIFIC TABS -->
+      {% for tag in final_tags %}
+        {% if tag != blank %}
+          <div class="tab-panel" id="{{ tag | handle }}">
+            <div class="article-swiper-container">
+              <div class="swiper-wrapper article-item-wrapper {% if forloop.index > 4 %}hidden{% endif %}">
+                {% for article in blog.articles %}
+                  {% if article.tags contains tag %}
+                    <div class="article-slide">
+                      {% render 'article-item', article: article %}
+                    </div>
+                  {% endif %}
+                {% endfor %}
+              </div>
+            </div>
+          </div>
+        {% endif %}
+      {% endfor %}
+    </div>
+    <div class="pagination-content hidden">
+      {%- if paginate.pages > 1 -%}
+        {%- render 'pagination', paginate: paginate, show_text: true -%}
+      {%- endif -%}
+    </div>
+    {% endpaginate %} 
+  </div>
+  <div class="page-loading-overlay hide">
+    <div class="loader-spinner"></div>
+  </div>
+</section>
+
+
+<script>
+  function getSectionsToRender(panelId) {
+      let newUrl = window.location.origin + "{{ blog.url }}";
+      if (panelId !== "all" && panelId !== "All") {
+          newUrl = window.location.origin + "{{ blog.url }}" + "/tagged/" + panelId;
+      }
+      
+      let selectors = [];
+  
+      if (panelId === "all") {
+          selectors = [
+              "#all",
+              ".pagination-content",
+          ];
+      } else {
+          selectors = [
+              `#${panelId}`,
+              ".pagination-content"
+          ];
+      }
+  
+      return selectors.map(selector => ({
+          id: 'featured-articles-tag-tabs',
+          section: '{{ section.id }}',
+          selector: selector
+      }));
+  }
+  
+  function getVisibleSlideCount() {
+    const width = window.innerWidth;
+    if (width >= 1025) return 3;
+    if (width >= 641) return 4;
+    return 3;
+  }
+
+  function renderSections(panelId, newUrl, callback, showAllSlides = false) {
+    const sections = getSectionsToRender(panelId);
+    const sectionParams = sections.map(section => section.section).join(',');
+    const separator = newUrl.includes('?') ? '&' : '?';
+    const overlay = document.querySelector('.page-loading-overlay');
+    if (overlay) overlay.classList.remove('hide');
+
+    fetch(`${newUrl}${separator}sections=${sectionParams}`)
+        .then(response => {
+            if (!response.ok) throw new Error('Network response was not ok');
+            return response.json();
+        })
+        .then(data => {
+            sections.forEach(({ section, selector }) => {              
+                const htmlString = data[section];
+                const parsedHTML = new DOMParser().parseFromString(htmlString, 'text/html');
+                window.parsedHTML = parsedHTML;
+                var newContent = parsedHTML.querySelector(selector);
+                if(newContent == null){
+                  newContent = parsedHTML.querySelector('#all');
+                }
+                const currentContent = document.querySelector(selector);
+                
+                if (newContent && currentContent) {
+                  currentContent.innerHTML = newContent.innerHTML;
+                  var visibleCount = getVisibleSlideCount();
+                  const currentSlides = currentContent.querySelectorAll(".article-slide");
+                  currentSlides.forEach((slide, index) => {
+                    if (showAllSlides) {
+                      slide.classList.remove("hidden");
+                      
+                    } else {
+                      if (index >= visibleCount) {
+                        slide.classList.add("hidden");                        
+                      } else {
+                        slide.classList.remove("hidden");
+                      }
+                    }
+                  });
+                  const viewAllBtn = document.querySelector(".view-all-btn");
+                  if (viewAllBtn) {
+                    if (currentSlides.length > 0 && currentSlides.length <= visibleCount) {
+                      viewAllBtn.classList.add("hidden");
+                    } else if(currentSlides.length > 0) {
+                      viewAllBtn.classList.remove("hidden");
+                    }
+                  }
+                  if (!showAllSlides) {
+                     viewAllBtn.querySelector("span").textContent = "View All"; 
+                  }
+                }
+              
+                if (newContent && !currentContent) {
+                    let currentContentNew = document.querySelector(".tab-content");
+                    if (currentContentNew) {
+                        currentContentNew.insertAdjacentElement('beforeend', newContent);
+                    }
+                }
+
+                const paginationContent = parsedHTML.querySelector('.pagination-content');
+                const currentPagination = document.querySelector('.pagination-content');
+                
+                if (paginationContent && paginationContent.innerHTML.trim() !== '') {
+                  if (showAllSlides) {
+                    paginationContent.classList.remove('hidden');
+                  }
+                  const currentPagination = document.querySelector('.pagination-content');
+                  if (currentPagination) {
+                    currentPagination.replaceWith(paginationContent);
+                  } else {
+                    const tabContent = document.querySelector('.tab-content');
+                    if (tabContent) {
+                      tabContent.insertAdjacentElement('beforeend', paginationContent);
+                    }
+                  }
+                }
+
+            });
+
+            // Initialize other features like article swipers, equalize blog title heights, etc.
+            // initializeArticleSwipers();
+            equalizeBlogTitleHeights();
+
+            if (overlay) overlay.classList.add('hide');
+            const contentWrapper = document.querySelector('.featured-articles-tag-tabs__section');
+            if (contentWrapper) contentWrapper.style.minHeight = '';
+            if (typeof callback === 'function') {
+                callback(); // open drawer after render if needed
+            }
+        })
+        .catch(error => {
+            console.error('Failed to render sections:', error);
+            const contentWrapper = document.querySelector('.featured-articles-tag-tabs__section');
+            if (contentWrapper) contentWrapper.style.minHeight = '';
+        });
+  }
+
+  function equalizeBlogTitleHeights() {
+    const titles = document.querySelectorAll('.featured-articles-tag-tabs .tab-panel.active .article-item-box h3');
+    titles.forEach(el => el.style.height = 'auto');
+
+    let maxHeight = 0;
+    titles.forEach(el => {
+      if (el.offsetHeight > maxHeight) maxHeight = el.offsetHeight;
+    });
+
+    titles.forEach(el => {
+      el.style.height = maxHeight + 'px';
+    });
+  }
+
+  document.addEventListener("DOMContentLoaded", () => {
+
+    let viewAllBtn = document.querySelector(".view-all-btn");
+    const textSpan = viewAllBtn.querySelector('span');
+
+    if (textSpan) {
+      viewAllBtn.addEventListener("click", function (event) {
+        event.preventDefault();
+    
+        let activeTabPanel = document.querySelector(".tab-panel.active");
+        if (activeTabPanel) {
+          let hiddenSlides = activeTabPanel.querySelectorAll(".article-slide.hidden");
+          let allSlides = activeTabPanel.querySelectorAll(".article-slide");
+          let tabPaginationContent = document.querySelector(".pagination-content");
+    
+          if (hiddenSlides.length > 0) {
+            allSlides.forEach(function (element) {
+              element.classList.remove("hidden");
+            });
+            textSpan.textContent = "View Less";
+            tabPaginationContent.classList.remove('hidden');
+          } else {
+            var visibleCount = getVisibleSlideCount();
+            allSlides.forEach(function (element, index) {
+              if (index >= visibleCount) {
+                element.classList.add("hidden");
+              }
+            });
+            textSpan.textContent = "View All";
+            tabPaginationContent.classList.add('hidden');
+          }
+        }
+      });
+    }
+    
+    // Tab click handling
+    const tabs = document.querySelectorAll(".featured-articles-tag-tabs .article-tab-button");
+    const panels = document.querySelectorAll(".featured-articles-tag-tabs .tab-panel");
+    const articleLinks = document.querySelectorAll(".tab-article-link");
+
+    tabs.forEach(tab => {
+      tab.addEventListener("click", event => {
+        event.preventDefault();
+        const contentWrapper = document.querySelector('.featured-articles-tag-tabs__section');
+        const originalHeight = contentWrapper?.offsetHeight;
+        if (contentWrapper && originalHeight) {
+          contentWrapper.style.minHeight = originalHeight + "px";
+        }
+        
+        const panelId = tab.dataset.tab;
+        tabs.forEach(t => t.classList.remove("active"));
+        tab.classList.add("active");
+
+        panels.forEach(p => p.classList.remove("active"));
+        const activePanel = document.getElementById(panelId);
+        if (activePanel) {
+
+        let activeSlides = activePanel.querySelectorAll(".article-slide");
+        activeSlides.forEach((slide, index) => {
+            slide.classList.add("hidden");
+        });
+          
+          activePanel.classList.add("active");
+        }
+
+        if (panelId === "all" || panelId === "All") {
+          newUrl = window.location.origin + "{{ blog.url }}";
+          renderSections(panelId, newUrl, () => {
+            console.log("Sections rendered!");
+          });
+        } else {
+          newUrl = window.location.origin + "{{ blog.url }}" + "/tagged/" + panelId;
+          renderSections(panelId, newUrl, () => {
+            console.log("Sections rendered!");
+          });
+        }
+
+        articleLinks.forEach(c => c.classList.remove("active"));
+        const linkedTab = document.querySelector(`.featured-articles-tag-tabs .tab-article-link[data-id="${panelId}"]`);
+        if (linkedTab) {
+          linkedTab.classList.add("active");
+        }
+
+        equalizeBlogTitleHeights();
+      });
+    });
+
+    document.body.addEventListener('click', event => {
+      const target = event.target.closest('.pagination__item');
+      if (target) {
+        event.preventDefault();
+        const paginationPanelId = document.querySelector('.article-tab-button.active').getAttribute('data-tab');
+        const href = target.getAttribute('href');
+        renderSections(paginationPanelId, href, () => {
+          console.log("Sections rendered!");
+        }, true);
+      }
+    });
+
+    window.addEventListener("resize", () => {
+      const activePanel = document.querySelector(".tab-panel.active");
+      const allSlides = activePanel?.querySelectorAll(".article-slide");
+      const viewAllBtn = document.querySelector(".view-all-btn");
+      const isViewLess = viewAllBtn?.querySelector("span")?.textContent === "View All";
+    
+      if (allSlides && isViewLess) {
+        var visibleCount = getVisibleSlideCount();
+        allSlides.forEach((slide, index) => {
+          if (index >= visibleCount) {
+            slide.classList.add("hidden");
+          } else {
+            slide.classList.remove("hidden");
+          }
+        });
+      }
+    });
+
+    const activePanel = document.querySelector(".tab-panel.active");
+    if (activePanel) {
+      const allSlides = activePanel.querySelectorAll(".article-slide");
+      const visibleCount = getVisibleSlideCount();
+  
+      allSlides.forEach((slide, index) => {
+        if (index >= visibleCount) {
+          slide.classList.add("hidden");
+        } else {
+          slide.classList.remove("hidden");
+        }
+      });
+    }
+
+    window.addEventListener('load', equalizeBlogTitleHeights);
+    window.addEventListener('resize', equalizeBlogTitleHeights);
+  });
+</script>
+
+{% schema %}
+{
+  "name": "Featured Article Tag Tabs",
+  "class": "featured-articles-tag-tabs__section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "article_tab",
+      "name": "Article Tab",
+      "settings": [
+        {
+          "type": "blog",
+          "id": "blog",
+          "label": "Select Blog"
+        },
+        {
+          "type": "text",
+          "id": "article_title",
+          "label": "Tab Title"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Featured Article Tag Tabs"
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,39 @@
+<div id="firework-homepage">
+<script async src='//http://asset.fwcdn3.com/js/storyblock.js'></script>
+  {% if section.settings.enablefireworkhtml == true %}
+    {% if section.settings.fireworkhtml != "blank"  %}
+        {{ section.settings.fireworkhtml }}
+    {% endif %}
+  {% endif %}
+</div>
+{% schema %}
+  {
+    "name": "Custom firework",
+    "settings": [
+      {
+        "type":"checkbox",
+        "id":"enablefireworkhtml",
+        "label":"Enable firework videos",
+        "default":true
+      },
+      {
+        "type":"textarea",
+        "id":"fireworkhtml",
+        "label":"Paste your story block html"
+      }
+      
+    ], 
+    "presets":[
+		{
+			"name": "Custom firework"
+		}
+	]
+    
+  }
+{% endschema %}
+
+{% stylesheet %}
+{% endstylesheet %}
+
+{% javascript %}
+{% endjavascript %}

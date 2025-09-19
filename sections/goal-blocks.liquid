@@ -1,0 +1,160 @@
+{{ 'goal-blocks.css' | asset_url | stylesheet_tag }}
+
+<section class="shop-by-goal{% if section.settings.section_layout == 'layout_2' %} layout--full-width{% endif %}">
+  <div class="container">
+    <div class="goal-wrapper">
+      <div class="left-section">
+        <div class="section-header">
+          {%- if section.settings.section_heading != blank -%}
+          <h2 class="section_heading">
+            {{ section.settings.section_heading }}
+            <a href="{{ block.settings.block_link }}" class="">
+              View All
+              {% render 'right-arrow' %}
+            </a>
+          </h2>
+          {%- endif -%}
+          {%- if section.settings.section_description != blank -%}<p>{{ section.settings.section_description }}</p>{%- endif -%}
+        </div>
+        {%- if section.settings.section_button_label != blank -%}<a href="{{ section.settings.section_button_link }}" class="button outlined-black-button">{{ section.settings.section_button_label }}</a>{%- endif -%}
+      </div>
+      <div class="right-section">
+      <div class="grid">
+        {% for block in section.blocks %}
+          <div class="grid-item">
+            <a href="{{ block.settings.block_link }}" class="goal-block-link" aria-label="Goal Block Link">Goal Block Link</a>
+            <div class="block-header">
+              {%- if block.settings.block_heading != blank -%}
+              <h3 class="heading">
+                {{ block.settings.block_heading }}
+                <a href="{{ block.settings.block_link }}" class="" aria-label="Goal Block Link">
+                  {% if block.settings.block_link != blank %}{% render 'right-arrow' %}{% endif %}
+                </a>
+              </h3>
+              {%- endif -%}
+              {%- if block.settings.block_description != blank -%}<p>{{ block.settings.block_description }}</p>{%- endif -%}
+            </div>
+            {% if block.settings.block_image != blank %}
+              <div class="image__wrapper">{% render 'responsive-image-400', image: block.settings.block_image, image_alt: block.settings.block_heading %}</div>
+            {% else %}
+              <div class="image__wrapper placeholder-image">{{ 'image' | placeholder_svg_tag }}</div>
+            {% endif %}
+          </div>
+        {% endfor %}
+      </div>
+    </div>
+    </div>
+  </div>
+</section>
+
+{% style %}
+  
+  .shop-by-goal {
+    background: {{ section.settings.bg_color }};
+  }
+  
+{% endstyle %}
+
+{% schema %}
+{
+  "name": "Shop By Goal Section",
+  "max_blocks": 4,
+  "settings": [
+    {
+      "type": "select",
+      "id": "section_layout",
+      "label": "Section layout",
+      "options": [
+        {
+          "label": "Two Column Grid with Text",
+          "value": "layout_1"
+        },
+        {
+          "label": "Full Width Grid",
+          "value": "layout_2"
+        }
+      ],
+      "default": "layout_1"
+    },
+    {
+      "type": "color",
+      "id": "bg_color",
+      "label": "Background",
+      "default": "#F8F9FB"
+    },
+    {
+      "type": "text",
+      "id": "section_heading",
+      "label": "Section Heading",
+      "default": "Shop By Goal"
+    },
+    {
+      "type": "textarea",
+      "id": "section_description",
+      "label": "Section Description",
+      "default": "Find products curated for your specific needs."
+    },
+    {
+      "type": "url",
+      "id": "section_button_link",
+      "label": "Button Link",
+      "default": "/collections/all"
+    },
+    {
+      "type": "text",
+      "id": "section_button_label",
+      "label": "Button Label",
+      "default": "Find my Supplement Routine"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "goal_block",
+      "name": "Goal Block",
+      "settings": [
+        {
+          "type": "text",
+          "id": "block_heading",
+          "label": "Block Heading",
+          "default": "Goal 1"
+        },
+        {
+          "type": "textarea",
+          "id": "block_description",
+          "label": "Block Description",
+          "default": "Description of the goal."
+        },
+        {
+          "type": "image_picker",
+          "id": "block_image",
+          "label": "Block Image"
+        },
+        {
+          "type": "url",
+          "id": "block_link",
+          "label": "Block Link"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Shop By Goal",
+      "blocks": [
+        {
+          "type": "goal_block"
+        },
+        {
+          "type": "goal_block"
+        },
+        {
+          "type": "goal_block"
+        },
+        {
+          "type": "goal_block"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

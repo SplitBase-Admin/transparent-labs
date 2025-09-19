@@ -1,0 +1,667 @@
+{% include 'shogun-content-handler' %}
+
+<!doctype html>
+<html class="no-js h-screen" lang="{{ request.locale.iso_code }}">
+  <head>{% render 'skio-head' %}
+    {% assign is_cart_template = false %}
+    {% unless request.design_mode %}
+      {% if template == "cart"  %}
+        {% unless canonical_url contains "?" %}
+          {% assign is_cart_template = true %}
+          <!-- <meta http-equiv="refresh" content="0; url={{ shop.url }}" /> -->
+          <script>
+            sessionStorage.setItem("open-cart", "true");
+            location.href = "{{ shop.url }}"
+          </script>
+        {% endunless %}
+      {% endif %}
+    {% endunless %}
+        
+    <script src="https://analytics.ahrefs.com/analytics.js" data-key="X7sldngTb0k2VwicUapSvA" defer="true"></script>
+    <meta name="msvalidate.01" content="FAAA0C176F79FA2503017EF5ED98B54C" />
+    <link rel='preconnect dns-prefetch' href='https://api.config-security.com/' crossorigin />
+    <link rel='preconnect dns-prefetch' href='https://conf.config-security.com/' crossorigin />
+    <link rel='preconnect dns-prefetch' href='https://whale.camera/' crossorigin />
+    <script>
+    /* >> TriplePixel :: start*/
+    window.TriplePixelData={TripleName:"transparent-labs.myshopify.com",ver:"2.11",plat:"SHOPIFY",isHeadless:false},function(W,H,A,L,E,_,B,N){function O(U,T,P,H,R){void 0===R&&(R=!1),H=new XMLHttpRequest,P?(H.open("POST",U,!0),H.setRequestHeader("Content-Type","application/json")):H.open("GET",U,!0),H.send(JSON.stringify(P||{})),H.onreadystatechange=function(){4===H.readyState&&200===H.status?(R=H.responseText,U.includes(".txt")?eval(R):P||(N[B]=R)):(299<H.status||H.status<200)&&T&&!R&&(R=!0,O(U,T-1,P))}}if(N=window,!N[H+"sn"]){N[H+"sn"]=1,L=function(){return Date.now().toString(36)+"_"+Math.random().toString(36)};try{A.setItem(H,1+(0|A.getItem(H)||0)),(E=JSON.parse(A.getItem(H+"U")||"[]")).push({u:location.href,r:document.referrer,t:Date.now(),id:L()}),A.setItem(H+"U",JSON.stringify(E))}catch(e){}var i,m,p;A.getItem('"!nC`')||(_=A,A=N,A[H]||(E=A[H]=function(t,e,a){return void 0===a&&(a=[]),"State"==t?E.s:(W=L(),(E._q=E._q||[]).push([W,t,e].concat(a)),W)},E.s="Installed",E._q=[],E.ch=W,B="configSecurityConfModel",N[B]=1,O("https://conf.config-security.com/model",5),i=L(),m=A[atob("c2NyZWVu")],_.setItem("di_pmt_wt",i),p={id:i,action:"profile",avatar:_.getItem("auth-security_rand_salt_"),time:m[atob("d2lkdGg=")]+":"+m[atob("aGVpZ2h0")],host:A.TriplePixelData.TripleName,plat:A.TriplePixelData.plat,url:window.location.href,ref:document.referrer,ver:A.TriplePixelData.ver},O("https://api.config-security.com/event",5,p),O("https://whale.camera/live/dot.txt",5)))}}("","TriplePixel",localStorage);
+    /* << TriplePixel :: end*/
+    </script>
+    {% render 'replo-head' %}
+    <!-- <script type="text/javascript" src="https://d3t0blvjvadsrq.cloudfront.net/scripts/socioh_shopify_v2.js" async="true"></script> -->
+    <script>
+      if (window.location.pathname.startsWith('/tools/recurring')) {
+        window.location.href = '/a/account/login';
+      }
+    </script>
+
+    
+    <script src="{{ 'skio-cart-upsell.js' | asset_url }}" type="module"></script>
+     
+
+    <!-- Google Tag Manager -->
+    <script>
+      (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+      new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+      j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+      'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+      })(window,document,'script','dataLayer','GTM-5CKCLPG');
+    </script>
+    <!-- End Google Tag Manager -->
+
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="theme-color" content="">
+
+ 
+    <link rel="canonical" href="{{ canonical_url }}">
+    {%- if settings.favicon != blank -%}
+      <link rel="icon" type="image/png" href="{{ settings.favicon | img_url: '32x32' }}">
+    {%- endif -%}
+
+    <title>
+      {{ page_title }}
+      {%- if current_tags %} &ndash; tagged "{{ current_tags | join: ', ' }}"{% endif -%}
+      {%- if current_page != 1 %} &ndash; Page {{ current_page }}{% endif -%}
+      {%- unless page_title contains shop.name %} &ndash; {{ shop.name }}{% endunless -%}
+    </title>
+
+    {% if page_description %}
+      <meta name="description" content="{{ page_description | escape }}">
+    {% endif %}
+
+    {% render 'meta-tags' %}
+    <!-- <script src="{{ 'app-C6Uau2ax.js' | asset_url }}" defer></script> -->
+    <script src="{{ 'updated_global.js' | asset_url }}" defer></script>
+    <script src="{{ 'global.js' | asset_url }}" defer></script>
+    <script src="{{ 'lazysizes.js' | asset_url }}" defer></script>
+    <script src="{{ 'custom-elements.js' | asset_url }}" defer></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/handlebars@latest/dist/handlebars.js"
+      type="text/javascript"
+      defer
+    ></script>
+
+    <link rel="stylesheet" href="https://use.typekit.net/eje7iur.css">
+
+
+    {% if template == 'collection' %}
+      <script src="{{ 'collection.js' | asset_url }}" defer></script>
+    {% elsif template == 'index' %}
+      <script src="{{ 'index.js' | asset_url }}" defer></script>
+      <script src="{{ 'product.js' | asset_url }}" defer></script>
+    {% elsif template == 'product' %}
+      <script src="{{ 'product.js' | asset_url }}" defer></script>
+    {% elsif template == 'product.stack' %}
+      <script src="{{ 'stack-product.js' | asset_url }}" defer></script>
+    {% elsif template contains 'alternate-product-tpl' %}
+      <script src="{{ 'product-v2.js' | asset_url }}" defer></script>
+    {% elsif template contains 'product.' %}
+      {% unless template == 'product.new_stack_products' %}
+        <script src="{{ 'product-v2.js' | asset_url }}" defer></script>
+      {% endunless %}
+    {% elsif template == 'page.asrv' %}
+      <script src="{{ 'product-v2.js' | asset_url }}" defer></script>
+
+      {{ 'asrv.css' | asset_url | stylesheet_tag }}
+    {% elsif template == 'page.calculator' %}
+      <script type="text/javascript" src="//www.klaviyo.com/media/js/public/klaviyo_subscribe.js" defer></script>
+      <script src="{{ 'calculator.js' | asset_url }}" defer></script>
+    {% elsif template == 'page.new-macro-calculator' %}
+      <script type="text/javascript" src="//www.klaviyo.com/media/js/public/klaviyo_subscribe.js" defer></script>
+      <script src="{{ 'calculator-alt.js' | asset_url }}" defer></script>
+    {% endif %}
+
+    {{ content_for_header }}
+
+    {{ 'compiled.css' | asset_url | stylesheet_tag }}
+
+    {{ 'xgen-stacks.css' | asset_url | stylesheet_tag }}
+    {{ 'product-card.css' | asset_url | stylesheet_tag }}
+  
+    {%- if settings.predictive_search_enabled -%}
+      <link
+        rel="stylesheet"
+        href="{{ 'component-predictive-search.css' | asset_url }}"
+        media="print"
+        onload="this.media='all'"
+      >
+    {%- endif -%}
+
+    <script>
+      document.documentElement.className = document.documentElement.className.replace('no-js', 'js');
+    </script>
+
+    <script>
+      window.routes = {
+        cart_add_url: '{{ routes.cart_add_url }}',
+        cart_change_url: '{{ routes.cart_change_url }}',
+        cart_update_url: '{{ routes.cart_update_url }}',
+        predictive_search_url: '{{ routes.predictive_search_url }}'
+      };
+    </script>
+
+    {% include 'sca.freegifts' %}
+
+    <!-- Hotjar Tracking Code for my site -->
+    <script>
+      (function(h,o,t,j,a,r){
+          h.hj=h.hj||function(){(h.hj.q=h.hj.q||[]).push(arguments)};
+          h._hjSettings={hjid:3482549,hjsv:6};
+          a=o.getElementsByTagName('head')[0];
+          r=o.createElement('script');r.async=1;
+          r.src=t+h._hjSettings.hjid+j+h._hjSettings.hjsv;
+          a.appendChild(r);
+      })(window,document,'https://static.hotjar.com/c/hotjar-','.js?sv=');
+    </script>
+
+   
+    <!-- Global site tag (gtag.js) - Google Marketing Platform -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=DC-12142970"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'DC-12142970');
+    </script>
+    <!-- End of global snippet: Please do not remove -->
+
+   
+
+    {{ 'swiper-bundle.min.js' | asset_url | script_tag }}
+    {{ 'swiper-bundle.min.css' | asset_url | stylesheet_tag }}
+    {{ 'flickity.pkgd.min.js' | asset_url | script_tag }}
+    {{ 'flickity.min.css' | asset_url | stylesheet_tag }}
+
+    {{ 'bulk-affiliate.css' | asset_url | stylesheet_tag }}
+    {{ 'custom.css' | asset_url | stylesheet_tag }} 
+    {{ 'customer-reviews.css' | asset_url | stylesheet_tag }}
+    {{ 'third-party-tests.css' | asset_url | stylesheet_tag }}
+    {{ 'featured-collections-snap.css' | asset_url | stylesheet_tag }}
+    {% comment %}<script src=" {{ 'money_format.js' | asset_url }}" defer></script>{% endcomment %}
+    <script src=" {{ 'custom.js' | asset_url }}" defer></script>
+    <script src=" {{ 'featured-collections-snap.js' | asset_url }}" defer></script>
+    
+  <!-- Intelligems Tag -->
+  <script>
+    window.Shopify = window.Shopify || {theme: {id: {{ theme.id }}, role: '{{ theme.role }}' } };
+    window._template = {
+        directory: "{{ template.directory }}",
+        name: "{{ template.name }}",
+        suffix: "{{ template.suffix }}"
+    };
+  </script>
+  <script type="module" blocking="render" fetchpriority="high" src="https://cdn.intelligems.io/esm/bd68364d6301/bundle.js" async></script>
+    
+    {{ 'certificate-of-analysis-json-data.js' | asset_url | script_tag }}
+  
+    <!-- Postpilot Sitematch tracking code -->
+    <script type='text/javascript'>
+  var script = document.createElement('script');
+  script.src = 'https://xp2023-pix.s3.amazonaws.com/px_hHX5v.js';
+  document.getElementsByTagName('head')[0].appendChild(script);
+</script>
+
+
+    {% assign neue_haas = "'neue-haas-unica',sans-serif" %}
+    {% assign aeonik = "'Aeonik'" %}
+    
+    <style>
+      :root {
+        --font-aeonik: {{ aeonik }};
+        --font-neue: {{ neue_haas }};
+      }
+
+      @font-face {
+        font-family: 'Aeonik';
+        src: url('https://cdn.shopify.com/s/files/1/0866/7664/files/Aeonik-SemiBold.woff?v=1734696269') format('woff2'),
+            url('https://cdn.shopify.com/s/files/1/0866/7664/files/Aeonik-SemiBold.woff2?v=1734696269') format('woff2'),
+            url('https://cdn.shopify.com/s/files/1/0866/7664/files/Aeonik-SemiBold_2.otf?v=1743500659') format('otf');
+        font-weight: 600;
+        font-style: normal;
+        font-display: swap;
+      }
+    
+    </style>
+    
+  
+  {% render 'shogun-head' %}
+</head>
+  <body
+    class="font-neue grid grid-cols-1 {{ template.name }} template--{{ template.name }} {% if request.path contains '/policies/' %}template--page{% endif  %} unique-{{ template.suffix }}"
+    data-temp="{{ template }}"
+    {% if is_cart_template %} 
+    style="display: none;"
+    {% endif %}
+  >
+    <div class="filter__loader">
+    </div>
+    <!-- Google Tag Manager (noscript) -->
+    <noscript
+      ><iframe
+        src="https://www.googletagmanager.com/ns.html?id=GTM-5CKCLPG"
+        height="0"
+        width="0"
+        style="display:none;visibility:hidden"
+      ></iframe
+    ></noscript>
+    <!-- End Google Tag Manager (noscript) -->
+
+    <a class="sr-only focus:not-sr-only" href="#MainContent">Skip to content</a>
+
+    {% section 'announcement-bar' %}
+    {% section 'header' %}
+
+    <main id="MainContent" class="content-for-layout focus-none relative" role="main" tabindex="-1">
+      {{ content_for_layout }}
+    </main>
+
+    {% render 'quick-view-skeleton' %}
+    {% section 'footer' %}
+
+    <ul hidden>
+      <li id="a11y-refresh-page-message">{{ 'accessibility.refresh_page' | t }}</li>
+    </ul>
+
+    {%- if settings.predictive_search_enabled -%}
+      <script src="{{ 'predictive-search.js' | asset_url }}" defer></script>
+    {%- endif -%}
+
+    {% include 'elspw_include' %}
+    <script
+      async
+      type="text/javascript"
+      src="https://static.klaviyo.com/onsite/js/klaviyo.js?company_id=qxNUDF"
+    ></script>
+
+    <script src="https://a.klaviyo.com/media/js/onsite/onsite.js"></script>
+    <script>
+        var klaviyo = klaviyo || [];
+        klaviyo.init({
+          account: "qxNUDF",
+          list: 'pNXxKH',
+          platform: "shopify"
+        });
+        klaviyo.enable("backinstock",{
+        trigger: {
+          product_page_text: "Notify Me When Available",
+          product_page_class: "btn",
+          product_page_text_align: "center",
+          product_page_margin: "0px",
+          replace_anchor: false
+        },
+        modal: {
+         headline: "{product_name}",
+         body_content: "Register to receive a notification when this item comes back in stock.",
+         email_field_label: "Email",
+         button_label: "Notify me when available",
+         subscription_success_label: "You're in! We'll let you know when it's back.",
+         footer_content: '',
+         additional_styles: "@import url('https://fonts.googleapis.com/css?family=Helvetica+Neue');",
+         drop_background_color: "#000",
+         background_color: "#fff",
+         text_color: "#222",
+         button_text_color: "#fff",
+         button_background_color: "#439fdb",
+         close_button_color: "#ccc",
+         error_background_color: "#fcd6d7",
+         error_text_color: "#C72E2F",
+         success_background_color: "#d3efcd",
+         success_text_color: "#1B9500"
+        }
+      });
+
+    </script>
+
+    <script type="text/javascript">
+      !function(){if(!document.querySelector("[src*='D13F989D-A12C-8152-0C4C-96E414739C5A']")){var e=document.createElement("script");e.type="text/javascript",e.async=!0,e.src="//www.rtb123.com/tags/D13F989D-A12C-8152-0C4C-96E414739C5A/btp.js";var t=document.getElementsByTagName("head")[0];t?t.appendChild(e,t):(t=document.getElementsByTagName("script")[0]).parentNode.insertBefore(e,t)}}();
+    </script>
+
+   
+    {% section 'app-optimization' %}
+    <script>
+      // Begin: Make sure to remove the free products when the product GRASS_FED_WHEY_PROTEIN_ISOLATE_VARIANT_ID is removed from the cart
+    const GRASS_FED_WHEY_PROTEIN_ISOLATE_VARIANT_IDs = [41290254090333,
+                                                        41102469562461,
+                                                        41053892444253,
+                                                        39391758647389,
+                                                        41399380836445,
+                                                        39858469437533,
+                                                        40276423540829,
+                                                        41021170745437,
+                                                        39492089774173,
+                                                        40007249428573,
+                                                        41431363289181,
+                                                        39493005410397,
+                                                        39366091440221,
+                                                        39366090752093,
+                                                        41071547514973];
+    const FREE_PRODUCT_1_VARIANT_ID = 41296806215773;
+    const FREE_PRODUCT_2_VARIANT_ID = 41296806346845;
+      
+    function isObjectWithIdExist(cartItems, idList) {
+      if(Array.isArray(idList)){
+        for(idListItem of idList){
+          const expectedItem =  cartItems.find(item=>item.id === idListItem);
+          if(expectedItem){
+            return expectedItem;
+          }
+        }
+      }else{
+        return cartItems.find(item=>item.id === idList);
+      }
+    }
+      
+    function freeItemExist(cartItems, freeItems) {
+      return freeItems.some(id => cartItems.some(item => item.id === id))
+    }  
+
+   function updateCart(cart) 
+   {
+      openCartMenu(cart);   
+      $.getJSON('/cart.js', function(cart) 
+      {
+        if(cart.item_count == 0)
+        {
+          $('#cart-count').html();
+        }
+        else
+        {
+          $('#cart-count').html("<number class='number cart-count'>"+cart.item_count+"</number>");
+        }
+      });
+    } 
+      
+    // End: Make sure to remove the free products when the product GRASS_FED_WHEY_PROTEIN_ISOLATE_VARIANT_ID is removed from the cart 
+    
+        window.addEventListener('load', function() 
+    {
+      var _learnq = window._learnq || [];
+    
+      (function (ns, fetch) {
+        ns.fetch = function() {
+          const response = fetch.apply(this, arguments);
+          response.then(res => {
+            if (`${window.location.origin}/cart/add.js`
+            	.includes(res.url)) {    	
+            }
+          });
+          return response
+        }
+      }(window, window.fetch));
+      
+      var klAjax = true;
+      var atcButtons = document.querySelectorAll("form[action*='/cart/add'] button[type='submit']");
+      for (var i = 0; i < atcButtons.length; i++) {
+          atcButtons[i].addEventListener("click", function() {
+            if (klAjax) {
+              if(typeof item !== "undefined"){
+                _learnq.push(['track', 'Added to Cart', item]);
+                klAjax = false;
+              }
+            }
+          })
+        }
+    });
+ 
+    $.getJSON('/cart.js', function(cart) 
+    {
+      if(cart.item_count == 0)
+      {
+        $('#cart-count').html();
+      }
+      else
+      {
+        $('#cart-count').html("<number class='number cart-count'>"+cart.item_count+"</number>");
+      }
+        
+    });
+
+    // When the user scrolls the page, execute myFunction
+    window.onscroll = function() {myFunction()};
+    
+    // Get the header
+    var header = document.getElementById("shopify-section-header");
+    
+    // Get the offset position of the navbar
+    var sticky = header.offsetTop;
+
+    // Add the sticky class to the header when you reach its scroll position. Remove "sticky" when you leave the scroll position
+    function myFunction() {
+      if (window.pageYOffset > sticky) {
+        header.classList.add("header-sticky");
+      } else {
+        header.classList.remove("header-sticky");
+      }
+    }
+
+    </script>
+    <!-- <div data-rebuy-id="82130"></div>
+    <script async src="https://cdn.rebuyengine.com/onsite/js/rebuy.js?shop={{ shop.permanent_domain }}"></script> -->
+    <!-- Klaviyo Facebook Lead Tracking -->
+    
+    <script>
+      window.addEventListener("klaviyoForms", function(e) 
+      { 
+        if (e.detail.type == 'submit') 
+        {
+          fbq('track', 'Lead');
+        }
+      });
+    </script>
+    
+    <script type="text/javascript">
+  
+
+window.onload = function() 
+   {
+     var reploButton = document.querySelector('button[data-button-id="add-to-cart-button"]');
+     if (reploButton !== null && typeof reploButton !== 'undefined') 
+     {
+        reploButton.addEventListener('click', function(event) 
+        {
+          console.log("woh!");
+   
+           (async () => 
+             {
+               const variantId = document.querySelector('select[data-selector]')?.value;
+               const selling_plan = document.querySelector('#selling_plan_frecuencies')?.value;
+               const selector = 'data-selling-plan-selected';
+          
+               const selectedElement = document.querySelector(`div[${selector}]`);
+          
+               const selectedPlan = selectedElement.getAttribute(selector);
+               console.log(selectedElement, selectedPlan)
+               let item = [];
+          
+               if (selectedPlan === "one_time") 
+               {
+                  item.push({ id: variantId, quantity: 1 });
+               } else {
+                  item.push({ id: variantId, quantity: 1, selling_plan });
+               }
+          
+               //await addToCart(item);
+               // We don't understand the propose of this code
+               // openCartMenu();
+            })()
+
+            async function addToCart(items) 
+            {
+              const formData = {
+                  items,
+                  sections:
+                      'cart-notification-product,cart-notification-button,cart-icon-bubble'
+              };
+              console.log(formData);
+              const options = {
+                  method: 'POST',
+                  headers: {
+                      'Content-Type': 'application/json'
+                  },
+                  body: JSON.stringify(formData)
+              };
+              const shopifyHost = window.Shopify?.routes.root || '';
+              const requestUrl = shopifyHost + 'cart/add.js';
+              const res1 = await fetch(requestUrl, options).catch(error => console.error(error));
+              return res1.json()
+            };
+        });
+    } 
+  };
+
+      window.strings = {
+        product: {
+          sold_out: "{{ 'products.product.sold_out' | t }}",
+          on_sale: "{{ 'products.product.on_sale' | t }}",
+          add_to_cart: "{{ 'products.product.add_to_cart' | t }}",
+          unavailable: "{{ 'products.product.unavailable' | t }}"
+        }
+      };
+  
+</script>
+
+    {% capture cartLowStock %}<script type="application/ld+json" data-cart-json-ld>{% for item in cart.items %}{{ item.variant.id }}###{{ item.variant.inventory_quantity }}###{{ item.variant.inventory_policy }}@@@{% endfor %}</script>{% endcapture %}
+    {{ cartLowStock | strip_newlines | strip }}
+    
+<!-- <meta name="msvalidate.01" content="FAAA0C176F79FA2503017EF5ED98B54C" /> -->
+
+    <script>
+      (function () {
+        function toggleReviewFormClasses() {
+          const formWrapper = document.querySelector(".jdgm-review-widget .jdgm-form-wrapper");
+          if (formWrapper) {
+            const isOpen = formWrapper.classList.contains("form-open");
+            formWrapper.classList.toggle("form-open", !isOpen);
+            document.body.classList.toggle("form-open", !isOpen);
+          }
+        }
+    
+        function closeReviewFormClasses() {
+          const formWrapper = document.querySelector(".jdgm-review-widget .jdgm-form-wrapper");
+          if (formWrapper) {
+            formWrapper.classList.remove("form-open");
+            document.body.classList.remove("form-open");
+          }
+        }
+    
+        function bindReviewEvents() {
+          const writeBtn = document.querySelector(".jdgm-review-widget .jdgm-write-rev-link");
+          const formWrapper = document.querySelector(".jdgm-review-widget .jdgm-form-wrapper");
+    
+          if (!writeBtn || !formWrapper || writeBtn.dataset.bound === "true") return;
+    
+          writeBtn.dataset.bound = "true";
+    
+          // Toggle on write review click
+          writeBtn.addEventListener("click", function () {
+            setTimeout(() => toggleReviewFormClasses(), 100);
+          });
+    
+          // Cancel review — remove class
+          document.body.addEventListener("click", function (e) {
+            if (e.target.matches(".jdgm-review-widget .jdgm-form-wrapper .jdgm-cancel-rev")) {
+              closeReviewFormClasses();
+            }
+            // Pseudo-element trigger via parent
+            if (e.target.matches(".jdgm-review-widget .jdgm-form .jdgm-form__title")) {
+              const cancelBtn = document.querySelector(".jdgm-review-widget .jdgm-form-wrapper .jdgm-cancel-rev");
+              if (cancelBtn) cancelBtn.click();
+            }
+          });
+        }
+    
+        // Wait for Judge.me widget
+        const observer = new MutationObserver(() => {
+          const writeBtn = document.querySelector(".jdgm-review-widget .jdgm-write-rev-link");
+          const formWrapper = document.querySelector(".jdgm-review-widget .jdgm-form-wrapper");
+          if (writeBtn && formWrapper) {
+            bindReviewEvents(); 
+            observer.disconnect();
+          }
+        });
+    
+        observer.observe(document.body, { childList: true, subtree: true });
+      })();
+
+      {% if cart.item_count > 0 %}
+      if (sessionStorage.getItem("open-cart") === "true") {
+        const waitForOpenCartMenu = setInterval(() => {
+          if (typeof openCartMenu === 'function') {
+            clearInterval(waitForOpenCartMenu);
+      
+            sessionStorage.setItem("open-cart", "false");
+            openCartMenu();
+          }
+        }, 50);
+      }
+      {% endif %}
+      
+    </script>
+
+    <script>
+      const observer = new MutationObserver(() => {
+      if(jdgm.customizeBadges) {
+      jdgm.customizeBadges();
+      }
+      });
+      observer.observe(document.body, { childList: true, subtree: true });
+    </script>
+    <script>
+      {% comment %} HOTFIX {% endcomment %}
+      document.addEventListener('DOMContentLoaded', function() {
+
+        function waitForElement(selector, callback) {
+          const observer = new MutationObserver((mutations) => {
+          if (document.querySelector(selector)) {
+          callback(document.querySelector(selector));
+          observer.disconnect();
+          }
+          });
+          observer.observe(document.documentElement, {
+          childList: true,
+          subtree: true,
+          });
+         }
+         
+        
+         // Example usage:
+         waitForElement('#kustomer-ui-sdk-iframe', (element) => {
+          // Perform actions on the element here
+
+          const felement = document.getElementById('kustomer-ui-sdk-iframe');
+          // Create a new observer instance
+          const fobserver = new MutationObserver(mutations => {
+            mutations.forEach(mutation => {
+              if (mutation.type === 'attributes' && mutation.attributeName === 'style') {
+                // Style attribute has changed
+                if (felement.style.bottom == '0px') {
+                  felement.style.setProperty('bottom', '0px', 'important');
+                  felement.style.setProperty('right', '0px', 'important');
+                } else if (felement.style.bottom != '0px!important') {
+                  felement.style.bottom = 'inherit'
+                  felement.style.right = '0px'
+                }
+              }
+            });
+          });
+  
+          // Configure the observer to watch for attribute changes, specifically the 'style' attribute
+          fobserver.observe(felement, { attributes: true, attributeFilter: ['style'] });
+
+         });
+       
+      });
+
+      
+    </script>
+     </script>
+    <!-- Coupon Monitor Snippet -->
+    <script type=text/javascript async=true src=https://d3uz7fhqos37j7.cloudfront.net/97e8527feaf77a97fc38f34216141515.js></script>
+    <!-- Brandlock Listening Snippet -->
+    <script type=text/javascript async=true src=https://d1y201xxslmqjj.cloudfront.net/08875308.js></script>
+  </body>
+</html>

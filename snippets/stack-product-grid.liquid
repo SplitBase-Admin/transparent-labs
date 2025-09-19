@@ -1,0 +1,580 @@
+<product-grid-item class="{% for tag in product.tags %}{% if tag contains 'TLsvegan' %} vegan_class {% elsif tag contains "StimulantFree" %} StimulantFree {% endif %} {% endfor %}bg-white flex flex-col p-4 rounded-xl text-blue-500 xgen-new-product stack-products_{{block_id}}_{{product.id}}">
+  <div class="xgen-product-img">
+    {% assign split_title = product.title | split: '|' %}
+
+    {% if product.variants.size == 1 or product.tags contains 'use-featured-image' %}
+      <a class="block mx-auto w-64" href="{{ product.url | within: collection }}">
+        {% assign product_featured_image = product.featured_image | split: '/' | last | split: '.' | first | replace: '/', ' ' | replace: '-', ' ' | replace: '_', ' ' %}
+        <img src="{{product.featured_image | img_url: 'master'}}" alt="{% if product.featured_image.alt %}{{ product.featured_image.alt }}{% else %}{{ product_featured_image }}{% endif %}">
+        <!--
+          {% render 'lazy-image',
+            height: 500,
+            image: product.featured_image,
+            width: 500,
+          %}
+        -->
+      </a>
+    {% else %}
+      <div class="swiper render-swiper">
+        <div class="swiper-wrapper">
+          {% for variant in product.variants %}
+            {% if variant.option2 == '2 Tub' or variant.option2 == '3 Tub' %}
+              {% continue %}
+            {% endif %}
+
+            <div class="swiper-slide" data-variant-id="{{ variant.id }}">
+              <a class="block mx-auto w-64" href="{{ product.url | within: collection }}">
+                {% assign product_featured_image1 = product.featured_image | split: '/' | last | split: '.' | first | replace: '/', ' ' | replace: '-', ' ' | replace: '_', ' ' %}
+                <img src="{{product.featured_image | img_url: 'master'}}" alt="{% if product.featured_image.alt %}{{ product.featured_image.alt }}{% else %}{{ product_featured_image1 }}{% endif %}">
+                <!--
+                  {% render 'lazy-image',
+                    height: 500,
+                    image: variant.image,
+                    width: 500,
+                  %}
+                -->
+              </a>
+            </div>
+          {% endfor %}
+        </div>
+      </div>
+    {% endif %}
+  </div>
+  <div class="xgen-product-info">
+    <div class="xgen-product-info-in">
+      <div class="xgan-ptag">{{ product_type }}</div>
+      <h3 class="font-normal">
+        {{ split_title[1] }}
+      </h3>
+
+      <h2 class="font-semibold text-xl xgen-ptitle">
+        {{ split_title[0] }}
+      </h2>
+
+      <div class="xgen-pdesc">
+        {% if product.metafields.my_fields.sub_coll_product_details != blank %}
+          {{ product.metafields.my_fields.sub_coll_product_details }}
+        {% endif %}
+      </div>
+    </div>
+    <div class="package-list-wraper">
+      <div class="package-list  accordions">
+        {% assign stack_products = product.metafields.my_fields.stack_products | split: ',' %}
+        {% assign stack_products_length = stack_products.size %}
+        <p>Package Includes</p>
+        <h5>{{ stack_products_length }} Pre-selected Items {% render 'sdark-arrow' %}</h5>
+      </div>
+      <div class="panel">
+        <div class="packageslide slider ">
+          {% assign stack_products = product.metafields.my_fields.stack_products | split: ',' %}
+          {% assign stack_products_length = stack_products.size %}
+          {% if stack_products_length > 0 %}
+            {% for product_handle in stack_products %}
+              {% assign pro_handle = product_handle | strip %}
+              {% for pure_product in collections.all.products %}
+                {% if pure_product.available == true %}
+                  <span yes></span>
+                {% else %}
+                  <span no></span>
+                {% endif %}
+
+                {% if pure_product.handle == pro_handle %}
+                  <div class="items stack-item">
+                    <div class="items-img">
+                      {% assign pure_product_featured_image = pure_product.featured_image | split: '/' | last | split: '.' | first | replace: '/', ' ' | replace: '-', ' ' | replace: '_', ' ' %}
+                      <img src="{{pure_product.featured_image | img_url : 'master'}}" alt="{% if product.featured_image.alt %}{{ product.featured_image.alt }}{% else %}{{ pure_product_featured_image }}{% endif %}">
+                    </div>
+                    <div class="stack-text">
+                      <h3>{{ pure_product.title }}</h3>
+                      {% if pure_product.variants.size > 0 %}
+                        {% if pure_product.options[0] %}
+                          <div class="input-wraper">
+                            {% assign used = '' %}
+                            <label for="select-one_{{product.id}}{{pure_product.id}}">
+                              {{- pure_product.options[0] -}}
+                            </label>
+                            <select
+                              id="select-one_{{product.id}}{{pure_product.id}}"
+                              onchange="letsDoThis_{{product.id}}_{{pure_product.id}}()"
+                            >
+                              {% for variant in pure_product.variants %}
+                                {% unless variant.inventory_quantity == 0 %}
+                                  {% unless used contains variant.option1 %}
+                                    <option value="{{ variant.option1 }}">{{ variant.option1 }}</option>
+                                    {% capture used %}{{ used }} {{ variant.option1 }}{% endcapture %}
+                                  {% endunless %}
+                                {% endunless %}
+                              {% endfor %}
+                            </select>
+                          </div>
+                        {% endif %}
+                        {% if pure_product.options[1] %}
+                          <div class="input-wraper">
+                            {% assign used = '' %}
+                            <label for="select-one_{{product.id}}{{pure_product.id}}">
+                              {{- pure_product.options[1] -}}
+                            </label>
+                            <select
+                              id="select-two_{{product.id}}{{pure_product.id}}"
+                              onchange="letsDoThis_{{product.id}}_{{pure_product.id}}()"
+                            >
+                              {% for variant in pure_product.variants %}
+                                {% unless variant.inventory_quantity == 0 %}
+                                  {% unless used contains variant.option2 %}
+                                    <option value="{{ variant.option2 }}">{{ variant.option2 }}</option>
+                                    {% capture used %}{{ used }} {{ variant.option2 }}{% endcapture %}
+                                  {% endunless %}
+                                {% endunless %}
+                              {% endfor %}
+                            </select>
+                          </div>
+                        {% endif %}
+                        {% if pure_product.options[2] %}
+                          <div class="input-wraper">
+                            {% assign used = '' %}
+                            <label for="select-one_{{product.id}}{{pure_product.id}}">
+                              {{- pure_product.options[2] -}}
+                            </label>
+                            <select
+                              id="select-three_{{product.id}}{{pure_product.id}}"
+                              onchange="letsDoThis_{{product.id}}_{{pure_product.id}}()"
+                            >
+                              {% for variant in pure_product.variants %}
+                                {% unless variant.inventory_quantity == 0 %}
+                                  {% unless used contains variant.option3 %}
+                                    <option value="{{ variant.option3 }}">{{ variant.option3 }}</option>
+                                    {% capture used %}{{ used }} {{ variant.option3 }}{% endcapture %}
+                                  {% endunless %}
+                                {% endunless %}
+                              {% endfor %}
+                            </select>
+                          </div>
+                        {% endif %}
+                      {% endif %}
+                      <input
+                        type="hidden"
+                        name="id"
+                        id="product-select_{{product.id}}_{{pure_product.id}}"
+                        class="stack_vid"
+                        value="{% if pure_product.selected_or_first_available_variant.available %}{{ pure_product.selected_or_first_available_variant.id }}{% endif %}"
+                      >
+                      <div
+                        class="p1_selling_plan_{{product.id}}_{{block_id}}_{{pure_product.id}}"
+                        style="display:none;"
+                      ></div>
+                    </div>
+                  </div>
+                {% endif %}
+              {% endfor %}
+            {% endfor %}
+          {% else %}
+            it is empty
+          {% endif %}
+        </div>
+      </div>
+
+      {% assign stack_products = product.metafields.my_fields.stack_products | split: ',' %}
+      {% assign stack_products_length = stack_products.size %}
+      {% if stack_products_length > 0 %}
+        {% for product_handle in stack_products %}
+          {% assign pro_handle = product_handle | strip %}
+          {% for pure_product in collections.all.products %}
+            {% if pure_product.handle == pro_handle %}
+              <script type="text/javascript">
+                                function letsDoThis_{{product.id}}_{{pure_product.id}}()
+                                {
+                                  //console.log("clicked!");
+                                    {% if pure_product.options[0] %}
+                                        var opt1 = document.getElementById('select-one_{{product.id}}{{pure_product.id}}').value;
+                                    {% endif %}
+
+
+                                    {% if pure_product.options[1] %}
+                                        var opt2 = document.getElementById('select-two_{{product.id}}{{pure_product.id}}').value;
+                                    {% endif %}
+
+
+                                    {% if pure_product.options[2] %}
+                                        var opt3 = document.getElementById('select-three_{{product.id}}{{pure_product.id}}').value;
+                                    {% endif %}
+
+
+                                    var id = '';
+
+                                    {% for v in pure_product.variants %}
+
+                						 {% unless v.inventory_quantity == 0 %}
+
+                                        	if(opt1=="{{ v.option1 }}" {% if pure_product.options[1] %} && opt2 =="{{ v.option2 }}" {% endif %} {% if pure_product.options[2] %} && opt3 == "{{ v.option3 }}" {% endif %})
+                                        	{
+                                            	var id = {{ v.id }};
+                                            	var price = "{{ v.price | money }}";
+                                        	}
+                                   		{% endunless %}
+
+                                    {% endfor %}
+                                    if(id!='')
+                                    {
+                                        document.getElementById('product-select_{{product.id}}_{{pure_product.id}}').value = id;
+                						//document.getElementById('price_{{pure_product.id}}').innerHTML = price;
+                                    }
+                                    else
+                                    {
+                                        document.getElementById('product-select_{{product.id}}_{{pure_product.id}}').value = '';
+                						//document.getElementById('price_{{pure_product.id}}').innerHTML = 'Unavailable';
+                                    }
+                                }
+
+                                var variant_values = {{ pure_product.variants | json }};
+                                //console.log(variant_values);
+                                var len = variant_values.length;
+                                for(var i = 0; i < len; i++)
+                                {
+                                    //console.log(variant_values[i].id);
+                                    var len2 = variant_values[i].selling_plan_allocations.length;
+                                    var plans = variant_values[i].selling_plan_allocations;
+                                    for(var j=0; j < len2; j++)
+                                    {
+                                        $(".p1_selling_plan_{{product.id}}_{{block_id}}_{{pure_product.id}}").append('<input class="onetime selling_plan_'+j+'" data-stack="{{block.id}}_{{product.id}}" data-price="'+plans[j].price+'" data-otp="'+plans[j].compare_at_price+'" name="selling_plan" value="'+plans[j].selling_plan_id+'">');
+                //                             console.log(plans[j].selling_plan_id);
+                                    }
+                                    if(i == 0)
+                                    {
+                                        break;
+                                    }
+
+                                }
+              </script>
+            {% endif %}
+          {% endfor %}
+        {% endfor %}
+      {% endif %}
+      <div class="package-list accordions np_last">
+        <p>Deliver</p>
+        <h5>
+          <div class="freq_text  freq_text_{{block_id}}_{{product.id}}"></div>
+          <div class="price_update">
+            <span class="real_price_{{block_id}}_{{product.id}}"></span
+            ><span class="com_price_{{block_id}}_{{product.id}} line_thue"></span>
+          </div>
+          {% render 'sdark-arrow' %}
+        </h5>
+      </div>
+
+      <div class="package-list panel">
+        <div class="stack-row">
+          <div class="stack-row-item stack-row-item_{{block_id}}_{{product.id}}">
+            <input
+              id="{{block_id}}_{{product.id}}_a"
+              type="radio"
+              data-text="One-Time Order"
+              class="stack-radio-2"
+              name="purchaseoption_{{block_id}}_{{product.id}}"
+              value="onetime"
+            >
+            <label for="{{block_id}}_{{product.id}}_a" class=""
+              >One-Time Order <br>
+              <small>Give it a try</small></label
+            >
+            <span class="pass_otp_{{block_id}}_{{product.id}} take_price"></span>
+          </div>
+
+          <div class="stack-row-item stack-row-item_{{block_id}}_{{product.id}} active_class">
+            <input
+              id="{{block_id}}_{{product.id}}_b"
+              type="radio"
+              data-text="Deliver Every Month"
+              class="stack-radio ddoption1"
+              name="purchaseoption_{{block_id}}_{{product.id}}"
+              value="selling_plan_0"
+              checked
+            >
+            <label for="{{block_id}}_{{product.id}}_b" class="">
+              {{ dis_text_month -}}
+              <br>
+              <small>{{ sub_percent_text }}</small></label
+            >
+            <span class="sub_price take_price"></span>
+          </div>
+
+          <div class="stack-row-item stack-row-item_{{block_id}}_{{product.id}}">
+            <input
+              id="{{block_id}}_{{product.id}}_c"
+              type="radio"
+              data-text="Deliver Every 45 days"
+              class="stack-radio ddoption1"
+              name="purchaseoption_{{block_id}}_{{product.id}}"
+              value="selling_plan_1"
+            >
+            <label for="{{block_id}}_{{product.id}}_c" class="">
+              {{ dis_text_days }}
+              <br>
+              <small>{{ sub_percent_text }}</small></label
+            >
+            <span class="sub_price take_price"></span>
+          </div>
+
+          <div class="stack-row-item stack-row-item_{{block_id}}_{{product.id}}">
+            <input
+              id="{{block_id}}_{{product.id}}_d"
+              type="radio"
+              data-text="Deliver Every 60 days"
+              class="stack-radio ddoption1"
+              name="purchaseoption_{{block_id}}_{{product.id}}"
+              value="selling_plan_2"
+            >
+            <label for="{{block_id}}_{{product.id}}_d" class="">
+              Deliver Every 60 days <br>
+              <small>{{ sub_percent_text }}</small></label
+            >
+            <span class="sub_price take_price"></span>
+          </div>
+        </div>
+      </div>
+
+      <div class="gap-8 grid grid-cols-2 items-center mt-4 price-btn-grid">
+        <!--
+          <h6 class="update_main_price_{{block_id}}_{{product.id}}">
+          	{{ product.price | money }}
+          </h6>
+        -->
+        <div class=" pricetext">
+          {% for variant in product.variants %}
+            {% if variant.option2 == '2 Tub' or variant.option2 == '3 Tub' %}
+              {% continue %}
+            {% endif %}
+
+            <div class="font-semibold  text-blue-400 text-xl variant-price">
+              <div class="real_price_{{block_id}}_{{product.id}}"></div>
+              <del class="com_price_{{block_id}}_{{product.id}}"></del>
+            </div>
+          {% endfor %}
+        </div>
+        <button class="submit-stack-products_{{block_id}}_{{product.id}} button-alt">Subscribe</button>
+      </div>
+    </div>
+  </div>
+</product-grid-item>
+<script type="text/javascript">
+  	$(document).ready(function()
+  	{
+
+        	function format(num) {  return (num / 100).toFixed(2);}
+    		var freq_val = $("input[name='purchaseoption_{{block_id}}_{{product.id}}']:checked").data("text");
+  		var freq_val2 = $("input[name='purchaseoption_{{block_id}}_{{product.id}}']:checked").val();
+
+  		var selling_plan_val = $("input[name='purchaseoption_{{block_id}}_{{product.id}}']:checked").val();
+  		if(selling_plan_val == "selling_plan_0" || selling_plan_val == "selling_plan_1" || selling_plan_val == "selling_plan_2")
+          {
+            	var total  = 0;
+            	var otptotal  = 0;
+          	$(".stack-products_{{block_id}}_{{product.id}}").find(".stack-item").each(function (i,data)
+          	{
+                 // recurring price
+        			var price = parseInt($(data).find('.'+selling_plan_val).attr('data-price'));
+                  total = total + price;
+
+  				// one time price
+                  var otpprice = parseInt($(data).find('.'+selling_plan_val).attr('data-otp'));
+  				otptotal = otptotal + otpprice;
+
+                $(".price_update")
+
+  			});
+
+        			var parsed_total = format(total);
+                  $(".real_price_{{block_id}}_{{product.id}}").text("$"+parsed_total);
+        			var parsed_otptotal = format(otptotal);
+    				$(".com_price_{{block_id}}_{{product.id}}").text("$"+parsed_otptotal);
+
+          }
+        	else
+        	{
+  			var total  = 0;
+            	var otptotal  = 0;
+
+            	$(".stack-products_{{block_id}}_{{product.id}}").find(".stack-item").each(function (i,data)
+              {
+                  // recurring price
+        			var price = parseInt($(data).find('.'+selling_plan_val).attr('data-otp'));
+                  total = total + price;
+  				// one time price
+                  var otpprice = parseInt($(data).find('.'+selling_plan_val).attr('data-otp'));
+  				otptotal = otptotal + otpprice;
+              });
+
+
+        			var parsed_total = format(total);
+
+                  $(".real_price_{{block_id}}_{{product.id}}").text("$"+parsed_total);
+        			var parsed_otptotal = format(otptotal);
+    				$(".com_price_{{block_id}}_{{product.id}}").text("");
+
+        	}
+
+  		$(".freq_text_{{block_id}}_{{product.id}}").text(freq_val);
+
+        	$('input[type=radio][name=purchaseoption_{{block_id}}_{{product.id}}]').change(function()
+          {
+          	$(".freq_text_{{block_id}}_{{product.id}}").text($(this).data("text"));
+        		$(".stack-row-item_{{block_id}}_{{product.id}}").removeClass("active_class");
+        		$(this).parents().addClass("active_class");
+        		var text_val = $(this).siblings (".take_price").text();
+  // 	  		$(".update_main_price_{{block_id}}_{{product.id}}").text(text_val);
+
+
+
+  			var selling_plan_val = $("input[name='purchaseoption_{{block_id}}_{{product.id}}']:checked").val();
+    			if(selling_plan_val == "selling_plan_0" || selling_plan_val == "selling_plan_1" || selling_plan_val == "selling_plan_2")
+          	{
+            		var total  = 0;
+            		var otptotal  = 0;
+                  $(".stack-products_{{block_id}}_{{product.id}}").find(".stack-item").each(function (i,data)
+                  {
+                     // recurring price
+                      var price = parseInt($(data).find('.'+selling_plan_val).attr('data-price'));
+                      total = total + price;
+                      // one time price
+                      var otpprice = parseInt($(data).find('.'+selling_plan_val).attr('data-otp'));
+                      otptotal = otptotal + otpprice;
+
+
+                  });
+
+        			var parsed_total = format(total);
+                  $(".real_price_{{block_id}}_{{product.id}}").text("$"+parsed_total);
+        			var parsed_otptotal = format(otptotal);
+    				$(".com_price_{{block_id}}_{{product.id}}").text("$"+parsed_otptotal);
+
+              }
+              else
+              {
+                  var total  = 0;
+                  var otptotal  = 0;
+
+                  $(".stack-products_{{block_id}}_{{product.id}}").find(".stack-item").each(function (i,data)
+                  {
+        				var price = parseInt($(data).find('.'+selling_plan_val).attr('data-otp'));
+                  	total = total + price;
+  					// one time price
+                  	var otpprice = parseInt($(data).find('.'+selling_plan_val).attr('data-otp'));
+  					otptotal = otptotal + otpprice;
+  				});
+
+        				var parsed_total = format(total);
+                  	$(".real_price_{{block_id}}_{{product.id}}").text("$"+parsed_total);
+        				var parsed_otptotal = format(otptotal);
+    					$(".com_price_{{block_id}}_{{product.id}}").text("");
+              }
+
+
+      	});
+
+
+      	$(".submit-stack-products_{{block_id}}_{{product.id}}").on("click", function (){
+
+  		 var selling_plan_val= "";
+        	var items = [];
+        	if($("input[name='purchaseoption_{{block_id}}_{{product.id}}']:checked").val() == "selling_plan_0" || $("input[name='purchaseoption_{{block_id}}_{{product.id}}']:checked").val() == "selling_plan_1"  || $("input[name='purchaseoption_{{block_id}}_{{product.id}}']:checked").val() == "selling_plan_2" )
+  		{
+             	selling_plan_val = $("input[name='purchaseoption_{{block_id}}_{{product.id}}']:checked").val();
+           	$(".stack-products_{{block_id}}_{{product.id}}").find(".stack-item").each(function (i,data)
+             	{
+             		//var stack_id = new Date().getTime().toString();
+    				var stack_id = $(data).find('.'+selling_plan_val).attr('data-stack');
+                  if(isNaN(parseInt($(data).find('.stack_vid').val()))){
+
+                  }else{
+                    items.push({
+                     			id: parseInt($(data).find('.stack_vid').val()),
+                              quantity:$("input[name='quantity']").val(),
+                              selling_plan: parseInt($(data).find('.'+selling_plan_val).val()),
+                            	properties: { stack_id: stack_id, stack_product: '{{product.handle}}'  }
+              			});
+                  }
+
+      		});
+      	}
+          else if($("input[name='purchaseoption_{{block_id}}_{{product.id}}']:checked").val() == "onetime")
+  		{
+        		$(".stack-products_{{block_id}}_{{product.id}}").find(".stack-item").each(function (i,data){
+          	items.push({
+          		id: parseInt($(data).find('.stack_vid').val()),
+          		quantity:$("input[name='quantity']").val()
+      		});
+      	});
+      }
+
+
+
+
+  console.log("Items",items);
+             let formData = {
+     items
+    };
+    fetch(window.Shopify.routes.root + 'cart/add.js', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(formData)
+    })
+    .then(response => {
+      var res = response.json();
+      // var obj = jQuery.parseJSON(res);
+      console.log("res",response);
+      // return response.json();
+    })
+    .catch((error) => {
+      console.log('Error:', error);
+      // alert(error.description);
+    });
+
+  //     Shopify.queue = [];
+  //     Shopify.queue = items;
+  //     var quantity = {{ cart.item_count }} ;
+  // 	Shopify.moveAlong = function() {
+  //     // If we still have requests in the queue, let's process the next one.
+  //     if (Shopify.queue.length)
+  //     {
+  //     	var request = Shopify.queue.shift();
+  //          console.log("request",request);
+  //         var data = 'id='+ request.variantId + '&quantity=1'
+  //         $.ajax({
+  //         	type: 'POST',
+  //             url: '/cart/add.js',
+  //             dataType: 'json',
+  //             data: request,
+  //             success: function(res)
+  //           	{
+  //               $(".submit-stack-products_{{block_id}}_{{product.id}}").text("Subscribing...");
+  //             	Shopify.moveAlong();
+  //                 quantity += 1;
+  //             },
+  //             error: function()
+  //           	{
+  //             	// if it's not last one Move Along else update the cart number with the current quantity
+  //                 if (Shopify.queue.length)
+  //                 {
+  //                 	Shopify.moveAlong()
+  //                 }
+  //               	else
+  //                 {
+
+  //                 	 window.location="/cart";
+  //                 }
+  //           	}
+  // 		});
+  // 	}
+  // 	// If the queue is empty, we add 1 to cart
+  //     else
+  //     {
+  //     	quantity += 1;
+  //       	$(".submit-stack-products_{{block_id}}_{{product.id}}").text("Subscribe");
+  //         window.location="/cart";
+  // 	}
+  // };
+  // Shopify.moveAlong();
+  });
+  });
+</script>

@@ -1,0 +1,120 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "hero": {
+      "type": "product-hero",
+      "settings": {}
+    },
+    "details": {
+      "type": "product-details",
+      "settings": {
+        "overview": "<p>CoreSeries BCAA Glutamine, as with all Transparent Labs products, was created to be the best BCAA “<em>repair and recovery”</em> supplement available. The active ingredients, all backed by clinical research, are included at clinically effective dosages associated with published scientific research, and contain zero colored dyes, unnecessary fillers, or harmful additives. With 100% formula transparency and a potent recovery matrix (Leucine, Isoleucine, Valine, Glutamine, and Coconut Water Extract), CoreSeries This product uses premium fermented vegan BCAAs. </p>",
+        "no_sweetners": true,
+        "no_artificial_coloring": true,
+        "gluten_free": false,
+        "no_preservatives": true
+      }
+    },
+    "bundle": {
+      "type": "product-bundle",
+      "blocks": {
+        "b7786f30-aa9a-4125-a3b5-d4dc48557759": {
+          "type": "bundle_product",
+          "settings": {
+            "product": "strengthseries-creapure-hmb-creatine-supplement"
+          }
+        },
+        "af04df99-6e90-45cf-b3c3-082aa3ab9e4f": {
+          "type": "bundle_product",
+          "settings": {
+            "product": "bcaa-powder"
+          }
+        },
+        "10dac13b-7987-4ea3-92ff-11ec70a53acc": {
+          "type": "bundle_product",
+          "settings": {
+            "product": "casein-protein"
+          }
+        }
+      },
+      "block_order": [
+        "b7786f30-aa9a-4125-a3b5-d4dc48557759",
+        "af04df99-6e90-45cf-b3c3-082aa3ab9e4f",
+        "10dac13b-7987-4ea3-92ff-11ec70a53acc"
+      ],
+      "settings": {
+        "subtitle": "Get the most out of your training with these recommended products to optimize your performance and recovery."
+      }
+    },
+    "benefits": {
+      "type": "product-benefits",
+      "blocks": {
+        "f0e88676-206f-403d-b661-015e7fef79fc": {
+          "type": "benefit",
+          "settings": {
+            "image": "shopify://shop_images/image_4.png",
+            "title": "Key amino acids for stimulating muscle protein synthesis",
+            "description": "Branched-chain amino acids (BCAAs) are the \"master regulators\" of protein synthesis and essential to muscle growth."
+          }
+        },
+        "8e83ec87-4601-4180-8472-316acd991feb": {
+          "type": "benefit",
+          "settings": {
+            "image": "shopify://shop_images/image_4_1.png",
+            "title": "Contains added L-glutamine to promote muscle recovery and immune function",
+            "description": "In addition to BCAAs, this formula features an ample dose L-glutamine to help combat glutamine depletion from intense exercise."
+          }
+        },
+        "c17db1d7-648f-4626-af6a-3eb97716eefd": {
+          "type": "benefit",
+          "settings": {
+            "image": "shopify://shop_images/image_5.png",
+            "title": "Perfect for during and after training",
+            "description": "The ingredients in BCAA Glutamine fight fatigue and soreness so you can train harder, longer, and more effectively."
+          }
+        },
+        "26eba933-32e7-4a7d-b1d1-c5b20e1dc806": {
+          "type": "benefit",
+          "settings": {
+            "image": "shopify://shop_images/image_5_1.png",
+            "title": "Refreshing taste and easy to digest",
+            "description": "BCAA Glutamine is a delicious sports supplement that you'll look forward to drinking during your workouts and throughout the day."
+          }
+        }
+      },
+      "block_order": [
+        "f0e88676-206f-403d-b661-015e7fef79fc",
+        "8e83ec87-4601-4180-8472-316acd991feb",
+        "c17db1d7-648f-4626-af6a-3eb97716eefd",
+        "26eba933-32e7-4a7d-b1d1-c5b20e1dc806"
+      ],
+      "settings": {}
+    },
+    "main": {
+      "type": "main-product",
+      "disabled": true,
+      "settings": {}
+    },
+    "recommended-products": {
+      "type": "product-recommendations",
+      "disabled": true,
+      "settings": {}
+    }
+  },
+  "order": [
+    "hero",
+    "details",
+    "bundle",
+    "benefits",
+    "main",
+    "recommended-products"
+  ]
+}

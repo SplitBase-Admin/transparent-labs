@@ -1,0 +1,1142 @@
+{%- liquid
+  assign current_variant = product.selected_or_first_available_variant
+  assign short_title = product.metafields.product_details.title
+  assign subtitle = product.metafields.product_details.subtitle
+-%}
+
+<div class="container mx-auto mt-8 px-4 lg:mt-0">
+  <div class="mb-8 text-sm uppercase">
+    <a class="transition-colors hover:text-orange-500" href="/collections/all">
+      ALL
+    </a>
+    {% if collection %}
+      <span class="text-gray-400">/</span>
+      <a class="transition-colors hover:text-orange-500" href="{{ collection.url }}">
+        {{ collection.title }}
+      </a>
+    {% endif %}
+    <span class="text-gray-400">/ {{ short_title }}</span>
+  </div>
+
+  <div class="gap-4 grid grid-cols-1 max-w-xl mx-auto lg:gap-8 lg:grid-cols-2 lg:max-w-full xl:gap-16">
+    <div>
+      <div class="p-8 rounded-md">
+        <div class="swiper" id="product-images">
+          <div class="swiper-wrapper">
+            {% for variant in product.variants %}
+              {% if variant.image == blank or variant.option2 == '2 Tub' or variant.option2 == '3 Tub' %}
+                {% continue %}
+                
+              {% endif %}
+
+              <div class="swiper-slide" data-variant-id="{{ variant.id }}">
+                {%- render 'lazy-image',
+                  height: 600
+                  image: variant.image,
+                  width: 800
+                -%}
+              </div>
+            {% endfor %}
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div>
+      <div>
+        <div class="flex mb-4 space-x-3">
+          {%- for tag in product.tags -%}
+            {%- liquid
+              assign start_series = tag | slice: 0, 7 | downcase
+              assign start_badge = tag | slice: 0, 6 | downcase
+            -%}
+
+            {%- if start_badge == 'badge-' -%}
+              <p class="border-2 border-blue-500 inline-block rounded-md px-4 py-1">
+                {%- liquid
+                  assign split_tag = tag | split: 'badge-'
+                  assign split_words = split_tag[1] | split: '-'
+                -%}
+
+                {%- for word in split_words -%}
+                  {{ word | capitalize }}
+                {%- endfor -%}
+              </p>
+            {%- elsif start_series == 'series-' -%}
+              <p class="border-2 border-blue-500 inline-block rounded-md px-4 py-1">
+                {%- liquid
+                  assign split_tag = tag | split: 'series-'
+                  assign split_words = split_tag[1] | split: '-'
+                -%}
+
+                {%- for word in split_words -%}
+                  {{ word | capitalize }}
+                {%- endfor -%}
+
+                Series
+              </p>
+            {%- endif -%}
+          {%- endfor -%}
+        </div>
+
+        <h1 class="text-blue-500 text-3xl md:text-5xl">
+          {{ short_title }}
+        </h1>
+
+        <h2 class="font-semibold text-blue-500 text-xl">
+          {{ subtitle }}
+        </h2>
+
+        <a class="anchor-link flex flex-wrap justify-between my-4 text-blue-400 text-sm sm:text-base" href="#reviews-section">
+          <div class="flex mb-2 space-x-1 sm:mb-0">
+            {%- assign review_average = product.metafields.yotpo.reviews_average | times: 1 -%}
+            {%- for i in (1..5) -%}
+              {%- assign index_minus_one = i | minus: 1 -%}
+              {%- assign mod = review_average | modulo: index_minus_one -%}
+
+              {%- if review_average >= i -%}
+                <svg class="h-6 w-6" version="1.1" viewBox="0 0 128 128" xmlns="http://www.w3.org/2000/svg">
+                  <path d="m47.961 48h-47.945l39.914 31.543-15.941 48.441 40.059-29.871 39.938 29.871-15.871-48.863 39.918-31.121h-47.945l-16.094-47.996z" fill="#41B5E8"/>
+                </svg>
+              {%- elsif mod >= 0.5 -%}
+                <svg class="h-6 w-6" version="1.1" viewBox="0 0 128 128" xmlns="http://www.w3.org/2000/svg">
+                  <path d="m128.02 48h-47.953l-16.094-48-16.031 48h-47.969l39.937 31.555-15.953 48.445 39.984-29.812 0.09375-0.0625 39.938 29.875-15.875-48.867zm-39.594 58.531-24.371-18.547-0.058594 0.0625v-56.953l10.164 24.906h29.812l-25.453 19.43z" fill="#41B5E8"/>
+                 </svg>
+              {%- else -%}
+                <svg class="h-6 w-6" version="1.1" viewBox="0 0 128 128" xmlns="http://www.w3.org/2000/svg">
+                  <path d="m64.008 31.113 10.172 24.887h29.809l-25.449 19.426 9.9023 31.105-24.387-18.543-24.387 18.109 9.8711-30.156-25.539-19.941h29.871l10.137-24.887m-16.043 16.887h-47.949l39.914 31.551-15.93 48.445 40.055-29.867 39.934 29.871-15.875-48.871 39.918-31.129h-47.945l-16.094-47.996z" fill="#41B5E8"/>
+                </svg>
+              {%- endif %}
+            {%- endfor -%}
+          </div>
+
+          {{ product.metafields.yotpo.reviews_count }} Reviews | Leave a Review
+        </a>
+
+       {% comment %}             
+        <div class="mt-3 md:mt-6">
+          <custom-tabs>
+            <div aria-label="Details" class="bg-gray-300 grid grid-cols-3 p-2 rounded-xl w-full" role="tablist">
+              <button
+                aria-controls="description-tab-panel"
+                aria-selected="true"
+                class="tab-header tab-header--active"
+                id="description-tab"
+                role="tab"
+              >
+                Description
+              </button>
+
+              <button
+                aria-controls="usage-tab-panel"
+                aria-selected="false"
+                class="tab-header"
+                id="usage-tab"
+                role="tab"
+              >
+                How to Use
+              </button>
+
+              <button
+                aria-controls="nutrition-tab-panel"
+                aria-selected="false"
+                class="tab-header"
+                id="nutrition-tab"
+                role="tab"
+              >
+                Ingredients
+              </button>
+            </div>
+
+            <div
+              aria-labelledby="description-tab"
+              class="pt-6"
+              id="description-tab-panel"
+              role="tabpanel"
+              tabindex="0"
+            >
+              <div class="space-y-4 text-blue-500 metafield-cleanup" id="product-hero">
+                {{ product.metafields.product_details.hero }}
+              </div>
+            </div>
+
+            <div
+              aria-labelledby="usage-tab"
+              class="hidden pt-6"
+              id="usage-tab-panel"
+              role="tabpanel"
+              tabindex="0"
+            >
+              <div class="space-y-4 text-blue-500 metafield-cleanup">
+                {{ product.metafields.product_details.usage }}
+              </div>
+            </div>
+
+            <div
+              aria-labelledby="nutrition-tab"
+              class="hidden pt-6"
+              id="nutrition-tab-panel"
+              role="tabpanel"
+              tabindex="0"
+            >
+              <div class="max-w-sm mx-auto">
+                {%- if product.metafields.product_details.sfp -%}
+                  <div class="main-product-sfp max-w-sm mx-auto">
+                    {% render 'lazy-image',
+                      image: product.metafields.product_details.sfp.value,
+                      width: 400
+                    %}
+                  </div>
+                {%- else -%}
+                  {% for image in product.images %}
+                    {% if image.alt contains 'sfp -' %}
+                      {% render 'lazy-image',
+                        image: image,
+                        image_class: 'bg-white rounded-md',
+                        width: 400,
+                      %}
+                    {% endif %}
+                  {% endfor %}
+                {%- endif -%}
+
+                {%- for variant in product.variants -%}
+                  {%- if variant.metafields.product_details.sfp -%}
+                    <div class="hidden max-w-sm mx-auto" data-variant-sfp="{{ variant.id }}">
+                      {% render 'lazy-image',
+                        image: variant.metafields.product_details.sfp.value,
+                        width: 400
+                      %}
+                    </div>
+                  {%- endif -%}
+                {%- endfor -%}
+              </div>
+            </div>
+          </custom-tabs>
+        </div>
+      {% endcomment %}                                
+      </div>
+
+      <div class="-mt-4 pt-4" id="buy-now">
+        <div class="bg-gray-300 mt-6 p-4 rounded-xl space-y-4">
+          <div>
+            <div class="gap-4 grid grid-cols-1 md:grid-cols-2">
+              {% for product_option in product.options_with_values %}
+                {% if product_option.name == 'Quantity' %}
+                  {% continue %}
+                {% endif %}
+
+                <div>
+                  <p class="font-semibold mb-2 text-blue-500 text-sm sm:text-base">
+                    Select a {{ product_option.name }}:
+                  </p>
+
+                  {% comment %}
+                    TODO: update to match collection select
+                  {% endcomment %}
+                  <custom-select>
+                    <div class="relative">
+                      <button
+                        aria-haspopup="listbox"
+                        class="select"
+                        type="button"
+                      >
+                        <div class="flex-1 text"></div>
+
+                        <div class="ml-4 text-gray-500">
+                          {% render 'icon-chevron-down' %}
+                        </div>
+                      </button>
+
+                      <ul
+                        class="select-list hidden opacity-0"
+                        role="listbox"
+                      >
+                        {% for value in product_option.values %}
+                        	{% for variant in product.variants %}
+                            {% if product_option.position == 1 and variant.option1 == value %}
+                              {% assign swatch_variant = variant %}
+                            {% elsif product_option.position == 2 and variant.option2 == value %}
+                              {% assign swatch_variant = variant %}
+                            {% elsif product_option.position == 3 and variant.option3 == value %}
+                              {% assign swatch_variant = variant %}
+                            {% endif %}
+                          {% endfor %}
+
+                          {% comment %}
+                          {% if product_option.name == 'Flavor' %}
+                            {% assign swatch_color = '#41B5E8' %}
+
+                            {% if swatch_variant.metafields.swatches.swatch %}
+                              {% assign swatch_color = swatch_variant.metafields.swatches.swatch %}
+                            {% endif %}
+
+                            <li
+                              class="cursor-pointer p-4 transition-colors hover:bg-gray-300"
+                              data-value="{{ value }}"
+                              role="listitem"
+                            >
+                              <div class="flex items-center" style="color: {{ swatch_color }}">
+                                <div
+                                  class="h-6 mr-3 rounded-full shadow-md w-6"
+                                  style="background-color: {{ swatch_color }}"
+                                >
+                                </div>
+
+                                {{ value }}
+                              </div>
+                            </li>
+                          {% endif %}
+                          {% endcomment %}
+
+                          {% if swatch_variant.metafields.secomapp.freegifts == blank %}
+                            <li
+                                class="select-option"
+                                data-value="{{ value }}"
+                                role="listitem"
+                                >
+                              {{ value }}
+                            </li>
+                          {% endif %}
+                        {% endfor %}
+                      </ul>
+
+                      <select class="hidden" data-option-position="{{ product_option.position }}">
+                        {% for value in product_option.values %}
+                          <option {% if product_option.selected_value == value %}selected{% endif %}>
+                            {{ value }}
+                          </option>
+                        {% endfor %}
+                      </select>
+                    </div>
+                  </custom-select>
+                </div>
+              {% endfor %}
+            </div>
+          </div>
+
+          <div class="bg-white rounded-xl">
+            <button class="border-2 border-blue-400 flex items-center px-4 py-3 rounded-xl w-full">
+              <div class="bg-blue-400 inline-flex h-6 items-center justify-center rounded-md text-white w-6">
+                {% render 'icon-check-mark' %}
+              </div>
+
+              <span class="flex-1 mx-3 text-blue-500 text-left text-sm">
+                One-Time Purchase
+              </span>
+
+              <span class="font-semibold product-price text-blue-400 text-lg"></span>
+            </button>
+          </div>
+
+          <div class="relative">
+            <div
+              class="absolute bg-blue-500 bottom-[calc(100%+8px)] hidden opacity-0 p-4 right-0 rounded-md shadow-lg text-sm text-white transition-opacity"
+              id="subscription-details-menu"
+            >
+              <p class="mb-2">Here's How it Works:</p>
+              <ul class="space-y-2">
+                <li class="flex items-center">
+                  <div class="mr-3 text-orange-400">
+                    {% render 'icon-check-mark' %}
+                  </div>
+                  15% off of all subscription products
+                </li>
+                <li class="flex items-center">
+                  <div class="mr-3 text-orange-400">
+                    {% render 'icon-check-mark' %}
+                  </div>
+                  You're in control - Add, remove, swap, skip your next order
+                </li>
+              </ul>
+            </div>
+
+            <button class="hidden items-center ml-auto text-sm" id="subscription-details-show" type="button">
+              <div class="mr-2 text-blue-400">
+                {% render 'icon-info' %}
+              </div>
+              Subscription Details
+            </button>
+          </div>
+
+          <div>
+            {% form 'product', product, data-productid: product.id %}
+              <select class="hidden" name="id" data-productid="{{ product.id }}">
+                {% for variant in product.variants %}
+                  <option
+                    data-available="{{ variant.available }}"
+                    data-option-1="{{ variant.option1 }}"
+                    data-option-2="{{ variant.option2 }}"
+                    data-price="{{ variant.price }}"
+                    {% if current_variant.id == variant.id %}selected{% endif %}
+                    value="{{ variant.id }}"
+                  >
+                    {{ variant.title }}
+                  </option>
+                {% endfor %}
+              </select>
+
+              <div class="flex flex-wrap items-start sm:flex-nowrap">
+                <div class="mr-4 md:mr-8 xl:mr-16">
+                  <p class="font-semibold mb-2 text-blue-500 text-sm sm:text-base">
+                    Select Quantity:
+                  </p>
+
+                  <quantity-input>
+                    <div class="flex items-center text-blue-500">
+                      <button
+                        class="quantity-button"
+                        type="button"
+                      >
+                        {% render 'icon-minus' %}
+                      </button>
+
+                      <input
+                        class="border-0 bg-transparent hide-selectors outline-none text-center w-16"
+                        min="1"
+                        name="quantity"
+                        readonly
+                        type="number"
+                        value="1"
+                      />
+
+                      <button
+                        class="quantity-button"
+                        type="button"
+                      >
+                        {% render 'icon-plus' %}
+                      </button>
+                    </div>
+                  </quantity-input>
+                </div>
+
+                <div class="w-full" id="add-to-cart-button-container">
+                  <button
+                    class="button mt-4 text-base w-full {% unless current_variant.available %}opacity-70{% endunless %} sm:mt-0"
+                    id="add-to-cart-button"
+                    type="submit"
+                  >
+                    <span id="total-price">{{ product.price | money }}</span>
+                    <span class="mx-2">|</span>
+                    <span id="product-availability">{% if current_variant.available %}Add to Cart{% else %}Sold Out{% endif %}</span>
+                  </button>
+                </div>
+              </div>
+            {% endform %}
+          </div>
+        </div>
+
+        <div class="flex items-center justify-center mt-4">
+          <div class="text-blue-400">
+            {% render 'icon-badge' %}
+          </div>
+
+          <p class="ml-2 text-center text-sm">
+            60 Day Money Back Guarantee Assured
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="bg-gray-300 my-8 p-4 rounded-xl lg:p-8">
+    <div class="gap-8 grid grid-cols-1 sm:grid-cols-3 lg:grid-flow-col lg:auto-cols-fr">
+      <div class="sm:col-span-3 lg:col-span-2">
+        <p class="flex font-bold items-center mb-2 text-blue-500 text-lg">
+          <span class="text-orange-500">
+            {% render 'icon-cash' with class: 'h-12 w-12' %}
+          </span>
+
+          <span class="ml-2">Bundle &amp; Save</span>
+        </p>
+
+        <p class="text-gray-500">
+          {{ product.metafields.bundle_products.description }}
+        </p>
+      </div>
+
+      {% assign keys = 'prod_1;prod_2;prod_3' | split: ';' %}
+
+      {% for key in keys %}
+        {% if product.metafields.bundle_products[key] %}
+          <div class="flex items-center sm:block">
+            {% assign bundle_product = product.metafields.bundle_products[key].value %}
+
+            <div class="mb-0 sm:mb-4">
+              <a class="" href="{{ bundle_product.url }}">
+                <div class="bg-white block pt-4 px-4 rounded-md transition-opacity w-28 hover:opacity-70 sm:w-auto">
+                  {%- render 'lazy-image',
+                    crop: 'top',
+                    height: 164,
+                    image: bundle_product.featured_image,
+                    width: 224
+                  -%}
+                </div>
+              </a>
+            </div>
+
+            <div class="flex flex-row-reverse flex-1 items-center justify-between sm:flex-row sm:items-start sm:justify-start">
+              {%- liquid
+                assign discount_price = bundle_product.price | times: 0.05
+                assign bundle_product_price = bundle_product.price | minus: discount_price
+              -%}
+
+              <div>
+                <input
+                  class="border-2 border-orange-500 bundle-option cursor-pointer h-5 rounded text-orange-500 w-5 focus:ring-orange-500"
+                  data-price="{{ bundle_product_price }}"
+                  id="bundle-product-{{ bundle_product.id }}"
+                  type="checkbox"
+                  value="{{ bundle_product.id }}"
+                />
+              </div>
+
+              <div class="mx-3 sm:ml-3 sm:mr-0">
+                <label for="bundle-product-{{ bundle_product.id }}" class="font-bold cursor-pointer text-blue-500 text-base">
+                  {{ bundle_product.metafields.product_details.title }}
+                </label>
+
+                <p class="text-gray-500 text-sm">
+                  <s>{{ bundle_product.price | money }}</s>
+                  <span>{{ bundle_product_price | money }}</span>
+                </p>
+              </div>
+            </div>
+          </div>
+        {% endif %}
+      {% endfor %}
+    </div>
+  </div>
+</div>
+
+
+<div class="bg-gray-300 mt-8 lg:mt-0">
+  <div class="max-w-7xl mx-auto px-4">
+    <div class="py-8">
+      {% comment %}
+      <div class="bg-white mb-8 overflow-x-auto rounded-xl shadow-md sticky top-4 z-40 md:mb-16">
+        <ul class="flex p-4 min-w-min space-x-4 text-center sm:grid sm:grid-flow-col sm:auto-cols-fr sm:space-x-0" id="sticky-nav">
+          <li>
+            <a
+              class="anchor-link active:text-blue-500 border-b-2 border-transparent text-gray-500 text-sm hover:border-orange-500 hover:text-orange-500 lg:text-base"
+              href="#overview-section"
+            >
+              Overview
+            </a>
+          </li>
+
+          {%- unless product.metafields.product_details.benefits == blank -%}
+            <li>
+              <a
+                class="anchor-link active:text-blue-500 border-b-2 border-transparent text-gray-500 text-sm hover:border-orange-500 hover:text-orange-500 lg:text-base"
+                href="#benefits-section"
+              >
+                Benefits
+              </a>
+            </li>
+          {%- endunless -%}
+
+          <li>
+            <a
+              class="anchor-link active:text-blue-500 border-b-2 border-transparent text-gray-500 text-sm hover:border-orange-500 hover:text-orange-500 lg:text-base"
+              href="#ingredients-section"
+            >
+              Ingredients
+            </a>
+          </li>
+
+          <li>
+            <a
+              class="anchor-link active:text-blue-500 border-b-2 border-transparent text-gray-500 text-sm hover:border-orange-500 hover:text-orange-500 lg:text-base"
+              href="#reviews-section"
+            >
+              Reviews
+            </a>
+          </li>
+
+          <li>
+            <a
+              class="anchor-link active:text-blue-500 border-b-2 border-transparent text-gray-500 text-sm hover:border-orange-500 hover:text-orange-500 lg:text-base"
+              href="#faq-section"
+            >
+              FAQ's
+            </a>
+          </li>
+
+          <li class="hidden sm:block">
+            <a
+              class="anchor-link bg-blue-400 px-4 py-3 rounded-xl text-sm text-white transition-opacity hover:opacity-75 lg:text-base"
+              href="#buy-now"
+            >
+              Buy Now
+            </a>
+          </li>
+        </ul>
+      </div>
+      {% endcomment %}
+      <div class="mb-8 -mt-24 pt-24 md:mb-16" id="overview-section">
+        <h2 class="font-bold mb-8 text-blue-500 text-xl md:border-l-8 md:border-blue-500 md:pl-2">
+          PRODUCT OVERVIEW
+        </h2>
+
+        <div class="gap-8 grid grid-cols-1 md:grid-cols-2 xl:gap-16">
+          <div>
+            {{ product.metafields.product_details.description }}
+          </div>
+
+          <div>
+            <img alt="" class="lazyload mx-auto" data-src="{{ 'pdp-info-graphic.png' | asset_img_url: '320x' }}" />
+          </div>
+        </div>
+      </div>
+
+      {%- unless product.metafields.product_details.benefits == blank -%}
+        <div class="mb-8 -mt-24 pt-24 md:mb-16" id="benefits-section">
+          <h2 class="font-bold mb-8 text-blue-500 text-xl md:border-l-8 md:border-blue-500 md:pl-2">
+            PRODUCT BENEFITS
+          </h2>
+
+          <div class="bg-white p-4 rounded-md md:p-8">
+            <div class="gap-8 grid grid-cols-1 items-center sm:grid-cols-2 xl:gap-16">
+              <div>
+                <div class="bg-gray-300 bg-opacity-70 p-6 rounded-md text-white metafield-cleanup" id="benefits-content"></div>
+              </div>
+
+              <div>
+                {% liquid
+                  assign lifestyle_images_count = 0
+                -%}
+
+                {% liquid
+                  for image in product.images
+                    if image.alt contains 'lifestyle - '
+                      assign lifestyle_images_count = lifestyle_images_count | plus: 1
+                    endif
+                  endfor
+                -%}
+
+                {% if lifestyle_images_count == 1 %}
+                  {% for image in product.images %}
+                    {% if image.alt contains 'lifestyle - ' %}
+                      {%- render 'lazy-image',
+                        height: 300,
+                        image: image,
+                        image_class: 'rounded-md',
+                        width: 300,
+                      -%}
+                    {% endif %}
+                  {% endfor %}
+                {% elsif lifestyle_images_count == 2 %}
+                  <div class="gap-8 grid grid-cols-2">
+                    {% for image in product.images %}
+                      {% if image.alt contains 'lifestyle - ' %}
+                        <div>
+                          {%- render 'lazy-image',
+                            height: 300,
+                            image: image,
+                            image_class: 'rounded-md',
+                            width: 300,
+                          -%}
+                        </div>
+                      {% endif %}
+                    {% endfor %}
+                  </div>
+                {% elsif lifestyle_images_count == 3 %}
+                  {%- assign first_index = -1 -%}
+
+                  <div class="flex items-center justify-end space-x-4 md:space-x-8">
+                    <div class="">
+                      {% for image in product.images %}
+                        {% if image.alt contains 'lifestyle - ' %}
+                          {%- assign first_index = forloop.index0 -%}
+
+                          {%- render 'lazy-image',
+                            height: 300,
+                            image: image,
+                            image_class: 'rounded-md',
+                            width: 300,
+                          -%}
+
+                          {% break %}
+                        {% endif %}
+                      {% endfor %}
+                    </div>
+
+                    <div class="space-y-4 md:space-y-8">
+                      {% for image in product.images %}
+                        {% if image.alt contains 'lifestyle - ' %}
+                          {% if forloop.index0 > first_index %}
+                            <div>
+                              {%- render 'lazy-image',
+                                height: 300,
+                                image: image,
+                                image_class: 'rounded-md w-44',
+                                width: 300,
+                              -%}
+                            </div>
+                          {% endif %}
+                        {% endif %}
+                      {% endfor %}
+                    </div>
+                  </div>
+                {% endif %}
+              </div>
+            </div>
+          </div>
+        </div>
+      {%- endunless -%}
+
+      <div class="mb-8 -mt-24 pt-24" id="ingredients-section">
+        <h2 class="font-bold mb-8 text-blue-500 text-xl md:border-l-8 md:border-blue-500 md:pl-2">
+          INGREDIENTS
+        </h2>
+
+        <div class="gap-8 grid grid-cols-1 md:grid-cols-2 xl:gap-16">
+          <div>
+            <div class="space-y-4" id="ingredients-content"></div>
+
+            <button
+              class="button-alt mt-4 w-full"
+              id="view-more-ingredients"
+              type="button"
+            >
+              View More Ingredients
+            </button>
+          </div>
+
+          <div>
+            {%- if product.metafields.product_details.sfp -%}
+              <div class="main-product-sfp max-w-sm mx-auto">
+                {% render 'lazy-image',
+                  image: product.metafields.product_details.sfp.value,
+                  width: 600
+                %}
+              </div>
+            {%- else -%}
+              {% for image in product.images %}
+                {% if image.alt contains 'sfp -' %}
+                  {% render 'lazy-image',
+                    image: image,
+                    image_class: 'bg-white rounded-md',
+                    width: 600,
+                  %}
+                {% endif %}
+              {% endfor %}
+            {%- endif -%}
+
+            {%- for variant in product.variants -%}
+              {%- if variant.metafields.product_details.sfp -%}
+                <div class="hidden max-w-sm mx-auto" data-variant-sfp="{{ variant.id }}">
+                  {% render 'lazy-image',
+                    image: variant.metafields.product_details.sfp.value,
+                    width: 400
+                  %}
+                </div>
+              {%- endif -%}
+            {%- endfor -%}
+          </div>
+        </div>
+      </div>
+
+      <div class="mb-8 -mt-24 pt-24" id="reviews-section">
+        <h2 class="font-bold mb-8 text-blue-500 text-xl md:border-l-8 md:border-blue-500 md:pl-2">
+          REVIEWS
+        </h2>
+
+        <div class="bg-white p-4 rounded-md md:p-8">
+          <div class="yotpo yotpo-main-widget"
+            data-product-id="{{ product.id }}"
+            data-name="{{ product.title | escape }}"
+            data-url="{{ shop.url }}{{ product.url }}"
+            data-image-url="{{ product.featured_image | product_img_url: "large" |replace: '?', '%3F' | replace: '&','%26'}}"
+            data-description="{{ product.description | escape }}">
+          </div>
+        </div>
+      </div>
+
+      <div class="-mt-24 pt-24" id="faq-section">
+        <h2 class="font-bold mb-8 text-blue-500 text-xl md:border-l-8 md:border-blue-500 md:pl-2">
+          FREQUENTLY ASKED QUESTIONS
+        </h2>
+
+        <div class="space-y-4" id="faq-content"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="hidden" id="raw-benefits-content">
+  {{ product.metafields.product_details.benefits }}
+</div>
+
+<div class="hidden" id="raw-ingredients-content">
+  {{ product.metafields.product_details.ingredients }}
+</div>
+
+<div class="hidden" id="raw-faq-content">
+  {{ product.metafields.product_details.faq }}
+</div>
+
+<div class="check-mark-icon hidden text-orange-500">
+  {% render 'icon-check-mark' %}
+</div>
+
+<span class="hidden" id="product-id">{{ product.id }}</span>
+
+<div class="bg-black bg-opacity-30 fixed hidden inset-0 items-center justify-center opacity-0 p-4 transition-opacity z-50" id="bundle-modal" role="dialog">
+  <div class="bg-white max-w-md p-4 rounded-xl text-blue-500 w-full sm:p-8">
+    <div class="flex items-center justify-between mb-8">
+      <p class="font-bold text-xl">
+        BUNDLE &amp; SAVE OPTIONS
+      </p>
+
+      <button class="modal-close transition-colors hover:text-orange-500" type="button">
+        {%- render 'icon-close' -%}
+      </button>
+    </div>
+
+    <div class="mb-8 space-y-8">
+      {% assign keys = 'prod_1;prod_2;prod_3' | split: ';' %}
+
+      {% for key in keys %}
+        {% if product.metafields.bundle_products[key] %}
+          {%- assign bundle_product = product.metafields.bundle_products[key].value -%}
+
+          <div class="hidden" data-product="{{ bundle_product.id }}">
+            <p class="mb-2">
+              {{ bundle_product.title }}
+            </p>
+
+            <custom-select>
+              <div class="relative">
+                <button
+                  aria-haspopup="listbox"
+                  class="select"
+                  type="button"
+                >
+                  <div class="flex-1 text"></div>
+
+                  <div class="ml-4 text-gray-500">
+                    {% render 'icon-chevron-down' %}
+                  </div>
+                </button>
+
+                <ul
+                  class="select-list hidden opacity-0"
+                  role="listbox"
+                >
+                  {% for variant in bundle_product.variants %}
+                    {% if variant.option2 == '2 Tub' or variant.option2 == '3 Tub' %}
+                      {% continue %}
+                    {% endif %}
+
+                    {% if variant.available %}
+                      <li
+                        class="select-option"
+                        data-value="{{ variant.id }}"
+                        role="listitem"
+                      >
+                        {{ variant.title | replace: '/ 1 Tub', '' }}
+                      </li>
+                    {% endif %}
+                  {% endfor %}
+                </ul>
+
+                <select class="hidden">
+                  {% for variant in bundle_product.variants %}
+                    {% if variant.option2 == '2 Tub' or variant.option2 == '3 Tub' %}
+                      {% continue %}
+                    {% endif %}
+
+                    {% if variant.available %}
+                      <option>{{ variant.id }}</option>
+                    {% endif %}
+                  {% endfor %}
+                </select>
+              </div>
+            </custom-select>
+          </div>
+        {% endif %}
+      {% endfor %}
+    </div>
+
+    <button
+      class="button w-full"
+      id="bundle-modal__add-to-cart"
+      type="button"
+    >
+      Add to Cart
+    </button>
+  </div>
+</div>
+
+<div
+  class="bg-white bottom-4 fixed hidden items-center justify-between left-4 p-3 right-4 rounded-xl shadow-xl transition-transform translate-y-24 z-[99] sm:hidden"
+  id="buy-overlay-menu"
+>
+  <p class="font-bold product-price"></p>
+
+  <a
+    class="anchor-link bg-blue-400 px-4 py-3 rounded-xl text-sm text-white transition-opacity hover:opacity-75"
+    href="#buy-now"
+  >
+    Buy Now
+  </a>
+</div>
+
+<custom-select class="hidden" id="recharge-select">
+  <div class="relative">
+    <button
+      aria-haspopup="listbox"
+      class="select"
+      type="button"
+    >
+      <div class="flex-1 text"></div>
+
+      <div class="ml-4 text-gray-500">
+        {% render 'icon-chevron-down' %}
+      </div>
+    </button>
+
+    <ul
+      class="select-list hidden opacity-0"
+      role="listbox"
+    >
+
+    </ul>
+  </div>
+</custom-select>
+
+{% raw %}
+<script id="benefits-template" type="text/x-handlebars-template">
+  <div class="benefits-swiper swiper">
+    <div class="swiper-wrapper">
+      {{#each items}}
+        <div class="swiper-slide">
+          <div class="font-bold mb-4 text-blue-500 text-lg md:text-2xl">
+            {{{header}}}
+          </div>
+
+          <div class="text-gray-500 text-sm sm:text-base">
+            {{{description}}}
+          </div>
+        </div>
+      {{/each}}
+    </div>
+
+    <div class="flex items-center mt-4">
+      <div class="flex-1">
+        <div class="benefits-swiper__pagination"></div>
+      </div>
+
+      <div class="gap-2 grid grid-cols-2">
+        <div class="benefits-swiper__button-prev bg-white flex h-8 items-center justify-center rounded-full text-orange-500 transition-opacity w-8 hover:opacity-70">
+          {% endraw %}{% render 'icon-chevron-left' %}{% raw %}
+        </div>
+
+        <div class="benefits-swiper__button-next bg-white flex h-8 items-center justify-center rounded-full text-orange-500 transition-opacity w-8 hover:opacity-70">
+          {% endraw %}{% render 'icon-chevron-right' %}{% raw %}
+        </div>
+      </div>
+    </div>
+  </div>
+</script>
+{% endraw %}
+
+{% raw %}
+<script id="ingredients-template" type="text/x-handlebars-template">
+  {{#each items}}
+  <div class="ingredients-element">
+    <custom-accordion>
+      <div class="bg-white rounded-xl text-blue-500">
+        <button
+          aria-controls="ingredient-acc-{{index}}"
+          class="border-2 border-transparent flex items-center justify-between p-4 rounded-xl text-left transition-all w-full hover:border-blue-400 hover:opacity-70 md:p-6"
+          type="button"
+        >
+          <span class="text-sm sm:text-base">{{{title}}}</span>
+          {{#unless emptyDescription}}
+          {% endraw %}
+          <div class="plus-icon text-blue-400 transition-transform">
+            {% render 'icon-plus' %}
+          </div>
+          {% raw %}
+          {{/unless}}
+        </button>
+
+        <div
+          aria-labelled-by="ingredient-acc-{{index}}"
+          class="max-h-0 overflow-hidden text-sm"
+          role="region"
+        >
+          <div class="p-6 rich-text">
+            {{{description}}}
+          </div>
+        </div>
+      </div>
+    </custom-accordion>
+  </div>
+  {{/each}}
+</script>
+{% endraw %}
+
+{% raw %}
+<script id="faq-template" type="text/x-handlebars-template">
+  {{#each items}}
+  <div>
+    <custom-accordion>
+      <div class="bg-white rounded-xl text-blue-500">
+        <button
+          aria-controls="faq-{{index}}"
+          class="border-2 border-transparent flex items-center justify-between p-4 rounded-xl text-left transition-all w-full hover:border-blue-400 hover:opacity-70"
+          type="button"
+        >
+          <div class="flex items-center">
+            <div class="bg-orange-400 bg-opacity-20 font-semibold py-2 rounded-md text-center text-orange-400 w-8">
+              Q.
+            </div>
+            <div class="flex-1 mx-3 text-sm sm:text-base">{{{header}}}</div>
+          </div>
+          {% endraw %}
+          <div class="plus-icon text-blue-400 transition-transform">
+            {% render 'icon-plus' %}
+          </div>
+          {% raw %}
+        </button>
+
+        <div
+          aria-labelled-by="faq-{{index}}"
+          class="max-h-0 overflow-hidden text-sm"
+          role="region"
+        >
+          <div class="p-4">
+            <div class="flex h-full">
+              <div class="bg-blue-400 bg-opacity-20 font-semibold mr-3 py-2 rounded-md text-blue-400 text-center w-8">
+                A.
+              </div>
+
+              <div class="flex-1 font-semibold">
+                {{{description}}}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </custom-accordion>
+  </div>
+  {{/each}}
+</script>
+{% endraw %}
+
+<style>
+  :root {
+    --swiper-navigation-size: 24px;
+    --swiper-theme-color: #41B5E8;
+  }
+
+  .yotpo .promoted-products-box {
+    display: none !important;
+  }
+
+  @media screen and (max-width: 640px) {
+    footer {
+      padding-bottom: 64px;
+    }
+  }
+</style>
+
+<script type="text/javascript">
+  const productHandle = '{{ product.handle }},';
+
+  function getCookie(cookieName) {
+    const name = `${cookieName}=`;
+    const decodedCookie = decodeURIComponent(document.cookie);
+    const ca = decodedCookie.split(';');
+
+    for(let i = 0; i < ca.length; i += 1) {
+      let c = ca[i];
+
+      while (c.charAt(0) === ' ') {
+        c = c.substring(1);
+      }
+
+      if (c.indexOf(name) === 0) {
+        return c.substring(name.length, c.length);
+      }
+    }
+
+    return '';
+  }
+
+  function setCookie(name, value, exp) {
+    const d = new Date();
+
+    d.setTime(d.getTime() + (exp * 24 * 60 * 60 * 1000));
+
+    const expires = `expires=${d.toUTCString()}`;
+
+    document.cookie = `${name}=${value};${expires};path=/`;
+  }
+
+  const existingCookie = getCookie('tl_recent_products');
+
+  if (existingCookie.length === 0) {
+    setCookie('tl_recent_products', productHandle, 14);
+  } else if (existingCookie.indexOf(productHandle) === -1) {
+    setCookie('tl_recent_products', existingCookie.concat(productHandle), 14);
+  }
+</script>
+
+{%- liquid
+  if product.selected_or_first_available_variant.featured_media
+    assign seo_media = product.selected_or_first_available_variant.featured_media
+  else
+    assign seo_media = product.featured_media
+  endif
+-%}
+
+<script src="https://widget.sezzle.com/v1/javascript/price-widget?uuid=61cf6d6f-dd10-47e6-a89e-f995f579159c" defer></script>
+<script type="application/ld+json">
+  {
+    "@context": "http://schema.org/",
+    "@type": "Product",
+    "name": {{ product.title | json }},
+    "url": {{ shop.url | append: product.url | json }},
+    {% if seo_media -%}
+      {%- assign media_size = seo_media.preview_image.width | append: 'x' -%}
+      "image": [
+        {{ seo_media | img_url: media_size | prepend: "https:" | json }}
+      ],
+    {%- endif %}
+    "description": {{ product.description | strip_html | json }},
+    {% if product.selected_or_first_available_variant.sku != blank -%}
+      "sku": {{ product.selected_or_first_available_variant.sku | json }},
+    {%- endif %}
+    "brand": {
+      "@type": "Thing",
+      "name": {{ product.vendor | json }}
+    },
+    "offers": [
+      {%- for variant in product.variants -%}
+        {
+          "@type" : "Offer",
+          {%- if variant.sku != blank -%}
+            "sku": {{ variant.sku | json }},
+          {%- endif -%}
+          "availability" : "http://schema.org/{% if variant.available %}InStock{% else %}OutOfStock{% endif %}",
+          "price" : {{ variant.price | divided_by: 100.00 | json }},
+          "priceCurrency" : {{ cart.currency.iso_code | json }},
+          "url" : {{ shop.url | append: variant.url | json }}
+        }{% unless forloop.last %},{% endunless %}
+      {%- endfor -%}
+    ]
+  }
+</script>
+
+{% schema %}
+{
+  "name": "Main Product",
+  "settings": [
+
+  ]
+}
+{% endschema %}

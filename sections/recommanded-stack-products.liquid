@@ -1,0 +1,279 @@
+{% if product.metafields.my_fields.stack_products != blank %}
+<style>
+.slick-prev {    left: 25px !important;    z-index: 1;}
+.slick-next {    right: 25px !important;    z-index: 1;}
+</style>
+
+<div class="flex xgen-new-collection" id="xgen-new-collection relative">
+  <div class="flex-1">
+    <div  class="pt-4">
+          <div class="xgen-tagging">
+            {% if section.settings.title != blank %}
+            	<h2>{{ section.settings.title}}</h2>
+            {% endif %}
+            
+            {% if section.settings.subtitle != blank %}
+            	<p>{{ section.settings.subtitle}}</p>
+            {% endif %}
+           
+          </div>
+      
+      <!--static tagging -->
+      
+        <div class="gap-8 grid grid-cols-1 mb-8 sm:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4 3xl:grid-cols-5">
+        {% assign stack_products = product.metafields.my_fields.stack_products | split:',' %}
+          {% assign stack_products_length =  stack_products.size %}
+          {% if stack_products_length > 0 %}
+              {% for product_handle in stack_products %}
+
+                  {% assign block_id = product_handle.handle %}
+                
+                  {% assign p_type = "Bulking" %}
+                  {% assign discount_text1 = section.settings.discount_month %}
+                  {% assign discount_text2 = section.settings.discount_days %}
+                  {% assign percent_text =  section.settings.percent_text %}
+                  {% assign detail = section.settings.detail %}
+                  {% assign detail1 = section.settings.detail1 %}
+                  {% assign detail2 =  section.settings.detail2 %}
+                  {% assign detail3 =  section.settings.detail3 %}
+                  {% assign listinformation =  section.settings.listinformation %}
+                  {% assign pro_handle = all_products[product_handle] %}
+
+                  {% if pro_handle != blank %}
+                      {% if pro_handle.tags contains 'stack' %}
+                          {% render 'alternate-stack-product-grid' with product: pro_handle, block_id: block_id, product_type: p_type, dis_text_month: discount_text1, dis_text_days: discount_text2, sub_percent_text: percent_text, txt1:detail, txt2:detail1, txt3:detail2, txt4:detail3, txt5:listinformation  %}
+                      {% else %}
+                        
+                          {% render 'single_product_grid' with product: pro_handle %}
+                      {% endif %}
+                  {% endif %}
+              {% endfor %}
+          {% endif %}
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  
+  var acc = document.getElementsByClassName("accordions");
+      var i;
+      for (i = 0; i < acc.length; i++) {
+        acc[i].addEventListener("click", function() {
+          this.classList.toggle("active");
+          var panel = this.nextElementSibling;;
+          panel.classList.toggle("show");
+//           if (panel.classList.contains === "show") {
+//             panel.classList.remove("hide");
+            
+//           } else {
+//             panel.classList.remove("show");
+//           }
+        });
+      }
+  
+  $('#tabs-nav li:first-child').addClass('active');
+$('.tab-content').hide();
+$('.tab-content:first').show();
+
+// Click function
+$('#tabs-nav li').click(function(){
+  $('#tabs-nav li a').removeClass('active');
+  $(this).find("a").addClass('active');
+  $('.tab-content').hide();
+  
+  var activeTab = $(this).find('a').attr('href');
+  $(activeTab).fadeIn();
+  return false;
+});
+  
+// function openCity(evt, cityName) {
+//   var i, tabcontent, tablinks;
+//   tabcontent = document.getElementsByClassName("xgenstack-tabcontent");
+//   for (i = 0; i < tabcontent.length; i++) {
+//     tabcontent[i].style.display = "none";
+//   }
+//   tablinks = document.getElementsByClassName("tablinks");
+//   for (i = 0; i < tablinks.length; i++) {
+//     tablinks[i].className = tablinks[i].className.replace(" active", "");
+//   }
+//   document.getElementById(cityName).style.display = "block";
+//   evt.currentTarget.className += " active";
+// }
+
+// // Get the element with id="defaultOpen" and click on it
+// document.getElementById("protab_1").click();
+  
+</script>
+
+
+<style>
+  :root {
+    --swiper-navigation-size: 24px;
+    --swiper-theme-color: #41B5E8;
+  }
+</style>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.js"></script>
+<script>
+  
+    var slickSetSelected = function() {
+        var slideTrack = this.$slideTrack,
+            currentSlide = this.currentSlide;
+
+        slideTrack.find('.slick-selected').removeClass('slick-selected');
+        slideTrack.find('[index="' + currentSlide + '"]').addClass('slick-selected');
+    };
+  
+  /*$(".packageslide").slick({
+    dots: false,
+    infinite: false,
+    slidesToShow: 1,
+    slidesToScroll: 1,
+    focusOnSelect: true,
+//     centerMode: true,
+    arrows:true
+  });*/
+  
+  
+  /*$('.packageslide').hide();
+  $('.package-list-wraper>.openslide').click(function (e) {
+        e.preventDefault();
+    	$(this).find('.packageslide').slideToggle(200);
+       // $('.packageslide').slideToggle(200);
+    	//$(this).find('.packageslide').css({"display":"block"});
+    });*/
+  
+//   $('.package-list-wraper>.openslide').click(function (e) {
+//         e.preventDefault();
+//     	$(this).find('.packageslide').toggleClass('show');
+//     });
+  
+</script>
+{% endif %}
+{% schema %}
+  {
+    "name": "recom stack products",
+    "settings": [
+	{
+    	"type":"text",
+        "id":"title",
+        "label":"Section Title"
+	},
+    {
+    	"type":"textarea",
+        "id":"subtitle",
+        "label":"Section Subtitle"
+	},
+	{
+    	"type":"text",
+        "id":"discount_month",
+        "label":"Discount text by month",
+		"default":"Deliver Every Month"
+	},
+	{
+    	"type":"text",
+        "id":"discount_days",
+        "label":"Discount text by days",
+		"default":"Deliver Every 45 days"
+	},
+	{
+    	"type":"text",
+        "id":"percent_text",
+        "label":"Subcription percent Off text",
+		"default":"10% Off"
+	}, {
+      	"type":"text",
+      	"id":"detail",
+      	"label":"Badge 1",
+		"default":"NEW!"
+      },
+      {
+      	"type":"text",
+      	"id":"detail1",
+      	"label":"Badge 2",
+		"default":"15% off"
+      },
+      {
+      	"type":"text",
+      	"id":"detail2",
+      	"label":"Badge 3",
+		"default":"Free Shipping"
+      },
+      {
+      	"type":"text",
+      	"id":"detail3",
+      	"label":"Badge 4",
+		"default":"Maximum Results"
+      },
+      {
+      	"type":"textarea",
+      	"id":"listinformation",
+      	"label":"information"
+      }
+],
+	"blocks":[
+		{
+			"name":"product",
+			"type":"text",
+			"settings":[
+				
+				{
+                    "type":"text",
+                    "id":"collection_type",
+                    "label":"collection type"
+                },
+				{
+                    "type":"product",
+                    "id":"product_1",
+                    "label":"Select stack product"
+                },
+				{
+                    "type":"product",
+                    "id":"product_2",
+                    "label":"Select stack product"
+                },
+				{
+                    "type":"product",
+                    "id":"product_3",
+                    "label":"Select stack product"
+                },
+				{
+                    "type":"product",
+                    "id":"product_4",
+                    "label":"Select stack product"
+                },
+				{
+                    "type":"product",
+                    "id":"product_5",
+                    "label":"Select stack product"
+                },
+				{
+                    "type":"product",
+                    "id":"product_6",
+                    "label":"Select stack product"
+                },
+				{
+                    "type":"product",
+                    "id":"product_7",
+                    "label":"Select stack product"
+                },
+				{
+                    "type":"product",
+                    "id":"product_8",
+                    "label":"Select stack product"
+                }
+
+			]
+		}
+	],
+	
+	"presets":[
+		{
+			"name": "recom stack products"
+		}
+	]
+  }
+{% endschema %}
+
+

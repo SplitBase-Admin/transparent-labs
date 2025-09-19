@@ -1,0 +1,120 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "hero": {
+      "type": "product-hero",
+      "settings": {}
+    },
+    "details": {
+      "type": "product-details",
+      "settings": {
+        "overview": "<p>Broccoli? No. Kale? No. Spinach? No.</p><p>Prebiotic Greens does it better in two parts.</p><p> </p><p><strong>Part-One is Algae Greens:</strong></p><p>Each serving of Prebiotic Greens contains 3 grams of ultra-nutrient rich spirulina and 3 grams chlorella to deliver vitamins, minerals, protein, and heavy-metal detoxification [<a href=\"https://www.liebertpub.com/doi/pdf/10.1089/107628001300303691\">1</a>, <a href=\"http://www.lifescienceglobal.com/pms/index.php/jpans/article/view/61\">2</a>, <a href=\"https://www.tandfonline.com/doi/abs/10.3109/09637486.2011.582460\">3</a>, <a href=\"https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0118985\">4</a>, <a href=\"https://www.researchgate.net/profile/Cristiano_Jose_De_Andrade/publication/322641633_Chlorella_and_Spirulina_Microalgae_as_Sources_of_Functional_Foods_Nutraceuticals_and_Food_Supplements_an_Overview/links/5a65f7df0f7e9b6b8fdcc262/Chlorella-and-Spirulina-Microalgae-as-Sources-of-Functional-Foods-Nutraceuticals-and-Food-Supplements-an-Overview.pdf\">5</a>]. Spirulina and chlorella offer unparalleled nutrition on a gram per gram basis [<a href=\"https://www.sciencedirect.com/science/article/abs/pii/S0924224417302182\">6</a>, <a href=\"http://www.thepharmajournal.com/archives/2018/vol7issue7/PartJ/7-7-62-339.pdf\">7</a>, <a href=\"https://www.sciencedirect.com/science/article/pii/S002364381730926X\">8</a>, <a href=\"https://link.springer.com/article/10.1007/s13205-017-0832-4\">9</a>].  </p><p> </p><p><strong>Part-Two is Prebiotic Fibers:</strong></p><p>Each serving of prebiotic greens contains 3 grams organic acacia fiber [<a href=\"https://books.google.com/books?hl=en&lr=&id=0_xSDwAAQBAJ&oi=fnd&pg=PA211#v=onepage&q&f=false\">10</a>, <a href=\"https://www.sciencedirect.com/science/article/pii/B9780128120026000178\">11</a>], 3 grams organic green banana flour [<a href=\"https://www.sciencedirect.com/science/article/pii/S1756464617305601\">12</a>, <a href=\"https://www.jyoungpharm.org/sites/default/files/JYoungPharm_10_4_409_0.pdf\">13</a>], and 1 gram organic Jerusalem artichoke fiber [<a href=\"https://web.b.ebscohost.com/abstract?direct=true&profile=ehost&scope=site&authtype=crawler&jrnl=0858849X&AN=132541852&h=naEdLBoETTb5fptkwdEMefhSzVLQZDQEWWeKsN%2f0XZaxmSupRXs5TByynC1QNC7zny4669a0pweNu2pHs8EfjQ%3d%3d&crl=c&resultNs=AdminWebAuth&resultLocal=ErrCrlNotAuth&crlhashurl=login.aspx%3fdirect%3dtrue%26profile%3dehost%26scope%3dsite%26authtype%3dcrawler%26jrnl%3d0858849X%26AN%3d132541852\">14</a>, <a href=\"https://www.ncbi.nlm.nih.gov/pubmed/20187995\">15</a>, <a href=\"https://www.ncbi.nlm.nih.gov/pubmed/19690573\">16</a>] which together provide gut-healthy and gluten free soluble, un-soluble, and slow fermenting fibers [<a href=\"https://pubs.acs.org/doi/abs/10.1021/jf404688n\">17</a>, <a href=\"https://www.sciencedirect.com/science/article/abs/pii/S2212429217308453\">18</a>].</p><p> </p><p>This two pronged approach maximizes nutrient utilization by optimizing your often-overlooked microbiome and consequently affecting all aspects of digestion and wellbeing.</p>",
+        "no_sweetners": true,
+        "no_artificial_coloring": true,
+        "gluten_free": false,
+        "no_preservatives": true
+      }
+    },
+    "bundle": {
+      "type": "product-bundle",
+      "blocks": {
+        "b7786f30-aa9a-4125-a3b5-d4dc48557759": {
+          "type": "bundle_product",
+          "settings": {
+            "product": "strengthseries-creapure-hmb-creatine-supplement"
+          }
+        },
+        "af04df99-6e90-45cf-b3c3-082aa3ab9e4f": {
+          "type": "bundle_product",
+          "settings": {
+            "product": "bcaa-powder"
+          }
+        },
+        "10dac13b-7987-4ea3-92ff-11ec70a53acc": {
+          "type": "bundle_product",
+          "settings": {
+            "product": "casein-protein"
+          }
+        }
+      },
+      "block_order": [
+        "b7786f30-aa9a-4125-a3b5-d4dc48557759",
+        "af04df99-6e90-45cf-b3c3-082aa3ab9e4f",
+        "10dac13b-7987-4ea3-92ff-11ec70a53acc"
+      ],
+      "settings": {
+        "subtitle": "Get the most out of your training with these recommended products to optimize your performance and recovery."
+      }
+    },
+    "benefits": {
+      "type": "product-benefits",
+      "blocks": {
+        "f0e88676-206f-403d-b661-015e7fef79fc": {
+          "type": "benefit",
+          "settings": {
+            "image": "shopify://shop_images/image_4.png",
+            "title": "Key amino acids for stimulating muscle protein synthesis",
+            "description": "Branched-chain amino acids (BCAAs) are the \"master regulators\" of protein synthesis and essential to muscle growth."
+          }
+        },
+        "8e83ec87-4601-4180-8472-316acd991feb": {
+          "type": "benefit",
+          "settings": {
+            "image": "shopify://shop_images/image_4_1.png",
+            "title": "Contains added L-glutamine to promote muscle recovery and immune function",
+            "description": "In addition to BCAAs, this formula features an ample dose L-glutamine to help combat glutamine depletion from intense exercise."
+          }
+        },
+        "c17db1d7-648f-4626-af6a-3eb97716eefd": {
+          "type": "benefit",
+          "settings": {
+            "image": "shopify://shop_images/image_5.png",
+            "title": "Perfect for during and after training",
+            "description": "The ingredients in BCAA Glutamine fight fatigue and soreness so you can train harder, longer, and more effectively."
+          }
+        },
+        "26eba933-32e7-4a7d-b1d1-c5b20e1dc806": {
+          "type": "benefit",
+          "settings": {
+            "image": "shopify://shop_images/image_5_1.png",
+            "title": "Refreshing taste and easy to digest",
+            "description": "BCAA Glutamine is a delicious sports supplement that you'll look forward to drinking during your workouts and throughout the day."
+          }
+        }
+      },
+      "block_order": [
+        "f0e88676-206f-403d-b661-015e7fef79fc",
+        "8e83ec87-4601-4180-8472-316acd991feb",
+        "c17db1d7-648f-4626-af6a-3eb97716eefd",
+        "26eba933-32e7-4a7d-b1d1-c5b20e1dc806"
+      ],
+      "settings": {}
+    },
+    "main": {
+      "type": "main-product",
+      "disabled": true,
+      "settings": {}
+    },
+    "recommended-products": {
+      "type": "product-recommendations",
+      "disabled": true,
+      "settings": {}
+    }
+  },
+  "order": [
+    "hero",
+    "details",
+    "bundle",
+    "benefits",
+    "main",
+    "recommended-products"
+  ]
+}

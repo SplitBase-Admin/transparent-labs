@@ -1,0 +1,142 @@
+{{ 'new-how-to-use.css' | asset_url | stylesheet_tag }}
+
+
+
+
+
+{% assign how_to_use_steps = product.metafields.custom.how_to_use_steps.value %}
+
+{% if how_to_use_steps or product.metafields.custom.how_to_use_section_description %}       
+  <section class="how-to-use-container">
+    <div class="container">
+      <div class="how-to-use-inner">
+        {% if section.settings.section-heading != blank %}
+          <h2>{{ section.settings.section-heading }}</h2>
+        {% endif %}
+        
+        <div class="how-to-use-content">
+  
+          
+          {% if how_to_use_steps %}
+            <div class="steps-timeline step-numbers-wrapper">
+              <div class="line">{% render 'line' %}</div>
+              {% for step in how_to_use_steps  %}
+                <div class="step-item">
+                  {% if step.step_number_image != blank %}
+                    <div class="step-number">{{ step.step_number_image | image_url: width: auto, height: auto | image_tag }}</div>
+                  {% else %}
+                    <div class="step-number">{{ step.step_number }}</div>
+                  {% endif %}
+                </div>
+              {% endfor %}
+            </div>
+            <div class="steps-timeline">
+              {% for step in how_to_use_steps  %}
+                <div class="step-item">
+                  <div class="step-content">
+                      {% if step.step_number_image != blank or step.step_image != blank %}
+                      <div class="step-icon">
+                        {% if step.step_number_image != blank %}
+                          <div class="step-number">{{ step.step_number_image | image_url: width: auto, height: auto | image_tag: alt: step.step_number_image.alt }}</div>
+                        {% else %}
+                          <div class="step-number">{{ step.step_number }}</div>
+                        {% endif %}
+                        {% if step.step_image != blank %}
+                          {{ step.step_image | image_url: width: auto, height: auto | image_tag: alt: step.step_image.alt }}
+                        {% endif %}
+                      </div>
+                      {% endif %}
+                      <div class="step-info">
+                        <h3 class="step-heading">{{ step.step_title }}</h3>
+                        <div class="step-description">{{ step.step_description }}</div>
+                      </div>
+                  </div>
+                </div>
+              {% endfor %}
+            </div>
+          {% endif %}
+      
+          {% if section.settings.section-description != blank %}
+            <div class="additional-info-description">
+              {{ section.settings.section-description }}
+            </div>
+          {% endif %}
+  
+          {% if section.settings.section-description-desclaimer != blank %}
+            <div class="additional-info-desclaimer">
+              {{ section.settings.section-description-desclaimer}}
+            </div>
+          {% endif %}
+  
+        </div> 
+      </div>
+    </div>
+  </section>
+{% endif %}
+
+{% style %}
+  
+  .how-to-use-container,
+  .how-to-use-container .step-number {
+    background: {{ section.settings.section-bg }};
+  }
+
+  .how-to-use-container * {
+    color: {{ section.settings.section-title-color }};
+  }
+
+  .how-to-use-container p,
+  .how-to-use-container p * {
+    color: {{ section.settings.section-text-color }};
+  }
+  
+{% endstyle %}
+
+{% schema %}
+  {
+    "name": "Product How to Use",
+    "settings": [
+      {
+        "id": "section-bg",
+        "label": "Section Background",
+        "type": "color",
+        "default": "#173446"
+      },
+      {
+        "id": "section-title-color",
+        "label": "Section Description Title Color",
+        "type": "color",
+        "default": "#fff"
+      },
+      {
+        "id": "section-text-color",
+        "label": "Section Description Text Color",
+        "type": "color_background",
+        "default": "#fff"
+      },
+      {
+        "id": "section-heading",
+        "label": "Section Heading",
+        "type": "text",
+      },
+      {
+        "id": "section-description",
+        "label": "Section Description",
+        "type": "richtext",
+      },
+      {
+        "id": "section-description-desclaimer",
+        "label": "Section Description Desclaimer",
+        "type": "richtext",
+      }
+    ],
+    "blocks": [
+
+    ],
+    "presets": [
+      {
+        "name": "Product How to Use"
+      }
+    ]
+  }
+{% endschema %}

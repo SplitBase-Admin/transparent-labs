@@ -1,0 +1,40 @@
+<section class="TL_RecentBlogs index-hp-rtb-test">
+  <div class="TL_RecentBlogs_inner">
+    {% if section.settings.index-blogs != blank %}
+      <h2>{{ section.settings.index-blogs }}</h2>
+    {% endif %}
+    <div class="TL_RecentBlogs-carousel" data-flickity='{ "contain": true, "pageDots": false, "prevNextButtons": false, "dragable": true }'>
+      {% for article in blogs.all.articles limit:6 %}
+      <div class="TL_RecentBlogs-carousel-cell">
+        <a href="{{ article.url }}">
+          <div class="TL_RecentBlogs-carousel-cell-image" style="background-image:url('{{ article | img_url: 'large' }}')"></div>
+        </a>
+        <div class="TL_RecentBlogs-carousel-cell-text">
+          <h3>{{ article.title }}</h3>
+          <a class="TL_readMore" href="{{ article.url }}">Read <span style="line-height: 1;margin-left:10px"><svg height="24" viewbox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
+            <path d="M16.17 13L12.59 16.59L14 18L20 12L14 6L12.59 7.41L16.17 11H4V13H16.17Z" fill="#41B5E8"></path></svg></span></a>
+        </div>
+      </div>
+        {% endfor %}
+    </div>
+  </div>
+</section>
+
+
+{% schema %}
+{
+  "name": "index blogs",
+  "class": "index-blogs",
+  "settings": [
+    {
+      "id": "index-blogs",
+      "type": "text",
+      "label": "title",
+      "default": "Latest from the TL Blog"
+    }
+  ],
+  "presets": [{
+    "name": "index blogs"
+  }]
+}
+{% endschema %}
