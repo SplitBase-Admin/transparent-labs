@@ -58,6 +58,10 @@
             "discount_color": "#0fa573"
           }
         },
+        "avada_order_limits_app_block_hMPmGx": {
+          "type": "shopify://apps/avada-order-limits/blocks/app-block/d3021427-4f7b-49c8-8963-29d1d52b8956",
+          "settings": {}
+        },
         "buy_buttons_qft7CA": {
           "type": "buy_buttons",
           "settings": {}
@@ -76,6 +80,7 @@
         "icon_list_44RiV8",
         "variant_picker_pBDB7m",
         "skio_subscriptions_yc_s20_app_block_iXAcVA",
+        "avada_order_limits_app_block_hMPmGx",
         "buy_buttons_qft7CA",
         "compare_button_QPMDgJ"
       ],
@@ -306,7 +311,10 @@
       "blocks": {
         "judge_me_reviews_review_widget_WA3WNR": {
           "type": "shopify://apps/judge-me-reviews/blocks/review_widget/61ccd3b1-a9f2-4160-9fe9-4fec8413e5d8",
-          "settings": {}
+          "settings": {
+            "review_data": "sample_data",
+            "max_width": 1200
+          }
         }
       },
       "block_order": [

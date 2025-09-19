@@ -737,6 +737,51 @@
         "padding_top": 80,
         "padding_bottom": 80
       }
+    },
+    "shop_by_goal_product_carousel_wjwfwW": {
+      "type": "shop-by-goal-product-carousel",
+      "blocks": {
+        "collection_tab_7pnQME": {
+          "type": "collection_tab",
+          "settings": {
+            "collection": "adams-stack",
+            "collection_title": ""
+          }
+        },
+        "collection_tab_9YiEKa": {
+          "type": "collection_tab",
+          "settings": {
+            "collection": "adams-stack",
+            "collection_title": ""
+          }
+        },
+        "collection_tab_4tzGJe": {
+          "type": "collection_tab",
+          "settings": {
+            "collection": "adams-stack",
+            "collection_title": ""
+          }
+        },
+        "collection_tab_HVWDgn": {
+          "type": "collection_tab",
+          "settings": {
+            "collection": "adams-stack",
+            "collection_title": ""
+          }
+        }
+      },
+      "block_order": [
+        "collection_tab_7pnQME",
+        "collection_tab_9YiEKa",
+        "collection_tab_4tzGJe",
+        "collection_tab_HVWDgn"
+      ],
+      "disabled": true,
+      "name": "Goal Product Carousel",
+      "settings": {
+        "heading": "test section",
+        "show_atc_btns": false
+      }
     }
   },
   "order": [
@@ -753,6 +798,7 @@
     "tl_info_WDdbKN",
     "index_performance_slider_azNYce",
     "video_with_content_bEiqcW",
-    "multiple_blogs_mjVGXt"
+    "multiple_blogs_mjVGXt",
+    "shop_by_goal_product_carousel_wjwfwW"
   ]
 }

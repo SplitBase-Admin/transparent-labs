@@ -229,7 +229,10 @@
     
   
   {% render 'shogun-head' %}
+{{ 'recipes.scss.css' | asset_url | stylesheet_tag }}
+{% render 'recipes-custom-css' %}
 </head>
+            
   <body
     class="font-neue grid grid-cols-1 {{ template.name }} template--{{ template.name }} {% if request.path contains '/policies/' %}template--page{% endif  %} unique-{{ template.suffix }}"
     data-temp="{{ template }}"
@@ -659,9 +662,7 @@ window.onload = function()
       
     </script>
      </script>
-    <!-- Coupon Monitor Snippet -->
-    <script type=text/javascript async=true src=https://d3uz7fhqos37j7.cloudfront.net/97e8527feaf77a97fc38f34216141515.js></script>
-    <!-- Brandlock Listening Snippet -->
-    <script type=text/javascript async=true src=https://d1y201xxslmqjj.cloudfront.net/08875308.js></script>
-  </body>
+  {% render 'recipes-static' %}
+</body>
+            
 </html>
