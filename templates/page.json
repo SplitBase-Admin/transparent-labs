@@ -9,18 +9,15 @@
  */
 {
   "sections": {
-    "new_breadcrumb_aXfjDq": {
-      "type": "new-breadcrumb",
-      "disabled": true,
-      "settings": {}
-    },
     "main": {
       "type": "main-page",
-      "settings": {}
+      "settings": {
+        "padding_top": 28,
+        "padding_bottom": 28
+      }
     }
   },
   "order": [
-    "new_breadcrumb_aXfjDq",
     "main"
   ]
 }

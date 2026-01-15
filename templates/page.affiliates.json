@@ -10,7 +10,7 @@
 {
   "sections": {
     "affiliates": {
-      "type": "affiliates-page",
+      "type": "old-affiliates-page",
       "blocks": {
         "7af7de1a-9e27-435e-812d-9a3ec3492d17": {
           "type": "content",

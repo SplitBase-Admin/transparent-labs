@@ -10,7 +10,7 @@
 {
   "sections": {
     "main": {
-      "type": "storelocator",
+      "type": "old-storelocator",
       "settings": {
         "heading": "NOW AVAILABLE AT",
         "image": "shopify://shop_images/IMG_9828.png",

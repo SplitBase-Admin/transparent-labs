@@ -1,2886 +1,637 @@
-{{ 'cart-drawer.css' | asset_url | stylesheet_tag }}
+<link rel="stylesheet" href="{{ 'component-list-menu.css' | asset_url }}" media="print" onload="this.media='all'">
+<link rel="stylesheet" href="{{ 'component-search.css' | asset_url }}" media="print" onload="this.media='all'">
+<link rel="stylesheet" href="{{ 'component-menu-drawer.css' | asset_url }}" media="print" onload="this.media='all'">
+<link rel="stylesheet" href="{{ 'component-cart-notification.css' | asset_url }}" media="print" onload="this.media='all'">
+
+{%- if settings.predictive_search_enabled -%}
+  <link rel="stylesheet" href="{{ 'component-price.css' | asset_url }}" media="print" onload="this.media='all'">
+{%- endif -%}
+
+{%- if section.settings.menu_type_desktop == 'mega' -%}
+  <link rel="stylesheet" href="{{ 'component-mega-menu.css' | asset_url }}" media="print" onload="this.media='all'">
+{%- endif -%}
+
 
 <style>
-  #kustomer-ui-sdk-iframe{transition: all 0.2s ease; bottom: 0px!important;right:5px!important;}
+  header-drawer {
+    justify-self: start;
+    margin-left: -1.2rem;
+  }
+
+  {%- if section.settings.sticky_header_type == 'reduce-logo-size' -%}
+    .scrolled-past-header .header__heading-logo-wrapper {
+      width: 75%;
+    }
+  {%- endif -%}
+
+  {%- if section.settings.menu_type_desktop != "drawer" -%}
+    @media screen and (min-width: 990px) {
+      header-drawer {
+        display: none;
+      }
+    }
+  {%- endif -%}
+
+  .menu-drawer-container {
+    display: flex;
+  }
+
+  .list-menu {
+    list-style: none;
+    padding: 0 16px;
+    margin: 0;
+  }
+
+  .list-menu--inline {
+    display: inline-flex;
+    flex-wrap: wrap;
+  }
+
+  summary.list-menu__item {
+    padding-right: 2.7rem;
+  }
+
+  .list-menu__item {
+    display: flex;
+    align-items: center;
+    line-height: calc(1 + 0.3 / var(--font-body-scale));
+  }
+
+  .list-menu__item--link {
+    text-decoration: none;
+    padding-bottom: 1rem;
+    padding-top: 1rem;
+    line-height: calc(1 + 0.8 / var(--font-body-scale));
+  }
+
+  @media screen and (min-width: 750px) {
+    .list-menu__item--link {
+      padding-bottom: 0.5rem;
+      padding-top: 0.5rem;
+    }
+  }
 </style>
-<!-- New xgen-header Start -->
-<link rel="stylesheet" href="{{ 'new-header.css' | asset_url }}">
-<header class="header" id="xgen-header-2" style="display:block;">
-  <div class="header-spacer"></div>
-  <div class="container">
-    <section class="wrapper">
-      <div class="header-item-left">
-        <button type="button" class="menu-mobile-toggle" aria-label="Menu Mobile Toggle">
-          {% render 'icon-hamburger' %}
-          {% render 'icon-close' %}
-        </button>
-        <a href="https://www.transparentlabs.com" class="brand desktop" aria-label="Visit Transparent Labs Homepage">
-          {% if section.settings.logo != blank %}
-            {{ section.settings.logo | image_url: width: auto, height: auto | image_tag }}
-          {% else %}
-            {% render 'main-logo' %}
-          {% endif %}
-        </a>
-      </div>
-      <div class="header-item-left logo__center">
-        <a href="https://www.transparentlabs.com" class="brand mobile" aria-label="Visit Transparent Labs Homepage">
-          {% render 'short-logo' %}
-        </a>
-      </div>
-      <!-- Navbar Section -->
 
-      <div class="header-item-center mobile">
-        <div class="overlay"></div>
-
-        <nav class="menu" id="menu">
-          <!--
-            <div class="menu-mobile-header">
-              <button type="button" class="menu-mobile-arrow"> {% render 'icon-chevron-left' %}</button>
-              <div class="menu-mobile-title"></div>
-              <button type="button" class="menu-mobile-close">{% render 'icon-close' %}</button>
-            </div>
-          -->
-
-          <div class="sort-search">
-            <style>
-              #search-nav-3 #predictive-search-results{display:none;} #search-nav-close-3{display:none;}.sort-search svg.h-6.w-6 {color: #333333;}.sort-search .py-3 {padding-top: 0.5rem;padding-bottom: 0.5rem;color: #000 !important;padding-left: 0.5rem;padding-right: 0.5rem; }.sort-search .border-gray-400 {border:1px solid #efefef;border-radius: 0;}
-            </style>
-            <div class="input-wrap" style="position:relative;box-shadow: unset;border: unset;background: unset;">
-              <button class="menu-icon" id="search-nav-open-3" type="button" aria-label="Search Navigation Button">
-                {% render 'icon-search' %}
-              </button>
-              <div
-                class="absolute left-1/3 right-0 top-1/2 -translate-y-1/2 z-[99] xl:left-1/2 3xl:left-2/3"
-                id="search-nav-3"
-                style="left:0;"
-              >
-                {% render 'predictive-search-input', close_id: 'search-nav-close-3', label: 'search-label-input-1' %}
-              </div>
-            </div>
-            <button type="button" class="menu-mobile-close" aria-label="Menu Mobile Close icon">
-              {% render 'icon-close' %}
-            </button>
-          </div>
-
-          <ul class="menu-section menu-section-m new-megamenu-wrapper" style="margin-top: 15px;">
-            {%- for block in section.blocks -%}
-              {% if block.type == "new-megamenu" %}
-                {% render 'new-megamenu-mobile', block: block  %}
-              {% elsif block.type == "product-items" %}
-                {% render 'megamenu-product-items', block: block %}
-              {% else %}
-                {% if block.settings.main_link == 'PRODUCTS' %}
-                  <li class="menu-item-has-children menu-item-has-children-m">
-                    <a href="javascript:void(0);">
-                      {{- block.settings.title1 }}
-                      {% render 'icon-chevron-down' -%}
-                    </a>
-                    <div class="menu-subs menu-subs-m menu-mega menu-column-4">
-                      <div class="list-item">
-                        <ul>
-                          <li>
-                            <a href="{{ block.settings.url_pro1 }}">
-                              <img
-                                src="{{ block.settings.pro_img_1 | img_url:'' }}"
-                                loading="lazy"
-                                alt="First Product Image 1"
-                              >
-                              <div class="acove">
-                                <span>{{ block.settings.pro_title1 }}</span>
-                                <p>{{ block.settings.pro_subtitle1 }}</p>
-                              </div>
-                            </a>
-                          </li>
-                          <li>
-                            <a href="{{ block.settings.securl_pro1 }}">
-                              <img
-                                src="{{ block.settings.secpro_img_1 | img_url:'' }}"
-                                loading="lazy"
-                                alt="Second Product Image 1"
-                              >
-                              <div class="acove">
-                                <span>{{ block.settings.secpro_title1 }}</span>
-                                <p>{{ block.settings.secpro_subtitle1 }}</p>
-                              </div>
-                            </a>
-                          </li>
-                          <li>
-                            <a href="{{ block.settings.thurl_pro1 }}">
-                              <img
-                                src="{{ block.settings.thcpro_img_1 | img_url:'' }}"
-                                loading="lazy"
-                                alt="Third Product Image 1"
-                              >
-                              <div class="acove">
-                                <span>{{ block.settings.thpro_title1 }}</span>
-                                <p>{{ block.settings.thpro_subtitle1 }}</p>
-                              </div>
-                            </a>
-                          </li>
-                        </ul>
-                      </div>
-  
-                      <div class="more-item">
-                        <a href="{{ block.settings.moreitems1 }}" aria-label="More Item Text and Icon">
-                          {{- block.settings.moreitems1_text }}
-                          {% render 'icon-arrow-right' -%}
-                        </a>
-                      </div>
-                    </div>
-                  </li>
-                  <li class="menu-item-has-children menu-item-has-children-m">
-                    <a href="javascript:void(0);">
-                      {{- block.settings.title2 }}
-                      {% render 'icon-chevron-down' -%}
-                    </a>
-                    <div class="menu-subs menu-subs-m menu-mega menu-column-4">
-                      <div class="list-item">
-                        <ul>
-                          <li>
-                            <a href="{{ block.settings.url_pro2 }}">
-                              <img
-                                src="{{ block.settings.pro_img_2 | img_url:'' }}"
-                                loading="lazy"
-                                alt="First Product Image 2"
-                              >
-                              <div class="acove">
-                                <span>{{ block.settings.pro_title2 }}</span>
-                                <p>{{ block.settings.pro_subtitle2 }}</p>
-                              </div>
-                            </a>
-                          </li>
-                          <li>
-                            <a href="{{ block.settings.securl_pro2 }}">
-                              <img
-                                src="{{ block.settings.secpro_img_2 | img_url:'' }}"
-                                loading="lazy"
-                                alt="Second Product Image 2"
-                              >
-                              <div class="acove">
-                                <span>{{ block.settings.secpro_title2 }}</span>
-                                <p>{{ block.settings.secpro_subtitle2 }}</p>
-                              </div>
-                            </a>
-                          </li>
-                          <li>
-                            <a href="{{ block.settings.thurl_pro2 }}">
-                              <img
-                                src="{{ block.settings.thcpro_img_2 | img_url:'' }}"
-                                loading="lazy"
-                                alt="Third Product Image 2"
-                              >
-                              <div class="acove">
-                                <span>{{ block.settings.thpro_title2 }}</span>
-                                <p>{{ block.settings.thpro_subtitle2 }}</p>
-                              </div>
-                            </a>
-                          </li>
-                        </ul>
-                      </div>
-  
-                      <div class="more-item">
-                        <a href="{{ block.settings.moreitems2 }}" aria-label="More Item Text and Icon">
-                          {{- block.settings.moreitems2_text }}
-                          {% render 'icon-arrow-right' -%}
-                        </a>
-                      </div>
-                    </div>
-                  </li>
-                  <li class="menu-item-has-children menu-item-has-children-m">
-                    <a href="javascript:void(0);">
-                      {{- block.settings.title3 }}
-                      {% render 'icon-chevron-down' -%}
-                    </a>
-                    <div class="menu-subs menu-subs-m menu-mega menu-column-4">
-                      <div class="list-item">
-                        <ul>
-                          <li>
-                            <a href="{{ block.settings.url_pro3 }}">
-                              <img
-                                src="{{ block.settings.pro_img_3 | img_url:'' }}"
-                                loading="lazy"
-                                alt="First Product Image 3"
-                              >
-                              <div class="acove">
-                                <span>{{ block.settings.pro_title3 }}</span>
-                                <p>{{ block.settings.pro_subtitle3 }}</p>
-                              </div>
-                            </a>
-                          </li>
-                          <li>
-                            <a href="{{ block.settings.securl_pro3 }}">
-                              <img
-                                src="{{ block.settings.secpro_img_3 | img_url:'' }}"
-                                loading="lazy"
-                                alt="Second Product Image 3"
-                              >
-                              <div class="acove">
-                                <span>{{ block.settings.secpro_title3 }}</span>
-                                <p>{{ block.settings.secpro_subtitle3 }}</p>
-                              </div>
-                            </a>
-                          </li>
-                          <li>
-                            <a href="{{ block.settings.thurl_pro3 }}">
-                              <img
-                                src="{{ block.settings.thcpro_img_3 | img_url:'' }}"
-                                loading="lazy"
-                                alt="Third Product Image 3"
-                              >
-                              <div class="acove">
-                                <span>{{ block.settings.thpro_title3 }}</span>
-                                <p>{{ block.settings.thpro_subtitle3 }}</p>
-                              </div>
-                            </a>
-                          </li>
-                        </ul>
-                      </div>
-  
-                      <div class="more-item">
-                        <a href="{{ block.settings.moreitems3 }}" aria-label="More Item Text and Icon">
-                          {{- block.settings.moreitems3_text }}
-                          {% render 'icon-arrow-right' -%}
-                        </a>
-                      </div>
-                    </div>
-                  </li>
-                  <li class="menu-item-has-children menu-item-has-children-m">
-                    <a href="javascript:void(0);">
-                      {{- block.settings.title4 }}
-                      {% render 'icon-chevron-down' -%}
-                    </a>
-                    <div class="menu-subs menu-subs-m menu-mega menu-column-4">
-                      <div class="list-item">
-                        <ul>
-                          <li>
-                            <a href="{{ block.settings.url_pro4 }}">
-                              <img
-                                src="{{ block.settings.pro_img_4 | img_url:'' }}"
-                                loading="lazy"
-                                alt="First Product Image 4"
-                              >
-                              <div class="acove">
-                                <span>{{ block.settings.pro_title4 }}</span>
-                                <p>{{ block.settings.pro_subtitle4 }}</p>
-                              </div>
-                            </a>
-                          </li>
-                          <li>
-                            <a href="{{ block.settings.securl_pro4 }}">
-                              <img
-                                src="{{ block.settings.secpro_img_4 | img_url:'' }}"
-                                loading="lazy"
-                                alt="Second Product Image 4"
-                              >
-                              <div class="acove">
-                                <span>{{ block.settings.secpro_title4 }}</span>
-                                <p>{{ block.settings.secpro_subtitle4 }}</p>
-                              </div>
-                            </a>
-                          </li>
-                          <li>
-                            <a href="{{ block.settings.thurl_pro3 }}">
-                              <img
-                                src="{{ block.settings.thcpro_img_4 | img_url:'' }}"
-                                loading="lazy"
-                                alt="Third Product Image 4"
-                              >
-                              <div class="acove">
-                                <span>{{ block.settings.thpro_title4 }}</span>
-                                <p>{{ block.settings.thpro_subtitle4 }}</p>
-                              </div>
-                            </a>
-                          </li>
-                        </ul>
-                      </div>
-  
-                      <div class="more-item">
-                        <a href="{{ block.settings.moreitems4 }}" aria-label="More Item Text and Icon">
-                          {{- block.settings.moreitems4_text }}
-                          {% render 'icon-arrow-right' -%}
-                        </a>
-                      </div>
-                    </div>
-                  </li>
-                  <li class="menu-item-has-children menu-item-has-children-m">
-                    <a href="javascript:void(0);">
-                      {{- block.settings.title5 }}
-                      {% render 'icon-chevron-down' -%}
-                    </a>
-                    <div class="menu-subs menu-subs-m menu-mega menu-column-4">
-                      <div class="list-item">
-                        <ul>
-                          <li>
-                            <a href="{{ block.settings.url_pro5 }}">
-                              <img
-                                src="{{ block.settings.pro_img_5 | img_url:'' }}"
-                                loading="lazy"
-                                alt="Third Product Image 5"
-                              >
-                              <div class="acove">
-                                <span>{{ block.settings.pro_title5 }}</span>
-                                <p>{{ block.settings.pro_subtitle5 }}</p>
-                              </div>
-                            </a>
-                          </li>
-                          <li>
-                            <a href="{{ block.settings.securl_pro5 }}">
-                              <img
-                                src="{{ block.settings.secpro_img_5 | img_url:'' }}"
-                                loading="lazy"
-                                alt="Third Product Image 5"
-                              >
-                              <div class="acove">
-                                <span>{{ block.settings.secpro_title5 }}</span>
-                                <p>{{ block.settings.secpro_subtitle5 }}</p>
-                              </div>
-                            </a>
-                          </li>
-                          <li>
-                            <a href="{{ block.settings.thurl_pro5 }}">
-                              <img
-                                src="{{ block.settings.thcpro_img_5 | img_url:'' }}"
-                                loading="lazy"
-                                alt="Third Product Image 5"
-                              >
-                              <div class="acove">
-                                <span>{{ block.settings.thpro_title5 }}</span>
-                                <p>{{ block.settings.thpro_subtitle5 }}</p>
-                              </div>
-                            </a>
-                          </li>
-                        </ul>
-                      </div>
-  
-                      <div class="more-item">
-                        <a href="{{ block.settings.moreitems5 }}" aria-label="More Item Text and Icon">
-                          {{- block.settings.moreitems5_text }}
-                          {% render 'icon-arrow-right' -%}
-                        </a>
-                      </div>
-                    </div>
-                  </li>
-                {% endif %}
-                {% unless block.settings.main_link == 'PRODUCTS' %}
-                  <li class="menu-item-has-children menu-item-has-children-m {% if block.settings.menu_op == 'none' %} menu-type-link {% endif %}" {% if block.settings.hide_mobile %}style="display: none;"{% endif %} >
-                    <a href="{% if block.settings.menu_op == 'drpdwn' %}javascript:void(0);{% else %}{{ block.settings.main_url }}{% endif %}" >
-                      {{- block.settings.main_link }}
-                      {% if block.settings.menu_op == 'drpdwn' %} {% render 'icon-chevron-down' %} {% elsif block.settings.menu_op == 'none' %} {% render 'right-arrow' %} {% endif %}
-                    </a>
-                    {% if block.settings.menu_op == 'drpdwn' %}
-                      <div class="menu-subs menu-subs-m menu-column-1">
-                        <ul>
-                          {% if block.settings.txt1 != blank %}
-                            <li>
-                              <a href="{{ block.settings.url1 }}">{{ block.settings.txt1 }}</a>
-                            </li>
-                          {% endif %}
-                          {% if block.settings.txt2 != blank %}
-                            <li>
-                              <a href="{{ block.settings.url2 }}">{{ block.settings.txt2 }}</a>
-                            </li>
-                          {% endif %}
-                          {% if block.settings.txt3 != blank %}
-                            <li>
-                              <a href="{{ block.settings.url3 }}">{{ block.settings.txt3 }}</a>
-                            </li>
-                          {% endif %}
-                          {% if block.settings.txt4 != blank %}
-                            <li>
-                              <a href="{{ block.settings.url4 }}">{{ block.settings.txt4 }}</a>
-                            </li>
-                          {% endif %}
-                          {% if block.settings.txt5 != blank %}
-                            <li>
-                              <a href="{{ block.settings.url5 }}">{{ block.settings.txt5 }}</a>
-                            </li>
-                          {% endif %}
-                          {% if block.settings.txt6 != blank %}
-                            <li>
-                              <a href="{{ block.settings.url6 }}">{{ block.settings.txt6 }}</a>
-                            </li>
-                          {% endif %}
-                        </ul>
-                      </div>
-                    {% endif %}
-                  </li>
-                {% endunless %}
-              {% endif %}
-              {% endfor %}
-          </ul>
-
-          <div class="best-seller-footer-menu-wrapper">
-
-            <div style="display: none;">
-              {%- for block in section.blocks -%}
-                {% if block.type == "product-items" %}
-                  {% render 'megamenu-product-items', block: block %}
-                {% endif %}
-              {% endfor %}
-            </div>
-       
-            <div class="new-megamenu-footer-mobile">
-              {% assign mobile_menu = linklists[section.settings.mobile_menu] %}
-              {% for link in mobile_menu.links %}
-                <a href="{{ link.url }}">{{ link.title }}</a>
-              {% endfor %}
-            </div>
-          </div>
-        </nav>
-      </div>
-
-      <div class="header-item-center desktop">
-        <nav class="menu">
-          <ul class="menu-section">
-            {%- for block in section.blocks -%}
-              {% if block.type == "new-megamenu" %}
-                {% render 'new-megamenu', block: block %}
-              {% elsif block.type == "product-items" %}
-                {% render 'megamenu-product-items', block: block %}
-              {% else %}
-                {% unless block.settings.show %}
-                  <li class="menu-item-has-children main--menu-items">
-                    <a href="{{ block.settings.main_url }}" class="main-menu-title">{{ block.settings.main_link }}</a>
-                    {% if block.settings.menu_op == 'megamenu' %}
-                      <div class="menu-subs menu-mega menu-column-4">
-                        <div class="list-item">
-                          <h4 class="title">{{ block.settings.title1 }}</h4>
-                          <ul>
-                            <li>
-                              <a href="{{ block.settings.url_pro1 }}">
-                                <img
-                                  src="{{ block.settings.pro_img_1 | img_url:'' }}"
-                                  loading="lazy"
-                                  alt="First Product Image 1"
-                                >
-                                <div class="acove">
-                                  <span>{{ block.settings.pro_title1 }}</span>
-                                  <p>{{ block.settings.pro_subtitle1 }}</p>
-                                </div>
-                              </a>
-                            </li>
-                            <li>
-                              <a href="{{ block.settings.securl_pro1 }}">
-                                <img
-                                  src="{{ block.settings.secpro_img_1 | img_url:'' }}"
-                                  loading="lazy"
-                                  alt="Second Product Image 1"
-                                >
-                                <div class="acove">
-                                  <span>{{ block.settings.secpro_title1 }}</span>
-                                  <p>{{ block.settings.secpro_subtitle1 }}</p>
-                                </div>
-                              </a>
-                            </li>
-                            <li>
-                              <a href="{{ block.settings.thurl_pro1 }}">
-                                <img
-                                  src="{{ block.settings.thcpro_img_1 | img_url:'' }}"
-                                  loading="lazy"
-                                  alt="Third Product Image 1"
-                                >
-                                <div class="acove">
-                                  <span>{{ block.settings.thpro_title1 }}</span>
-                                  <p>{{ block.settings.thpro_subtitle1 }}</p>
-                                </div>
-                              </a>
-                            </li>
-                          </ul>
-                          <div class="more-item">
-                            <a href="{{ block.settings.moreitems1 }}" aria-label="More Item Text and Icon">
-                              {{- block.settings.moreitems1_text }}
-                              {% render 'icon-arrow-right' -%}
-                            </a>
-                          </div>
-                        </div>
-                        <div class="list-item">
-                          <h4 class="title">{{ block.settings.title2 }}</h4>
-                          <ul>
-                            <li>
-                              <a href="{{ block.settings.url_pro2 }}">
-                                <img
-                                  src="{{ block.settings.pro_img_2 | img_url:'' }}"
-                                  loading="lazy"
-                                  alt="First Product Image 2"
-                                >
-                                <div class="acove">
-                                  <span>{{ block.settings.pro_title2 }}</span>
-                                  <p>{{ block.settings.pro_subtitle2 }}</p>
-                                </div>
-                              </a>
-                            </li>
-                            <li>
-                              <a href="{{ block.settings.securl_pro2 }}">
-                                <img
-                                  src="{{ block.settings.secpro_img_2 | img_url:'' }}"
-                                  loading="lazy"
-                                  alt="Second Product Image 2"
-                                >
-                                <div class="acove">
-                                  <span>{{ block.settings.secpro_title2 }}</span>
-                                  <p>{{ block.settings.secpro_subtitle2 }}</p>
-                                </div>
-                              </a>
-                            </li>
-                            <li>
-                              <a href="{{ block.settings.thurl_pro2 }}">
-                                <img
-                                  src="{{ block.settings.thcpro_img_2 | img_url:'' }}"
-                                  loading="lazy"
-                                  alt="Third Product Image 2"
-                                >
-                                <div class="acove">
-                                  <span>{{ block.settings.thpro_title2 }}</span>
-                                  <p>{{ block.settings.thpro_subtitle2 }}</p>
-                                </div>
-                              </a>
-                            </li>
-                          </ul>
-                          <div class="more-item">
-                            <a href="{{ block.settings.moreitems2 }}" aria-label="More Item Text and Icon">
-                              {{- block.settings.moreitems2_text }}
-                              {% render 'icon-arrow-right' -%}
-                            </a>
-                          </div>
-                        </div>
-                        <div class="list-item">
-                          <h4 class="title">{{ block.settings.title3 }}</h4>
-                          <ul>
-                            <li>
-                              <a href="{{ block.settings.url_pro3 }}">
-                                <img
-                                  src="{{ block.settings.pro_img_3 | img_url:'' }}"
-                                  loading="lazy"
-                                  alt="First Product Image 3"
-                                >
-                                <div class="acove">
-                                  <span>{{ block.settings.pro_title3 }}</span>
-                                  <p>{{ block.settings.pro_subtitle3 }}</p>
-                                </div>
-                              </a>
-                            </li>
-                            <li>
-                              <a href="{{ block.settings.securl_pro3 }}">
-                                <img
-                                  src="{{ block.settings.secpro_img_3 | img_url:'' }}"
-                                  loading="lazy"
-                                  alt="Second Product Image 3"
-                                >
-                                <div class="acove">
-                                  <span>{{ block.settings.secpro_title3 }}</span>
-                                  <p>{{ block.settings.secpro_subtitle3 }}</p>
-                                </div>
-                              </a>
-                            </li>
-                            <li>
-                              <a href="{{ block.settings.thurl_pro3 }}">
-                                <img
-                                  src="{{ block.settings.thcpro_img_3 | img_url:'' }}"
-                                  loading="lazy"
-                                  alt="Third Product Image 3"
-                                >
-                                <div class="acove">
-                                  <span>{{ block.settings.thpro_title3 }}</span>
-                                  <p>{{ block.settings.thpro_subtitle3 }}</p>
-                                </div>
-                              </a>
-                            </li>
-                          </ul>
-                          <div class="more-item">
-                            <a href="{{ block.settings.moreitems3 }}" aria-label="More Item Text and Icon">
-                              {{- block.settings.moreitems3_text }}
-                              {% render 'icon-arrow-right' -%}
-                            </a>
-                          </div>
-                        </div>
-                        <div class="list-item">
-                          <h4 class="title">{{ block.settings.title4 }}</h4>
-                          <ul>
-                            <li>
-                              <a href="{{ block.settings.url_pro4 }}">
-                                <img
-                                  src="{{ block.settings.pro_img_4 | img_url:'' }}"
-                                  loading="lazy"
-                                  alt="First Product Image 4"
-                                >
-                                <div class="acove">
-                                  <span>{{ block.settings.pro_title4 }}</span>
-                                  <p>{{ block.settings.pro_subtitle4 }}</p>
-                                </div>
-                              </a>
-                            </li>
-                            <li>
-                              <a href="{{ block.settings.securl_pro4 }}">
-                                <img
-                                  src="{{ block.settings.secpro_img_4 | img_url:'' }}"
-                                  loading="lazy"
-                                  alt="Second Product Image 4"
-                                >
-                                <div class="acove">
-                                  <span>{{ block.settings.secpro_title4 }}</span>
-                                  <p>{{ block.settings.secpro_subtitle4 }}</p>
-                                </div>
-                              </a>
-                            </li>
-                            <li>
-                              <a href="{{ block.settings.thurl_pro4 }}">
-                                <img
-                                  src="{{ block.settings.thcpro_img_4 | img_url:'' }}"
-                                  loading="lazy"
-                                  alt="Third Product Image 4"
-                                >
-                                <div class="acove">
-                                  <span>{{ block.settings.thpro_title4 }}</span>
-                                  <p>{{ block.settings.thpro_subtitle4 }}</p>
-                                </div>
-                              </a>
-                            </li>
-                          </ul>
-                          <div class="more-item">
-                            <a href="{{ block.settings.moreitems4 }}" aria-label="More Item Text and Icon">
-                              {{- block.settings.moreitems4_text }}
-                              {% render 'icon-arrow-right' -%}
-                            </a>
-                          </div>
-                          <!--
-                            <a href="{{ block.settings.img_baner_url }}">
-                              <img src="{{ block.settings.img_banner | img_url:'' }}" loading="lazy" alt="Product Images">
-                            </a>
-                          -->
-                        </div>
-                      </div>
-                    {% elsif block.settings.menu_op == 'drpdwn' %}
-                      <div class="menu-subs menu-column-1">
-                        <ul>
-                          {% if block.settings.txt1 != blank %}
-                            <li>
-                              <a href="{{ block.settings.url1 }}">
-                                {%- render 'hicon-phone' %}
-                                {{ block.settings.txt1 -}}
-                              </a>
-                            </li>
-                          {% endif %}
-                          {% if block.settings.txt2 != blank %}
-                            <li>
-                              <a href="{{ block.settings.url2 }}">
-                                {%- render 'hicon-email' %}
-                                {{ block.settings.txt2 -}}
-                              </a>
-                            </li>
-                          {% endif %}
-                          {% if block.settings.txt3 != blank %}
-                            <li>
-                              <a href="{{ block.settings.url3 }}">
-                                {%- render 'hicon-instagram' %}
-                                {{ block.settings.txt3 -}}
-                              </a>
-                            </li>
-                          {% endif %}
-                          {% if block.settings.txt4 != blank %}
-                            <li>
-                              <a href="{{ block.settings.url4 }}">
-                                {%- render 'hicon-facebook' %}
-                                {{ block.settings.txt4 -}}
-                              </a>
-                            </li>
-                          {% endif %}
-                          {% if block.settings.txt5 != blank %}
-                            <li>
-                              <a href="{{ block.settings.url5 }}">{{ block.settings.txt5 }}</a>
-                            </li>
-                          {% endif %}
-                          {% if block.settings.txt6 != blank %}
-                            <li>
-                              <a href="{{ block.settings.url6 }}">{{ block.settings.txt6 }}</a>
-                            </li>
-                          {% endif %}
-                        </ul>
-                      </div>
-                    {% endif %}
-                  </li>
-                {% endunless %}
-              {% endif %}
-            {% endfor %}
-          </ul>
-        </nav>
-      </div>
-
-      <div class="header-item-right">
-        <!-- serch bar button -->
-        <!-- <a href="#" class="menu-icon">{% render 'icon-search' %} <span>Search</span></a> -->
-        <button class="menu-icon" id="search-nav-open-2" type="button" aria-label="Search">
-          {% render 'icon-search' %}
-        </button>
-        <div
-          class="search__input-bar absolute hidden left-1/3 right-0 top-1/2 -translate-y-1/2 z-[99] xl:left-1/2 3xl:left-2/3"
-          id="search-nav-2"
-        >
-          {% render 'predictive-search-input', close_id: 'search-nav-close-2', label: 'search-label-input-2' %}
-        </div>
-
-        <!-- user login and my acconunt -->
-        {%- if customer -%}
-          {% assign is_subscription_customer = false %}
-          {% for tag in customer.tags %}
-            {% if tag == 'Active product subscription'
-              or tag == 'Canceled product subscription'
-              or tag == 'Canceled product subscription - Failed payment'
-            %}
-              {% assign is_subscription_customer = true %}
-              {% break %}
-            {% endif %}
-          {% endfor %}
-          <a class="menu-icon" href="/a/account/login" aria-label="Account">
-            {%- render 'icon-user' %}
-            </a
-          >
-        {%- else -%}
-          <a class="menu-icon" href="/a/account/login" aria-label="Account">
-            {%- render 'icon-user' %}
-            </a
-          >
-        {%- endif -%}
-
-        <!-- cart page button -->
-        <!--
-          <a href="javascript:void(0)" class="menu-icon cart-menu-open">{% render 'icon-cart' %} <span>Cart</span></a>
-        -->
-        <button class="cart-menu-open menu-icon" type="button" aria-label="Cart">
-          {% render 'icon-cart' %}
-          <span><sup id="cart-count"></sup></span>
-        </button>
-      </div>
-    </section>
-  </div>
-</header>
-<!-- New xgen-header end -->
-
-<header id="default-tl-header" class="relative text-blue-500" style="display:none;">
-  <nav class="max-w-full mx-auto p-4 lg:py-0 xl:container">
-    <div class="hidden items-center relative lg:flex">
-      <a class="block mr-8 w-48 xl:mr-16 xl:w-64" href="/">
-        {% render 'main-logo' %}
-      </a>
-
-      {% assign menu = linklists['menu-v2'] %}
-
-      <div class="flex-1">
-        <ul class="flex space-x-16">
-          {% for link in menu.links %}
-            <li class="relative {% if link.title == 'Products' %}has-dropdown{% endif %}">
-              <a class="block py-8 text-sm transition-all hover:text-orange-500" href="{{ link.url }}">
-                {{ link.title | upcase }}
-              </a>
-
-              {% if link.title == 'Products' %}
-                <div class="absolute bg-white dropdown hidden left-0 min-w-max opacity-0 rounded-xl shadow-[4px_4px_16px_4px_rgba(0,0,0,0.1)] transition-opacity top-full z-20">
-                  <div>
-                    <div class="divide-x divide-gray-400 divide-opacity-25 gap-8 flex">
-                      <div class="p-8 xl:p-12">
-                        <ul class="space-y-12">
-                          {% for block in section.blocks %}
-                            {% if block.type == 'featured_collection' %}
-                              <li>
-                                <a
-                                  class="flex items-center transition-colors hover:text-orange-500"
-                                  href="{{ block.settings.collection.url }}"
-                                >
-                                  {%- if block.settings.icon.size > 0 -%}
-                                    <div class="h-16 w-16">
-                                      {{ block.settings.icon }}
-                                    </div>
-                                  {%- elsif block.settings.image -%}
-                                    <div class="h-16 overflow-hidden rounded-xl w-16">
-                                      {% render 'lazy-image',
-                                        crop: 'center',
-                                        height: 64,
-                                        image: block.settings.image,
-                                        width: 64
-                                      %}
-                                    </div>
-                                  {%- else -%}
-                                    <div class="bg-gray-500 h-16 rounded-xl w-16"></div>
-                                  {%- endif -%}
-
-                                  <div class="ml-4">
-                                    <p class="font-bold text-lg">
-                                      {{ block.settings.collection.title }}
-                                    </p>
-
-                                    <p class="text-sm">
-                                      {{ block.settings.description }}
-                                    </p>
-                                  </div>
-                                </a>
-                              </li>
-                            {% endif %}
-                          {% endfor %}
-                        </ul>
-                      </div>
-
-                      <div class="p-8 xl:p-12">
-                        <p class="font-bold mb-8 text-lg">Series</p>
-
-                        <ul class="space-y-7">
-                          {% for block in section.blocks %}
-                            {% if block.type == 'series_link' %}
-                              <li>
-                                <a
-                                  class="flex items-center justify-between text-gray-500 transition-colors hover:text-orange-500"
-                                  href="{{ block.settings.link }}"
-                                >
-                                  <p class="font-semibold text-lg">
-                                    {{ block.settings.title }}
-                                  </p>
-
-                                  {%- if block.settings.icon.size > 0 -%}
-                                    <div class="h-8 ml-12 w-8">
-                                      {{ block.settings.icon }}
-                                    </div>
-                                  {%- elsif block.settings.image -%}
-                                    <div class="h-8 ml-12 overflow-hidden rounded-lg w-8">
-                                      {% render 'lazy-image',
-                                        crop: 'center',
-                                        height: 32,
-                                        image: block.settings.image,
-                                        width: 32
-                                      %}
-                                    </div>
-                                  {%- else -%}
-                                    <div class="bg-gray-500 h-8 ml-12 rounded-lg w-8"></div>
-                                  {%- endif -%}
-                                </a>
-                              </li>
-                            {% endif %}
-                          {% endfor %}
-                        </ul>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              {% endif %}
-            </li>
-          {% endfor %}
-        </ul>
-      </div>
-
-      <div class="flex space-x-8">
-        <button
-          class="flex items-center text-sm transition-colors hover:text-orange-500"
-          id="search-nav-open"
-          type="button"
-        >
-          <span class="mr-3">
-            {% render 'icon-search' %}
-          </span>
-
-          SEARCH
-        </button>
-
-        <button
-          class="border border-blue-500 cart-menu-open flex items-center px-4 py-2 rounded-md text-sm transition-all hover:opacity-70 hover:border-orange-500 hover:text-orange-500"
-          type="button"
-        >
-          <span class="mr-3">
-            {% render 'icon-cart' %}
-          </span>
-
-          CART
-        </button>
-
-        {%- if customer -%}
-          <a class="flex items-center text-sm transition-colors hover:text-orange-500" href="{{ routes.account_url }}">
-            <span class="mr-3">
-              {%- render 'icon-user' -%}
-            </span>
-            ACCOUNT
-          </a>
-          <a class="flex items-center text-sm" href="{{ routes.account_logout_url }}">
-            <span class="mr-3">{%- render 'icon-logout' -%}</span>
-            LOGOUT
-          </a>
-        {%- else -%}
-          <a
-            class="flex items-center text-sm transition-colors hover:text-orange-500"
-            href="{{ routes.account_login_url }}"
-          >
-            <span class="mr-3">
-              {%- render 'icon-login' -%}
-            </span>
-
-            LOGIN
-          </a>
-        {%- endif -%}
-
-        <div
-          class="absolute hidden left-1/3 right-0 top-1/2 -translate-y-1/2 z-[99] xl:left-1/2 3xl:left-2/3"
-          id="search-nav"
-        >
-          {% render 'predictive-search-input', close_id: 'search-nav-close', label: 'search-label-input-3' %}
-        </div>
-      </div>
-    </div>
-
-    <div class="grid grid-cols-3 items-center lg:hidden">
-      <button id="mobile-nav-open" type="button" aria-label="Mobile Nav Open Icon">
-        {% render 'icon-bars' %}
-      </button>
-
-      <a class="block mx-auto w-12" href="/">
-        {% render 'short-logo' %}
-      </a>
-
-      <div>
-        <div class="flex items-center justify-end space-x-4">
-          <button class="cart-menu-open" type="button" aria-label="Cart Menu Open">
-            {% render 'icon-cart' %}
-          </button>
-
-          <button id="mobile-search-nav-open" type="button" aria-label="Mobile Search Nav Icon">
-            {% render 'icon-search' %}
-          </button>
-
-          {%- if customer -%}
-            <a class="flex items-center text-sm" href="{{ routes.account_url }}" aria-label="User Icon">
-              {%- render 'icon-user' -%}
-            </a>
-            <a class="flex items-center text-sm" href="{{ routes.account_logout_url }}" aria-label="Logout Icon">
-              {%- render 'icon-logout' -%}
-            </a>
-          {% else %}
-            <a class="flex items-center text-sm" href="{{ routes.account_login_url }}" aria-label="Login Icon">
-              {%- render 'icon-login' -%}
-            </a>
-          {% endif %}
-        </div>
-      </div>
-
-      <div class="absolute hidden left-4 right-4 z-[99]" id="mobile-search-nav">
-        {% render 'predictive-search-input', close_id: 'mobile-search-nav-close', label: 'search-label-input-4' %}
-      </div>
-    </div>
-  </nav>
-</header>
-{% comment %}
-  <!--New xgen-header Start -->
-  <link rel="stylesheet" href="{{ 'new-header.css' | asset_url }}">
-  <header class="header" id="xgen-header" style="display:none;">
-    <div class="container">
-      <section class="wrapper">
-        <div class="header-item-left">
-          <button type="button" class="menu-mobile-toggle">
-            <span></span>
-            <span></span>
-            <span></span>
-            <span></span>
-          </button>
-          <a href="https://www.transparentlabs.com" class="brand desktop">
-          	{% render 'main-logo' %}
-          </a>
-          <a href="https://www.transparentlabs.com" class="brand mobile">
-            {% render 'short-logo' %}
-          </a>
-        </div>
-        <!-- Navbar Section -->
-
-  		<div class="header-item-center mobile">
-          <div class="overlay"></div>
-
-          <nav class="menu" id="menu">
-
-
-            <!--<div class="menu-mobile-header">
-              <button type="button" class="menu-mobile-arrow"> {% render 'icon-chevron-left' %}</button>
-              <div class="menu-mobile-title"></div>
-              <button type="button" class="menu-mobile-close">{% render 'icon-close' %}</button>
-            </div>-->
-
-           <div class="sort-search">
-              <style>#search-nav-3 #predictive-search-results{display:none;} #search-nav-close-3{display:none;}.sort-search svg.h-6.w-6 {color: #333333;}.sort-search .py-3 {padding-top: 0.5rem;padding-bottom: 0.5rem;color: #000 !important;padding-left: 0.5rem;padding-right: 0.5rem; }.sort-search .border-gray-400 {border:1px solid #efefef;border-radius: 0;}  </style>
-              <div class="input-wrap" style="position:relative;box-shadow: unset;border: unset;background: unset;">
-                <button class="menu-icon" id="search-nav-open-3" type="button">{% render 'icon-search' %}</button>
-          <div class="absolute left-1/3 right-0 top-1/2 -translate-y-1/2 z-[99] xl:left-1/2 3xl:left-2/3" id="search-nav-3" style="left:0;">
-            {% render 'predictive-search-input', close_id: 'search-nav-close-3' %}
-          </div>
-              </div>
-              <button type="button" class="menu-mobile-close">{% render 'icon-close' %}</button>
-            </div>
-
-            <ul class="menu-section menu-section-m" style="margin-top: 15px;">
-
-              <li class="menu-item">
-                <a href="https://www.transparentlabs.com/collections/bestsellers">Best Sellers</a>
-
-              </li>
-
-              <li class="menu-item-has-children menu-item-has-children-m">
-                <a href="#">Pre-workout {% render 'icon-chevron-down' %}</a>
-  <!--               <div class="menu-subs menu-subs-m menu-mega menu-column-4"> -->
-                <div class="menu-subs menu-subs-m menu-mega menu-column-4">
-                  <div class="list-item">
-                    <ul>
-                      <li>
-                        <a href="https://www.transparentlabs.com/collections/bestsellers/products/preseries-bulk-preworkout">
-                          <img src="https://cdn.shopify.com/s/files/1/0866/7664/products/BULKSOURGRAPEFINALVIEW1-3_240x240.png?v=1653068524">
-                          <div class="acove">
-                            <span>Bulk</span>
-                            <p>Formulated to enhance strength, muscle pumps, stamina, focus, and energy</p>
-                          </div>
-                        </a>
-                      </li>
-                      <li>
-                        <a href="https://www.transparentlabs.com/collections/bestsellers/products/preseries-lean-pre-workout">
-                          <img src="https://cdn.shopify.com/s/files/1/0866/7664/products/LEANCherryLimadeFINALVIEW1-3_240x240.png?v=1649860860">
-                          <div class="acove">
-                            <span>Lean</span>
-                            <p>Developed to be the most exceptional "cutting" pre-workout supplement available</p>
-                          </div>
-                        </a>
-                      </li>
-                      <li>
-                        <a href="https://www.transparentlabs.com/collections/bestsellers/products/preseries-stim-free-preworkout">
-                          <img src="https://cdn.shopify.com/s/files/1/0866/7664/products/STIMFREECherrylimeadeFINALVIEW1-3_800x600.png?v=1657565426">
-                          <div class="acove">
-                            <span>Stim-Free</span>
-                            <p>Highly recommended for anyone intolerant to stimulants/caffeine</p>
-                          </div>
-                        </a>
-                      </li>
-                    </ul>
-
-                  </div>
-
-                  <div class="more-item">
-                    <a href="https://www.transparentlabs.com/collections/preseries">More Items {% render 'icon-arrow-right' %}</a>
-                  </div>
-                </div>
-              </li>
-
-
-              <li class="menu-item-has-children menu-item-has-children-m">
-                <a href="#">Build Muscle & Recover {% render 'icon-chevron-down' %}</a>
-                <div class="menu-subs menu-subs-m menu-mega menu-column-4">
-                  <div class="list-item">
-                    <ul>
-                      <li>
-                        <a href="https://www.transparentlabs.com/collections/bestsellers/products/strengthseries-creapure-hmb-creatine-supplement">
-                          <img src="https://cdn.shopify.com/s/files/1/0866/7664/products/CREATINEHMBSOURGRAPEFINALVIEW1_256x256.png?v=1650284763">
-                          <div class="acove">
-                            <span>Creatine HMB</span>
-                            <p>Enhance strength, increase endurance, decrease fat mass, and prevent lean muscle loss.</p>
-                          </div>
-                        </a>
-                      </li>
-                      <li>
-                        <a href="https://www.transparentlabs.com/collections/bestsellers/products/best-testosterone-booster">
-                          <img src="https://cdn.shopify.com/s/files/1/0866/7664/products/VITALITYFINALVIEW1-3_256x256.png?v=1644888212">
-                          <div class="acove">
-                            <span>Vitality</span>
-                            <p>Balance and Regulate Hormones and enhance Muscle Mass and Strength.</p>
-                          </div>
-                        </a>
-                      </li>
-                      <li>
-                        <a href="https://www.transparentlabs.com/collections/bestsellers/products/coreseries-bcaa-glutamine">
-                          <img src="https://cdn.shopify.com/s/files/1/0866/7664/products/BCAASOURGREENAPPLEFINALVIEW1-3_256x256.png?v=1644876236">
-                          <div class="acove">
-                            <span>BCAA Glutamine</span>
-                            <p>Improve post-workout recovery and reduce muscle breakdown</p>
-                          </div>
-                        </a>
-                      </li>
-                    </ul>
-
-                  </div>
-
-                  <div class="more-item">
-                    <a href="https://www.transparentlabs.com/collections/intra-strength">More Items {% render 'icon-arrow-right' %}</a>
-                  </div>
-                </div>
-              </li>
-
-              <li class="menu-item-has-children menu-item-has-children-m">
-                <a href="#">Protein {% render 'icon-chevron-down' %}</a>
-                <div class="menu-subs menu-subs-m menu-mega menu-column-4">
-                  <div class="list-item">
-                    <ul>
-                      <li>
-                        <a href="https://www.transparentlabs.com/collections/bestsellers/products/proteinseries-mass-gainer">
-                          <img src="https://cdn.shopify.com/s/files/1/0866/7664/products/MASSGAINERVANILLAFINAL_256x256.png?v=1648746522">
-                          <div class="acove">
-                            <span>Mass Gainer</span>
-                            <p>The perfect meal replacement/weight gainer to supplement your workout and nutrition regimens.</p>
-                          </div>
-                        </a>
-                      </li>
-                      <li>
-                        <a href="https://www.transparentlabs.com/collections/bestsellers/products/proteinseries-100-grass-fed-whey-protein-isolate">
-                          <img src="https://cdn.shopify.com/s/files/1/0866/7664/products/WPIFRENCHVANILLAFINALVIEW1-3_256x256.png?v=1644886592">
-                          <div class="acove">
-                            <span>Whey Protein Isolate</span>
-                            <p>100% Grass-Fed Whey Protein Isolate sourced from grass fed American Cows</p>
-                          </div>
-                        </a>
-                      </li>
-                      <li>
-                        <a href="https://www.transparentlabs.com/collections/bestsellers/products/protein-series-organic-vegan">
-                          <img src="https://cdn.shopify.com/s/files/1/0866/7664/products/ORGANICVEGANPROTEINVANILLAFINALVIEW1_256x256.png?v=1640859632">
-                          <div class="acove">
-                            <span>Organic Vegan</span>
-                            <p>Made with organic rice protein and pea protein isolate</p>
-                          </div>
-                        </a>
-                      </li>
-                    </ul>
-
-                  </div>
-
-                  <div class="more-item">
-                    <a href="https://www.transparentlabs.com/collections/proteinseries">More Items {% render 'icon-arrow-right' %}</a>
-                  </div>
-                </div>
-              </li>
-
-
-              <li class="menu-item">
-                <a href="https://www.transparentlabs.com/pages/stack-products">Subscribe & Stack </a>
-
-              </li>
-              <li class="menu-item">
-                <a href="https://www.transparentlabs.com/blogs/all">Blog </a>
-
-              </li>
-              <li class="menu-item-has-children menu-item-has-children-m">
-                <a href="#">Support  {% render 'icon-chevron-down' %}</a>
-                <div class="menu-subs menu-subs-m menu-column-1">
-                  <ul>
-                    <li><a href="tel:18663249557">{% render 'hicon-phone' %} +1 866 324 9557</a></li>
-                    <li><a href="mailto:support@transparentlabs.com">{% render 'hicon-email' %} support@transparentlabs.com</a></li>
-                    <li><a href="https://www.instagram.com/transparentlabs/" target="_blank">{% render 'hicon-instagram' %}  @transparentlabs</a></li>
-                    <li><a href="https://www.facebook.com/transparentlabs/" target="_blank">{% render 'hicon-facebook' %} @transparentlabs</a></li>
-                  </ul>
-                </div>
-              </li>
-
-
-              <div class="list-item-ad">
-                <a href="https://www.transparentlabs.com/collections/intra-strength/products/strengthseries-growth?variant=39945515204701">
-                  <img src="https://cdn.shopify.com/s/files/1/0866/7664/files/Sub_Growth.jpg?v=1651245325" loading="lazy" alt="Product Images">
-                </a>
-              </div>
-
-            </ul>
-          </nav>
-        </div>
-
-        <div class="header-item-center desktop">
-          <nav class="menu">
-
-            <ul class="menu-section">
-              <li class="menu-item-has-children">
-                <a href="#">Products</a>
-                <div class="menu-subs menu-mega menu-column-4">
-                  <div class="list-item">
-                    <h4 class="title">Pre-Workout</h4>
-                    <ul>
-                      <li>
-                        <a href="https://www.transparentlabs.com/collections/bestsellers/products/preseries-bulk-preworkout">
-                          <img src="https://cdn.shopify.com/s/files/1/0866/7664/products/BULKSOURGRAPEFINALVIEW1-3_240x240.png?v=1653068524">
-                          <div class="acove">
-                            <span>Bulk</span>
-                            <p>Formulated to enhance strength, muscle pumps, stamina, focus, and energy</p>
-                          </div>
-                        </a>
-                      </li>
-                      <li>
-                        <a href="https://www.transparentlabs.com/collections/bestsellers/products/preseries-lean-pre-workout">
-                          <img src="https://cdn.shopify.com/s/files/1/0866/7664/products/LEANCherryLimadeFINALVIEW1-3_240x240.png?v=1649860860">
-                          <div class="acove">
-                            <span>Lean</span>
-                            <p>Developed to be the most exceptional "cutting" pre-workout supplement available</p>
-                          </div>
-                        </a>
-                      </li>
-                      <li>
-                        <a href="https://www.transparentlabs.com/collections/bestsellers/products/preseries-stim-free-preworkout">
-                          <img src="https://cdn.shopify.com/s/files/1/0866/7664/products/STIMFREECherrylimeadeFINALVIEW1-3_800x600.png?v=1657565426">
-                          <div class="acove">
-                            <span>Stim-Free</span>
-                            <p>Highly recommended for anyone intolerant to stimulants/caffeine</p>
-                          </div>
-                        </a>
-                      </li>
-                    </ul>
-                    <div class="more-item">
-                      <a href="https://www.transparentlabs.com/collections/preseries">More Items {% render 'icon-arrow-right' %}</a>
-                    </div>
-                  </div>
-                  <div class="list-item">
-                    <h4 class="title">Build Muscle & Recover</h4>
-                    <ul>
-                      <li>
-                        <a href="https://www.transparentlabs.com/collections/bestsellers/products/strengthseries-creapure-hmb-creatine-supplement">
-                          <img src="https://cdn.shopify.com/s/files/1/0866/7664/products/CREATINEHMBSOURGRAPEFINALVIEW1_256x256.png?v=1650284763">
-                          <div class="acove">
-                            <span>Creatine HMB</span>
-                            <p>Enhance strength, increase endurance, decrease fat mass, and prevent lean muscle loss.</p>
-                          </div>
-                        </a>
-                      </li>
-                      <li>
-                        <a href="https://www.transparentlabs.com/collections/bestsellers/products/best-testosterone-booster">
-                          <img src="https://cdn.shopify.com/s/files/1/0866/7664/products/VITALITYFINALVIEW1-3_256x256.png?v=1644888212">
-                          <div class="acove">
-                            <span>Vitality</span>
-                            <p>Balance and Regulate Hormones and enhance Muscle Mass and Strength.</p>
-                          </div>
-                        </a>
-                      </li>
-                      <li>
-                        <a href="https://www.transparentlabs.com/collections/bestsellers/products/coreseries-bcaa-glutamine">
-                          <img src="https://cdn.shopify.com/s/files/1/0866/7664/products/BCAASOURGREENAPPLEFINALVIEW1-3_256x256.png?v=1644876236">
-                          <div class="acove">
-                            <span>BCAA Glutamine</span>
-                            <p>Improve post-workout recovery and reduce muscle breakdown</p>
-                          </div>
-                        </a>
-                      </li>
-                    </ul>
-                    <div class="more-item">
-                      <a href="https://www.transparentlabs.com/collections/intra-strength">More Items {% render 'icon-arrow-right' %}</a>
-                    </div>
-                  </div>
-                  <div class="list-item">
-                    <h4 class="title">Protein</h4>
-                    <ul>
-                      <li>
-                        <a href="https://www.transparentlabs.com/collections/bestsellers/products/proteinseries-mass-gainer">
-                          <img src="https://cdn.shopify.com/s/files/1/0866/7664/products/MASSGAINERVANILLAFINAL_256x256.png?v=1648746522">
-                          <div class="acove">
-                            <span>Mass Gainer</span>
-                            <p>The perfect meal replacement/weight gainer to supplement your workout and nutrition regimens.</p>
-                          </div>
-                        </a>
-                      </li>
-                      <li>
-                        <a href="https://www.transparentlabs.com/collections/bestsellers/products/proteinseries-100-grass-fed-whey-protein-isolate">
-                          <img src="https://cdn.shopify.com/s/files/1/0866/7664/products/WPIFRENCHVANILLAFINALVIEW1-3_256x256.png?v=1644886592">
-                          <div class="acove">
-                            <span>Whey Protein Isolate</span>
-                            <p>100% Grass-Fed Whey Protein Isolate sourced from grass fed American Cows</p>
-                          </div>
-                        </a>
-                      </li>
-                      <li>
-                        <a href="https://www.transparentlabs.com/collections/bestsellers/products/protein-series-organic-vegan">
-                          <img src="https://cdn.shopify.com/s/files/1/0866/7664/products/ORGANICVEGANPROTEINVANILLAFINALVIEW1_256x256.png?v=1640859632">
-                          <div class="acove">
-                            <span>Organic Vegan</span>
-                            <p>Made with organic rice protein and pea protein isolate</p>
-                          </div>
-                        </a>
-                      </li>
-                    </ul>
-                    <div class="more-item">
-                      <a href="https://www.transparentlabs.com/collections/proteinseries">More Items {% render 'icon-arrow-right' %}</a>
-                    </div>
-                  </div>
-                  <div class="list-item last">
-                    <a href="https://www.transparentlabs.com/collections/intra-strength/products/strengthseries-growth?variant=39945515204701">
-                    <img src="https://cdn.shopify.com/s/files/1/0866/7664/files/Sub_Growth.jpg?v=1651245325" loading="lazy" alt="Product Images">
-                    </a>
-                  </div>
-                </div>
-
-              </li>
-              <li class="menu-item"><a href="https://www.transparentlabs.com/collections/bestsellers">Best Sellers</a></li>
-              <li class="menu-item">
-              <a href="https://www.transparentlabs.com/pages/stack-products">Subscribe & Stack </a>
-              </li>
-              <li class="menu-item"><a href="https://www.transparentlabs.com/blogs/all">Blog</a></li>
-              <li class="menu-item-has-children">
-                <a href="#">Support</a>
-                <div class="menu-subs menu-column-1">
-                  <ul>
-                    <li><a href="tel:18663249557">{% render 'hicon-phone' %} +1 866 324 9557</a></li>
-                    <li><a href="mailto:Support@Transparentlabs.Com">{% render 'hicon-email' %} support@transparentlabs.com</a></li>
-                    <li><a href="https://www.instagram.com/transparentlabs/" target="_blank">{% render 'hicon-instagram' %}  @transparentlabs</a></li>
-                    <li><a href="https://www.facebook.com/transparentlabs/" target="_blank">{% render 'hicon-facebook' %} @transparentlabs</a></li>
-                  </ul>
-                </div>
-              </li>
-            </ul>
-          </nav>
-        </div>
-
-        <div class="header-item-right">
-
-  		<!-- serch bar button          -->
-  		<!-- <a href="#" class="menu-icon">{% render 'icon-search' %} <span>Search</span></a> -->
-          <button class="menu-icon" id="search-nav-open-2" type="button">{% render 'icon-search' %} <span>Search</span></button>
-          <div class="absolute hidden left-1/3 right-0 top-1/2 -translate-y-1/2 z-[99] xl:left-1/2 3xl:left-2/3" id="search-nav-2">
-            {% render 'predictive-search-input', close_id: 'search-nav-close-2' %}
-          </div>
-
-  		<!-- user login and my acconunt          -->
-          {%- if customer -%}
-            {% assign is_subscription_customer = false %}
-              {% for tag in customer.tags %}
-                {% if tag == 'Active Subscriber' %}
-                  {% assign is_subscription_customer = true %}
-                  {% break %}
-                {% endif %}
-                {% if tag == 'Inactive Subscriber' %}
-                  {% assign is_subscription_customer = true %}
-                  {% break %}
-                {% endif %}
-              {% endfor %}
-              <a class="menu-icon" href="{{ routes.account_url }}">{% render 'icon-user' %} <span>Account</span></a>
-              {% if is_subscription_customer %}
-                <a class="menu-icon" href="{{ routes.account_logout_url }}">{%- render 'icon-logout' -%}<span>LOGOUT</span></a>
-              {% else %}
-
-              {% endif %}
-          {%- else -%}
-            <a class="menu-icon" href="{{ routes.account_login_url }}" >{% render 'icon-user' %} <span>Login</span></a>
-          {%- endif -%}
-
-  		<!-- cart page button -->
-  		<!-- <a href="javascript:void(0)" class="menu-icon cart-menu-open">{% render 'icon-cart' %} <span>Cart</span></a> -->
-           <button class="cart-menu-open menu-icon" type="button">{% render 'icon-cart' %} <span>Cart</span></button>
-        </div>
-      </section>
-    </div>
-  </header>
-  <!--New xgen-header end -->
-{% endcomment %}
-
-<!-- custom element -->
-
-<div
-  class="bg-black bg-opacity-30 fixed hidden inset-0 transition-opacity opacity-0 z-[100]"
-  id="cart-menu"
->
-  <div
-    class="bg-white bottom-0 fixed flex flex-col right-0 shadow-lg text-blue-500 transition-transform translate-x-96 top-0 w-full md:max-w-md"
-    id="cart-menu-container"
-  ></div>
-</div>
-
-<div
-  class="bg-white fixed flex-col hidden inset-0 text-blue-500 transition-transform z-[100]"
-  id="mobile-nav"
-  style="transform: translateY(-100vh)"
->
-  <div class="flex items-center justify-between">
-    <div class="flex pl-4 space-x-6">
-      <p class="border-b-2 border-blue-500 font-bold text-sm">PRODUCTS</p>
-
-      <p class="border-b-2 border-transparent font-bold text-sm">
-        <a href="/collections/stacks"> STACKS </a>
-      </p>
-
-      <p class="border-b-2 border-transparent font-bold text-sm">
-        <a href="/blogs/all"> BLOG </a>
-      </p>
-    </div>
-
-    <button class="p-4" id="mobile-nav-close" type="button" aria-label="Mobile Nav Close Icon">
-      {% render 'icon-close' %}
-    </button>
-  </div>
-
-  <div class="flex-1 overflow-y-auto p-4">
-    <p class="border-b-2 border-gray-500 font-medium mb-4 pb-2 text-gray-500 text-sm">SERIES</p>
-
-    <ul class="space-y-3">
-      {% for block in section.blocks %}
-        {% if block.type == 'series_link' %}
-          <li>
-            <a
-              class="flex font-bold items-center text-base transition-colors hover:text-orange-500"
-              href="{{ block.settings.link }}"
-            >
-              {%- if block.settings.icon.size > 0 -%}
-                <div class="h-8 mr-4 w-8">
-                  {{ block.settings.icon }}
-                </div>
-              {%- elsif block.settings.image -%}
-                <div class="h-8 mr-4 overflow-hidden rounded-lg w-8">
-                  {% render 'lazy-image', crop: 'center', height: 32, image: block.settings.image, width: 32 %}
-                </div>
-              {%- else -%}
-                <div class="bg-gray-500 h-8 mr-4 rounded-lg w-8"></div>
-              {%- endif -%}
-
-              {{ block.settings.title }}
-            </a>
-          </li>
-        {% endif %}
-      {% endfor %}
-    </ul>
-
-    <p class="border-b-2 border-gray-500 font-medium mb-4 mt-8 pb-2 text-gray-500 text-sm">COLLECTION</p>
-
-    <ul class="space-y-4">
-      {% for block in section.blocks %}
-        {% if block.type == 'featured_collection' %}
-          <a class="flex items-center" href="{{ block.settings.collection.url }}">
-            {%- if block.settings.icon.size > 0 -%}
-              <div class="h-16 w-16">
-                {{ block.settings.icon }}
-              </div>
-            {%- elsif block.settings.image -%}
-              <div class="h-16 overflow-hidden rounded-xl w-16">
-                {% render 'lazy-image', crop: 'center', height: 64, image: block.settings.image, width: 64 %}
+{%- style -%}
+  .header {
+    padding: {{ section.settings.padding_top | times: 0.5 | round: 0 }}px 3rem {{ section.settings.padding_bottom | times: 0.5 | round: 0 }}px 3rem;
+  }
+
+  .section-header {
+    position: sticky; /* This is for fixing a Safari z-index issue. PR #2147 */
+    margin-bottom: {{ section.settings.margin_bottom | times: 0.75 | round: 0 }}px;
+  }
+
+  @media screen and (min-width: 750px) {
+    .section-header {
+      margin-bottom: {{ section.settings.margin_bottom }}px;
+    }
+  }
+
+  @media screen and (min-width: 990px) {
+    .header {
+      padding-top: {{ section.settings.padding_top }}px;
+      padding-bottom: {{ section.settings.padding_bottom }}px;
+    }
+  }
+{%- endstyle -%}
+
+<script src="{{ 'cart-notification.js' | asset_url }}" defer="defer"></script>
+
+{%- liquid
+  for block in section.blocks
+    if block.type == '@app'
+      assign has_app_block = true
+    endif
+  endfor
+-%}
+
+{% liquid
+  assign header_tag = 'div'
+
+  if section.settings.sticky_header_type != 'none'
+    assign header_tag = 'sticky-header'
+  endif
+%}
+
+<{{ header_tag }} {% if header_tag == 'sticky-header' %}data-sticky-type="{{ section.settings.sticky_header_type }}"{% endif %} class="header-wrapper color-{{ section.settings.color_scheme }} gradient{% if section.settings.show_line_separator %} header-wrapper--border-bottom{% endif %}">
+  {%- liquid
+    assign social_links = false
+    assign localization_forms = false
+
+    if settings.social_twitter_link != blank or settings.social_facebook_link != blank or settings.social_pinterest_link != blank or settings.social_instagram_link != blank or settings.social_youtube_link != blank or settings.social_vimeo_link != blank or settings.social_tiktok_link != blank or settings.social_tumblr_link != blank or settings.social_snapchat_link != blank
+      assign social_links = true
+    endif
+
+    if localization.available_countries.size > 1 and section.settings.enable_country_selector or section.settings.enable_language_selector and localization.available_languages.size > 1
+      assign localization_forms = true
+    endif
+  -%}
+  <header class="header header--{{ section.settings.logo_position }} header--mobile-{{ section.settings.mobile_logo_position }} page-width{% if section.settings.menu_type_desktop == 'drawer' %} drawer-menu{% endif %}{% if section.settings.menu != blank %} header--has-menu{% endif %}{% if has_app_block %} header--has-app{% endif %}{% if social_links %} header--has-social{% endif %}{% if shop.customer_accounts_enabled %} header--has-account{% endif %}{% if localization_forms %} header--has-localizations{% endif %}">
+    {%- liquid
+      if section.settings.menu != blank
+        render 'header-drawer'
+      endif
+
+      if section.settings.logo_position == 'top-center' or section.settings.menu == blank
+        render 'header-search', input_id: 'Search-In-Modal-1'
+      endif
+    -%}
+
+    {%- if section.settings.logo_position != 'middle-center' -%}
+      {%- if request.page_type == 'index' -%}
+        <h1 class="header__heading">
+      {%- endif -%}
+          <a href="{{ routes.root_url }}" class="header__heading-link link link--text focus-inset">
+            {%- if settings.logo != blank -%}
+              <div class="header__heading-logo-wrapper">
+                {%- assign logo_alt = settings.logo.alt | default: shop.name | escape -%}
+                {%- assign logo_height = settings.logo_width | divided_by: settings.logo.aspect_ratio -%}
+                {% capture sizes %}(max-width: {{ settings.logo_width | times: 2 }}px) 50vw, {{ settings.logo_width }}px{% endcapture %}
+                {% capture widths %}{{ settings.logo_width }}, {{ settings.logo_width | times: 1.5 | round }}, {{ settings.logo_width | times: 2 }}{% endcapture %}
+                {{ settings.logo | image_url: width: 600 | image_tag:
+                  class: 'header__heading-logo motion-reduce',
+                  widths: widths,
+                  height: logo_height,
+                  width: settings.logo_width,
+                  alt: logo_alt,
+                  sizes: sizes,
+                  preload: true
+                }}
               </div>
             {%- else -%}
-              <div class="bg-gray-500 h-16 rounded-xl w-16"></div>
+              <span class="h2">{{ shop.name }}</span>
             {%- endif -%}
-
-            <div class="ml-4">
-              <p class="font-bold text-lg">
-                {{ block.settings.collection.title }}
-              </p>
-
-              <p class="text-sm">
-                {{ block.settings.description }}
-              </p>
-            </div>
           </a>
-        {% endif %}
-      {% endfor %}
-    </ul>
-  </div>
-</div>
+      {%- if request.page_type == 'index' -%}
+        </h1>
+      {%- endif -%}
+    {%- endif -%}
 
-{% comment %}
-  TODO: free shipping for US only
-  TODO: quick add context menu
-{% endcomment %}
+    {%- liquid
+      if section.settings.menu != blank
+        if section.settings.menu_type_desktop == 'dropdown'
+          render 'header-dropdown-menu'
+        elsif section.settings.menu_type_desktop != 'drawer'
+          render 'header-mega-menu'
+        endif
+      endif
+    %}
 
-{% raw %}
-  <script id="cart-template" type="text/x-handlebars-template">
-
-
-  <div class="cart--header">
-    <p class="cart--heading">your Cart <span>{{total_cart_count}}</span></p>
-    <button
-      class=""
-      id="cart-menu-close"
-    > 
-      {% endraw %}
-{%- render 'icon-close' -%}
-{% raw %}
-
-    </button>
-  </div>
-
-    <div
-      class="bg-orange-500 bg-opacity-30 font-bold overflow-hidden p-3 relative text-center text-sm "
-      id="cart-menu-shipping"
-    >
-      {{#if free_shipping}}
-        <span class="relative z-10 free--shipping-qualified-text">{% endraw %} {% render 'icon-tick' %}{% raw %}Free Shipping</span>
-      {{else}}
-        <span class="relative z-10">{{{free_shipping_text}}}</span>
-      {{/if}}        
-
-     <div id="progress-bar" class="absolute bg-orange-500 bottom-0 cart-menu-shipping__progress left-0 top-0 transition-transform w-full" style="transform: translateX(-100%);"></div>
-             
-    </div>
-
-
-    {{#if empty}}
-      <div class="flex flex-1 items-center justify-center">
-        <div>
-          <p class="font-bold text-lg">
-            Your Cart is Empty!
-          </p>
-
-          <a
-            class="bg-blue-400 inline-block mt-4 px-4 py-3 rounded-md text-sm text-white transition-opacity hover:opacity-70 continue-browsing"
-            href="/collections/all"
-          >
-            Continue Browsing
+    {%- if section.settings.logo_position == 'middle-center' -%}
+      {%- if request.page_type == 'index' -%}
+        <h1 class="header__heading">
+      {%- endif -%}
+          <a href="{{ routes.root_url }}" class="header__heading-link link link--text focus-inset">
+            {%- if settings.logo != blank -%}
+              <div class="header__heading-logo-wrapper">
+                {%- assign logo_alt = settings.logo.alt | default: shop.name | escape -%}
+                {%- assign logo_height = settings.logo_width | divided_by: settings.logo.aspect_ratio -%}
+                {% capture sizes %}(min-width: 750px) {{ settings.logo_width }}px, 50vw{% endcapture %}
+                {% capture widths %}{{ settings.logo_width }}, {{ settings.logo_width | times: 1.5 | round }}, {{ settings.logo_width | times: 2 }}{% endcapture %}
+                {{ settings.logo | image_url: width: 600 | image_tag:
+                  class: 'header__heading-logo',
+                  widths: widths,
+                  height: logo_height,
+                  width: settings.logo_width,
+                  alt: logo_alt,
+                  sizes: sizes,
+                  preload: true
+                }}
+              </div>
+            {%- else -%}
+              <span class="h2">{{ shop.name }}</span>
+            {%- endif -%}
           </a>
-        </div>
-      </div>
-    {{else}}
-      <div class="flex-1 overflow-y-auto cart--line-item-wrapper">
-        <div class="space-y-4">
-          {{#each items}}
-            <div class="flex items-start cart--line-item" data-id="{{ id }}" data-line-quantity="{{ quantity }}" data-line-variant-id="{{ variant_id }}" data-line-gift-product="{{ _subscription_only }}" >
-              <div class="bg-gray-300 h-24 relative rounded-md w-24 md:h-28 md:w-28 cart--line-item-image">
-                <a href="{{ url }}">
-                  <img
-                    class=""
-                    src="{{ image }}"
-                  />
-                </a>
-              </div>
-          
-              <div class="flex-1 ml-4 cart cart--line-item-info">
-                <a
-                  class="font-semibold text-sm transition-colors hover:text-orange-400"
-                  href="{{ url }}"
-                >
-                  <p class="product--title">
-                    {{ productTitle }}
-                  </p>
-                </a>
+      {%- if request.page_type == 'index' -%}
+        </h1>
+      {%- endif -%}
+    {%- endif -%}
 
-                <p class="text-sm variant-title">
-                  {{ variantTitle }}
-                </p>
-
-                <skio-cart-upsell item='{{ item_json }}' line='{{ loop_index }}'></skio-cart-upsell>
-                
-                 {{#if stackProduct}}
-                <p class="text-sm">
-                {{stackProduct}}
-                </p>
-                {{/if}}
-      
-
-                <div class="low--stock-text hidden">Low Stock</div>                
-
-                {{#if isBundle}}
-                  <p class="text-sm">
-                    Bundle Item
-                  </p>
-                {{/if}}
-
-                {{#if stackName}}
-                  <p class="text-sm">
-                    Stack: {{stackName}}
-                  </p>
-                {{/if}}
-              </div>
-
+    <div class="header__icons{% if section.settings.enable_country_selector or section.settings.enable_language_selector %} header__icons--localization header-localization{% endif %}">
+      <div class="desktop-localization-wrapper">
+        {%- if section.settings.enable_country_selector and localization.available_countries.size > 1 -%}
+          <localization-form class="small-hide medium-hide" data-prevent-hide>
+            {%- form 'localization', id: 'HeaderCountryForm', class: 'localization-form' -%}
               <div>
-                <p class="font-semibold text-blue-400 text-right line--item-price">
-                  {{ price }}
-                </p>
-                <div class="mt-3 cart--quantity--selector">
-                  {{#if hideQuantitySelector}}
-                    {{#if stackId}}
-                      <button class="text-sm transition-colors hover:text-orange-500" data-stack-id="{{stackId}}" type="button">
-                        Remove Stack
-                      </button>
-                    {{else}}
-                      <p></p>
-                    {{/if}}
-                  {{else}}
-                    <quantity-input data-allow-zero>
-                      <div class="flex items-center text-blue-500 quantity-input-inner">
-                        <button
-                          class="quantity-button"
-                          type="button"
-                        >
-                          {% endraw %}
-{%- render 'icon-minus' -%}
-{% raw %}
-                        </button>
-
-                        <input
-                          class="border-0 bg-transparent hide-selectors outline-none text-center w-12 desktop-quantity"
-                          data-item-id="{{ id }}"
-                          min="0"
-                          readonly
-                          type="number"
-                          value="{{ quantity }}"
-                        />
-
-                        <button
-                          class="quantity-button"
-                          type="button"
-                        >
-                          {% endraw %}
-{%- render 'icon-plus' -%}
-{% raw %}
-                        </button>
-                      </div>
-                    </quantity-input>
-                  {{/if}}
-                </div>
+                <h2 class="visually-hidden" id="HeaderCountryLabel">{{ 'localization.country_label' | t }}</h2>
+                {%- render 'country-localization', localPosition: 'HeaderCountry' -%}
               </div>
-              
-            </div>
-          {{/each}}
-        </div>
-      </div>
-
-  {% endraw %}
-      {% assign is_recommended_product = false %}
-      {% for block in section.blocks %}
-        {% if block.type == 'recommended_product' %}
-          {% assign is_recommended_product = true %}
+            {%- endform -%}
+          </localization-form>
         {% endif %}
-      {% endfor %}
-      {% raw %}
-        
 
-
-      <div class="m-4 cart--drawer-footer">
-              {% endraw %}
-        <div class="mb-4 {% unless is_recommended_product %}recommended_product_disabled{% endunless %}">
-
-          <div class="swiper cart-menu-swiper">
-            <div class="swiper-wrapper">
-              {% for block in section.blocks %}
-                {% if block.type == 'recommended_product' %}
-                  {% assign product = block.settings.product %}
-          
-                  <div class="swiper-slide" data-id="{{ product.id }}">
-                    <div class="bg-gray-300 p-2 relative rounded-md">
-                      <div class="flex items-center">
-                        <div class="border-2 border-gray-400 h-28 overflow-hidden relative rounded-md w-28">
-                          <a href="{{ product.url | within: block.settings.collection }}">
-                            <img
-                              alt="{{ product.featured_image.alt }}"
-                              class="lazyload"
-                              data-src="{{ product.featured_image | image_url: height: 120, width: 120 }}"
-                              loading="lazy"
-                            >
-                          </a>
-                        </div>
-          
-                        <div class="flex-1 ml-4">
-                          <p class="text-blue-500 text-sm">{{ product.title }}</p>
-                          <p class="font-bold mb-2 text-blue-500 text-sm">{{ product.price | money }}</p>
-          
-                          <a
-                            class="font-semibold text-orange-500 text-xs underline"
-                            href="{{ product.url | within: block.settings.collection }}"
-                          >
-                            VIEW PRODUCT
-                          </a>
-                        </div>
-          
-                        <button class="absolute bg-blue-400 bottom-0 px-4 py-5 right-0 rounded-br-md rounded-tl-xl transition-opacity hover:opacity-70">
-                          <svg width="10" height="10" viewBox="0 0 10 10" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M9.78305 6.34364V3.55677H6.4348V0.188477H3.39731V3.55677H0.0590909V6.34364H3.39731V9.71194H6.4348V6.34364H9.78305Z" fill="#FFFFFF"/>
-                          </svg>
-                        </button>
-                      </div>
-                    </div>
-                  </div>
-                {% endif %}
-              {% endfor %}
-            </div>
-          
-            <div>
-              <div class="cart-menu-swiper__pagination"></div>
-            </div>
-          </div>
-{% raw %}
-        </div>
-
-        <div class="hidden border-2 border-blue-500 flex items-center px-4 py-3 rounded-md text-sm">
-          {{#if free_shipping}}
-            {% endraw %}
-<div class="bg-green border-2 border-green flex h-6 items-center justify-center rounded-full text-white w-6">
-  {% render 'icon-check-mark' %}
-</div>
-{% raw %}
-          {{else}}
-            <div class="border-2 border-green h-6 rounded-full w-6"></div>
-          {{/if}}
-          
-          {{#if free_shipping}}
-            <span class="flex-1 font-bold ml-2">You’ve qualified for free shipping!</span>
-          {{else}}
-            <span class="flex-1 font-bold ml-2">{{{free_shipping_text}}}</span>
-          {{/if}}    
-          
-        </div>
-
-          <div id="checkout-one">
-            <div class="space-y-2 subtotal-wrapper">
-              <div class="grid grid-cols-2">
-                <p class="subtotal--text">Subtotal:</p>
-                <p class="text-right subtotal--price">{{subtotal}}</p>
+        {%- if section.settings.enable_language_selector and localization.available_languages.size > 1 -%}
+          <localization-form class="small-hide medium-hide" data-prevent-hide>
+            {%- form 'localization', id: 'HeaderLanguageForm', class: 'localization-form' -%}
+              <div>
+                <h2 class="visually-hidden" id="HeaderLanguageLabel">{{ 'localization.language_label' | t }}</h2>
+                {%- render 'language-localization', localPosition: 'HeaderLanguage' -%}
               </div>
-    <!--      <div class="grid grid-cols-2">
-                <p>Savings</p>
-                <p class="text-right">{{savings}}</p>
-            </div> -->
-    
-  <!--        <div class="grid grid-cols-2">
-                <p>Subtotal with Discounts</p>
-                <p class="text-right subtotal--price">
-                  <strong>{{subtotal_discounts}}</strong>
-                </p>
-              </div> -->
-            </div>
-            <!-- <div class="gap-4 grid grid-cols-2">  -->
-            <div class="gap-4 grid">
-              <a style="display:none;" class="button-alt text-center" href="/cart">View Cart</a>
-              {{#if checkout_dis}}
-                <a class="button text-center" href="/checkout?discount=subcription_only">Proceed to Checkout</a>
-              {{else}}         
-                <a class="button text-center" href="/checkout"> Proceed to Checkout</a>
-              {{/if}}
-            </div>
-
-                {% endraw %}{% if settings.discount_text != blank %}
-              <div class="cart-drawer-discount-text">
-               {% render 'icon-discount' %}
-                <p><a href="{{ settings.discount_url }}"> {{ settings.discount_text }}</a></p>
-              </div>
-              {% endif %}{% raw %}
-                
-            <div class="satisfaction--badge">
-              {% endraw %}{% render 'icon-satisfaction-badge' %}{% raw %} 45 Day Satisfaction Guarantee
-    
-            </div>
-          </div>
-         <div id="checkout-two" style="display:none;">
-            <div class="my-4 space-y-2">
-              <div class="grid grid-cols-2">
-                <p>Subtotal</p>
-                <p class="text-right">{{subtotal}}</p>
-              </div>
-    <!--      <div class="grid grid-cols-2">
-                <p>Savings</p>
-                <p class="text-right">{{savings}}</p>
-              </div> -->
-    
-    <!--      <div class="grid grid-cols-2">
-                <p>Subtotal with Discounts</p>
-                <p class="text-right">
-                  <strong>{{subtotal_discounts}}</strong>
-                </p>
-              </div> -->
-            </div>
-            <div class="gap-4 grid grid-cols-2"> 
-                <a style="" class="button-alt text-center" href="/cart">View Cart</a>
-              	{{#if checkout_dis}}
-                  <a style="" class="button text-center" href="/checkout?discount=subcription_only">Checkout Now</a>
-                {{else}}         
-                  <a style="" class="button text-center" href="/checkout"> Checkout Now</a>
-                {{/if}}
-            </div>
-          </div>
-
-
-                
+            {%- endform -%}
+          </localization-form>
+        {%- endif -%}
       </div>
-    {{/if}}
-  </script> 
-{% endraw %}
+      {% render 'header-search', input_id: 'Search-In-Modal' %}
+
+      {%- if shop.customer_accounts_enabled -%}
+        <a
+          href="{%- if customer -%}{{ routes.account_url }}{%- else -%}{{ routes.account_login_url }}{%- endif -%}"
+          class="header__icon header__icon--account link focus-inset{% if section.settings.menu != blank %} small-hide{% endif %}"
+          rel="nofollow"
+        >
+          {%- if section.settings.enable_customer_avatar -%}
+            <account-icon>
+              {%- if customer and customer.has_avatar? -%}
+                {{ customer | avatar }}
+              {%- else -%}
+                <span class="svg-wrapper">{{ 'icon-account.svg' | inline_asset_content }}</span>
+              {%- endif -%}
+            </account-icon>
+          {%- else -%}
+            <span class="svg-wrapper">{{ 'icon-account.svg' | inline_asset_content }}</span>
+          {%- endif -%}
+          <span class="visually-hidden">
+            {%- liquid
+              if customer
+                echo 'customer.account_fallback' | t
+              else
+                echo 'customer.log_in' | t
+              endif
+            -%}
+          </span>
+        </a>
+      {%- endif -%}
+
+      {%- for block in section.blocks -%}
+        {%- case block.type -%}
+          {%- when '@app' -%}
+            {% render block %}
+        {%- endcase -%}
+      {%- endfor -%}
+
+      <a href="{{ routes.cart_url }}" class="header__icon header__icon--cart link focus-inset" id="cart-icon-bubble">
+          {% if cart == empty %}
+            <span class="svg-wrapper">{{'icon-cart-empty.svg' | inline_asset_content }}</span>
+          {% else %}
+            <span class="svg-wrapper">{{'icon-cart.svg' | inline_asset_content }}</span>
+          {% endif %}
+        <span class="visually-hidden">{{ 'templates.cart.cart' | t }}</span>
+        {%- if cart != empty -%}
+          <div class="cart-count-bubble">
+            {%- if cart.item_count < 100 -%}
+              <span aria-hidden="true">{{ cart.item_count }}</span>
+            {%- endif -%}
+            <span class="visually-hidden">{{ 'sections.header.cart_count' | t: count: cart.item_count }}</span>
+          </div>
+        {%- endif -%}
+      </a>
+    </div>
+  </header>
+</{{ header_tag }}>
+
+{%- if settings.cart_type == "notification" -%}
+  {%- render 'cart-notification', color_scheme: section.settings.color_scheme, desktop_menu_type: section.settings.menu_type_desktop -%}
+{%- endif -%}
+
+{% javascript %}
+  class StickyHeader extends HTMLElement {
+    constructor() {
+      super();
+    }
+
+    connectedCallback() {
+      this.header = document.querySelector('.section-header');
+      this.headerIsAlwaysSticky = this.getAttribute('data-sticky-type') === 'always' || this.getAttribute('data-sticky-type') === 'reduce-logo-size';
+      this.headerBounds = {};
+
+      this.setHeaderHeight();
+
+      window.matchMedia('(max-width: 990px)').addEventListener('change', this.setHeaderHeight.bind(this));
+
+      if (this.headerIsAlwaysSticky) {
+        this.header.classList.add('shopify-section-header-sticky');
+      };
+
+      this.currentScrollTop = 0;
+      this.preventReveal = false;
+      this.predictiveSearch = this.querySelector('predictive-search');
+
+      this.onScrollHandler = this.onScroll.bind(this);
+      this.hideHeaderOnScrollUp = () => this.preventReveal = true;
+
+      this.addEventListener('preventHeaderReveal', this.hideHeaderOnScrollUp);
+      window.addEventListener('scroll', this.onScrollHandler, false);
+
+      this.createObserver();
+    }
+
+    setHeaderHeight() {
+      document.documentElement.style.setProperty('--header-height', `${this.header.offsetHeight}px`);
+    }
+
+    disconnectedCallback() {
+      this.removeEventListener('preventHeaderReveal', this.hideHeaderOnScrollUp);
+      window.removeEventListener('scroll', this.onScrollHandler);
+    }
+
+    createObserver() {
+      let observer = new IntersectionObserver((entries, observer) => {
+        this.headerBounds = entries[0].intersectionRect;
+        observer.disconnect();
+      });
+
+      observer.observe(this.header);
+    }
+
+    onScroll() {
+      const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+
+      if (this.predictiveSearch && this.predictiveSearch.isOpen) return;
+
+      if (scrollTop > this.currentScrollTop && scrollTop > this.headerBounds.bottom) {
+        this.header.classList.add('scrolled-past-header');
+        if (this.preventHide) return;
+        requestAnimationFrame(this.hide.bind(this));
+      } else if (scrollTop < this.currentScrollTop && scrollTop > this.headerBounds.bottom) {
+        this.header.classList.add('scrolled-past-header');
+        if (!this.preventReveal) {
+          requestAnimationFrame(this.reveal.bind(this));
+        } else {
+          window.clearTimeout(this.isScrolling);
+
+          this.isScrolling = setTimeout(() => {
+            this.preventReveal = false;
+          }, 66);
+
+          requestAnimationFrame(this.hide.bind(this));
+        }
+      } else if (scrollTop <= this.headerBounds.top) {
+        this.header.classList.remove('scrolled-past-header');
+        requestAnimationFrame(this.reset.bind(this));
+      }
+
+      this.currentScrollTop = scrollTop;
+    }
+
+    hide() {
+      if (this.headerIsAlwaysSticky) return;
+      this.header.classList.add('shopify-section-header-hidden', 'shopify-section-header-sticky');
+      this.closeMenuDisclosure();
+      this.closeSearchModal();
+    }
+
+    reveal() {
+      if (this.headerIsAlwaysSticky) return;
+      this.header.classList.add('shopify-section-header-sticky', 'animate');
+      this.header.classList.remove('shopify-section-header-hidden');
+    }
+
+    reset() {
+      if (this.headerIsAlwaysSticky) return;
+      this.header.classList.remove('shopify-section-header-hidden', 'shopify-section-header-sticky', 'animate');
+    }
+
+    closeMenuDisclosure() {
+      this.disclosures = this.disclosures || this.header.querySelectorAll('header-menu');
+      this.disclosures.forEach(disclosure => disclosure.close());
+    }
+
+    closeSearchModal() {
+      this.searchModal = this.searchModal || this.header.querySelector('details-modal');
+      this.searchModal.close(false);
+    }
+  }
+
+  customElements.define('sticky-header', StickyHeader);
+{% endjavascript %}
 
 <script type="application/ld+json">
   {
     "@context": "http://schema.org",
     "@type": "Organization",
     "name": {{ shop.name | json }},
-    "logo": "https://cdn.shopify.com/s/files/1/0866/7664/files/logo.png",
+    {% if settings.logo %}
+      "logo": {{ settings.logo | image_url: width: 500 | prepend: "https:" | json }},
+    {% endif %}
     "sameAs": [
-      "https://www.facebook.com/transparentlabs/",
-      "https://www.facebook.com/transparentlabs/"
+      {{ settings.social_twitter_link | json }},
+      {{ settings.social_facebook_link | json }},
+      {{ settings.social_pinterest_link | json }},
+      {{ settings.social_instagram_link | json }},
+      {{ settings.social_tiktok_link | json }},
+      {{ settings.social_tumblr_link | json }},
+      {{ settings.social_snapchat_link | json }},
+      {{ settings.social_youtube_link | json }},
+      {{ settings.social_vimeo_link | json }}
     ],
-    "url": {{ shop.url | append: page.url | json }}
+    "url": {{ request.origin | append: page.url | json }}
   }
 </script>
 
-<!-- New xgen-header js start -->
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-<script>
-  $(document).ready(function(e) {
-    $(function() {
-      var Accordion = function(el, multiple) {
-        this.el = el || {};
-        this.multiple = multiple || false;
-
-        // Variables privadas
-        var links = this.el.find('.menu-item-has-children-m > a');
-        // Evento
-        links.on('click', {el: this.el, multiple: this.multiple}, this.dropdown)
-      }
-
-      Accordion.prototype.dropdown = function(e) {
-        var $el = e.data.el;
-        $this = $(this),
-          $next = $this.next();
-
-        $next.slideToggle(500);
-        $this.parent().toggleClass('open');
-
-        if (!e.data.multiple) {
-          $el.find('.menu-subs-m').not($next).slideUp(100).parent().removeClass('open');
-        };
-      }
-
-      var accordion = new Accordion($('.menu-section-m'), false);
-    });
-
-
-
-    $(document).on("click",".menu-mobile-close",function() {
-
-      $(".menu").removeClass('active');
-      $(".overlay").removeClass('active')
-
-    });
-
-  });
-</script>
-
-<script>
-    const menu = document.querySelector('.menu');
-  const menuSection = menu.querySelector('.menu-section');
-  const menuArrow = menu.querySelector('.menu-mobile-arrow');
-  const menuClosed = menu.querySelector('.menu-mobile-close');
-  const menuToggle = document.querySelector('.menu-mobile-toggle');
-  const menuOverlay = document.querySelector('.overlay');
-  const body = document.querySelector('body');
-  //let subMenu;
-
-  /*menuSection.addEventListener('click', (e) => {
-  	if (!menu.classList.contains('active')) {
-  		return;
-  	}
-  	if (e.target.closest('.menu-item-has-children')) {
-  		const hasChildren = e.target.closest('.menu-item-has-children');
-  		showSubMenu(hasChildren);
-  	}
-  });*/
-
-  /*menuArrow.addEventListener('click', () => {
-  	hideSubMenu();
-  });*/
-
-  menuToggle.addEventListener('click', () => {
-  	toggleMenu();
-  });
-
-  menuClosed.addEventListener('click', () => {
-  	toggleMenu();
-  });
-
-  menuOverlay.addEventListener('click', () => {
-  	toggleMenu();
-  });
-
-  // Show & Hide Toggle Menu Function
-  function toggleMenu() {
-  	menu.classList.toggle('active');
-  	menuOverlay.classList.toggle('active');
-    menuToggle.classList.toggle('active');
-    body.classList.toggle('menu-drawer-active');
-  }
-
-  window.menu = menu;
-  window.toggleMenu = toggleMenu;
-
-  // Show the Mobile Side Menu Function
-  /*function showSubMenu(hasChildren) {
-  	subMenu = hasChildren.querySelector('.menu-subs');
-  	subMenu.classList.add('active');
-  	subMenu.style.animation = 'slideLeft 0.5s ease forwards';
-  	const menuTitle = hasChildren.querySelector('svg').parentNode.childNodes[0].textContent;
-  	menu.querySelector('.menu-mobile-title').innerHTML = menuTitle;
-  	menu.querySelector('.menu-mobile-header').classList.add('active');
-  }
-
-  // Hide the Mobile Side Menu Function
-  function hideSubMenu() {
-  	subMenu.style.animation = 'slideRight 0.5s ease forwards';
-  	setTimeout(() => {
-  		subMenu.classList.remove('active');
-  	}, 300);
-
-  	menu.querySelector('.menu-mobile-title').innerHTML = '';
-  	menu.querySelector('.menu-mobile-header').classList.remove('active');
-  }*/
-
-  // Windows Screen Resizes Function
-  window.onresize = function () {
-  	if (this.innerWidth > 991) {
-  		if (menu.classList.contains('active')) {
-  			toggleMenu();
-  		}
-  	}
-  };
-
-  window.stock_threshold = parseInt(`{{ settings.stock_threshold }}`);
-
-
-  function updateMenuPosition() {
-    const announcementBar = document.getElementById('shopify-section-announcement-bar');
-    const header = document.getElementById('shopify-section-header');
-    const menu = document.querySelector('.header-item-center.mobile .menu');
-  
-    if (announcementBar && header && menu) {
-        const totalHeight = announcementBar.offsetHeight + header.offsetHeight;
-        menu.style.top = `${totalHeight}px`;
+{%- if request.page_type == 'index' -%}
+  {% assign potential_action_target = request.origin | append: routes.search_url | append: "?q={search_term_string}" %}
+  <script type="application/ld+json">
+    {
+      "@context": "http://schema.org",
+      "@type": "WebSite",
+      "name": {{ shop.name | json }},
+      "potentialAction": {
+        "@type": "SearchAction",
+        "target": {{ potential_action_target | json }},
+        "query-input": "required name=search_term_string"
+      },
+      "url": {{ request.origin | append: page.url | json }}
     }
-  }
-
-  // Run on page load
-  document.addEventListener("DOMContentLoaded", updateMenuPosition);
-  window.addEventListener("resize", updateMenuPosition);
-  
-
-document.addEventListener("DOMContentLoaded", menuTransitionEffect);
-
-function menuTransitionEffect() {
-    let menuItems = document.querySelectorAll(".main--menu-items");
-    let menuWrapper = document.querySelector(".new-megamenu-wrapper");
-    let firstLoad = true;
-    let activeItem = null; // Track the currently active menu item
-
-    if (menuItems.length === 0 || !menuWrapper) return; // Prevent errors if elements are missing
-
-    menuItems.forEach(item => {
-        item.addEventListener("mouseenter", function () {
-            if (firstLoad) {
-                // If it's the first hover, add the effect and keep it until another item is hovered
-                if (activeItem) {
-                    activeItem.classList.remove("first-load");
-                }
-                item.classList.add("first-load", "show");
-                activeItem = item;
-
-                setTimeout(() => {
-                    firstLoad = false;
-                }, 500);
-            } else {
-                // After the first time, just show the menu without effect
-                item.classList.add("no-transition", "show");
-                if (activeItem) {
-                    activeItem.classList.remove("first-load");
-                }
-                activeItem = item;
-            }
-        });
-    });
-
-    // Detect when user completely leaves the menu area
-    document.addEventListener("mousemove", function (e) {
-        if (!menuWrapper.contains(e.target) && ![...menuItems].some(el => el.contains(e.target))) {
-            menuItems.forEach(item => {
-                item.classList.remove("show", "no-transition", "first-load");
-            });
-            activeItem = null;
-            firstLoad = true; // Reset first-load effect when completely leaving
-        }
-    });
-}
-
-
-
-</script>
-
-<style>
-
-  .main--menu-items.first-load.show .new-megamenu-wrapper {
-    transition: all 0.2s ease-in-out;
-  }
-  
-  .main--menu-items.no-transition .new-megamenu-wrapper {
-    transition: none !important;
-  }
-  
-</style>
-<!-- New xgen-header js end -->
+  </script>
+{%- endif -%}
 
 {% schema %}
 {
-  "blocks": [
-    {
-      "limit": 3,
-      "name": "Recommended Product",
-      "settings": [
-        {
-          "id": "product",
-          "label": "Product",
-          "type": "product"
-        }
-      ],
-      "type": "recommended_product"
-    },
-    {
-      "limit": 15,
-      "name": "Xgen Header",
-     "settings": [
-       {
-        "id": "show",
-        "label": "Hide On Desktop",
-        "type": "checkbox"
-       },
-       {
-        "id": "hide_mobile",
-        "label": "Hide On Mobile",
-        "type": "checkbox"
-       },
-       {
-        "type": "text",
-        "id": "main_link",
-        "label": "Nav"
-      },
-      {
-        "type": "url",
-        "id": "main_url",
-        "label": "Nav Url"
-      },
-      {
-        "type": "radio",
-        "id": "menu_op",
-        "label": "Dropdown Type",
-            "options": [
-            {
-              "value": "megamenu",
-              "label": "Mega Menu"
-            },
-            {
-              "value": "drpdwn",
-              "label": "Drop Down"
-            },
-            {
-              "value": "none",
-              "label": "None"
-            }
-            ],
-            "default": "none"
-      },
-      {
-        "type": "header",
-        "content": "DropDown Link"
-      },
-      {
-        "type": "text",
-        "id": "txt1",
-        "label": "Title"
-      },
-      {
-        "type": "url",
-        "id": "url1",
-        "label": "Url"
-      },
-      {
-        "type": "text",
-        "id": "txt2",
-        "label": "Title"
-      },
-      {
-        "type": "url",
-        "id": "url2",
-        "label": "Url"
-      },
-      {
-        "type": "text",
-        "id": "txt3",
-        "label": "Title"
-      },
-      {
-        "type": "url",
-        "id": "url3",
-        "label": "Url"
-      },
-      {
-        "type": "text",
-        "id": "txt4",
-        "label": "Title"
-      },
-      {
-        "type": "url",
-        "id": "url4",
-        "label": "Url"
-      },
-      {
-        "type": "text",
-        "id": "txt5",
-        "label": "Title"
-      },
-      {
-        "type": "url",
-        "id": "url5",
-        "label": "Url"
-      },
-      {
-        "type": "text",
-        "id": "txt6",
-        "label": "Title"
-      },
-      {
-        "type": "url",
-        "id": "url6",
-        "label": "Url"
-      },
-      {
-        "type": "header",
-          "content": "----------------------------------------------"
-      },
-      {
-        "type": "text",
-        "id": "title1",
-        "label": "Title"
-      },
-      {
-        "type": "url",
-        "id": "url_pro1",
-        "label": "product Url"
-      },
-      {
-        "type": "image_picker",
-        "id": "pro_img_1",
-        "label": "product image"
-      },
-      {
-        "type": "text",
-        "id": "pro_title1",
-        "label": "product Title"
-      },
-      {
-        "type": "text",
-        "id": "pro_subtitle1",
-        "label": "product Sub Title"
-      },
-      {
-        "type": "url",
-        "id": "securl_pro1",
-        "label": "product Url"
-      },
-      {
-        "type": "image_picker",
-        "id": "secpro_img_1",
-        "label": "product image"
-      },
-      {
-        "type": "text",
-        "id": "secpro_title1",
-        "label": "product Title"
-      },
-      {
-        "type": "text",
-        "id": "secpro_subtitle1",
-        "label": "product Sub Title"
-      },
-      {
-        "type": "url",
-        "id": "thurl_pro1",
-        "label": "product Url"
-      },
-      {
-        "type": "image_picker",
-        "id": "thcpro_img_1",
-        "label": "product image"
-      },
-      {
-        "type": "text",
-        "id": "thpro_title1",
-        "label": "product Title"
-      },
-      {
-        "type": "text",
-        "id": "thpro_subtitle1",
-        "label": "product Sub Title"
-      },
-      {
-        "type": "url",
-        "id": "moreitems1",
-        "label": "moreitems"
-      },
-       {
-        "type": "text",
-        "id": "moreitems1_text",
-        "label": "Link text"
-      },
-      {
-        "type": "header",
-          "content": "----------------------------------------------"
-      },
-      {
-        "type": "text",
-        "id": "title2",
-        "label": "Title"
-      },
-      {
-        "type": "url",
-        "id": "url_pro2",
-        "label": "product Url"
-      },
-      {
-        "type": "image_picker",
-        "id": "pro_img_2",
-        "label": "product image"
-      },
-      {
-        "type": "text",
-        "id": "pro_title2",
-        "label": "product Title"
-      },
-      {
-        "type": "text",
-        "id": "pro_subtitle2",
-        "label": "product Sub Title"
-      },
-      {
-        "type": "url",
-        "id": "securl_pro2",
-        "label": "product Url"
-      },
-      {
-        "type": "image_picker",
-        "id": "secpro_img_2",
-        "label": "product image"
-      },
-      {
-        "type": "text",
-        "id": "secpro_title2",
-        "label": "product Title"
-      },
-      {
-        "type": "text",
-        "id": "secpro_subtitle2",
-        "label": "product Sub Title"
-      },
-      {
-        "type": "url",
-        "id": "thurl_pro2",
-        "label": "product Url"
-      },
-      {
-        "type": "image_picker",
-        "id": "thcpro_img_2",
-        "label": "product image"
-      },
-      {
-        "type": "text",
-        "id": "thpro_title2",
-        "label": "product Title"
-      },
-      {
-        "type": "text",
-        "id": "thpro_subtitle2",
-        "label": "product Sub Title"
-      },
-      {
-        "type": "url",
-        "id": "moreitems2",
-        "label": "moreitems"
-      },
-       {
-        "type": "text",
-        "id": "moreitems2_text",
-        "label": "Link text"
-      },
-      {
-        "type": "header",
-          "content": "----------------------------------------------"
-      },
-      {
-        "type": "text",
-        "id": "title3",
-        "label": "Title"
-      },
-      {
-        "type": "url",
-        "id": "url_pro3",
-        "label": "product Url"
-      },
-      {
-        "type": "image_picker",
-        "id": "pro_img_3",
-        "label": "product image"
-      },
-      {
-        "type": "text",
-        "id": "pro_title3",
-        "label": "product Title"
-      },
-      {
-        "type": "text",
-        "id": "pro_subtitle3",
-        "label": "product Sub Title"
-      },
-      {
-        "type": "url",
-        "id": "securl_pro3",
-        "label": "product Url"
-      },
-      {
-        "type": "image_picker",
-        "id": "secpro_img_3",
-        "label": "product image"
-      },
-      {
-        "type": "text",
-        "id": "secpro_title3",
-        "label": "product Title"
-      },
-      {
-        "type": "text",
-        "id": "secpro_subtitle3",
-        "label": "product Sub Title"
-      },
-      {
-        "type": "url",
-        "id": "thurl_pro3",
-        "label": "product Url"
-      },
-      {
-        "type": "image_picker",
-        "id": "thcpro_img_3",
-        "label": "product image"
-      },
-      {
-        "type": "text",
-        "id": "thpro_title3",
-        "label": "product Title"
-      },
-      {
-        "type": "text",
-        "id": "thpro_subtitle3",
-        "label": "product Sub Title"
-      },
-      {
-        "type": "url",
-        "id": "moreitems3",
-        "label": "moreitems"
-      },{
-        "type": "text",
-        "id": "moreitems3_text",
-        "label": "Link text"
-      },
-              {
-        "type": "header",
-         "content": "----------------------------------------------"
-      },
-      {
-        "type": "text",
-        "id": "title4",
-        "label": "Title"
-      },
-      {
-        "type": "url",
-        "id": "url_pro4",
-        "label": "product Url"
-      },
-      {
-        "type": "image_picker",
-        "id": "pro_img_4",
-        "label": "product image"
-      },
-      {
-        "type": "text",
-        "id": "pro_title4",
-        "label": "product Title"
-      },
-      {
-        "type": "text",
-        "id": "pro_subtitle4",
-        "label": "product Sub Title"
-      },
-      {
-        "type": "url",
-        "id": "securl_pro4",
-        "label": "product Url"
-      },
-      {
-        "type": "image_picker",
-        "id": "secpro_img_4",
-        "label": "product image"
-      },
-      {
-        "type": "text",
-        "id": "secpro_title4",
-        "label": "product Title"
-      },
-      {
-        "type": "text",
-        "id": "secpro_subtitle4",
-        "label": "product Sub Title"
-      },
-      {
-        "type": "url",
-        "id": "thurl_pro4",
-        "label": "product Url"
-      },
-      {
-        "type": "image_picker",
-        "id": "thcpro_img_4",
-        "label": "product image"
-      },
-      {
-        "type": "text",
-        "id": "thpro_title4",
-        "label": "product Title"
-      },
-      {
-        "type": "text",
-        "id": "thpro_subtitle4",
-        "label": "product Sub Title"
-      },
-      {
-        "type": "url",
-        "id": "moreitems4",
-        "label": "moreitems"
-      },{
-        "type": "text",
-        "id": "moreitems4_text",
-        "label": "Link text"
-      },
-      {
-        "type": "header",
-         "content": "----------------------------------------------"
-      },
-      {
-        "type": "text",
-        "id": "title5",
-        "label": "Title"
-      },
-      {
-        "type": "url",
-        "id": "url_pro5",
-        "label": "product Url"
-      },
-      {
-        "type": "image_picker",
-        "id": "pro_img_5",
-        "label": "product image"
-      },
-      {
-        "type": "text",
-        "id": "pro_title5",
-        "label": "product Title"
-      },
-      {
-        "type": "text",
-        "id": "pro_subtitle5",
-        "label": "product Sub Title"
-      },
-      {
-        "type": "url",
-        "id": "securl_pro5",
-        "label": "product Url"
-      },
-      {
-        "type": "image_picker",
-        "id": "secpro_img_5",
-        "label": "product image"
-      },
-      {
-        "type": "text",
-        "id": "secpro_title5",
-        "label": "product Title"
-      },
-      {
-        "type": "text",
-        "id": "secpro_subtitle5",
-        "label": "product Sub Title"
-      },
-      {
-        "type": "url",
-        "id": "thurl_pro5",
-        "label": "product Url"
-      },
-      {
-        "type": "image_picker",
-        "id": "thcpro_img_5",
-        "label": "product image"
-      },
-      {
-        "type": "text",
-        "id": "thpro_title5",
-        "label": "product Title"
-      },
-      {
-        "type": "text",
-        "id": "thpro_subtitle5",
-        "label": "product Sub Title"
-      },
-      {
-        "type": "url",
-        "id": "moreitems5",
-        "label": "moreitems"
-      },
-       {
-        "type": "text",
-        "id": "moreitems5_text",
-        "label": "Link text"
-      },
-       {
-        "type": "header",
-        "content": "----------------------------------------------"
-      },
-      {
-        "type": "image_picker",
-        "id": "img_banner",
-        "label": "Health & wellness banner"
-      },
-      {
-        "type": "url",
-        "id": "img_baner_url",
-        "label": "Health & wellness url"
-      },{
-        "type": "image_picker",
-        "id": "img_banner_2",
-        "label": "Weight loss banner"
-      },
-      {
-        "type": "url",
-        "id": "img_baner_url_2",
-        "label": "Weight loss url"
-      }
-    ],
-      "type": "Xgen_Header"
-    },
-    {
-      "type": "new-megamenu",
-      "limit": 5,
-      "name": "New Megamenu",
-      "settings": [
-        {
-          "id": "show",
-          "label": "Hide On Desktop",
-          "type": "checkbox"
-        },
-        {
-          "type": "text",
-          "id": "main_link",
-          "label": "Nav"
-        },
-        {
-          "type": "url",
-          "id": "main_url",
-          "label": "Nav Url"
-        },
-        {
-          "type": "header",
-          "content": "Mega Menu List Item 1"
-        },
-        {
-          "id": "enable_item_1",
-          "label": "Emable First Column",
-          "type": "checkbox"
-        },
-        {
-          "id": "enable_item_2",
-          "label": "Emable Second Column",
-          "type": "checkbox"
-        },
-        {
-          "type": "header",
-          "content": "List Item 1"
-        },
-        {
-          "type": "url",
-          "id": "url_pro1",
-          "label": "product Url"
-        },
-        {
-          "type": "image_picker",
-          "id": "pro_img_1",
-          "label": "product image"
-        },
-        {
-          "type": "text",
-          "id": "pro_title1",
-          "label": "product Title"
-        },
-        {
-          "type": "text",
-          "id": "pro_subtitle1",
-          "label": "product Sub Title"
-        },
-        {
-          "type": "header",
-          "content": "List Item 2"
-        },
-        {
-          "type": "url",
-          "id": "securl_pro1",
-          "label": "product Url"
-        },
-        {
-          "type": "image_picker",
-          "id": "secpro_img_1",
-          "label": "product image"
-        },
-        {
-          "type": "text",
-          "id": "secpro_title1",
-          "label": "product Title"
-        },
-        {
-          "type": "text",
-          "id": "secpro_subtitle1",
-          "label": "product Sub Title"
-        },
-        {
-          "type": "header",
-          "content": "List Item 3"
-        },
-        {
-          "type": "url",
-          "id": "thurl_pro1",
-          "label": "product Url"
-        },
-        {
-          "type": "image_picker",
-          "id": "thcpro_img_1",
-          "label": "product image"
-        },
-        {
-          "type": "text",
-          "id": "thpro_title1",
-          "label": "product Title"
-        },
-        {
-          "type": "text",
-          "id": "thpro_subtitle1",
-          "label": "product Sub Title"
-        },
-        {
-          "type": "header",
-          "content": "List Item 4"
-        },
-        {
-          "type": "url",
-          "id": "url_pro2",
-          "label": "product Url"
-        },
-        {
-          "type": "image_picker",
-          "id": "pro_img_2",
-          "label": "product image"
-        },
-        {
-          "type": "text",
-          "id": "pro_title2",
-          "label": "product Title"
-        },
-        {
-          "type": "text",
-          "id": "pro_subtitle2",
-          "label": "product Sub Title"
-        },
-        {
-          "type": "header",
-          "content": "List Item 5"
-        },
-        {
-          "type": "url",
-          "id": "securl_pro2",
-          "label": "product Url"
-        },
-        {
-          "type": "image_picker",
-          "id": "secpro_img_2",
-          "label": "product image"
-        },
-        {
-          "type": "text",
-          "id": "secpro_title2",
-          "label": "product Title"
-        },
-        {
-          "type": "text",
-          "id": "secpro_subtitle2",
-          "label": "product Sub Title"
-        },
-        {
-          "type": "header",
-          "content": "List Item 6"
-        },
-        {
-          "type": "url",
-          "id": "thurl_pro2",
-          "label": "product Url"
-        },
-        {
-          "type": "image_picker",
-          "id": "thcpro_img_2",
-          "label": "product image"
-        },
-        {
-          "type": "text",
-          "id": "thpro_title2",
-          "label": "product Title"
-        },
-        {
-          "type": "text",
-          "id": "thpro_subtitle2",
-          "label": "product Sub Title"
-        },
-        {
-          "type": "header",
-          "content": "Promotion Banner Content 1"
-        },
-        {
-          "id": "enable_promo",
-          "label": "Enable Promo",
-          "type": "checkbox",
-          "default": false
-        },
-        {
-          "type": "text",
-          "id": "block_heading",
-          "label": "Block Heading",
-          "default": "Goal 1"
-        },
-        {
-          "type": "textarea",
-          "id": "block_description",
-          "label": "Block Description",
-          "default": "Description of the goal."
-        },
-        {
-          "type": "image_picker",
-          "id": "block_image",
-          "label": "Block Image"
-        },
-        {
-          "type": "url",
-          "id": "block_link",
-          "label": "Block Link"
-        },
-        {
-          "type": "header",
-          "content": "Promotion Banner Content 2"
-        },
-        {
-          "id": "enable_promo2",
-          "label": "Enable Promo",
-          "type": "checkbox",
-          "default": false
-        },
-        {
-          "type": "text",
-          "id": "block_heading2",
-          "label": "Block Heading",
-          "default": "Goal 1"
-        },
-        {
-          "type": "textarea",
-          "id": "block_description2",
-          "label": "Block Description",
-          "default": "Description of the goal."
-        },
-        {
-          "type": "image_picker",
-          "id": "block_image2",
-          "label": "Block Image"
-        },
-        {
-          "type": "url",
-          "id": "block_link2",
-          "label": "Block Link"
-        }
-      ]
-    },
-    {
-      "limit": 4,
-      "name": "Featured Collection",
-      "settings": [
-        {
-          "id": "icon",
-          "label": "Icon",
-          "type": "liquid"
-        },
-        {
-          "id": "image",
-          "info": "1:1 Aspect Ratio",
-          "label": "Image",
-          "type": "image_picker"
-        },
-        {
-          "id": "collection",
-          "label": "Collection",
-          "type": "collection"
-        },
-        {
-          "id": "description",
-          "label": "Description",
-          "type": "textarea"
-        }
-      ],
-      "type": "featured_collection"
-    },
-    {
-      "limit": 1,
-      "name": "Product Items",
-      "settings": [
-        {
-          "id": "show",
-          "label": "Hide On Desktop",
-          "type": "checkbox"
-        },
-        {
-          "id": "hide_mobile",
-          "label": "Hide On Mobile",
-          "type": "checkbox"
-        },
-        {
-          "id": "show_as_link",
-          "label": "Show as Link For Mobile",
-          "type": "checkbox"
-        },
-        {
-          "type": "text",
-          "id": "main_link",
-          "label": "Nav"
-        },
-        {
-          "type": "url",
-          "id": "main_url",
-          "label": "Nav Url"
-        },
-        {
-          "type": "header",
-          "content": "Product Items",
-        },
-        {
-          "id": "collection",
-          "label": "collection",
-          "type": "collection"
-        }
-      ],
-      "type": "product-items"
-    },
-    {
-      "name": "Series Link",
-      "settings": [
-        {
-          "id": "icon",
-          "label": "Icon",
-          "type": "liquid"
-        },
-        {
-          "id": "image",
-          "info": "1:1 Aspect Ratio",
-          "label": "Image",
-          "type": "image_picker"
-        },
-        {
-          "id": "title",
-          "label": "Title",
-          "type": "text"
-        },
-        {
-          "id": "link",
-          "label": "Link",
-          "type": "url"
-        }
-      ],
-      "type": "series_link"
-    }
-  ],
-  "name": "Header",
+  "name": "t:sections.header.name",
+  "class": "section-header",
+  "max_blocks": 3,
   "settings": [
     {
-      "type": "image_picker",
-      "id": "logo",
-      "label": "Add Logo",
+      "type": "select",
+      "id": "logo_position",
+      "options": [
+        {
+          "value": "top-left",
+          "label": "t:sections.header.settings.logo_position.options__2.label"
+        },
+        {
+          "value": "top-center",
+          "label": "t:sections.header.settings.logo_position.options__3.label"
+        },
+        {
+          "value": "middle-left",
+          "label": "t:sections.header.settings.logo_position.options__1.label"
+        },
+        {
+          "value": "middle-center",
+          "label": "t:sections.header.settings.logo_position.options__4.label"
+        }
+      ],
+      "default": "middle-left",
+      "label": "t:sections.header.settings.logo_position.label",
+      "info": "t:sections.header.settings.logo_help.content"
     },
     {
+      "type": "select",
+      "id": "mobile_logo_position",
+      "options": [
+        {
+          "value": "center",
+          "label": "t:sections.header.settings.mobile_logo_position.options__1.label"
+        },
+        {
+          "value": "left",
+          "label": "t:sections.header.settings.mobile_logo_position.options__2.label"
+        }
+      ],
+      "default": "center",
+      "label": "t:sections.header.settings.mobile_logo_position.label"
+    },    
+    {
       "type": "link_list",
-      "id": "mobile_menu",
-      "label": "Mobile Menu"
+      "id": "menu",
+      "default": "main-menu",
+      "label": "t:sections.header.settings.menu.label"
+    },
+    {
+      "type": "select",
+      "id": "menu_type_desktop",
+      "options": [
+        {
+          "value": "dropdown",
+          "label": "t:sections.header.settings.menu_type_desktop.options__1.label"
+        },
+        {
+          "value": "mega",
+          "label": "t:sections.header.settings.menu_type_desktop.options__2.label"
+        },
+        {
+          "value": "drawer",
+          "label": "t:sections.header.settings.menu_type_desktop.options__3.label"
+        }
+      ],
+      "default": "dropdown",
+      "label": "t:sections.header.settings.menu_type_desktop.label"
+    },
+    {
+      "type": "select",
+      "id": "sticky_header_type",
+      "options": [
+        {
+          "value": "none",
+          "label": "t:sections.header.settings.sticky_header_type.options__1.label"
+        },
+        {
+          "value": "on-scroll-up",
+          "label": "t:sections.header.settings.sticky_header_type.options__2.label"
+        },
+        {
+          "value": "always",
+          "label": "t:sections.header.settings.sticky_header_type.options__3.label"
+        },
+        {
+          "value": "reduce-logo-size",
+          "label": "t:sections.header.settings.sticky_header_type.options__4.label"
+        }
+      ],
+      "default": "on-scroll-up",
+      "label": "t:sections.header.settings.sticky_header_type.label"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_line_separator",
+      "default": true,
+      "label": "t:sections.header.settings.show_line_separator.label"
+    },
+    {
+      "type": "header",
+      "content": "t:sections.header.settings.header__1.content"
+    },
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "t:sections.all.colors.label",
+      "default": "scheme-1"
+    },
+    {
+      "type": "color_scheme",
+      "id": "menu_color_scheme",
+      "label": "t:sections.header.settings.menu_color_scheme.label",
+      "default": "scheme-1"
+    },
+    {
+      "type": "header",
+      "content": "t:sections.header.settings.header__utilities.content"
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_country_selector",
+      "default": true,
+      "label": "t:sections.header.settings.enable_country_selector.label",
+      "info":"t:sections.header.settings.enable_country_selector.info"
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_language_selector",
+      "default": true,
+      "label": "t:sections.header.settings.enable_language_selector.label",
+      "info":"t:sections.header.settings.enable_language_selector.info"
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_customer_avatar",
+      "default": true,
+      "label": "t:sections.header.settings.enable_customer_avatar.label",
+      "info": "t:sections.header.settings.enable_customer_avatar.info"
+    },
+    {
+      "type": "header",
+      "content": "t:sections.all.spacing"
+    },
+    {
+      "type": "range",
+      "id": "margin_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "t:sections.header.settings.margin_bottom.label",
+      "default": 0
+    },
+    {
+      "type": "header",
+      "content": "t:sections.all.padding.section_padding_heading"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 36,
+      "step": 4,
+      "unit": "px",
+      "label": "t:sections.all.padding.padding_top",
+      "default": 20
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 36,
+      "step": 4,
+      "unit": "px",
+      "label": "t:sections.all.padding.padding_bottom",
+      "default": 20
+    }
+  ],
+  "blocks": [
+    {
+      "type": "@app"
     }
   ]
 }

@@ -10,7 +10,7 @@
 {
   "sections": {
     "track_your_order_heading": {
-      "type": "wonderment-custom-html",
+      "type": "old-wonderment-custom-html",
       "blocks": {
         "track_your_order": {
           "type": "html",
@@ -41,7 +41,7 @@
       "settings": {}
     },
     "hero": {
-      "type": "wonderment-hero",
+      "type": "old-wonderment-hero",
       "disabled": true,
       "settings": {
         "width_override": true,
@@ -58,7 +58,7 @@
       }
     },
     "faq": {
-      "type": "wonderment-faq",
+      "type": "old-wonderment-faq",
       "blocks": {
         "faq-getting-started": {
           "type": "section_heading",
@@ -153,14 +153,14 @@
       }
     },
     "rebuy": {
-      "type": "wonderment-rebuy",
+      "type": "old-wonderment-rebuy",
       "disabled": true,
       "settings": {
         "rebuy-widget-id": ""
       }
     },
     "fairing": {
-      "type": "wonderment-fairing",
+      "type": "old-wonderment-fairing",
       "disabled": true,
       "settings": {
         "fairing-key": "",
@@ -181,7 +181,7 @@
       }
     },
     "kno": {
-      "type": "wonderment-kno",
+      "type": "old-wonderment-kno",
       "disabled": true,
       "settings": {
         "shop-key": "",
@@ -189,7 +189,7 @@
       }
     },
     "tl_select_faq_QLVbtq": {
-      "type": "tl-select-faq",
+      "type": "old-tl-select-faq",
       "blocks": {
         "text_TKUGkH": {
           "type": "text",
@@ -224,18 +224,18 @@
       }
     },
     "index_bestseller_products_JLDttn": {
-      "type": "index-bestseller-products",
+      "type": "old-index-bestseller-products",
       "blocks": {
         "text_zcyRQx": {
           "type": "text",
           "settings": {
             "collection_type": "Bestsellers",
             "product_type": "Bestsellers",
-            "product_1": "proteinseries-100-grass-fed-whey-protein-isolate",
+            "product_1": "whey-protein-isolate",
             "product_type_1": "Bestsellers",
-            "product_2": "strengthseries-creapure-hmb-creatine-supplement",
+            "product_2": "creatine-hmb",
             "product_type_2": "Bestsellers",
-            "product_3": "preseries-bulk-preworkout",
+            "product_3": "bulk-preworkout",
             "product_type_3": "Bestsellers",
             "product_4": "greens",
             "product_type_4": "",
@@ -253,9 +253,9 @@
           "settings": {
             "collection_type": "Protein",
             "product_type": "Protein",
-            "product_1": "proteinseries-100-grass-fed-whey-protein-isolate",
+            "product_1": "whey-protein-isolate",
             "product_type_1": "Protein",
-            "product_2": "proteinseries-mass-gainer",
+            "product_2": "mass-gainer",
             "product_type_2": "Protein",
             "product_3": "protein-bars",
             "product_type_3": "Protein",
@@ -275,11 +275,11 @@
           "settings": {
             "collection_type": "Pre-Workout",
             "product_type": "Pre-Workout",
-            "product_1": "preseries-bulk-preworkout",
+            "product_1": "bulk-preworkout",
             "product_type_1": "Pre-Workout",
-            "product_2": "preseries-lean-pre-workout",
+            "product_2": "lean-preworkout",
             "product_type_2": "Pre-Workout",
-            "product_3": "preseries-bulk-black",
+            "product_3": "bulk-black-pre-workout",
             "product_type_3": "",
             "product_4": "",
             "product_type_4": "",
@@ -297,9 +297,9 @@
           "settings": {
             "collection_type": "Build Muscle & Recover",
             "product_type": "Build Muscle & Recover",
-            "product_1": "strengthseries-creapure-hmb-creatine-supplement",
+            "product_1": "creatine-hmb",
             "product_type_1": "Build Muscle & Recover",
-            "product_2": "bcaa-powder",
+            "product_2": "coreseries-bcaa-glutamine",
             "product_type_2": "Build Muscle & Recover",
             "product_3": "testosterone-booster",
             "product_type_3": "Build Muscle & Recover",

@@ -10,7 +10,7 @@
 {
   "sections": {
     "f338a9c2-3168-494e-b4e7-b08979119509": {
-      "type": "influencer-main-banner",
+      "type": "old-influencer-main-banner",
       "settings": {
         "top_heading": "Paul Sklar's Science-Backed Supplement Stack",
         "image": "shopify://shop_images/Pauldoverheadt.webp",
@@ -22,7 +22,7 @@
       }
     },
     "c70dec47-0c2c-46fa-a7f6-efa1df957373": {
-      "type": "bulk-affiliate-icons",
+      "type": "old-bulk-affiliate-icons",
       "blocks": {
         "e5f6ecdd-bd06-4e0b-b4c3-ddbdd91539c4": {
           "type": "image",
@@ -62,20 +62,20 @@
       "settings": {}
     },
     "b45048cd-f528-475a-8264-4f948b471942": {
-      "type": "influencer-product",
+      "type": "old-influencer-product",
       "blocks": {
         "bcb9ce21-18c1-46b0-8c85-660b280e6d68": {
           "type": "text",
           "settings": {
             "collection_type": "",
             "product_type": "Build Muscle",
-            "product_1": "proteinseries-100-grass-fed-whey-protein-isolate",
+            "product_1": "whey-protein-isolate",
             "detail_1": "• <strong>Support Muscle Growth &amp; Recovery</strong><br>\n• No artificial colors, flavors, or sweeteners<br>\n• Grass-fed, Hormone Free<br>\n• Easily Digestible and fast-acting",
             "product_type_1": "Increase Strength",
-            "product_2": "strengthseries-creapure-hmb-creatine-supplement",
+            "product_2": "creatine-hmb",
             "detail_2": "• <strong>Increase Strength and Stamina</strong><br>\n• Train harder, longer, and more effectively<br>\n• Supports lean muscle retention<br>\n• 3rd-party tested for purity and potency",
             "product_type_2": "Boost Energy",
-            "product_3": "preseries-bulk-preworkout",
+            "product_3": "bulk-preworkout",
             "detail_3": "• <strong>Increase Energy &amp; Focus</strong><br>\n• Delivers key nootropics to promote mental drive and energy<br>\n• Supports anabolic hormone production<br>\n• Enhances strength, stamina, and pumps"
           }
         },
@@ -84,10 +84,10 @@
           "settings": {
             "collection_type": "",
             "product_type": "Improve Recovery",
-            "product_1": "bcaa-powder",
+            "product_1": "coreseries-bcaa-glutamine",
             "detail_1": "• <strong>Reduce Muscle Damage &amp; Soreness</strong><br>\n• Increase Muscle Protein Synthesis<br>\n• Improve Strength &amp; Endurance<br>\n• No artificial colors, flavors, or sweeteners",
             "product_type_1": "Joint & Skin Health",
-            "product_2": "collagen-protein-powder",
+            "product_2": "proteinseries-collagen-hydrolysate",
             "detail_2": "• <strong>Support Connective Tissue and Skin</strong><br>\n• Grass-Fed, Hormone-Free<br>\n• Supports healthy bones and joints<br>\n• 3rd-party tested for purity and potency",
             "product_type_2": "Boost Energy",
             "product_3": "",
@@ -108,7 +108,7 @@
       }
     },
     "16433637-76e7-4830-93c5-2728aae21362": {
-      "type": "influencer-product-stack",
+      "type": "old-influencer-product-stack",
       "blocks": {
         "95dfed51-d506-4777-a2fc-45c6534fcf1e": {
           "type": "text",
@@ -138,7 +138,7 @@
       }
     },
     "1a9b2478-a05d-4c94-bdc0-0cf466ca7f06": {
-      "type": "bulk-affiliate-ingrediants",
+      "type": "old-bulk-affiliate-ingrediants",
       "blocks": {
         "64f9369c-4c8c-46b2-a8da-8199fefb813b": {
           "type": "image",
@@ -192,20 +192,20 @@
       }
     },
     "main": {
-      "type": "bulk-affiliate",
+      "type": "old-bulk-affiliate",
       "blocks": {
         "3df6f53c-b737-4255-b6b0-710b24dfc82c": {
           "type": "text",
           "settings": {
             "collection_type": "",
             "product_type": "BEST DEAL",
-            "product_1": "preseries-bulk-preworkout",
+            "product_1": "bulk-preworkout",
             "detail_1": "• Exclusive Promotions &amp; Discounts<br>\n• Choose Shipping Frequency<br>\n• Cancel or Pause Any Time",
             "product_type_1": "MAXIMUM RESULTS",
             "product_2": "muscle-building-stacks",
             "detail_2": "• <strong>OPTIMIZED BUNDLE MAXIMIZES GAINS</strong><br>\n• Exclusive Promotions &amp; Discounts<br>\n• Choose Shipping Frequency<br>\n• Cancel or Pause Any Time",
             "product_type_2": "ONE-TIME PURCHASE",
-            "product_3": "preseries-bulk-preworkout",
+            "product_3": "bulk-preworkout",
             "detail_3": "<span style=\"text-decoration: line-through;\">• Exclusive Promotions &amp; Discounts<br>\n• Choose Shipping Frequency<br>\n• Cancel or Pause Any Time</span>"
           }
         }
@@ -223,13 +223,13 @@
       }
     },
     "7f6173d9-5234-4e26-ba01-d7c495dac4b0": {
-      "type": "bulk-affiliate-body-banner",
+      "type": "old-bulk-affiliate-body-banner",
       "settings": {
         "image": "shopify://shop_images/test_aff.webp"
       }
     },
     "878a4b2f-ae66-4ef6-a4c0-13b5c7b649c4": {
-      "type": "bulk-affiliate-scoop",
+      "type": "old-bulk-affiliate-scoop",
       "blocks": {
         "97e103d6-7070-46e6-8a76-471c464747f0": {
           "type": "text",
@@ -286,7 +286,7 @@
       }
     },
     "a6d8a429-db3b-4902-b34e-eca0a36a6aaf": {
-      "type": "index-pertner-icons",
+      "type": "old-index-pertner-icons",
       "blocks": {
         "12b15581-3a2d-4dd0-a28f-f7cc94d48ed9": {
           "type": "text",
@@ -335,13 +335,13 @@
       }
     },
     "d5dae2ee-29b0-4b3e-9fa5-433d1cdde0e0": {
-      "type": "bulk-affiliate-body-banner",
+      "type": "old-bulk-affiliate-body-banner",
       "settings": {
         "image": "shopify://shop_images/Paulina.webp"
       }
     },
     "42981725-61f5-4256-a388-54f731e0ba6d": {
-      "type": "bulk-affiliate-reviews",
+      "type": "old-bulk-affiliate-reviews",
       "blocks": {
         "da50697f-8e87-4bb5-8fe5-c0b15dfa57da": {
           "type": "text",

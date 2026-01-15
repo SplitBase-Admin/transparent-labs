@@ -10,7 +10,7 @@
 {
   "sections": {
     "1655469428e65a4bb7": {
-      "type": "stack-banner",
+      "type": "old-stack-banner",
       "settings": {
         "image1": "shopify://shop_images/Subscribe_Stack_Desktop_Banner_1.png",
         "image2": "shopify://shop_images/Subscribe_Stack_Mobile_Banner_1.png",
@@ -21,7 +21,7 @@
       }
     },
     "16582528170c67c49e": {
-      "type": "stack-icon-with-text",
+      "type": "old-stack-icon-with-text",
       "blocks": {
         "2ebc4a0e-37dc-47f4-8645-40faf4152d9d": {
           "type": "image",
@@ -81,12 +81,12 @@
       }
     },
     "16554706039e96901f": {
-      "type": "stack-custom",
+      "type": "old-stack-custom",
       "blocks": {
         "afc41a53-ee89-43ca-85af-2b3d612b1aaf": {
           "type": "text",
           "settings": {
-            "product": "preseries-bulk-preworkout",
+            "product": "bulk-preworkout",
             "subtitle": "Best Seller",
             "summary": "Developed using key ingredients, all backed by published scientific research, are included at clinically effective dosages."
           }
@@ -94,7 +94,7 @@
         "c6a68f22-3951-4a03-a4ec-d2aa68380f4c": {
           "type": "text",
           "settings": {
-            "product": "proteinseries-100-grass-fed-whey-protein-isolate",
+            "product": "whey-protein-isolate",
             "subtitle": "Best Seller",
             "summary": "Made from naturally fed, hormone-free cow whey and free of artificial sweeteners, food dyes, gluten, and preservatives."
           }
@@ -102,7 +102,7 @@
         "55b8578c-7d8d-4482-8738-c47ab47341f3": {
           "type": "text",
           "settings": {
-            "product": "strengthseries-creapure-hmb-creatine-supplement",
+            "product": "creatine-hmb",
             "subtitle": "Best Seller",
             "summary": "When combined, Creatine monohydrate and HMB have been shown to enhance strength, increase endurance, decrease fat mass, and prevent lean muscle loss."
           }
@@ -110,7 +110,7 @@
         "18ca179a-cd6b-4c61-82e2-3ecddfa77880": {
           "type": "text",
           "settings": {
-            "product": "preseries-bulk-black",
+            "product": "bulk-black-pre-workout",
             "subtitle": "Best Seller",
             "summary": "The epitome of a hard-hitting, clinically dosed pre-workout, with 100% formula transparency, proven nitric oxide boosters, hard-hitting nootropics, and muscle fortifiers."
           }
@@ -130,7 +130,7 @@
       }
     },
     "1655739736575d8af4": {
-      "type": "stack_collection",
+      "type": "old-stack_collection",
       "blocks": {
         "0938fc20-e094-4896-b523-7f18493b3251": {
           "type": "text",
@@ -305,7 +305,7 @@
       }
     },
     "16554705889a4e2109": {
-      "type": "stack-testimonials",
+      "type": "old-stack-testimonials",
       "blocks": {
         "fb5c56e3-ac45-4fa9-b4c2-bf3fd0478693": {
           "type": "image",
@@ -324,7 +324,7 @@
       "settings": {}
     },
     "165546997779bf0c81": {
-      "type": "stack-comparison",
+      "type": "old-stack-comparison",
       "blocks": {
         "ce46bdc0-406a-4bea-aead-66128619099f": {
           "type": "text",
@@ -383,7 +383,7 @@
       }
     },
     "16554699829f6f1f7a": {
-      "type": "stack-icon-with-text",
+      "type": "old-stack-icon-with-text",
       "blocks": {
         "2574a527-c1fa-4d9f-bd8d-d14dd70bce84": {
           "type": "image",
@@ -432,7 +432,7 @@
       }
     },
     "165546960618a56af4": {
-      "type": "stack-find",
+      "type": "old-stack-find",
       "settings": {
         "heading": "Dial in the perfect stack",
         "subheading": "Enter your information and goals below, and we will pair you with the stacks that fit your needs.",

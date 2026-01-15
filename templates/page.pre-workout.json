@@ -10,16 +10,16 @@
 {
   "sections": {
     "new_breadcrumb_aXfjDq": {
-      "type": "new-breadcrumb",
+      "type": "old-new-breadcrumb",
       "settings": {}
     },
     "main": {
-      "type": "main-page",
+      "type": "old-main-page",
       "disabled": true,
       "settings": {}
     },
     "content_with_image_rLNX4F": {
-      "type": "content-with-image",
+      "type": "old-content-with-image",
       "settings": {
         "custom_title": "Pre-workout",
         "custom_content": "<p>It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English. Many desktop publishing</p><p>It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English. Many desktop publishing</p><p>It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English. Many desktop publishing</p>",
@@ -27,7 +27,7 @@
       }
     },
     "icon_with_text_KCmbFK": {
-      "type": "icon-with-text",
+      "type": "old-icon-with-text",
       "blocks": {
         "text_BqqyHF": {
           "type": "text",
@@ -64,7 +64,7 @@
       }
     },
     "compare_section_4WgnEf": {
-      "type": "compare-section",
+      "type": "old-compare-section",
       "blocks": {
         "block_dXQAK6": {
           "type": "block",
@@ -165,7 +165,7 @@
       }
     },
     "popular_article_RxrVj9": {
-      "type": "popular-article",
+      "type": "old-popular-article",
       "blocks": {
         "popular_article_hDqkwK": {
           "type": "Popular_article",
@@ -206,7 +206,7 @@
       }
     },
     "index_testimonials_mH9NCK": {
-      "type": "index-testimonials",
+      "type": "old-index-testimonials",
       "blocks": {
         "text_pFRyAW": {
           "type": "text",
@@ -225,7 +225,7 @@
       }
     },
     "wonderment_faq_87Xa8b": {
-      "type": "wonderment-faq",
+      "type": "old-wonderment-faq",
       "blocks": {
         "section_heading_FBGWjH": {
           "type": "section_heading",
@@ -279,7 +279,7 @@
         "question_r9UPrt"
       ],
       "custom_css": [
-        ".wndr-sxn__sizer.wndr-sxn__faq__expanded-false {max-width: 80rem; padding-left: 1rem; padding-right: 1rem;}"
+        ".wndr-sxn__sizer.wndr-sxn__faq__expanded-false {max-width: 1280px; padding-left: 1rem; padding-right: 1rem;}"
       ],
       "settings": {
         "show_answers": false,
@@ -300,7 +300,7 @@
       }
     },
     "multiple_collection_UmPNWn": {
-      "type": "multiple-collection",
+      "type": "old-multiple-collection",
       "blocks": {
         "block_XD3kpf": {
           "type": "block",
@@ -338,7 +338,7 @@
       }
     },
     "custom_content_QNLXY3": {
-      "type": "custom-content",
+      "type": "old-custom-content",
       "settings": {
         "custom_title": "What is Lorem Ipsum?",
         "headingh1": false,

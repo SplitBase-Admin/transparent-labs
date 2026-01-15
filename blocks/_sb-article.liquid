@@ -1,0 +1,37 @@
+{% doc %}
+  _sb-article block
+
+  @example
+  {% content_for 'block', type: '_sb-article', id: 'sb-article-1' %}
+{% enddoc %}
+
+{% if block.settings.article != blank %}
+  <div class="grid__item">
+    {% content_for 'block', type: '_blog-card', id: 'static-blog-card', article: block.settings.article, blog: block.settings.blog %}
+  </div>
+{% endif %}
+
+{% schema %}
+{
+  "name": "Sb Article",
+  "tag": null,
+  "settings": [
+    {
+      "type": "article",
+      "id": "article",
+      "label": "Article"
+    },
+    {
+      "type": "blog",
+      "id": "blog",
+      "label": "Category"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Sb Article",
+      "category": "SB"
+    }
+  ]
+}
+{% endschema %}

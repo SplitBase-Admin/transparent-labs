@@ -11,88 +11,9 @@
   "sections": {
     "main": {
       "type": "main-search",
-      "blocks": {
-        "9adccdcc-c217-4ec4-bc04-4dffea17bbd5": {
-          "type": "filter",
-          "settings": {
-            "sort_by_series": "Protein",
-            "sort_by_goal": "BuildMuscle"
-          }
-        },
-        "b98ce9c5-8bc6-4584-9ab6-8269d4f1fc84": {
-          "type": "filter",
-          "settings": {
-            "sort_by_series": "Pre",
-            "sort_by_goal": "Recovery"
-          }
-        },
-        "eaa24368-7d69-419d-b42b-414bedbd2021": {
-          "type": "filter",
-          "settings": {
-            "sort_by_series": "Core",
-            "sort_by_goal": "WeightManagement"
-          }
-        },
-        "1f6af0a1-e2d0-4791-924a-45bcb8c4f189": {
-          "type": "filter",
-          "settings": {
-            "sort_by_series": "Strength",
-            "sort_by_goal": "Energy+Focus"
-          }
-        },
-        "56d01b49-796c-45f3-9029-fedfc15a8b99": {
-          "type": "filter",
-          "settings": {
-            "sort_by_series": "Wellnes",
-            "sort_by_goal": ""
-          }
-        },
-        "4f8b73c0-7c4d-4a2a-ae74-c6f3396e0ac1": {
-          "type": "filter",
-          "settings": {
-            "sort_by_series": "Physique",
-            "sort_by_goal": ""
-          }
-        },
-        "6b5bf530-50b2-4954-bc53-8c4102881d03": {
-          "type": "filter",
-          "settings": {
-            "sort_by_series": "Raw",
-            "sort_by_goal": ""
-          }
-        },
-        "f90829d7-a2d8-4b7a-a0a6-977838c8e3b2": {
-          "type": "filter",
-          "settings": {
-            "sort_by_series": "Mind",
-            "sort_by_goal": ""
-          }
-        }
-      },
-      "block_order": [
-        "9adccdcc-c217-4ec4-bc04-4dffea17bbd5",
-        "b98ce9c5-8bc6-4584-9ab6-8269d4f1fc84",
-        "eaa24368-7d69-419d-b42b-414bedbd2021",
-        "1f6af0a1-e2d0-4791-924a-45bcb8c4f189",
-        "56d01b49-796c-45f3-9029-fedfc15a8b99",
-        "4f8b73c0-7c4d-4a2a-ae74-c6f3396e0ac1",
-        "6b5bf530-50b2-4954-bc53-8c4102881d03",
-        "f90829d7-a2d8-4b7a-a0a6-977838c8e3b2"
-      ],
       "settings": {
-        "columns_desktop": 3,
-        "image_ratio": "adapt",
-        "show_secondary_image": false,
-        "show_vendor": false,
-        "show_rating": false,
-        "enable_filtering": true,
-        "filter_type": "vertical",
-        "enable_sorting": true,
-        "article_show_date": true,
-        "article_show_author": true,
-        "columns_mobile": "2",
         "padding_top": 88,
-        "padding_bottom": 36
+        "padding_bottom": 100
       }
     }
   },

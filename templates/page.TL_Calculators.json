@@ -10,7 +10,7 @@
 {
   "sections": {
     "1657551208afad166c": {
-      "type": "stack-banner",
+      "type": "old-stack-banner",
       "settings": {
         "image1": "shopify://shop_images/Subscribe_Stack_Desktop_Banner1.jpg",
         "image2": "shopify://shop_images/Frame_5.png",
@@ -21,7 +21,7 @@
       }
     },
     "165754708436fae198": {
-      "type": "TL_Calculators",
+      "type": "old-TL_Calculators",
       "blocks": {
         "883680ad-08d7-4654-97c0-552bc1494165": {
           "type": "image",

@@ -1,5 +1,5 @@
-<div class="max-w-7xl mx-auto px-4 py-8 text-blue-500">
-  <h1 class="border-b-2 border-gray-300 mb-8 pb-4 uppercase md:text-2xl lg:mb-16">
+<div class="max-w-7xl mx-auto px-4 py-8 text-blue-500 td-register-template">
+  <h1 class="border-b-2 border-gray-300 mb-8 pb-4 uppercase md:text-2xl lg:mb-16 register-header">
     Create Account
   </h1>
 
@@ -71,3 +71,175 @@
     {% endform %}
   </div>
 </div>
+
+{% style %}
+
+  /* Layout utilities (px equivalents based on 16px root) */
+  .td-register-template.max-w-7xl,
+  .td-register-template .max-w-7xl {
+    max-width: 1280px; /* 80rem */
+  }
+
+  .td-register-template .max-w-sm {
+    max-width: 384px; /* 24rem */
+  }
+
+  .td-register-template.px-4 {
+    padding-left: 16px; /* 1rem */
+    padding-right: 16px; /* 1rem */
+  }
+
+  .td-register-template.py-8 {
+    padding-top: 32px; /* 2rem */
+    padding-bottom: 32px; /* 2rem */
+  }
+
+  .td-register-template .mb-8 {
+    margin-bottom: 32px; /* 2rem */
+  }
+
+  .td-register-template .pb-4 {
+    padding-bottom: 16px; /* 1rem */
+  }
+
+  .td-register-template .lg\:mb-16 {
+    margin-bottom: 32px; /* same as mb-8 on mobile */
+  }
+  @media (min-width: 1024px) {
+    .td-register-template .lg\:mb-16 {
+      margin-bottom: 64px; /* 4rem */
+    }
+  }
+
+  .td-register-template .md\:text-2xl {
+    font-size: 24px;
+    line-height: 32px;
+  }
+
+  /* Remove underline for links on this template only */
+  .td-register-template a {
+    text-decoration: none;
+  }
+
+  .td-register-template.text-blue-500 {
+    --tw-text-opacity: 1;
+    color: rgb(19 40 54 / var(--tw-text-opacity));
+}
+
+  .td-register-template .border-b-2 {
+    border-bottom-width: 2px;
+    border-bottom: 2px solid;
+  }
+
+  .td-register-template .border-gray-300 {
+    --tw-border-opacity: 1;
+    border-color: rgb(247 249 252 / var(--tw-border-opacity));
+  }
+
+  .td-register-template .button::before,
+  .td-register-template .button::after,
+  .td-register-template button::before,
+  .td-register-template button::after,
+  .td-register-template .button:not([disabled]):hover::after {
+    content: none !important;
+    display: none !important;
+    box-shadow: none !important;
+  }
+
+  /* Inputs */
+  .td-register-template .text-input {
+    width: 100%;
+    flex: 1 1 0%;
+    border-radius: 12px; /* 0.75rem */
+    border-width: 2px;
+    border-color: rgb(184 184 189 / var(--tw-border-opacity));
+    --tw-border-opacity: .2;
+    padding: 16px; /* 1rem */
+    font-size: 14px;
+    line-height: 20px;
+    outline: 2px solid transparent;
+    outline-offset: 2px;
+  }
+
+  .td-register-template .text-input:focus {
+    --tw-border-opacity: 1;
+    border-color: rgb(253 106 76 / var(--tw-border-opacity));
+    --tw-ring-offset-shadow: var(--tw-ring-inset) 0 0 0 var(--tw-ring-offset-width) var(--tw-ring-offset-color);
+    --tw-ring-shadow: var(--tw-ring-inset) 0 0 0 calc(0px + var(--tw-ring-offset-width)) var(--tw-ring-color);
+    box-shadow: var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow, 0 0 #0000);
+  }
+
+  .td-register-template .text-sm {
+    font-size: 14px;
+    line-height: 20px;
+  }
+
+  .td-register-template .space-y-6 > :not([hidden]) ~ :not([hidden]) {
+    --tw-space-y-reverse: 0;
+    margin-top: calc(24px * calc(1 - var(--tw-space-y-reverse))); /* 1.5rem */
+    margin-bottom: calc(24px * var(--tw-space-y-reverse)); /* 1.5rem */
+  }
+
+  /* Normalize form elements inside this template only */
+  .td-register-template button,
+  .td-register-template [type=button],
+  .td-register-template [type=reset],
+  .td-register-template [type=submit] {
+    -webkit-appearance: button;
+    background-color: transparent;
+    background-image: none;
+    border: none;
+  }
+
+  .td-register-template button,
+  .td-register-template input,
+  .td-register-template optgroup,
+  .td-register-template select,
+  .td-register-template textarea {
+    font-family: inherit;
+    font-size: 100%;
+    line-height: inherit;
+    color: inherit;
+    margin: 0;
+    padding: 0;
+  }
+
+  /* Button styling (register only) */
+  .td-register-template .button {
+    padding: 14px 10px 16px;
+    color: var(--black);
+    font-family: var(--font-neue);
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 500;
+    border-radius: 40px;
+    line-height: 100%;
+    width: 100%;
+    max-width: 360px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    justify-content: center;
+    text-transform: capitalize;
+  }
+
+  .td-register-template button[type="submit"] {
+    border-radius: 40px;
+    border: 1px solid #ffffff;
+    background: rgba(17, 19, 20, 0.20);
+    color: #ffffff;
+    padding: 17px 0;
+  }
+
+  .td-register-template .button:hover {
+    opacity: .75;
+  }
+
+  .td-register-template ol,
+  .td-register-template ul,
+  .td-register-template menu {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+{% endstyle %}

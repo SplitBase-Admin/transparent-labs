@@ -10,16 +10,16 @@
 {
   "sections": {
     "new_breadcrumb_aXfjDq": {
-      "type": "new-breadcrumb",
+      "type": "old-new-breadcrumb",
       "settings": {}
     },
     "main": {
-      "type": "main-page",
+      "type": "old-main-page",
       "disabled": true,
       "settings": {}
     },
     "html_sitemap_FCUMgm": {
-      "type": "html-sitemap",
+      "type": "old-html-sitemap",
       "settings": {}
     }
   },

@@ -1,11 +1,13 @@
-<div class="max-w-7xl mx-auto px-4 py-8 text-blue-500">
-  <h1 class="border-b-2 border-gray-300 uppercase md:text-2xl login-header">
-    Customer Login
-  </h1>
-  <p class="mb-8 pb-4 uppercase md:text-2xl lg:mb-16 login-note">To view or update your subscription, click here: <a href="https://www.transparentlabs.com/a/account/login" style="text-decoration:underline; color:rgb(253 106 76);"> Manage Subscriptions</a></p>
+<div class="max-w-7xl mx-auto px-4 py-8 text-blue-500 td-login-template">
+  <h1 class="border-b-2 border-gray-300 uppercase md:text-2xl login-header">Customer Login</h1>
+  <p class="mb-8 pb-4 uppercase md:text-2xl lg:mb-16 login-note">
+    To view or update your subscription, click here:
+    <a href="https://www.transparentlabs.com/a/account/login" style="text-decoration:underline; color:rgb(253 106 76);">
+      Manage Subscriptions</a
+    >
+  </p>
   <div class="max-w-sm mx-auto" id="login-form">
     {% form 'customer_login' %}
-      
       <div class="mb-4">
         {{ form.errors | default_errors }}
       </div>
@@ -105,13 +107,211 @@
   </div>
 </div>
 
+{% style %}
+
+  /* Layout utilities (px equivalents based on 16px root) */
+  .td-login-template.max-w-7xl,
+  .td-login-template .max-w-7xl {
+    max-width: 1280px; /* 80rem */
+  }
+
+  .td-login-template .max-w-sm {
+    max-width: 384px; /* 24rem */
+  }
+
+  .td-login-template.px-4 {
+    padding-left: 16px; /* 1rem */
+    padding-right: 16px; /* 1rem */
+  }
+
+  .td-login-template.py-8 {
+    padding-top: 32px; /* 2rem */
+    padding-bottom: 32px; /* 2rem */
+  }
+
+  .td-login-template .mb-8 {
+    margin-bottom: 32px; /* 2rem */
+  }
+
+  .td-login-template .pb-4 {
+    padding-bottom: 16px; /* 1rem */
+  }
+
+  .td-login-template .lg\:mb-16 {
+    margin-bottom: 32px; /* same as mb-8 on mobile */
+  }
+  @media (min-width: 1024px) {
+    .td-login-template .lg\:mb-16 {
+      margin-bottom: 64px; /* 4rem */
+    }
+  }
+
+  .td-login-template .md\:text-2xl {
+    font-size: 24px;
+    line-height: 32px;
+  }
+
+  .td-login-template .button::before,
+  .td-login-template .button::after,
+  .td-login-template button::before,
+  .td-login-template button::after,
+  .td-login-template .button:not([disabled]):hover::after {
+    content: none !important;
+    display: none !important;
+    box-shadow: none !important;
+  }
+
+  .td-login-template h1.login-header {
+    text-align: center;
+  }
+  .td-login-template p.login-note {
+    text-align: center;
+    margin-top: 16px; /* 1rem */
+    font-size: 18px;
+    text-transform: none;
+  }
+
+  .td-login-template a {
+    text-decoration: none;
+  }
+
+  .td-login-template.text-blue-500 {
+    --tw-text-opacity: 1;
+    color: rgb(19 40 54 / var(--tw-text-opacity));
+}
+
+.td-login-template .border-b-2 {
+    border-bottom-width: 2px;
+    border-bottom: 2px solid;
+}
+
+  .td-login-template .border-gray-300 {
+    --tw-border-opacity: 1;
+    border-color: rgb(247 249 252 / var(--tw-border-opacity));
+  }
+
+.td-login-template .text-input {
+    width: 100%;
+    flex: 1 1 0%;
+    border-radius: 12px; /* 0.75rem */
+    border-width: 2px;
+    border-color: rgb(184 184 189 / var(--tw-border-opacity));
+    --tw-border-opacity: .2;
+    padding: 16px; /* 1rem */
+    font-size: 14px;
+    line-height: 20px;
+    outline: 2px solid transparent;
+    outline-offset: 2px;
+}
+
+.td-login-template .text-input:focus {
+  --tw-border-opacity: 1;
+  border-color: rgb(253 106 76 / var(--tw-border-opacity));
+  --tw-ring-offset-shadow: var(--tw-ring-inset) 0 0 0 var(--tw-ring-offset-width) var(--tw-ring-offset-color);
+  --tw-ring-shadow: var(--tw-ring-inset) 0 0 0 calc(0px + var(--tw-ring-offset-width)) var(--tw-ring-color);
+  box-shadow: var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow, 0 0 #0000);
+}
+
+.td-login-template .text-sm {
+  font-size: 14px;
+  line-height: 20px;
+}
+
+.td-login-template .space-y-6>:not([hidden])~:not([hidden]) {
+    --tw-space-y-reverse: 0;
+    margin-top: calc(24px * calc(1 - var(--tw-space-y-reverse))); /* 1.5rem */
+    margin-bottom: calc(24px * var(--tw-space-y-reverse)); /* 1.5rem */
+}
+
+  .td-login-template .text-orange-400 {
+    --tw-text-opacity: 1;
+    color: rgb(253 106 76 / var(--tw-text-opacity));
+}
+
+  .td-login-template .transition-opacity {
+    transition-property: opacity;
+    transition-timing-function: 
+cubic-bezier(.4, 0, .2, 1);
+    transition-duration: .15s;
+}
+
+  .td-login-template button,
+  .td-login-template [type=button],
+  .td-login-template [type=reset],
+  .td-login-template [type=submit] {
+    -webkit-appearance: button;
+    background-color: transparent;
+    background-image: none;
+    border: none;
+}
+
+  .td-login-template button,
+  .td-login-template input,
+  .td-login-template optgroup,
+  .td-login-template select,
+  .td-login-template textarea {
+    font-family: inherit;
+    font-size: 100%;
+    line-height: inherit;
+    color: inherit;
+    margin: 0;
+    padding: 0;
+}
+
+  .td-login-template button[type="submit"] {
+  border-radius: 40px;
+  border: 1px solid #ffffff;
+  background: rgba(17, 19, 20, 0.20);
+  color: #ffffff;
+  padding: 17px 0;
+}
+
+  .td-login-template .button {
+    padding: 14px 10px 16px;
+    color: var(--black);
+    font-family: var(--font-neue);
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 500;
+    border-radius: 40px;
+    line-height: 100%;
+    display: block;
+    width: 100%;
+    max-width: 360px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    justify-content: center;
+    text-transform: capitalize;
+}
+
+  .td-login-template .button:hover {
+    opacity: .75;
+  }
+
+  .td-login-template ol,
+  .td-login-template ul,
+  .td-login-template menu {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+  @media (min-width: 768px) {
+    .td-login-template .md\:text-2xl {
+      font-size: 24px; /* 1.5rem */
+      line-height: 32px; /* 2rem */
+    }
+  }
+{% endstyle %}
+
 <script>
-  document.getElementById('reset-password').addEventListener('click', function() {
+  document.getElementById('reset-password').addEventListener('click', function () {
     document.getElementById('login-form').classList.add('hidden');
     document.getElementById('reset-password-form').classList.remove('hidden');
   });
 
-  document.getElementById('cancel-reset-password').addEventListener('click', function() {
+  document.getElementById('cancel-reset-password').addEventListener('click', function () {
     document.getElementById('login-form').classList.remove('hidden');
     document.getElementById('reset-password-form').classList.add('hidden');
   });

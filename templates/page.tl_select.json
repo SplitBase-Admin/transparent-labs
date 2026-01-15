@@ -10,12 +10,12 @@
 {
   "sections": {
     "main": {
-      "type": "main-page",
+      "type": "old-main-page",
       "disabled": true,
       "settings": {}
     },
     "1656328127b1100824": {
-      "type": "index-slider-v2",
+      "type": "old-index-slider-v2",
       "blocks": {
         "54880d1e-a6e3-4ec5-a43b-a97fe2ee1575": {
           "type": "slide",
@@ -41,7 +41,7 @@
       "settings": {}
     },
     "1656329312631b1af6": {
-      "type": "select-tab",
+      "type": "old-select-tab",
       "settings": {
         "tab1_img": "shopify://shop_images/tl_logo_blue.png",
         "tab1": "Select",
@@ -52,7 +52,7 @@
       }
     },
     "1656330317f4f8f515": {
-      "type": "tl-select-slider",
+      "type": "old-tl-select-slider",
       "blocks": {
         "73e1a69b-685d-4efd-8176-84364e42ba37": {
           "type": "image",
@@ -72,7 +72,7 @@
       "settings": {}
     },
     "165633352943db5b8a": {
-      "type": "tl-select-perks",
+      "type": "old-tl-select-perks",
       "blocks": {
         "32ebc286-6a2b-4660-b0ec-df60a626a678": {
           "type": "text",
@@ -133,7 +133,7 @@
       }
     },
     "1656337979b39076f9": {
-      "type": "tl-select-packages",
+      "type": "old-tl-select-packages",
       "settings": {
         "bg_img": "shopify://shop_images/Select_Teirs_BG.png",
         "heading1": "Select",
@@ -145,7 +145,7 @@
       }
     },
     "16563380437bdbf2a4": {
-      "type": "tl-select-faq",
+      "type": "old-tl-select-faq",
       "blocks": {
         "61287713-6531-4537-9440-748055b5c7ec": {
           "type": "text",

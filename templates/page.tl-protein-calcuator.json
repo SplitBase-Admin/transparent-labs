@@ -10,7 +10,7 @@
 {
   "sections": {
     "16563557185226d8d5": {
-      "type": "TL-protein-calcuator",
+      "type": "old-TL-protein-calcuator",
       "settings": {
         "header_image": "shopify://shop_images/image_6.png",
         "title": "Protein Calculator",

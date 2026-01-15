@@ -10,7 +10,7 @@
 {
   "sections": {
     "main": {
-      "type": "new-macro-calculator",
+      "type": "old-new-macro-calculator",
       "settings": {
         "header_image": "shopify://shop_images/Group.png",
         "title": "Macro Calculator",

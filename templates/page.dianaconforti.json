@@ -10,7 +10,7 @@
 {
   "sections": {
     "eea20620-d5bf-4631-a9a7-9630ab560a06": {
-      "type": "index-image-with-text",
+      "type": "old-index-image-with-text",
       "disabled": true,
       "custom_css": [
         "img {max-width: 70%;}",
@@ -27,7 +27,7 @@
       }
     },
     "d3cf2e95-7abb-4382-8498-1042b39eadd7": {
-      "type": "bulk-affiliate-main-banner",
+      "type": "old-bulk-affiliate-main-banner",
       "custom_css": [],
       "settings": {
         "image_only": false,
@@ -41,20 +41,20 @@
       }
     },
     "b45048cd-f528-475a-8264-4f948b471942": {
-      "type": "influencer-product",
+      "type": "old-influencer-product",
       "blocks": {
         "bcb9ce21-18c1-46b0-8c85-660b280e6d68": {
           "type": "text",
           "settings": {
             "collection_type": "",
             "product_type": "Build Muscle & Recover",
-            "product_1": "proteinseries-100-grass-fed-whey-protein-isolate",
+            "product_1": "whey-protein-isolate",
             "detail_1": "• <strong>Increase Muscle Protein Synthesis</strong><br>\n• No artificial colors, flavors, or sweeteners<br>\n• 100% Grass-fed, Hormone Free<br>\n• Easily Digestible and fast-acting",
             "product_type_1": "Daily Nutrition",
             "product_2": "greens",
             "detail_2": "• <strong>Get Your Daily Dose of Greens &amp; Fiber</strong><br>\n• Supports gut health<br>\n• 8g of prebiotic fiber<br>",
             "product_type_2": "Energy & Performance",
-            "product_3": "preseries-bulk-preworkout",
+            "product_3": "bulk-preworkout",
             "detail_3": "• <strong>Increase Energy &amp; Focus</strong><br>\n• Boost energy &amp; increase stamina<br>\n• Enhance strength and muscle pumps<br>\n• Support lean muscle growth"
           }
         }
@@ -71,7 +71,7 @@
       }
     },
     "f338a9c2-3168-494e-b4e7-b08979119509": {
-      "type": "influencer-main-banner",
+      "type": "old-influencer-main-banner",
       "disabled": true,
       "settings": {
         "top_heading": "",
@@ -84,7 +84,7 @@
       }
     },
     "c70dec47-0c2c-46fa-a7f6-efa1df957373": {
-      "type": "bulk-affiliate-icons",
+      "type": "old-bulk-affiliate-icons",
       "blocks": {
         "e5f6ecdd-bd06-4e0b-b4c3-ddbdd91539c4": {
           "type": "image",
@@ -128,7 +128,7 @@
       "settings": {}
     },
     "1a9b2478-a05d-4c94-bdc0-0cf466ca7f06": {
-      "type": "bulk-affiliate-ingrediants",
+      "type": "old-bulk-affiliate-ingrediants",
       "blocks": {
         "64f9369c-4c8c-46b2-a8da-8199fefb813b": {
           "type": "image",
@@ -182,20 +182,20 @@
       }
     },
     "main": {
-      "type": "bulk-affiliate",
+      "type": "old-bulk-affiliate",
       "blocks": {
         "3df6f53c-b737-4255-b6b0-710b24dfc82c": {
           "type": "text",
           "settings": {
             "collection_type": "",
             "product_type": "BEST DEAL",
-            "product_1": "preseries-bulk-preworkout",
+            "product_1": "bulk-preworkout",
             "detail_1": "• Exclusive Promotions &amp; Discounts<br>\n• Choose Shipping Frequency<br>\n• Cancel or Pause Any Time",
             "product_type_1": "MAXIMUM RESULTS",
             "product_2": "muscle-building-stacks",
             "detail_2": "• <strong>OPTIMIZED BUNDLE MAXIMIZES GAINS</strong><br>\n• Exclusive Promotions &amp; Discounts<br>\n• Choose Shipping Frequency<br>\n• Cancel or Pause Any Time",
             "product_type_2": "ONE-TIME PURCHASE",
-            "product_3": "preseries-bulk-preworkout",
+            "product_3": "bulk-preworkout",
             "detail_3": "<span style=\"text-decoration: line-through;\">• Exclusive Promotions &amp; Discounts<br>\n• Choose Shipping Frequency<br>\n• Cancel or Pause Any Time</span>"
           }
         }
@@ -213,7 +213,7 @@
       }
     },
     "a6d8a429-db3b-4902-b34e-eca0a36a6aaf": {
-      "type": "index-pertner-icons",
+      "type": "old-index-pertner-icons",
       "blocks": {
         "12b15581-3a2d-4dd0-a28f-f7cc94d48ed9": {
           "type": "text",
@@ -262,13 +262,13 @@
       }
     },
     "d5dae2ee-29b0-4b3e-9fa5-433d1cdde0e0": {
-      "type": "bulk-affiliate-body-banner",
+      "type": "old-bulk-affiliate-body-banner",
       "settings": {
         "image": "shopify://shop_images/Paulina.webp"
       }
     },
     "42981725-61f5-4256-a388-54f731e0ba6d": {
-      "type": "bulk-affiliate-reviews",
+      "type": "old-bulk-affiliate-reviews",
       "blocks": {
         "da50697f-8e87-4bb5-8fe5-c0b15dfa57da": {
           "type": "text",
@@ -308,7 +308,7 @@
       }
     },
     "546eb5e9-b2c7-4811-8aad-4df05df0b17f": {
-      "type": "index-testimonials",
+      "type": "old-index-testimonials",
       "blocks": {
         "6d3c5c8d-f2f6-4b90-90fb-ed0b929f1dec": {
           "type": "text",

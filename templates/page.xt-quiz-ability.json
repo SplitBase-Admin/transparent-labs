@@ -10,7 +10,7 @@
 {
   "sections": {
     "new_breadcrumb_aXfjDq": {
-      "type": "new-breadcrumb",
+      "type": "old-new-breadcrumb",
       "disabled": true,
       "settings": {}
     },
@@ -20,7 +20,7 @@
       "settings": {}
     },
     "xt_quiz_ability_4HCXrL": {
-      "type": "xt-quiz-ability",
+      "type": "old-xt-quiz-ability",
       "blocks": {
         "quiz_i6FGci": {
           "type": "Quiz",
@@ -44,7 +44,7 @@
         "quizwithoption_pGMJG4": {
           "type": "Quizwithoption",
           "settings": {
-            "heading": "Would you like to see products recommended for:",
+            "heading": "You would like to see products recommended for:",
             "subheading": "",
             "target": "gender",
             "option1": "Men",
@@ -125,10 +125,10 @@
           "type": "Quizwithresult",
           "settings": {
             "heading": "We have your results!",
-            "subheading": "Enter your email to get a copy of your recommendations, access to personalized content, and a discount on your order.",
+            "subheading": "Enter your email to get a copy of your recommendations, access to personalized content, and 10% off your first order.",
             "inputelement": true,
             "placeholder": "Email",
-            "btn_text": "Submit",
+            "btn_text": "Next",
             "skip_btn_text": "Skip"
           }
         },

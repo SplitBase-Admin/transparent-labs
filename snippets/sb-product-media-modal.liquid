@@ -1,0 +1,198 @@
+{% comment %}
+  Renders a product media modal. Also see 'product-media-gallery'
+
+  Accepts:
+  - product: {Object} Product liquid object
+  - variant_images: {Array} Product images associated with a variant
+
+  Usage:
+  {% render 'product-media-modal' %}
+{% endcomment %}
+
+{%- capture sliderOptions -%}
+{
+  "centeredSlides": true,
+  "slidesPerView": 1,
+  "spaceBetween": 10,
+  "effect": "fade",
+  "loop": true,
+  "zoom": true,
+  "navigation": {
+      "nextEl": ".sb-product-media-modal__arrows--{{ section.id }} .sb-next-arrow",
+      "prevEl": ".sb-product-media-modal__arrows--{{ section.id }} .sb-prev-arrow"
+    }
+}  
+{%- endcapture -%}
+{% stylesheet %}
+.sb-media-modal .product-media-modal__content {
+  padding: 0;
+}
+.sb-product-media-modal__arrows {
+  position: absolute;
+  top: 50%;
+  z-index: 19;
+  display: flex!important;
+  justify-content: space-between;
+  width: 100%;
+  padding: 0 16px;
+  margin: 0 !important;
+}
+.sb-media-modal .swiper-slide {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: auto;
+  background-color: #fff;
+}
+.sb-media-modal .swiper-slide img {
+  max-height: 100vh;
+  object-fit: contain;
+  width: 100vw;
+  border: none;
+}
+.sb-product-media-modal__arrows {
+  opacity: .75;
+  transition: all 0.15s ease;
+}
+.sb-arrow-icon {
+  transition: all 0.15s ease;
+}
+.sb-product-media-modal__arrows svg {
+  width: 36px;
+}
+.sb-product-media-modal__arrows .sb-prev-arrow {
+  transform: rotate(180deg);
+}
+
+.sb-product-media-modal__arrows *:focus-visible {
+  outline: none;
+  outline-offset: 0;
+  box-shadow: none;
+}
+.product-media-modal .product-media-modal__toggle .icon {
+  transform: rotate(0deg);
+  transition: all 0.3s;
+  width: 18px;
+}
+.product-media-modal__toggle:hover .icon {
+  transform: rotate(90deg) !important;
+}
+.sb-media-modal .product-media-modal__content {
+  cursor: zoom-in;
+}
+.sb-media-modal.product-media-modal {
+  transition: all 0.3s ease;
+}
+@media (min-width: 768px) {
+  .sb-product-media-modal__arrows {
+    padding: 0;
+  }
+  .sb-product-media-modal__arrows .sb-arrow-icon {
+    padding: 0 48px;
+  }
+  .sb-product-media-modal__arrows svg {
+    height: 20px;
+  }
+  .sb-product-media-modal__arrows .sb-arrow-icon:hover {
+    padding-right: 33px;
+  }
+}
+{% endstylesheet %}
+<product-modal id="ProductModal-{{ section.id }}" class="sb-media-modal product-media-modal media-modal">
+  <div
+    class="product-media-modal__dialog color-{{ section.settings.color_scheme }} gradient"
+    role="dialog"
+    aria-label="{{ 'products.modal.label' | t }}"
+    aria-modal="true"
+    tabindex="-1"
+  >
+    <button
+      id="ModalClose-{{ section.id }}"
+      type="button"
+      class="product-media-modal__toggle"
+      aria-label="{{ 'accessibility.close' | t }}"
+    >
+      {{ 'icon-close.svg' | inline_asset_content }}
+    </button>
+
+    <div
+      class="product-media-modal__content color-{{ section.settings.color_scheme }} gradient"
+      role="document"
+      aria-label="{{ 'products.modal.label' | t }}"
+      tabindex="0"
+    >
+      {%- liquid
+        assign variant_options = ''
+        if product.selected_or_first_available_variant.option1 and product.selected_or_first_available_variant.option1 != blank
+          assign variant_options = variant_options | append: product.selected_or_first_available_variant.option1 | downcase | append: '|'
+        endif
+        if product.selected_or_first_available_variant.option2 and product.selected_or_first_available_variant.option2 != blank
+          assign variant_options = variant_options | append: product.selected_or_first_available_variant.option2 | downcase | append: '|'
+        endif
+        if product.selected_or_first_available_variant.option3 and product.selected_or_first_available_variant.option3 != blank
+          assign variant_options = variant_options | append: product.selected_or_first_available_variant.option3 | downcase | append: '|'
+        endif
+        assign variant_options_array = variant_options | split: '|'
+      -%}
+
+      <swiper-slider
+        data-swiper-options='{{ sliderOptions }}'
+        class="swiper-slider-container active"
+      >
+        <div class="swiper" data-swiper>
+          <div class="swiper-wrapper">
+            {%- if product.selected_or_first_available_variant.featured_media != null -%}
+              {%- assign media = product.selected_or_first_available_variant.featured_media -%}
+              <div class="swiper-slide" data-swiper-slide>
+                <div class="swiper-zoom-container">
+                  {% render 'product-media', media: media, loop: section.settings.enable_video_looping, variant_image: section.settings.hide_variants %}
+                </div>
+              </div>
+            {%- endif -%}
+
+            {%- for media in product.media -%}
+              {%- if section.settings.hide_variants and variant_images contains media.src or variant_images contains media.id -%}
+                {%- assign variant_image = true -%}
+              {%- else -%}
+                {%- assign variant_image = false -%}
+              {%- endif -%}
+
+              {%- assign show_this_media = false -%}
+              {%- assign media_alt_lower = media.alt | default: '' | downcase -%}
+              
+              {%- assign show_this_media = true -%}
+              {%- unless media.alt contains 'all' -%}
+                {%- for elm in variant_options_array -%}
+                  {%- unless media_alt_lower contains elm -%}
+                    {%- assign show_this_media = false -%}
+                  {%- endunless -%}
+                {%- endfor -%}
+              {%- endunless -%}
+
+              {%- if show_this_media and media.id != product.selected_or_first_available_variant.featured_media.id -%}
+                <div class="swiper-slide" data-swiper-slide>
+                  <div class="swiper-zoom-container">
+                    {% render 'product-media', media: media, loop: section.settings.enable_video_looping, variant_image: variant_image %}
+                  </div>
+                </div>
+              {%- endif -%}
+            {%- endfor -%}
+          </div>
+        </div>
+      </swiper-slider>
+
+      <div class="sb-product-media-modal__arrows sb-product-media-modal__arrows--{{ section.id }}">
+        <div class="sb-prev-arrow sb-arrow-icon" title="Previous">
+          <svg fill="none" viewBox="0 0 17 10" height="10" width="17" xmlns="http://www.w3.org/2000/svg">
+            <path stroke-linejoin="round" stroke-linecap="round" stroke-width="1.28571" stroke="#111314" d="M-1.74846e-07 4.64331L16 4.64331M16 4.64331L11.75 8.64331M16 4.64331L11.75 0.64331"></path>
+          </svg>
+        </div>
+        <div class="sb-next-arrow sb-arrow-icon" title="Next">
+          <svg fill="none" viewBox="0 0 17 10" height="10" width="17" xmlns="http://www.w3.org/2000/svg">
+            <path stroke-linejoin="round" stroke-linecap="round" stroke-width="1.28571" stroke="#111314" d="M-1.74846e-07 4.64331L16 4.64331M16 4.64331L11.75 8.64331M16 4.64331L11.75 0.64331"></path>
+          </svg>
+        </div>
+      </div>
+    </div>
+  </div>
+</product-modal>

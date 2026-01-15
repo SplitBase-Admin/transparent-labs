@@ -10,7 +10,7 @@
 {
   "sections": {
     "1656355670207a3faa": {
-      "type": "one_rep_max_calculator",
+      "type": "old-one_rep_max_calculator",
       "settings": {
         "header_image": "shopify://shop_images/image_7_1.png",
         "title": "1 Rep-Max Calculator",

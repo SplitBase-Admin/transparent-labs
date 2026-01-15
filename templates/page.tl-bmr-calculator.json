@@ -10,7 +10,7 @@
 {
   "sections": {
     "1656355579d5f07a59": {
-      "type": "BMR-calculator",
+      "type": "old-BMR-calculator",
       "settings": {
         "header_image": "shopify://shop_images/image_7_2.png",
         "title": "BMR Calculator",

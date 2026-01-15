@@ -10,7 +10,7 @@
 {
   "sections": {
     "f338a9c2-3168-494e-b4e7-b08979119509": {
-      "type": "bulk-affiliate-main-banner",
+      "type": "old-bulk-affiliate-main-banner",
       "custom_css": [],
       "settings": {
         "image_only": false,
@@ -24,7 +24,7 @@
       }
     },
     "c70dec47-0c2c-46fa-a7f6-efa1df957373": {
-      "type": "bulk-affiliate-icons",
+      "type": "old-bulk-affiliate-icons",
       "blocks": {
         "e5f6ecdd-bd06-4e0b-b4c3-ddbdd91539c4": {
           "type": "image",
@@ -64,7 +64,7 @@
       "settings": {}
     },
     "1a9b2478-a05d-4c94-bdc0-0cf466ca7f06": {
-      "type": "bulk-affiliate-ingrediants",
+      "type": "old-bulk-affiliate-ingrediants",
       "blocks": {
         "64f9369c-4c8c-46b2-a8da-8199fefb813b": {
           "type": "image",
@@ -117,7 +117,7 @@
       }
     },
     "b45048cd-f528-475a-8264-4f948b471942": {
-      "type": "bulk-affiliate-product",
+      "type": "old-bulk-affiliate-product",
       "blocks": {
         "bcb9ce21-18c1-46b0-8c85-660b280e6d68": {
           "type": "text",
@@ -147,20 +147,20 @@
       }
     },
     "main": {
-      "type": "bulk-affiliate",
+      "type": "old-bulk-affiliate",
       "blocks": {
         "3df6f53c-b737-4255-b6b0-710b24dfc82c": {
           "type": "text",
           "settings": {
             "collection_type": "",
             "product_type": "BEST DEAL",
-            "product_1": "preseries-bulk-preworkout",
+            "product_1": "bulk-preworkout",
             "detail_1": "• Exclusive Promotions &amp; Discounts<br>\n• Choose Shipping Frequency<br>\n• Cancel or Pause Any Time",
             "product_type_1": "MAXIMUM RESULTS",
             "product_2": "muscle-building-stacks",
             "detail_2": "• <strong>OPTIMIZED BUNDLE MAXIMIZES GAINS</strong><br>\n• Exclusive Promotions &amp; Discounts<br>\n• Choose Shipping Frequency<br>\n• Cancel or Pause Any Time",
             "product_type_2": "ONE-TIME PURCHASE",
-            "product_3": "preseries-bulk-preworkout",
+            "product_3": "bulk-preworkout",
             "detail_3": "<span style=\"text-decoration: line-through;\">• Exclusive Promotions &amp; Discounts<br>\n• Choose Shipping Frequency<br>\n• Cancel or Pause Any Time</span>"
           }
         }
@@ -178,7 +178,7 @@
       }
     },
     "a6d8a429-db3b-4902-b34e-eca0a36a6aaf": {
-      "type": "index-pertner-icons",
+      "type": "old-index-pertner-icons",
       "blocks": {
         "12b15581-3a2d-4dd0-a28f-f7cc94d48ed9": {
           "type": "text",
@@ -227,7 +227,7 @@
       }
     },
     "42981725-61f5-4256-a388-54f731e0ba6d": {
-      "type": "bulk-affiliate-reviews",
+      "type": "old-bulk-affiliate-reviews",
       "blocks": {
         "cedd8563-f887-4f56-80c3-649593bd5442": {
           "type": "text",

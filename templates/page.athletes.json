@@ -10,11 +10,11 @@
 {
   "sections": {
     "new_breadcrumb_aXfjDq": {
-      "type": "new-breadcrumb",
+      "type": "old-new-breadcrumb",
       "settings": {}
     },
     "main": {
-      "type": "main-page",
+      "type": "old-main-page",
       "settings": {}
     }
   },

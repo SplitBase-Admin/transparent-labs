@@ -13,30 +13,25 @@
 <!-- Code for subscriber -->
 
   <script>
-    window.location.href = "https://www.transparentlabs.com/tools/recurring/login/customer/{{customer.id}}?";
+    window.location.href = "https://www.transparentlabs.com/a/account/login";
   </script>
   
 
 {% else %}
 <!-- Code for normal customer  -->
-  <div class="xac-nav">
+  <div class="xac-nav td-account-tabs">
   <div class="container">
     <ul class="xnav">
-      <li><a onclick="letsDoThis(this)" class="recharge-nav active" data-index="1">Subscription</a></li>
-      <li><a onclick="letsDoThis(this)" class="recharge-nav" data-index="2">Order History</a></li>
-      <li><a onclick="letsDoThis(this)" class="recharge-nav" data-index="3">Account</a></li>
-      <li><a href="/pages/contact-us" class="recharge-nav" data-index="4">FAQ</a></li>
-      <li><a href="/pages/contact-us" class="recharge-nav" data-index="5">Support</a></li>
+      <li><a onclick="letsDoThis(this)" class="recharge-nav active" data-index="1">Order History</a></li>
+      <li><a onclick="letsDoThis(this)" class="recharge-nav" data-index="2">Account</a></li>
+      <li><a href="/pages/contact-us" class="recharge-nav" data-index="3">FAQ</a></li>
+      <li><a href="/pages/contact-us" class="recharge-nav" data-index="4">Support</a></li>
     </ul>
   </div>
 </div>
  
-  <!--   Start of code Narendra -->
-  <div class="np-coding x-subscription x-hide" style="display:block;">
-    {% section 'recharge-stack-products' %}
-  </div>
-  <div class="np-coding x-orderhistory x-hide" style="display:none;">
-    <div class="max-w-7xl mx-auto px-4 py-8 text-blue-500">
+  <div class="np-coding x-orderhistory x-hide" style="display:block;">
+    <div class="max-w-7xl mx-auto px-4 py-8 text-blue-500 td-account-template">
        <div class="lg:col-span-2">
           <h2 class="border-b-2 border-gray-300 uppercase mb-8 pb-2">
             ORDER HISTORY
@@ -88,25 +83,29 @@
   </div>
   <div class="np-coding x-account x-hide" style="display:none;">
       <!-- Do not delete this code  -->
-      <div class="max-w-7xl mx-auto px-4 py-8 text-blue-500">
+      <div class="max-w-7xl mx-auto px-4 py-8 text-blue-500 td-account-template">
         <div class="border-b-2 border-gray-300 flex items-center justify-between mb-8 pb-4 lg:mb-16">
           <h1 class="uppercase md:text-2xl">
             My Account
           </h1>
       
           <a class="flex items-center text-sm" href="{{ routes.account_logout_url }}">
-            <span class="mr-3"> {%- render 'icon-logout' -%}</span>
+            <span class="mr-3">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" style="display:block" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true" focusable="false">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"></path>
+              </svg>
+            </span>
             LOGOUT
           </a>
         </div>
-        <div class="gap-8 grid grid-cols-1 lg:grid-cols-3">
+        <div class="gap-8 grid grid-cols-1 lg:grid-cols-3 td-account-template--content">
           <div>
             <h2 class="border-b-2 border-gray-300 uppercase mb-8 pb-2">
               {{ customer.name }}
             </h2>
               <!-- Begin ReCharge code -->
               <p id="rc_link_container">
-                  <a class="bg-blue-light font-bold py-2 rounded text-white w-full" href="/tools/recurring/login">Manage Subscriptions</a>
+                  <a class="bg-blue-light font-bold py-2 rounded text-white w-full" href="/a/account/login">Manage Subscriptions</a>
               </p>
               <!-- End ReCharge code -->
             <div>
@@ -131,28 +130,231 @@
       </div>
   </div>
   <div class="np-coding x-faq x-hide" style="display:none;">
-    <div class="max-w-7xl mx-auto px-4 py-8 text-blue-500">
+    <div class="max-w-7xl mx-auto px-4 py-8 text-blue-500 td-account-template">
     <h3>Faq</h3>
     </div>
   </div>
   <div class="np-coding x-support x-hide" style="display:none;">
-    <div class="max-w-7xl mx-auto px-4 py-8 text-blue-500">
+    <div class="max-w-7xl mx-auto px-4 py-8 text-blue-500 td-account-template">
     <h3>Support</h3>
     </div>
   </div>
   <!--   End of code Narendra -->
 
+  {% style %}
+    /* Layout utilities (px equivalents based on 16px root) */
+    .td-account-template.max-w-7xl,
+    .td-account-template .max-w-7xl {
+      max-width: 1280px; /* 80rem */
+    }
+
+    .td-account-template .max-w-sm {
+      max-width: 384px; /* 24rem */
+    }
+
+    .td-account-template.px-4 {
+      padding-left: 16px; /* 1rem */
+      padding-right: 16px; /* 1rem */
+    }
+
+    .td-account-template.py-8 {
+      padding-top: 32px; /* 2rem */
+      padding-bottom: 32px; /* 2rem */
+    }
+
+    .td-account-template .mb-8 {
+      margin-bottom: 32px; /* 2rem */
+    }
+
+    .td-account-template .pb-4 {
+      padding-bottom: 16px; /* 1rem */
+    }
+
+    .td-account-template .lg\:mb-16 {
+      margin-bottom: 32px; /* same as mb-8 on mobile */
+    }
+    @media (min-width: 1024px) {
+      .td-account-template .lg\:mb-16 {
+        margin-bottom: 64px; /* 4rem */
+      }
+    }
+
+    .td-account-template .md\:text-2xl {
+      font-size: 24px;
+      line-height: 32px;
+    }
+
+    @media (min-width: 768px) {
+      .td-account-template .md\:text-2xl {
+        font-size: 24px;
+        line-height: 32px;
+      }
+    }
+
+    /* Remove default h1 margins in the Account tab */
+    .td-account-template h1 {
+      margin: 0;
+      color: inherit;
+    }
+
+    .td-account-template p {
+      margin: 5px 0;
+    }
+
+    /* H2 sizing: 28px mobile, 36px tablet, 40px desktop */
+    .td-account-template h2 {
+      font-size: 28px;
+      line-height: 36px;
+    }
+    @media (min-width: 768px) {
+      .td-account-template h2 {
+        font-size: 36px;
+        line-height: 44px;
+      }
+    }
+    @media (min-width: 1024px) {
+      .td-account-template h2 {
+        font-size: 40px;
+        line-height: 48px;
+      }
+    }
+
+    .td-account-template .button::before,
+    .td-account-template .button::after,
+    .td-account-template button::before,
+    .td-account-template button::after,
+    .td-account-template .button:not([disabled]):hover::after {
+      content: none !important;
+      display: none !important;
+      box-shadow: none !important;
+    }
+
+    /* Remove underline for links inside Account tab only */
+    .td-account-template a {
+      text-decoration: none;
+      color: inherit;
+    }
+
+    /* Ensure this wrapper sets the base text color for My Account + Logout */
+    .td-account-template {
+      --tw-text-opacity: 1;
+      color: rgb(19 40 54 / var(--tw-text-opacity));
+    }
+
+    .td-account-template .bg-blue-light {
+      --tw-bg-opacity: 1;
+      background-color: rgb(18 126 173 / var(--tw-bg-opacity));
+    }
+
+    .td-account-template a.bg-blue-light {
+      color: #ff5d0d;
+    }
+
+    .td-account-template .border-b-2 {
+      border-bottom-width: 2px;
+      border-bottom: 2px solid;
+    }
+
+    .td-account-template .border-gray-300 {
+      --tw-border-opacity: 1;
+      border-color: rgb(247 249 252 / var(--tw-border-opacity));
+    }
+
+    .td-account-template .text-input {
+      width: 100%;
+      flex: 1 1 0%;
+      border-radius: 12px; /* 0.75rem */
+      border-width: 2px;
+      border-color: rgb(184 184 189 / var(--tw-border-opacity));
+      --tw-border-opacity: .2;
+      padding: 16px; /* 1rem */
+      font-size: 14px;
+      line-height: 20px;
+      outline: 2px solid transparent;
+      outline-offset: 2px;
+    }
+
+    .td-account-template .text-input:focus {
+      --tw-border-opacity: 1;
+      border-color: rgb(253 106 76 / var(--tw-border-opacity));
+      --tw-ring-offset-shadow: var(--tw-ring-inset) 0 0 0 var(--tw-ring-offset-width) var(--tw-ring-offset-color);
+      --tw-ring-shadow: var(--tw-ring-inset) 0 0 0 calc(0px + var(--tw-ring-offset-width)) var(--tw-ring-color);
+      box-shadow: var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow, 0 0 #0000);
+    }
+
+    .td-account-template .text-sm {
+      font-size: 14px;
+      line-height: 20px;
+    }
+
+    .td-account-template .space-y-6 > :not([hidden]) ~ :not([hidden]) {
+      --tw-space-y-reverse: 0;
+      margin-top: calc(24px * calc(1 - var(--tw-space-y-reverse))); /* 1.5rem */
+      margin-bottom: calc(24px * var(--tw-space-y-reverse)); /* 1.5rem */
+    }
+
+    .td-account-template .text-orange-400 {
+      --tw-text-opacity: 1;
+      color: rgb(253 106 76 / var(--tw-text-opacity));
+    }
+
+    .td-account-template .transition-opacity {
+      transition-property: opacity;
+      transition-timing-function: cubic-bezier(.4, 0, .2, 1);
+      transition-duration: .15s;
+    }
+
+    /* Normalize form elements inside Account tab only */
+    .td-account-template button,
+    .td-account-template [type=button],
+    .td-account-template [type=reset],
+    .td-account-template [type=submit] {
+      -webkit-appearance: button;
+      background-color: transparent;
+      background-image: none;
+      border: none;
+    }
+
+    .td-account-template button,
+    .td-account-template input,
+    .td-account-template optgroup,
+    .td-account-template select,
+    .td-account-template textarea {
+      font-family: inherit;
+      font-size: 100%;
+      line-height: inherit;
+      color: inherit;
+      margin: 0;
+      padding: 0;
+    }
+
+    .td-account-template ol,
+    .td-account-template ul,
+    .td-account-template menu {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+    }
+    .td-account-tabs a {
+      cursor: pointer;
+    }
+    @media (max-width: 1024px) {
+      .td-account-template--content {
+        grid-template-columns: 1fr;
+      }
+    }
+  {% endstyle %}
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js" defer></script>
 <script>
   function letsDoThis(e)
   {
       $('.recharge-nav').removeClass('active');
       $(e).addClass('active');
       var val = e.dataset.index;
-      if(val == 1){$(".x-hide").hide();$(".x-subscription").show();}
-      if(val == 2){$(".x-hide").hide();$(".x-orderhistory").show();}
-      if(val == 3){$(".x-hide").hide();$(".x-account").show();}
-      if(val == 4){$(".x-hide").hide();$(".x-faq").show();}
-      if(val == 5){$(".x-hide").hide();$(".x-support").show();}
+      if(val == 1){$(".x-hide").hide();$(".x-orderhistory").show();}
+      if(val == 2){$(".x-hide").hide();$(".x-account").show();}
+      if(val == 3){$(".x-hide").hide();$(".x-faq").show();}
+      if(val == 4){$(".x-hide").hide();$(".x-support").show();}
   };
 </script>
 {% endif %}
@@ -169,7 +371,9 @@
       href="{{ routes.account_logout_url }}"
     >
       <span class="mr-3">
-      {%- render 'icon-logout' -%}
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" style="display:block" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true" focusable="false">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"></path>
+        </svg>
       </span>
 
       LOGOUT

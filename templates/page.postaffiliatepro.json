@@ -10,7 +10,7 @@
 {
   "sections": {
     "16530521437bc846a8": {
-      "type": "postaffiliatepro-banner",
+      "type": "old-postaffiliatepro-banner",
       "blocks": {
         "001ef431-e277-423e-ba24-9d27756410e4": {
           "type": "slide",
@@ -35,7 +35,7 @@
       "settings": {}
     },
     "main": {
-      "type": "postaffiliatepro",
+      "type": "old-postaffiliatepro",
       "settings": {
         "desktop_image": "shopify://shop_images/DSC07282_1b53fa26-6827-4aa6-8ec0-6748a678fd64.jpg",
         "mobile_image": "shopify://shop_images/H2B-edits-585.jpg"

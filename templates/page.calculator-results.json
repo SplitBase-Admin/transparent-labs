@@ -10,7 +10,7 @@
 {
   "sections": {
     "main": {
-      "type": "calculator-results",
+      "type": "old-calculator-results",
       "blocks": {
         "195b0234-d1bd-4b27-9aac-be20faf29367": {
           "type": "text",

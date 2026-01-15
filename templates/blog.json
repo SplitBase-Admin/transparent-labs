@@ -9,263 +9,402 @@
  */
 {
   "sections": {
-    "new_main_blog_mmCjXV": {
-      "type": "new-main-blog",
-      "blocks": {
-        "featured_article_Ci9LiR": {
-          "type": "featured_article",
-          "settings": {
-            "featured_article": "all/what-to-look-for-in-pre-workout-supplements"
-          }
-        }
-      },
-      "block_order": [
-        "featured_article_Ci9LiR"
-      ],
+    "main": {
+      "type": "main-blog",
+      "disabled": true,
       "settings": {
-        "main_heading": "The Formula",
-        "main_subheading": "Your source of truth for health and fitness",
-        "header_background": "#173446",
-        "main_heading_color": "#ffffff",
-        "main_subheading_color": "#ffffff",
-        "features_title": "Formula Features",
-        "show_recent_articles": false,
-        "sidebar_title": "What’s Trending",
-        "trending_article_1": "all/best-pre-workout-for-weight-loss",
-        "trending_article_2": "all/whey-protein-isolate-vs-concentrate",
-        "trending_article_3": "all/best-stim-free-pre-workout",
-        "newsletter_heading": "Stay Informed",
-        "newsletter_description": "Sign up for our weekly guide to better health."
+        "layout": "collage",
+        "show_image": true,
+        "image_height": "medium",
+        "show_date": true,
+        "show_author": false,
+        "padding_top": 36,
+        "padding_bottom": 36
       }
     },
-    "featured_articles_D9eMhF": {
-      "type": "featured-articles-tag-based",
+    "sb_blog_header_pafUqg": {
+      "type": "sb-blog-header",
       "blocks": {
-        "article_tab_jiEc8m": {
-          "type": "article_tab",
+        "static-blog-header": {
+          "type": "_blog_header",
+          "static": true,
           "settings": {
-            "blog": "all",
-            "article_title": ""
-          }
+            "blog_title": "The Formula",
+            "show_blog_description": true,
+            "blog_description": "<p>Your source of truth for health and fitness</p>",
+            "fg_color": "#ffffff",
+            "bg_color": "#173446",
+            "padding_top": 44,
+            "padding_bottom": 44
+          },
+          "blocks": {}
         },
-        "article_tab_yzUicF": {
-          "type": "article_tab",
+        "static-blog-featured-posts": {
+          "type": "_featured_posts",
+          "static": true,
           "settings": {
-            "blog": "athletes",
-            "article_title": ""
-          }
+            "heading": "Formula Features",
+            "ch_fg_color": "",
+            "ch_bg_color": "#F8F9FB",
+            "padding_top": 64,
+            "padding_bottom": 64
+          },
+          "blocks": {
+            "featured_post_DHQxeq": {
+              "type": "_featured_post",
+              "name": "Featured Post",
+              "settings": {
+                "article": "all/what-to-look-for-in-pre-workout-supplements",
+                "blog": ""
+              },
+              "blocks": {}
+            },
+            "featured_post_DDiWGf": {
+              "type": "_featured_post",
+              "name": "Featured Post",
+              "settings": {
+                "article": "all/whey-protein-vs-plant-protein",
+                "blog": ""
+              },
+              "blocks": {}
+            },
+            "static-slider": {
+              "type": "_slider",
+              "static": true,
+              "settings": {
+                "slides_per_view": 1.2,
+                "space_between_slides": 24,
+                "centered_slides": false,
+                "show_pagination": "always",
+                "show_page_count": "always",
+                "loop": false,
+                "autorotate": false,
+                "mousewheel": true,
+                "autorotate_speed": 5,
+                "slides_offset": 0
+              },
+              "blocks": {
+                "slide_breakpoint_MLjxcN": {
+                  "type": "_slide-breakpoint",
+                  "name": "Break Point",
+                  "settings": {
+                    "breakpoint": 990,
+                    "slides_per_view": 1,
+                    "space_between_slides": 24,
+                    "slides_offset": 0
+                  },
+                  "blocks": {}
+                }
+              },
+              "block_order": [
+                "slide_breakpoint_MLjxcN"
+              ]
+            }
+          },
+          "block_order": [
+            "featured_post_DHQxeq",
+            "featured_post_DDiWGf"
+          ]
         },
-        "article_tab_yK4nfi": {
-          "type": "article_tab",
+        "static-blog-trending-posts": {
+          "type": "_trending_posts",
+          "static": true,
           "settings": {
-            "blog": "health",
-            "article_title": ""
-          }
+            "heading": "What’s Trending",
+            "fg_color": "",
+            "bg_color": "",
+            "ch_fg_color": "",
+            "ch_bg_color": "",
+            "padding_top": 64,
+            "padding_bottom": 64
+          },
+          "blocks": {
+            "trending_post_UCJEPk": {
+              "type": "_trending_post",
+              "name": "Trending Post",
+              "settings": {
+                "article": "all/best-pre-workout-for-weight-loss"
+              },
+              "blocks": {}
+            },
+            "trending_post_tw7iBb": {
+              "type": "_trending_post",
+              "name": "Trending Post",
+              "settings": {
+                "article": "all/whey-protein-isolate-vs-concentrate"
+              },
+              "blocks": {}
+            },
+            "trending_post_Q9Pm6n": {
+              "type": "_trending_post",
+              "name": "Trending Post",
+              "settings": {
+                "article": "all/best-stim-free-pre-workout"
+              },
+              "blocks": {}
+            }
+          },
+          "block_order": [
+            "trending_post_UCJEPk",
+            "trending_post_tw7iBb",
+            "trending_post_Q9Pm6n"
+          ]
         },
-        "article_tab_ywj43K": {
-          "type": "article_tab",
+        "static-mini-newsletter": {
+          "type": "_mini_newsletter",
+          "static": true,
           "settings": {
-            "blog": "motivation",
-            "article_title": ""
-          }
-        },
-        "article_tab_bN8pgb": {
-          "type": "article_tab",
-          "settings": {
-            "blog": "nutrition",
-            "article_title": ""
-          }
+            "heading": "Stay Informed",
+            "subheading": "Sign up for our weekly guide to better health.",
+            "success_message": "",
+            "timeout": 3,
+            "sticky_on_mobile": true,
+            "dismissable": true,
+            "padding_top": 16,
+            "padding_bottom": 16,
+            "fg_color": "#ffffff",
+            "fg_copy_color": "",
+            "bg_color": "#173446",
+            "accent_color": "#000000"
+          },
+          "blocks": {}
         }
       },
-      "block_order": [
-        "article_tab_jiEc8m",
-        "article_tab_yzUicF",
-        "article_tab_yK4nfi",
-        "article_tab_ywj43K",
-        "article_tab_bN8pgb"
-      ],
-      "name": "Featured Article Tabs",
+      "name": "SB Blog Header",
       "settings": {
-        "heading": "Latest Articles"
+        "show_secondary_content": true,
+        "fg_color": "",
+        "bg_color": "",
+        "accent_color": "",
+        "ch_fg_color": "",
+        "ch_bg_color": "",
+        "ch_accent_color": "",
+        "padding_top": 0,
+        "padding_bottom": 60
       }
     },
-    "goal_blocks_LtwNwD": {
-      "type": "goal-blocks",
+    "sb_latest_articles_cnN4WU": {
+      "type": "sb-latest-articles",
       "blocks": {
-        "goal_block_VxrDLH": {
-          "type": "goal_block",
+        "static-blog-card": {
+          "type": "_blog-card",
+          "static": true,
           "settings": {
-            "block_heading": "Find Your Daily Protein Intake",
-            "block_description": "",
-            "block_image": "shopify://shop_images/image.png",
-            "block_link": "https://www.transparentlabs.com/pages/protein-calculator"
-          }
+            "show_blog_title": true,
+            "fg_color": "#000000",
+            "bg_color": "#F8F9FB"
+          },
+          "blocks": {}
         },
-        "goal_block_78dJQV": {
-          "type": "goal_block",
+        "static-slider": {
+          "type": "_slider",
+          "static": true,
           "settings": {
-            "block_heading": "Find Your Daily Macronutrient Breakdown",
-            "block_description": "",
-            "block_image": "shopify://shop_images/image1.png",
-            "block_link": "https://www.transparentlabs.com/pages/macro-calculator"
-          }
-        },
-        "goal_block_bcCwVt": {
-          "type": "goal_block",
-          "settings": {
-            "block_heading": "Find Your Total Daily Energy  Expenditure",
-            "block_description": "",
-            "block_image": "shopify://shop_images/image3_1e76a82f-ec78-4577-9ec2-99a8d7fdc869.png",
-            "block_link": "https://www.transparentlabs.com/pages/tdee-calculator"
-          }
+            "slides_per_view": 1.3,
+            "space_between_slides": 24,
+            "centered_slides": false,
+            "show_pagination": "always",
+            "show_page_count": "always",
+            "loop": false,
+            "autorotate": false,
+            "mousewheel": true,
+            "autorotate_speed": 5,
+            "slides_offset": 16
+          },
+          "blocks": {
+            "slide_breakpoint_Cgma3f": {
+              "type": "_slide-breakpoint",
+              "name": "Break Point",
+              "settings": {
+                "breakpoint": 1024,
+                "slides_per_view": 2.6,
+                "space_between_slides": 24,
+                "slides_offset": 48
+              },
+              "blocks": {}
+            },
+            "slide_breakpoint_x8aCUq": {
+              "type": "_slide-breakpoint",
+              "name": "Break Point",
+              "settings": {
+                "breakpoint": 1440,
+                "slides_per_view": 3.6,
+                "space_between_slides": 24,
+                "slides_offset": 64
+              },
+              "blocks": {}
+            }
+          },
+          "block_order": [
+            "slide_breakpoint_Cgma3f",
+            "slide_breakpoint_x8aCUq"
+          ]
         }
       },
-      "block_order": [
-        "goal_block_VxrDLH",
-        "goal_block_78dJQV",
-        "goal_block_bcCwVt"
-      ],
+      "name": "SB Latest Articles",
       "settings": {
-        "section_layout": "layout_2",
-        "bg_color": "#f8f9fb",
-        "section_heading": "Health & Fitness Calculators",
-        "section_description": "",
-        "section_button_link": "",
-        "section_button_label": ""
+        "heading": "Latest Articles",
+        "link_text": "View All",
+        "active_link_text": "",
+        "initial_shown_count": 4,
+        "fg_color": "",
+        "bg_color": "",
+        "accent_color": "",
+        "ch_fg_color": "",
+        "ch_bg_color": "",
+        "ch_accent_color": "",
+        "padding_top": 0,
+        "padding_bottom": 60
       }
     },
-    "video_grid_L4bDT7": {
-      "type": "video-grid",
+    "sb_fitness_calculators_KN7N9B": {
+      "type": "sb-fitness-calculators",
       "blocks": {
-        "block_HtKHJi": {
-          "type": "block",
+        "card_xKKqEf": {
+          "type": "card",
           "settings": {
-            "video_type": "youtube",
-            "youtube_url": "https://youtu.be/DO7TmRLV88Q",
-            "category": "Peak Performance",
-            "heading": "<p>Deadlift Like a Pro: Strength Secrets</p>"
+            "heading": "Find Your Daily Protein Intake",
+            "byline": "",
+            "image": "shopify://shop_images/image.png",
+            "link_url": "https://www.transparentlabs.com/pages/protein-calculator"
           }
         },
-        "block_XJLMNt": {
-          "type": "block",
+        "card_fKdW3N": {
+          "type": "card",
           "settings": {
-            "video_type": "youtube",
-            "youtube_url": "https://youtu.be/a3FWHb1W2mI",
-            "category": "Transparent Stories",
-            "heading": "<p>The Long Game - Paul Sklar</p>"
+            "heading": "Find Your Daily Macronutrient Breakdown",
+            "byline": "",
+            "image": "shopify://shop_images/image1.png",
+            "link_url": "shopify://pages/macro-calculator"
           }
         },
-        "block_MYXGrA": {
-          "type": "block",
+        "card_XRjyFe": {
+          "type": "card",
           "settings": {
-            "video_type": "youtube",
-            "youtube_url": "https://www.youtube.com/watch?v=901-pPeD3s0",
-            "category": "Transparent Stories",
-            "heading": "<p>Heart Attack to Ironman - Noah Henry</p>"
-          }
-        },
-        "block_M8i4gD": {
-          "type": "block",
-          "settings": {
-            "video_type": "youtube",
-            "youtube_url": "https://www.youtube.com/watch?v=Bl9HWtvXYus",
-            "category": "Peak Performance",
-            "heading": "<p>Sprint Like a Pro Athlete</p>"
-          }
-        },
-        "block_UJn7VT": {
-          "type": "block",
-          "settings": {
-            "video_type": "youtube",
-            "youtube_url": "https://www.youtube.com/watch?v=3c-06EIGz8g",
-            "category": "Transparent Stories",
-            "heading": "<p>Thor is BACK | Hafthor Bjornsson takes on Shaw Classic 2024</p>"
-          }
-        },
-        "block_JtH3Hx": {
-          "type": "block",
-          "settings": {
-            "video_type": "youtube",
-            "youtube_url": "https://www.youtube.com/watch?v=eVroMI6WR5M",
-            "category": "Peak Performance",
-            "heading": "<p>15 Questions with Paul Sklar: From Goals to Gains</p>"
-          }
-        },
-        "block_CyrJqW": {
-          "type": "block",
-          "settings": {
-            "video_type": "youtube",
-            "youtube_url": "https://www.youtube.com/watch?v=emkLZHN4jJg",
-            "category": "Peak Performance",
-            "heading": "<p>14 Min Total Ab Workout with Diana Conforti</p>"
-          }
-        },
-        "block_gjK97M": {
-          "type": "block",
-          "settings": {
-            "video_type": "youtube",
-            "youtube_url": "https://www.youtube.com/watch?v=1HN63vqVTfw",
-            "category": "Peak Performance",
-            "heading": "<p>Functional Bodybuilding With Marcus Filly</p>"
-          }
-        },
-        "block_yNCy3D": {
-          "type": "block",
-          "settings": {
-            "video_type": "youtube",
-            "youtube_url": "https://www.youtube.com/watch?v=syivyfhIFww",
-            "category": "Peak Performance",
-            "heading": "<p>1003lb Squat with Jesus Olivares</p>"
-          }
-        },
-        "block_jPgLcR": {
-          "type": "block",
-          "settings": {
-            "video_type": "youtube",
-            "youtube_url": "https://www.youtube.com/watch?v=mo7DEPZAYo4",
-            "category": "Transparent Stories",
-            "heading": "<p>Return of the Titan | Hafthor Bjornsson</p>"
+            "heading": "Find Your Total Daily Energy  Expenditure",
+            "byline": "",
+            "image": "shopify://shop_images/image3_1e76a82f-ec78-4577-9ec2-99a8d7fdc869.png",
+            "link_url": "https://www.transparentlabs.com/pages/tdee-calculator"
           }
         }
       },
       "block_order": [
-        "block_HtKHJi",
-        "block_XJLMNt",
-        "block_MYXGrA",
-        "block_M8i4gD",
-        "block_UJn7VT",
-        "block_JtH3Hx",
-        "block_CyrJqW",
-        "block_gjK97M",
-        "block_yNCy3D",
-        "block_jPgLcR"
+        "card_xKKqEf",
+        "card_fKdW3N",
+        "card_XRjyFe"
       ],
-      "name": "Video Grid",
+      "name": "SB Fitness Calculators",
       "settings": {
-        "custom_title": "Latest Videos",
-        "button_text": "View All",
-        "text_color": "#111314",
-        "bg_color": "#ffffff",
+        "heading": "Health & Fitness Calculators",
+        "fg_color": "#000000",
+        "bg_color": "#F8F9FB",
+        "ch_fg_color": "#000000",
+        "ch_bg_color": "#FFF",
+        "padding_top": 64,
+        "padding_bottom": 64
+      }
+    },
+    "sb_featured_videos_bRLA4j": {
+      "type": "sb-featured-videos",
+      "blocks": {
+        "video_t7YFd3": {
+          "type": "video",
+          "settings": {
+            "video_url": "https://youtu.be/DO7TmRLV88Q",
+            "byline": "Peak Performance",
+            "heading": "Deadlift Like a Pro: Strength Secrets"
+          }
+        },
+        "video_xBcBVr": {
+          "type": "video",
+          "settings": {
+            "video_url": "https://www.youtube.com/watch?v=a3FWHb1W2mI",
+            "byline": "Transparent Stories",
+            "heading": "The Long Game - Paul Sklar"
+          }
+        },
+        "video_Fm6Jrg": {
+          "type": "video",
+          "settings": {
+            "video_url": "https://www.youtube.com/watch?v=901-pPeD3s0",
+            "byline": "Transparent Stories",
+            "heading": "Heart Attack to Ironman - Noah Henry"
+          }
+        },
+        "video_DCKnNL": {
+          "type": "video",
+          "settings": {
+            "video_url": "https://www.youtube.com/watch?v=Y3wH-zspXTk",
+            "byline": "Transparent Stories",
+            "heading": "Choosing Clean Every Day"
+          }
+        },
+        "video_pnqb8L": {
+          "type": "video",
+          "settings": {
+            "video_url": "https://www.youtube.com/watch?v=Bl9HWtvXYus",
+            "byline": "Peak Performance",
+            "heading": "Sprint Like A Pro Athlete"
+          }
+        }
+      },
+      "block_order": [
+        "video_t7YFd3",
+        "video_xBcBVr",
+        "video_Fm6Jrg",
+        "video_DCKnNL",
+        "video_pnqb8L"
+      ],
+      "name": "SB Featured Videos",
+      "settings": {
+        "heading": "Latest Videos",
+        "view_more": "View All",
+        "view_less": "View Less",
+        "initial_shown_count": 4,
+        "slides_per_view": 3.6,
+        "slides_per_view_mobile": 1.3,
+        "slides_per_view_tablet": 2.6,
+        "space_between_slides": 24,
+        "centered_slides": false,
+        "loop": false,
+        "autorotate": false,
+        "mousewheel": true,
+        "autorotate_speed": 5,
+        "show_pagination": "always",
+        "show_page_count": "always",
+        "fg_color": "",
+        "bg_color": "",
+        "ch_fg_color": "",
+        "ch_bg_color": "",
+        "padding_top": 64,
+        "padding_bottom": 64
+      }
+    },
+    "sb_newsletter_3KCVfC": {
+      "type": "sb-newsletter",
+      "name": "SB Newsletter",
+      "settings": {
+        "heading": "Stay Informed",
+        "content": "Your guide to better health — sent weekly. Sign up to save 10% on your first order.",
+        "media_source": "image",
+        "mobile_img": "shopify://shop_images/email_signup.png",
+        "desktop_img": "shopify://shop_images/email_signup_1.jpg",
+        "enable_video_looping": true,
+        "show_overlay": false,
+        "overlay_opacity": 0.5,
+        "fg_color": "#ffffff",
+        "overlay_color": "#000000",
         "padding_top": 80,
         "padding_bottom": 80
-      }
-    },
-    "custom_newsletter_YYQQ9c": {
-      "type": "custom-newsletter",
-      "settings": {
-        "bg_image": "shopify://shop_images/email_signup_1.jpg",
-        "mobile_bg_image": "shopify://shop_images/email_signup.png",
-        "heading": "Stay Informed",
-        "content": "<p>Your guide to better health — sent weekly. Sign up to save 10% on your first order.</p>",
-        "text_color": "#ffffff"
       }
     }
   },
   "order": [
-    "new_main_blog_mmCjXV",
-    "featured_articles_D9eMhF",
-    "goal_blocks_LtwNwD",
-    "video_grid_L4bDT7",
-    "custom_newsletter_YYQQ9c"
+    "main",
+    "sb_blog_header_pafUqg",
+    "sb_latest_articles_cnN4WU",
+    "sb_fitness_calculators_KN7N9B",
+    "sb_featured_videos_bRLA4j",
+    "sb_newsletter_3KCVfC"
   ]
 }

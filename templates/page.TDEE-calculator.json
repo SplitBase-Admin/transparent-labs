@@ -10,7 +10,7 @@
 {
   "sections": {
     "main": {
-      "type": "TDEE-calculator",
+      "type": "old-TDEE-calculator",
       "settings": {
         "header_image": "shopify://shop_images/image_7_2.png",
         "title": "TDEE Calculator",

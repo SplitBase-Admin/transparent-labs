@@ -10,12 +10,12 @@
 {
   "sections": {
     "main": {
-      "type": "main-page",
+      "type": "old-main-page",
       "disabled": true,
       "settings": {}
     },
     "d447ba10-3ab0-4d16-9a40-ae205f30fa72": {
-      "type": "asrv-banner",
+      "type": "old-asrv-banner",
       "blocks": {
         "40add329-4c2c-41df-a2cc-62794d78f45c": {
           "type": "slide",
@@ -41,7 +41,7 @@
       "settings": {}
     },
     "1fcdd1e6-1c9d-443e-a0cd-f5586fc0d53a": {
-      "type": "index-icon-with-text",
+      "type": "old-index-icon-with-text",
       "blocks": {
         "582f6dd5-948e-4309-a95a-21eb02fd64ea": {
           "type": "text",
@@ -83,7 +83,7 @@
       }
     },
     "e18fa7ad-c0db-497b-812b-cc5b12b2e8d9": {
-      "type": "asrv-product",
+      "type": "old-asrv-product",
       "settings": {
         "product": "tl-asrv-tee",
         "sdetail": "NEW!",
@@ -98,7 +98,7 @@
       }
     },
     "625a38f6-8886-40e2-96ff-032f023bdf50": {
-      "type": "asrv-featured-image",
+      "type": "old-asrv-featured-image",
       "blocks": {
         "68e413ae-f2c3-4f76-8b6b-7727a5ab9480": {
           "type": "slide",
@@ -115,7 +115,7 @@
       "settings": {}
     },
     "2c96bdbc-fd41-4527-a526-9688bbdeb722": {
-      "type": "asrv-gallery",
+      "type": "old-asrv-gallery",
       "settings": {
         "image_1": "shopify://shop_images/Lifestyle1_desktop_d8444afe-578c-4711-ade1-10dcec7125ab.png",
         "image_2": "shopify://shop_images/Lifestyle2_Desktop_New.png",
@@ -126,7 +126,7 @@
       }
     },
     "d3e3b350-f392-4c8f-930f-4cdbc18a0cff": {
-      "type": "article-bestseller",
+      "type": "old-article-bestseller",
       "settings": {
         "show_collection": true,
         "heading": "SHOP OUR BESTSELLERS",

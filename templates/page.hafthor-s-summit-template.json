@@ -10,7 +10,7 @@
 {
   "sections": {
     "1655469428e65a4bb7": {
-      "type": "stack-banner",
+      "type": "old-stack-banner",
       "settings": {
         "image1": "shopify://shop_images/no_cta_Desktop_banner.jpg",
         "image2": "shopify://shop_images/no_cta_Mobile_banner.jpg",
@@ -21,7 +21,7 @@
       }
     },
     "16582528170c67c49e": {
-      "type": "stack-icon-with-text",
+      "type": "old-stack-icon-with-text",
       "blocks": {
         "2ebc4a0e-37dc-47f4-8645-40faf4152d9d": {
           "type": "image",
@@ -82,12 +82,12 @@
       }
     },
     "16554706039e96901f": {
-      "type": "stack-custom",
+      "type": "old-stack-custom",
       "blocks": {
         "afc41a53-ee89-43ca-85af-2b3d612b1aaf": {
           "type": "text",
           "settings": {
-            "product": "preseries-bulk-preworkout",
+            "product": "bulk-preworkout",
             "subtitle": "Best Seller",
             "summary": "Developed using key ingredients, all backed by published scientific research, are included at clinically effective dosages."
           }
@@ -95,7 +95,7 @@
         "c6a68f22-3951-4a03-a4ec-d2aa68380f4c": {
           "type": "text",
           "settings": {
-            "product": "proteinseries-100-grass-fed-whey-protein-isolate",
+            "product": "whey-protein-isolate",
             "subtitle": "Best Seller",
             "summary": "Made from naturally fed, hormone-free cow whey and free of artificial sweeteners, food dyes, gluten, and preservatives."
           }
@@ -103,7 +103,7 @@
         "55b8578c-7d8d-4482-8738-c47ab47341f3": {
           "type": "text",
           "settings": {
-            "product": "strengthseries-creapure-hmb-creatine-supplement",
+            "product": "creatine-hmb",
             "subtitle": "Best Seller",
             "summary": "When combined, Creatine monohydrate and HMB have been shown to enhance strength, increase endurance, decrease fat mass, and prevent lean muscle loss."
           }
@@ -111,7 +111,7 @@
         "18ca179a-cd6b-4c61-82e2-3ecddfa77880": {
           "type": "text",
           "settings": {
-            "product": "preseries-bulk-black",
+            "product": "bulk-black-pre-workout",
             "subtitle": "Best Seller",
             "summary": "The epitome of a hard-hitting, clinically dosed pre-workout, with 100% formula transparency, proven nitric oxide boosters, hard-hitting nootropics, and muscle fortifiers."
           }
@@ -132,7 +132,7 @@
       }
     },
     "1655739736575d8af4": {
-      "type": "stack_collection",
+      "type": "old-stack_collection",
       "blocks": {
         "0938fc20-e094-4896-b523-7f18493b3251": {
           "type": "text",
@@ -308,7 +308,7 @@
       }
     },
     "16554705889a4e2109": {
-      "type": "stack-testimonials",
+      "type": "old-stack-testimonials",
       "blocks": {
         "fb5c56e3-ac45-4fa9-b4c2-bf3fd0478693": {
           "type": "image",
@@ -328,7 +328,7 @@
       "settings": {}
     },
     "165546997779bf0c81": {
-      "type": "stack-comparison",
+      "type": "old-stack-comparison",
       "blocks": {
         "ce46bdc0-406a-4bea-aead-66128619099f": {
           "type": "text",
@@ -387,7 +387,7 @@
       }
     },
     "16554699829f6f1f7a": {
-      "type": "stack-icon-with-text",
+      "type": "old-stack-icon-with-text",
       "blocks": {
         "2574a527-c1fa-4d9f-bd8d-d14dd70bce84": {
           "type": "image",
@@ -452,7 +452,7 @@
       "settings": {}
     },
     "165546960618a56af4": {
-      "type": "stack-find",
+      "type": "old-stack-find",
       "disabled": true,
       "settings": {
         "heading": "Dial in the perfect stack",
@@ -462,68 +462,89 @@
       }
     },
     "6e29bca4-dbee-4290-8ed4-00b7956b1af1": {
-      "type": "hafthorssummitsection",
+      "type": "old-hafthorssummitsection",
       "disabled": true,
       "settings": {}
     },
-    "cb3dda0e-d335-4c7b-9bb5-2c9bba53b357": {
-      "type": "index-bestseller-products",
+    "sb_tabbed_collections_yqeBXG": {
+      "type": "sb-tabbed-collections",
       "blocks": {
-        "541609ce-2212-4a35-81ea-24bb9eb7ae87": {
-          "type": "text",
+        "static-slider": {
+          "type": "_slider",
+          "static": true,
           "settings": {
-            "collection_type": "Bestsellers",
-            "product_type": "Bestsellers",
-            "product_1": "proteinseries-100-grass-fed-whey-protein-isolate",
-            "product_type_1": "Bestsellers",
-            "product_2": "preseries-bulk-preworkout",
-            "product_type_2": "Bestsellers",
-            "product_3": "strengthseries-creapure-hmb-creatine-supplement",
-            "product_type_3": "Bestsellers",
-            "product_4": "preseries-lean-pre-workout",
-            "product_type_4": "",
-            "product_5": "",
-            "product_type_5": "",
-            "product_6": "",
-            "product_type_6": "",
-            "product_7": "",
-            "product_type_7": "",
-            "product_8": ""
-          }
-        },
-        "0988bc2b-3bba-457a-80fa-6db010c240fc": {
-          "type": "text",
-          "settings": {
-            "collection_type": "Pre-Workout",
-            "product_type": "Pre-Workout",
-            "product_1": "preseries-bulk-preworkout",
-            "product_type_1": "",
-            "product_2": "preseries-bulk-black",
-            "product_type_2": "",
-            "product_3": "preseries-lean-pre-workout",
-            "product_type_3": "",
-            "product_4": "pump-preworkout",
-            "product_type_4": "",
-            "product_5": "",
-            "product_type_5": "",
-            "product_6": "",
-            "product_type_6": "",
-            "product_7": "",
-            "product_type_7": "",
-            "product_8": ""
-          }
+            "slides_per_view": 1.1,
+            "space_between_slides": 10,
+            "centered_slides": false,
+            "show_pagination": "always",
+            "show_page_count": "always",
+            "loop": false,
+            "autorotate": false,
+            "autorotate_speed": 5,
+            "slides_offset": 16
+          },
+          "blocks": {
+            "slide_breakpoint_4dnDaj": {
+              "type": "_slide-breakpoint",
+              "name": "Break Point",
+              "settings": {
+                "breakpoint": 1024,
+                "slides_per_view": 4.2,
+                "space_between_slides": 24,
+                "slides_offset": 48
+              },
+              "blocks": {}
+            },
+            "slide_breakpoint_KzKnCn": {
+              "type": "_slide-breakpoint",
+              "name": "Break Point",
+              "settings": {
+                "breakpoint": 1440,
+                "slides_per_view": 4.4,
+                "space_between_slides": 24,
+                "slides_offset": 64
+              },
+              "blocks": {}
+            },
+            "slide_breakpoint_eJkULk": {
+              "type": "_slide-breakpoint",
+              "name": "Break Point",
+              "settings": {
+                "breakpoint": 1920,
+                "slides_per_view": 5.1,
+                "space_between_slides": 36,
+                "slides_offset": 64
+              },
+              "blocks": {}
+            }
+          },
+          "block_order": [
+            "slide_breakpoint_4dnDaj",
+            "slide_breakpoint_KzKnCn",
+            "slide_breakpoint_eJkULk"
+          ]
         }
       },
-      "block_order": [
-        "541609ce-2212-4a35-81ea-24bb9eb7ae87",
-        "0988bc2b-3bba-457a-80fa-6db010c240fc"
-      ],
+      "name": "SB Tabbed Collections",
       "settings": {
-        "title": "Explore Our Supplements",
-        "subtitle": "",
-        "discount_month": "Deliver Every Month",
-        "discount_days": "Deliver Every 45 days",
-        "percent_text": "10% Off"
+        "heading": "Explore Our Supplements",
+        "link_text": "View All",
+        "collections": [
+          "bestsellers",
+          "proteinseries",
+          "build-muscle",
+          "health-wellness"
+        ],
+        "products_to_show": 8,
+        "disable_slider": false,
+        "fg_color": "#121212",
+        "bg_color": "linear-gradient(180deg, rgba(255, 255, 255, 1), rgba(255, 255, 255, 1) 100%)",
+        "accent_color": "",
+        "ch_fg_color": "#121212",
+        "ch_bg_color": "#F8F9FB",
+        "ch_accent_color": "",
+        "padding_top": 88,
+        "padding_bottom": 88
       }
     }
   },
@@ -538,6 +559,6 @@
     "16813908728b229c2e",
     "165546960618a56af4",
     "6e29bca4-dbee-4290-8ed4-00b7956b1af1",
-    "cb3dda0e-d335-4c7b-9bb5-2c9bba53b357"
+    "sb_tabbed_collections_yqeBXG"
   ]
 }

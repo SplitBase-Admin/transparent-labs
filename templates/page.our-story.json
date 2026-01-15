@@ -10,12 +10,12 @@
 {
   "sections": {
     "main": {
-      "type": "main-page",
+      "type": "old-main-page",
       "disabled": true,
       "settings": {}
     },
     "fb10c378-8f59-404f-be27-6e53dbbb087c": {
-      "type": "our-story-banner-and-video",
+      "type": "old-our-story-banner-and-video",
       "settings": {
         "vidURL": "https://player.vimeo.com/video/789120173?h=be832e66f2",
         "type": "Video",
@@ -29,7 +29,7 @@
       }
     },
     "00d5e88e-a15e-4897-816e-9ac27a36cf87": {
-      "type": "our-story-richtext",
+      "type": "old-our-story-richtext",
       "settings": {
         "heading": "",
         "title": "It’s no secret that the supplement industry is suspect.",
@@ -37,7 +37,7 @@
       }
     },
     "a735921b-f544-449c-83fe-44a324c5703b": {
-      "type": "bulk-affiliate-icons",
+      "type": "old-bulk-affiliate-icons",
       "blocks": {
         "0e49bce0-3bda-4513-b0e6-80929a721fe8": {
           "type": "image",
@@ -78,7 +78,7 @@
       "settings": {}
     },
     "d0ba6f73-2d76-4d51-8757-1486c6657118": {
-      "type": "xt-our-story-gallery",
+      "type": "old-xt-our-story-gallery",
       "blocks": {
         "9dd0bf10-76a7-449b-a1db-e5be05bbb1b9": {
           "type": "image",
@@ -126,7 +126,7 @@
       "settings": {}
     },
     "5f2c5fc5-d7da-49dc-90c5-54a9b1bc3940": {
-      "type": "our-story-richtext",
+      "type": "old-our-story-richtext",
       "settings": {
         "heading": "Our Mission",
         "title": "To empower health & fitness enthusiasts with tools to transform their body, prepare their mind, and optimize their performance.",
@@ -134,7 +134,7 @@
       }
     },
     "c6e99fa1-7423-41a0-90b5-8e42c6822a1a": {
-      "type": "index-pertner-icons",
+      "type": "old-index-pertner-icons",
       "blocks": {
         "190da8cc-fd53-4fb9-b8b2-1334753a1e98": {
           "type": "text",
@@ -176,7 +176,7 @@
       }
     },
     "b15d1fc7-3544-4bb1-848b-bc39d2e7559c": {
-      "type": "our-story-banner-and-video",
+      "type": "old-our-story-banner-and-video",
       "settings": {
         "vidURL": "Video URL",
         "type": "Banner",
@@ -193,7 +193,7 @@
       }
     },
     "aba8706c-decc-4803-af6a-66e21cc514c8": {
-      "type": "article-bestseller",
+      "type": "old-article-bestseller",
       "settings": {
         "show_collection": true,
         "heading": "",

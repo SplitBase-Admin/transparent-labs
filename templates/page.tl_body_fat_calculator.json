@@ -10,7 +10,7 @@
 {
   "sections": {
     "main": {
-      "type": "TL_body_fat_calculator",
+      "type": "old-TL_body_fat_calculator",
       "settings": {
         "header_image": "shopify://shop_images/image_7.png",
         "title": "Body Fat Calculator",

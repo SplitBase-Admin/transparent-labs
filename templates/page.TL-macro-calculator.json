@@ -10,7 +10,7 @@
 {
   "sections": {
     "main": {
-      "type": "TL_body_fat_calculator",
+      "type": "old-TL_body_fat_calculator",
       "settings": {}
     }
   },

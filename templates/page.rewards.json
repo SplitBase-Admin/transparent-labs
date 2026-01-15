@@ -10,7 +10,7 @@
 {
   "sections": {
     "main": {
-      "type": "main-rewards",
+      "type": "old-main-rewards",
       "settings": {}
     }
   },

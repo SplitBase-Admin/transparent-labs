@@ -1,0 +1,16 @@
+<div class="sb-breadcrumbs__container">
+  {% if collection %}
+    <a class="sb-breadcrumb__previous" href="{{ collection.url }}">
+      {%- if collection.metafields.custom.short_title != blank -%}
+        {{ collection.metafields.custom.short_title }}
+      {%- else -%}
+        {{ collection.title }}
+      {%- endif -%}
+    </a>
+  {% else %}
+    <a class="sb-breadcrumb__previous" href="/collections/all">
+      All
+    </a>
+  {% endif %}
+  <span>/</span><span>{{ product.title }}</span>
+</div>

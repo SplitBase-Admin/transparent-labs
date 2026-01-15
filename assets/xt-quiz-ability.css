@@ -305,10 +305,7 @@ a.retaketestlink{
   padding-left:50px;
 }
 
-.btn:disabled {
-    cursor: not-allowed;
-    opacity: 0.5;
-}
+
 
 @media (max-width:767px)
 {
@@ -688,39 +685,6 @@ a.retaketestlink{
   cursor:pointer;
 }
 
-#sticky-checkout {
-    position: fixed;
-    bottom: 20px;
-    left: 0;
-    right:0;
-    margin:0 auto;
-    width:max-content;
-    background-color: #000000;
-    color: white;
-    padding: 13px 62px;
-    font-size: 16px;
-    border-radius: 10px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-    text-align: center;
-    align-items: center;
-    justify-content: center;
-    z-index: 99;
-  }
-
-  .sticky-checkout-btn {
-    color: white;
-    text-decoration: none;
-    font-weight: 400;
-  }
-  span#sticky-cart-count {
-    font-weight: 100;
-}
-
-.jdgm-widget .jdgm-prev-badge__text {
-    display: none;
-}
-
-
 @media (max-width:767px)
 {
   .xt-quiz-option-cart .cart-wraper
@@ -741,11 +705,6 @@ a.retaketestlink{
   {
     padding-top:30px;
   }
-    #sticky-checkout {
-    bottom: 35px;
-    padding:12px 30px;
-  }
-  .unique-xt-quiz-ability #kustomer-ui-sdk-iframe{display:none !important;}
 }
 
 

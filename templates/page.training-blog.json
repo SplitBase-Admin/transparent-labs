@@ -10,12 +10,12 @@
 {
   "sections": {
     "main": {
-      "type": "main-page",
+      "type": "old-main-page",
       "disabled": true,
       "settings": {}
     },
     "custom_sub_menu_9DhFRy": {
-      "type": "custom-sub-menu",
+      "type": "old-custom-sub-menu",
       "blocks": {
         "block_jCEftJ": {
           "type": "block",
@@ -81,11 +81,11 @@
       }
     },
     "new_breadcrumb_aXfjDq": {
-      "type": "new-breadcrumb",
+      "type": "old-new-breadcrumb",
       "settings": {}
     },
     "custom_content_Vf8cW3": {
-      "type": "custom-content",
+      "type": "old-custom-content",
       "settings": {
         "custom_title": "{{ page.title }}",
         "headingh1": false,
@@ -93,7 +93,7 @@
       }
     },
     "multiple_blogs_jqk8be": {
-      "type": "multiple-blogs",
+      "type": "old-multiple-blogs",
       "blocks": {
         "block_nUJPwP": {
           "type": "block",
@@ -148,19 +148,19 @@
       }
     },
     "multiple_products_HamGtV": {
-      "type": "multiple-products",
+      "type": "old-multiple-products",
       "settings": {
         "custom_title": "Recommendations",
         "products_Select": [
           "pea-protein-isolate",
           "stim-free-fat-burner",
-          "strengthseries-creapure-hmb-creatine-supplement",
+          "creatine-hmb",
           "casein-protein"
         ]
       }
     },
     "wonderment_faq_AAChd6": {
-      "type": "wonderment-faq",
+      "type": "old-wonderment-faq",
       "blocks": {
         "section_heading_DG9bwy": {
           "type": "section_heading",
@@ -224,7 +224,7 @@
         "max_width": "",
         "inner_padding": 50,
         "outer_margin": 0,
-        "custom_css": ".wndr-sxn__sizer.wndr-sxn__faq__expanded-false {\n    max-width: 80rem;\n    padding-left: 1rem;\n    padding-right: 1rem;\n}",
+        "custom_css": ".wndr-sxn__sizer.wndr-sxn__faq__expanded-false {\n    max-width: 1280px;\n    padding-left: 1rem;\n    padding-right: 1rem;\n}",
         "mobile_custom_css": "",
         "override_theme_font": false,
         "heading_font": "serif",
