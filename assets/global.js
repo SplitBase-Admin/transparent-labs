@@ -1414,3 +1414,25 @@ if (!customElements.get('custom-link')) {
 
   customElements.define('custom-link', CustomLink);
 }
+
+// Global event delegation for facet checkbox clicks
+// Uses event delegation to work even after DOM is replaced (e.g., when filters are applied)
+// This ensures the scroll-to-top behavior works on all facet checkboxes, including dynamically added ones
+(function() {
+  if (window._facetCheckboxScrollInitialized) return;
+  
+  document.addEventListener('click', function(event) {
+    // Check if click originated from a facet checkbox label
+    const facetCheckbox = event.target.closest('.facets__label.facet-checkbox');
+    
+    if (facetCheckbox) {
+      // Scroll to the top of the page when any facet checkbox is clicked
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth',
+      });
+    }
+  });
+  
+  window._facetCheckboxScrollInitialized = true;
+})();
