@@ -186,7 +186,7 @@
 {% liquid
   assign include_add_to_cart = include_add_to_cart | default: false
   assign button_text = button_text | default: 'Shop Now'
-  assign add_to_cart_button_text = add_to_cart_button_text | default: 'Add to Cart'
+  assign add_to_cart_button_text = add_to_cart_button_text | default: 'Quick Add'
   assign first_variant = product.selected_or_first_available_variant
 %}
 
@@ -232,37 +232,12 @@
       </a>
       
       {% if include_add_to_cart == true and first_variant != blank %}
-        <product-form class="product-form sb-complete-card__button--quick-add" data-hide-errors="true" style="display:none;">
-          <div class="product-form__error-message-wrapper" role="alert" hidden>
-            <span class="product-form__error-message"></span>
-          </div>
-          {% form 'product', product, class: 'form', novalidate: 'novalidate', data-type: 'add-to-cart-form' %}
-            <input
-              type="hidden"
-              name="id"
-              value="{{ first_variant.id }}"
-              class="product-variant-id"
-              {% unless first_variant.available %}disabled{% endunless %}
-            >
-            <button
-              type="submit"
-              name="add"
-              class="button sb-button sb-button--primary sb-complete-card__button"
-              style="--sb-ch-fg-color: {{ button_text_color }}; --sb-ch-bg-color: {{ button_color }};"
-              aria-label="Add {{ product.title }} to cart"
-              {% unless first_variant.available %}disabled{% endunless %}
-            >
-              <span>
-                {% if first_variant.available %}
-                  {{ add_to_cart_button_text }}
-                {% else %}
-                  {{ 'products.product.sold_out' | t }}
-                {% endif %}
-              </span>
-              {% render 'loading-spinner' %}
-            </button>
-          {% endform %}
-        </product-form>
+        <quick-view-custom class="sb-quick-add__trigger">
+          <button type="button" 
+            class="button sb-button sb-button--primary sb-complete-card__button btn-{{ product.id }}"
+            style="--sb-ch-fg-color: {{ button_text_color }}; --sb-ch-bg-color: {{ button_color }};"
+            data-product-id="{{ product.id }}" data-product-handle="{{ product.handle }}">{{ add_to_cart_button_text }}</button>
+        </quick-view-custom>
       {% endif %}
     </div>
   </div>

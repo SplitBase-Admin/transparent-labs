@@ -1,0 +1,217 @@
+{% layout none %}
+<div class="sb-quick-add__product sb-quick-add__drawer" id="variant-drawer-{{ product.id }}">
+  <a href="{{ product.url }}" target="_blank" aria-label="View product details" role="link" tabindex="0">
+    <div class="sb-quick-add__image">
+      {% assign variants = product.variants %}
+      {% if variants.size == 1 %}
+        {% assign variant = variants.first %}
+        <img src="{{ variant.image | image_url: width: 420 }}" alt="{{ variant.title }}" width="420" height="420">
+      {% else %}
+        {% for variant in variants %}
+          <img data-variant-id="{{ variant.id }}" src="{{ variant.image | image_url: width: 420 }}" alt="{{ variant.title }}" width="420" height="420" style="display:none;">
+        {% endfor %}
+      {% endif %}
+    </div>
+  </a>
+  <div class="sb-quick-add__rating">
+    <div class="jdgm-widget jdgm-preview-badge" data-id="{{ product.id }}">
+      {{ product.metafields.judgeme.badge }} 
+      <p>
+        <a class="open-review-details">{{ product.metafields.reviews.rating_count }} Reviews</a>
+      </p>
+    </div>
+  </div>
+  <div class="sb-quick-add__title"><a href="{{ product.url }}" target="_blank" aria-label="View product details" role="link" tabindex="0">{{ product.title }}</a></div>
+  <form method="post" action="/cart/add" class="sb-quick-add__form" data-product-id="{{ product.id }}">
+    {% assign option_index = 0 %}
+    {% for option in product.options_with_values %}
+      {% assign option_name_downcase = option.name | downcase %}
+
+      {% if option_name_downcase == 'size' or option_name_downcase == 'serving size' %}
+        <div class="sb-quick-add__sizes">
+          <div class="sb-quick-add__label">{{ option.name }}:</div>
+          <div class="sb-quick-add__sizes-wrap">
+            {% for value in option.values %}
+              {% assign option_available = false %}
+              {% for variant in product.variants %}
+                {% if variant.available and variant.options[option_index] == value %}
+                  {% assign option_available = true %}
+                {% endif %}
+              {% endfor %}
+              {% if option_available %}
+                <label class="sb-quick-add__size {% if forloop.first %} sb-quick-add__size--active {% endif %}">
+                  <input
+                    type="radio"
+                    name="option-{{ option_index }}"
+                    value="{{ value }}"
+                    class="sb-quick-add__option-radio"
+                    data-product-id="{{ product.id }}"
+                    data-option-index="{{ option_index }}"
+                    {% if forloop.first %} checked {% endif %}
+                  >
+                  {{ value }}
+                </label>
+              {% endif %}
+            {% endfor %}
+          </div>
+        </div>
+      {% else %}
+        <div class="sb-quick-add__flavors">
+          {% assign flavor_count = 0 %}
+          {% for option in product.options_with_values %}
+            {% if option.name == 'Flavor' %}
+              {% assign flavor_count = option.values | size %}
+            {% endif %}
+          {% endfor %}
+          <div class="sb-quick-add__label">
+            {% if flavor_count > 0 %}
+              Available in {{ flavor_count }} flavors
+            {% else %}
+              No flavors available
+            {% endif %}
+          </div>
+          <select
+            class="sb-quick-add__flavor-select sb-quick-add__option-dropdown"
+            data-product-id="{{ product.id }}"
+            data-option-index="{{ option_index }}"
+          >
+            {% for value in option.values %}
+              {% assign option_available = false %}
+              {% for variant in product.variants %}
+                {% if variant.available and variant.options[option_index] == value %}
+                  {% assign option_available = true %}
+                {% endif %}
+              {% endfor %}
+              {% if option_available %}
+                <option {% if forloop.first %} selected="selected" {% endif %} value="{{ value }}">
+                  {{ value }}
+                </option>
+              {% endif %}
+            {% endfor %}
+          </select>
+        </div>
+      {% endif %}
+      {% assign option_index = option_index | plus: 1 %}
+    {% endfor %}
+
+    {% liquid
+      assign kit = product.metafields.custom.free_starter_kit.value
+    %}
+
+    <div class="sb-quick-add__frequency">
+      <div class="sb-quick-add__label">Frequency:</div>
+      <div class="sb-quick-add__frequency-box sb-quick-add__frequency-box--active">
+        <div class="sb-quick-add__name-price">
+          <label class="sb-quick-add__frequency-selection">
+            <input type="radio" name="plan-freq" class="sb-quick-add__frequency-radio" value="subscription" checked>
+            <div class="sb-quick-add__name">Subscribe and Save</div>
+          </label>
+
+          <div class="sb-quick-add__price ">
+            <span class="sb-quick-add__product-price">{{ product.selected_or_first_available_variant.price | money}}</span>
+            <del class="sb-quick-add__compare-price">{{ product.selected_or_first_available_variant.compare_at_price | money}}</del>
+          </div>
+        </div>
+        <div class="sb-quick-add__description-box">
+          <ul>
+            <li>Free Shipping</li>
+            <li>Save 10% on every order</li>
+            <li>Cancel or pause anytime</li>
+          </ul>
+          {% if product.selling_plan_groups.size > 0 %}
+            <select
+              name="selling_plan"
+              id="selling-plan-{{ product.id }}"
+              class="sb-quick-add__plan-select selling-plan-dropdown"
+            >
+              {% for group in product.selling_plan_groups %}
+                {% for plan in group.selling_plans %}
+                  <option value="{{ plan.id }}" {% if plan.name contains '30 days' %} selected {% endif %}>{{ plan.name | replace: 'Every', '' }}</option>
+                {% endfor %}
+              {% endfor %}
+            </select>
+          {% endif %}
+        </div>
+        {% if kit and kit.starter_kit %}
+          {% liquid
+            if kit.starter_kit.value.has_only_default_variant
+              assign gift_variant = kit.starter_kit.value.variants.first
+            else
+              for variant in kit.starter_kit.value.variants
+                if product.selected_or_first_available_variant.title == variant.title
+                  assign gift_variant = variant
+                  break
+                endif
+              endfor
+            endif
+          %}
+          {% comment %} Store all gift variants data for JavaScript to use {% endcomment %}
+          <script type="application/json" data-gift-kit-variants>
+            {{ kit.starter_kit.value.variants | json }}
+          </script>
+          {% if gift_variant %}
+            <div class="sb-quick-add__free-gift">
+              {% assign custom_image = kit.image | default: kit.starter_kit.value.featured_image %}
+              {% if custom_image %}
+                <div class="sb-quick-add__free-gift-image-wrapper">
+                  {{ custom_image | image_url: width: 120 | image_tag: class: 'sb-quick-add__free-gift-image', alt: kit.custom_product_title | default: kit.starter_kit.value.title }}
+                </div>
+              {% endif %}
+              <div class="sb-quick-add__free-gift-content">
+                <div class="sb-quick-add__free-gift-title">
+                  {{ kit.custom_product_title | default: kit.starter_kit.value.title }}
+                </div>
+                <div class="sb-quick-add__free-gift-badge">
+                  {% if kit.badge_before_subscription %}
+                    <span class="sb-quick-add__free-gift-badge--before">{{ kit.badge_before_subscription | metafield_tag }}</span>
+                  {% else %}
+                    <span class="sb-quick-add__free-gift-badge--before">Subscribe to unlock</span>
+                  {% endif %}
+                  {% if kit.badge_after_subscription %}
+                    <span class="sb-quick-add__free-gift-badge--after">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 12 12" fill="none">
+                        <path d="M4.5 9.707L1.1465 6.3535L1.8535 5.6465L4.5 8.293L10.1465 2.6465L10.8535 3.3535L4.5 9.707Z" fill="currentColor" stroke="currentColor"/>
+                      </svg>
+                      {{ kit.badge_after_subscription | metafield_tag }}
+                    </span>
+                  {% else %}
+                    <span class="sb-quick-add__free-gift-badge--after">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 12 12" fill="none">
+                        <path d="M4.5 9.707L1.1465 6.3535L1.8535 5.6465L4.5 8.293L10.1465 2.6465L10.8535 3.3535L4.5 9.707Z" fill="currentColor" stroke="currentColor"/>
+                      </svg>
+                      Free Gift Unlocked!
+                    </span>
+                  {% endif %}
+                </div>
+              </div>
+            </div>
+            <script type="application/json" data-free-subscription-gift>
+              {
+                "gift": {{ gift_variant | json }}
+              }
+            </script>
+          {% endif %}
+        {% endif %}
+      </div>
+      <div class="sb-quick-add__frequency-box">
+        <div class="sb-quick-add__name-price">
+           <label class="sb-quick-add__frequency-selection">
+              <input type="radio" name="plan-freq" class="sb-quick-add__frequency-radio" value="onetime">
+              <div class="sb-quick-add__name">One-Time Purchase</div>
+           </label>
+          <div class="sb-quick-add__price sb-quick-add__one-time-price">{{ product.selected_or_first_available_variant.compare_at_price | money}}</div>
+        </div>
+      </div>
+    </div>
+    <input type="hidden" name="id" class="sb-quick-add__variant-id" data-product-id="{{ product.selected_or_first_available_variant.id }}" value="{{ product.selected_or_first_available_variant.id }}">
+    <button type="submit" class="button sb-button sb-button--primary sb-quick-add__button" data-product-id="{{ product.id }}">
+      <span>Add to Cart</span>
+      {% render 'loading-spinner' %}
+    </button>
+    <script type="application/json" id="product-variants-{{ product.id }}">
+    {{ product.variants | json }}
+  </script>
+  </form>
+
+  
+</div>

@@ -724,5 +724,7 @@ window.onload = function()
       {{ 'customer-reviews.css' | asset_url | stylesheet_tag }}
       <script src="{{ 'custom-jdgm-modal.js' | asset_url }}" defer="defer"></script>
     {% endif %}
+    {% render 'sb-quick-add' %}
+    <script src="{{ 'sb-quick-add.js' | asset_url }}" defer="defer"></script>
   </body>
 </html>

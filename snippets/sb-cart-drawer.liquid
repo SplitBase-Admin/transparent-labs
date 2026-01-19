@@ -152,6 +152,7 @@
   .sb-cart-drawer cart-drawer-items {
     flex: 1;
     padding-top: 16px;
+    width: 100%;
   }
 
   .sb-cart-drawer__form {
@@ -534,7 +535,7 @@
                     <div class="sb-cart-drawer__item-image">
                       {% if item.image %}
                         <img
-                          src="{{ item.image | image_url: width: 64 }}"
+                          src="{{ item.image | image_url: width: 120 }}"
                           alt="{{ item.image.alt | escape }}"
                           loading="lazy"
                           width="64"

@@ -176,6 +176,11 @@
           flavored: 'Vanilla Peanut Butter',
           size: '2LB',
           src: 'vanilla-pb'
+        },
+        {
+          flavored: 'Milk and Cookies',
+          size: '2LB',
+          src: 'milk'
         }]
       },
       '/products/protein-pancakes': {
@@ -697,6 +702,7 @@
 
     main() {
       const data = CONFIG.DATA[window.location.pathname];
+      
       const SELECTORS = CONFIG.SELECTORS;
 
       // Add this check early - if no data for this product, exit
